@@ -1,0 +1,215 @@
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Gráfico de Tendencia (Rigidez Dieléctrica, Contenido de Agua y  Factor de Potencia)</h4>
+      <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">          
+              <h5>
+                 <i class="fa fa-chart-line"></i> Gráfico de Tendencia (Rigidez Dieléctrica, Contenido de Agua y  Factor de Potencia) <span class="badge bg-gray rounded-pill"><i class="fa-solid fa-bong"></i> Norma IEEE</span>
+              </h5>
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_main" %>
+            </div>
+          </div>
+        </div>
+      
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->   
+
+<% if @transformer.oil_type_id == 1 %>
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Gráfico de Tendencia (Tensión Interfacial y Número Ácido)</h4>
+      <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">             
+              <h5>
+                 <i class="fa fa-chart-line"></i> Gráfico de Tendencia (Tensión Interfacial y Número Ácido)
+              </h5>
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_second" %>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->   
+<% end %>
+
+<div class="row">
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Número Ácido</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+                <i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_acid rescue "" %> me-2 fs-15px'></i> Análisis de Número Ácido <br>
+                Valor Límite Máx: <%= @last_physical.ieee_num_acid rescue ""  %> mgKOH/g  
+              </h6>
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_acido" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <%# if @transformer.oil_type_id == 1 %>
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Factor de Potencia</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">
+                  <h6>
+                    <i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_pot rescue ""  %> me-2 fs-15px'></i> Análisis de Factor de Potencia <br>
+                    Valor Límite Máx: <%= @last_physical.ieee_num_pot rescue ""  %> % 
+                  </h6>          
+                  <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_potencia" %> 
+                </div>
+              </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <%# end %>
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Rigidez Dieléctrica</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+                <i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_rig rescue ""  %> me-2 fs-15px'></i> Análisis de Rigidez Dieléctrica <br>
+                Valor Límite Min: <%= @last_physical.ieee_num_rig rescue ""  %> KV/2.0 mm
+              </h6>
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_rigidez" %> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Tensión Interfacial</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+                <i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_ten rescue ""  %> me-2 fs-15px'></i> Tensión Interfacial <br>
+                Valor Límite Min: <%= @last_physical.ieee_num_ten rescue ""  %> mN/m  
+              </h6>          
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_tension" %> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>    
+  <% end %>
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Contenido de Agua</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+                <i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_wat rescue ""  %> me-2 fs-15px'></i> Análisis de Contenido de Agua  <br>
+                Valor Límite Máx: <%= @last_physical.ieee_num_wat rescue ""  %> ppm
+              </h6>
+              <%= render :partial =>"physical_management/report_ieee_graphs/partials/amchart_agua" %> 
+            </div>
+          </div> 
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>   
+</div>

@@ -1,0 +1,133 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordere table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Fecha</th>
+      <th>Número Ácido ASTM D974<br>mg KOH/g</th>
+      <th>Factor de Potencia ASTM D924 25ºC. %<br>%</th>
+      <th>Factor de Potencia ASTM D924 100ºC. %<br>%</th>
+      <th>Rigidez Dieléctrica ASTM D1816<br>kV/2.0 mm </th>
+      <th>Rigidez Dieléctrica ASTM D877<br> kV 2.54 mm </th>
+      <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+      <th>Tensión Interfacial ASTM D971<br>mN/m  </th>
+      <% end %>
+      <th>Contenido de Agua ASTM D1533<br>ppm</th>
+      <th>Estado</th>
+      <th>Comentarios</th>
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>   
+    </tr>
+    <tr class="text-center filter_row">
+      <th>Fecha</th>
+      <th>Número Ácido ASTM D974<br>mg KOH/g</th>
+      <th>Factor de Potencia ASTM D924 25ºC. %<br>%</th>
+      <th>Factor de Potencia ASTM D924 100ºC. %<br>%</th>
+      <th>Rigidez Dieléctrica ASTM D1816<br>kV/2.0 mm </th>
+      <th>Rigidez Dieléctrica ASTM D877<br> kV 2.54 mm </th>
+      <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+      <th>Tensión Interfacial ASTM D971<br>mN/m  </th>
+      <% end %>
+      <th>Contenido de Agua ASTM D1533<br>ppm</th>
+      <th>Estado</th>
+      <th>Comentarios</th>
+      <td></td>   
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_physicals.each do |physical| %>
+    <tr class="text-center">
+      <td data-sort='<%= physical.str_date_rehearsal_table %>'>
+       <%= physical.str_date_rehearsal %>
+      </td>
+      <td>
+        <p class="span alert-<% if physical.ieee_color_num_acid == "yellow" or physical.ieee_color_num_acid == "red" %><%= physical.ieee_color_num_acid rescue "" %><% end %> mb-0">
+          <%= physical.num_acid %>
+        </p>
+      </td>
+      <td> 
+        <p class="span alert-<% if physical.ieee_color_num_pot == "yellow" or physical.ieee_color_num_pot == "red" %><%= physical.ieee_color_num_pot rescue "" %><% end %> mb-0">
+          <%= physical.num_pot %>
+        </p>                
+      </td>
+      <td> 
+        <% if physical.num_pot2.nil? %>
+        <% else %>        
+        <% if physical.num_pot2 > 0 %>
+        <p class="span alert-<% if physical.ieee_color_num_pot2 == "yellow" or physical.ieee_color_num_pot2 == "red" %><%= physical.ieee_color_num_pot2 rescue "" %><% end %> mb-0">
+          <%= physical.num_pot2  rescue ""%>
+        </p>                
+        <% end %>
+        <% end %>
+      </td>      
+      <td>
+        <p class="span alert-<% if physical.ieee_color_num_rig == "yellow" or physical.ieee_color_num_rig == "red" %><%= physical.ieee_color_num_rig rescue "" %><% end %> mb-0">
+          <%= physical.num_rig %>
+        </p>
+      </td>
+      <td>
+        <% if physical.num_rig2.nil? %>
+        <% else %>
+        <% if physical.num_rig2 > 0 %>
+        <p class="span alert-<% if physical.ieee_color_num_rig2 == "yellow" or physical.ieee_color_num_rig2 == "red" %><%= physical.ieee_color_num_rig2 rescue "" %><% end %> mb-0">
+          <%= physical.num_rig2 %>
+        </p>
+        <% end %>
+        <% end %>
+      </td>      
+      <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+      <td>
+        <p class="span alert-<% if physical.ieee_color_num_ten == "yellow" or physical.ieee_color_num_ten == "red" %><%= physical.ieee_color_num_ten rescue "0" %><% end %> mb-0">
+          <%= physical.num_ten rescue "0" %>
+        </p>                 
+        <% end %>
+      </td>
+        <td>
+          <p class="span alert-<% if physical.ieee_color_num_wat == "yellow" or physical.ieee_color_num_wat == "red" %><%= physical.ieee_color_num_wat rescue "" %><% end %> mb-0">
+            <%= physical.num_wat %>
+          </p>                
+        </td>
+        <td class="text-start"><%= physical.dgaf_condition %></td> 
+        <td>
+        <% @physical_post = PhysicalPost.where("physical_id =?",physical.id) %>
+        <% if @physical_post.size > 0 %>
+          Si
+        <% else %>
+          No
+        <% end %>
+        </td>        
+        <td>
+          <div class="widget-list-action">
+            <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+            <div class="dropdown-menu dropdown-menu-end" style="">                     
+              <% @physical_post = PhysicalPost.where("physical_id =?",physical.id) %>
+              <% if @physical_post.size > 0 %>
+              <% if @user_permission.include?(97) %> 
+              <% @physical_post.each do |post| %>
+              <%= link_to "<i class='fa-solid fa-comment'></i> Modificar Comentario".html_safe, edit_physical_management_post_path(post.id) ,{:title=>"Comentario",class: "dropdown-item" } %>
+              <% end %>
+              <% end %>
+              <% else %>
+              <% if @user_permission.include?(96) %> 
+              <%= link_to "<i class='fa-regular fa-comment'></i> Crear Comentario".html_safe, new_physical_management_physical_post_path(physical) ,{:title=>"Comentario",class: "dropdown-item" } %>
+              <% end %>
+              <% end %>
+
+
+              <% if @user_permission.include?(49) %>
+              <%= link_to "<i class='fa-solid fa-eye'></i> Mostrar Límites".html_safe, physical_management_transformer_physical_path(@transformer.id, physical.id) ,{:title=>"Límites",class: "dropdown-item"} %>
+              <% end %>
+
+              <% if @user_permission.include?(51) %>
+              <%=link_to "<i class='fa fa-pencil'></i> Editar Ensayo".html_safe, edit_physical_management_transformer_physical_path(@transformer.id, physical), class: "dropdown-item", title: "Editar"%>
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <% if @user_permission.include?(52) %>
+              <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Ensayo".html_safe,physical_management_transformer_physical_delete_path(@transformer,physical) ,{ class: "dropdown-item bg-danger text-white", title: "Eliminar"} %>
+              <% end %>
+            </div>
+          </div>                    
+        </td>
+      </tr>
+      <% end %>                  
+    </tbody>
+    
+  </table>       

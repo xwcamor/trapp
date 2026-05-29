@@ -1,0 +1,38 @@
+<div class="form-group row m-b-15 text-black">
+  <h2>Cliente: <%= @customer.name %></h2>
+
+</div>
+<div class="alert alert-success">
+  <p>Los datos se han subido correctamente.</a></p>
+  
+</div>
+
+
+
+<% if @errors.present? %>
+  <div >
+    <fieldset>
+      <legend>
+        <label class="text-black">Observaciones:</label>
+      </legend>
+      <b>Las siguientes series no se han subido por duplicidad:</b>
+
+      <% @errors.each do |message| %>
+      <p><code><%= message %></code></p>
+      <% end %>
+    </fieldset>
+  </div>
+
+	 
+
+  <a href="/transformer_management/transformers" id="button_save" class="btn btn-primary"   type="button"  >
+    <i class="fa-solid fa-check-double"></i> Salir
+  </a>  
+
+<% else %>
+  <div class="alert alert-success">
+    <h1>No se encontraron errores</h1>
+  </div>
+<% end %>
+
+

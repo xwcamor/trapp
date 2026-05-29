@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-3"></div>
+
+  <% @duval = ChromatographicalDuval.where("transformer_id = ?",@transformer.id).first %>    
+  <% @triangle1 = Duval.where("duval_type_id = 1 AND graph_type = 1 AND short_name = '#{@duval.triangle_diag_first }'").first  %>
+  <% @pentagon1 = Duval.where("duval_type_id = 2 AND graph_type = 3 AND short_name = '#{@duval.pentagon_diag_first }'").first  %>	
+  
+  <div class="col-6">
+	  <table class="table  pb-2" style="font-size: 10px;">
+	    <tbody>
+	      <tr class="text-center">
+	        <td class="border border-dark">
+	           <b>Análisis Duval</b> 
+	        </td>
+	        <td class="border border-dark">
+	           <b>Gráfica</b> 
+	        </td>	     
+	        <td class="border border-dark">
+	           <b>Resultados</b> 
+	        </td>		           
+
+	      </tr>
+	      <tr class="text-center">
+	        <td class="border border-dark align-middle">
+	           <b>Triángulo Duval</b> 
+	        </td>
+	    
+            <td class="border border-dark">
+               <% if @transformer.duval_triangle_first_image.nil? or @transformer.duval_triangle_first_image.blank? or @transformer.duval_triangle_first_image == "" %>
+		          <% @cr_duvals = ChromatographicalDuval.where("transformer_id = ?",@transformer.id).limit(1) %>         
+		          <% @cr_duvals.each do |array|%>
+		            <% @triangulo_imagen = Duval.where("duval_type_id =1 AND graph_type = 1 AND short_name = ?",array.triangle_diag_first   ).first%>
+				  	<% if @triangulo_imagen.image_duval.present? %>
+	                  <a href="https://tr.dominio.com/duval_management/transformer/<%= @transformer.id %>/report_triangle_graphs" target="_blank" class="text-black"> 
+	  		            <%= wicked_pdf_image_tag asset_url(  @triangulo_imagen.image_duval),:width => "180",  :height=>"150"  %> 
+	 				  </a>		
+	 				<% end %>		    
+		          <% end %>
+               <% else %>
+	             <a href="https://tr.dominio.com/duval_management/transformer/<%= @transformer.id %>/report_triangle_graphs" target="_blank" class="text-black"> 
+	  		       <%= wicked_pdf_image_tag asset_url(@transformer.duval_triangle_first_image),:width => "180",  :height=>"150"  %> 
+	 			 </a>	               
+                 
+               <% end %>
+            </td>
+	            
+
+	        <td class="border border-dark align-middle">
+				<%= @tri1 = @triangle1.name %>        
+	        </td>        
+	      </tr>      
+	      <tr class="text-center">
+	        <td class="border border-dark align-middle">
+	           <b>Pentágono Duval</b> 
+	        </td>
+	        <td class="border border-dark">
+               <% if @transformer.duval_pentagon_first_image.nil? or @transformer.duval_pentagon_first_image.blank? or @transformer.duval_pentagon_first_image == "" %>
+		          <% @cr_duvals = ChromatographicalDuval.where("transformer_id = ?",@transformer.id).limit(1) %>         
+		          <% @cr_duvals.each do |array|%>
+		            <% @pentagono_imagen = Duval.where("duval_type_id =2 AND graph_type = 3 AND short_name = ?",array.pentagon_diag_first   ).first%>
+				  	<% if @pentagono_imagen.image_duval.present? %>
+	                  <a href="https://tr.dominio.com/duval_management/transformer/<%= @transformer.id %>/report_pentagon_graphs" target="_blank" class="text-black"> 
+	  		            <%= wicked_pdf_image_tag asset_url(  @pentagono_imagen.image_duval),:width => "180",  :height=>"150"  %> 
+	 				  </a>					  					      
+				    <% end %>
+		          <% end %>
+               <% else %>
+	             <a href="https://tr.dominio.com/duval_management/transformer/<%= @transformer.id %>/report_pentagon_graphs" target="_blank" class="text-black"> 
+	  		       <%= wicked_pdf_image_tag asset_url(@transformer.duval_pentagon_first_image),:width => "180",  :height=>"150"  %> 
+	 		 	 </a>	               
+               <% end %>
+	        </td>	        
+	        <td class="border border-dark align-middle">
+		        <%= @pen1 = @pentagon1.name %>  
+	        </td>	        
+	      </tr>   	      
+	    </tbody>
+	  </table>
+  </div>
+
+  <div class="col-3"></div>
+</div>
+
+

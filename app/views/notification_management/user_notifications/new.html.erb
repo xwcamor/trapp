@@ -1,0 +1,17 @@
+ 
+
+<% title "Ver" %>
+<%= links  link_to 'Notificaciones', [:notification_management,:user_notifications] %> 
+<% @legend_name =  "<i class='fa fa-user'></i> Cliente: ".html_safe %> 
+
+<!-- begin form-->
+<%= render :partial =>"notification_management/user_notifications/partials/form",  user_notification: @user_notification %>
+<!-- end form-->
+ 
+
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end script-->

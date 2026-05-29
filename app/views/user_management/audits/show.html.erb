@@ -1,0 +1,64 @@
+<% title "Ver Auditoría" %>
+
+<% javascript "jquery/jquery-1.8.2.min.js" %>
+<% javascript "jquery/jquery.validationEngine","jquery/jquery.validationEngine-es" %>
+<% jquery_validationengine "validate_form" %>
+<% stylesheet "validationEngine.jquery" %>
+
+<% links  link_to 'Auditorías', [:user_management,:audits] %>   
+
+
+<div class="well">
+  <div>
+  <h2 class="semi-bold columns_2">Ver Auditoría</h2>
+  <h2 class="columns_2" align="center"><%= link_to 'Editar Auditoría', [:edit_user_management,:audit], class: "btn bg-color-blueDark txt-color-white" %>  <%= link_to 'Regresar', [:user_management,:audits], class: "btn bg-color-blueDark txt-color-white" %></h2> 
+  </div>
+  <div style="clear:both"></div> 
+
+  <%  @audit.errors.each do |attr,message| %>
+  <div class="alert alert-danger fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <i class="fa-fw fa fa-warning"></i> <%= message %>
+  </div>
+  <% end %> 
+  
+  <fieldset>
+    <legend><label class="label label-success">Información</label></legend>
+     <p><label class="label label-info tas">Usuario</label> <%= text_field_tag "name",@audit.user.name_complete, class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">Acción</label> <%= text_field_tag "name",@audit.str_action , class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">Tiempo</label> <%= text_field_tag "name",@audit.str_created_at, class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">Tabla Principal</label> <%= text_field_tag "name",@audit.auditable_type.downcase.pluralize, class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">ID Tabla Principal</label> <%= text_field_tag "name",@audit.auditable_id, class: 'input-sm', readonly: 'true' %></p>
+     
+     <% if @audit.associated_type.present? %>
+     <p><label class="label label-info tas">Tabla Secundaria</label> <%= text_field_tag "name",@audit.associated_type.downcase.pluralize, class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">ID Tabla Secundaria</label> <%= text_field_tag "name",@audit.associated_id, class: 'input-sm', readonly: 'true' %></p>
+     <% end %>
+
+     <p><label class="label label-info tas">Cambios</label> <%= text_area_tag "name",@audit.audited_changes.gsub('---', '').gsub('- ', '  Reemplazo: ')  , class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">Veces Modificado</label> <%= text_field_tag "name",@audit.version, class: 'input-sm', readonly: 'true' %></p>
+
+     <p><label class="label label-info tas">IP REMOTA</label> <%= text_field_tag "name",@audit.remote_address, class: 'input-sm', readonly: 'true' %></p>
+
+     <%#= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@place.latitude},#{@place.longitude}&markers=#{@place.latitude},#{@place.longitude}&zoom=7&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+              class: 'img-fluid img-rounded', alt: "#{@place.title} on the map"%>
+<%=Geocoder.coordinates("Jr Puno 545, Callao") %>
+     <%= a =Geocoder.search(@audit.remote_address) %>
+     <p><%= @latitude= Geocoder.search(@audit.remote_address).last.coordinates.first %></p>
+     <p><%= @longitude= Geocoder.search(@audit.remote_address).last.coordinates.last %></p>
+
+<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@latitude},#{@longitude}&markers=#{@latitude},#{@longitude}&zoom=15&sensor=true&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+              class: 'img-fluid img-rounded' %>
+
+          
+
+             
+ 
+  </fieldset>
+</div>

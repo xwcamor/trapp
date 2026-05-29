@@ -1,0 +1,17 @@
+  <% @list_chromatographicals.each do |array| %>
+    { 
+  	  "id":<%= array.id %>,
+  	  "transformer_id":<%= array.transformer_id %>,
+  	  "str_date_rehearsal":"<%= array.str_date_rehearsal %>",
+  	  "num_hid":<%= array.num_hid %>,
+  	  "num_met":<%= array.num_met %>,
+  	  "num_eti":<%= array.num_eti %>,
+  	  "num_eta":<%= array.num_eta %>,
+      "num_ace":<%= array.num_ace %>,
+      "pn1_hid_percent":<%= array.pn1_hid_percent %>,
+      "pn1_met_percent":<%= array.pn1_met_percent %>,
+      "pn1_eti_percent":<%= array.pn1_eti_percent %>,
+      "pn1_eta_percent":<%= array.pn1_eta_percent %>,
+      "pn1_ace_percent":<%= array.pn1_ace_percent %>
+ 	},
+  <% end %>

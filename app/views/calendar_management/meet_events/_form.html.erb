@@ -1,0 +1,69 @@
+
+<div id="myModal">
+<%= form_for [:calendar_management, @course_event],:html=>{:id=>"validate_form"}  do |f| %>
+ 
+ 
+ 
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Transformador</label>
+        <div class="col-md-8 col-sm-8">
+          <%#= f.select :transformer_id, @transformers.collect { |t| [t.num_serie,t.id] }, {} , class: 'default-select2 form-select' %>
+        </div>
+      </div>     
+      <br>
+     
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Desde</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.datetime_field :start,  class: 'form-control' %>
+        </div>
+      </div>     
+      <br>
+
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Hasta</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.datetime_field :end,  class: 'form-control' %>
+        </div>
+      </div>     
+      <br>      
+
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Color</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.color_field :color,class: "form-control"%>
+        </div>
+      </div>     
+      <br>   
+    
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Descripción</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.text_field :title,class: "form-control"%>
+        </div>
+      </div>     
+      <br>   
+
+ 
+     
+
+     <!-- begin modal-footer -->  
+    <div class="modal-footer">
+      <a href="javascript:;" class="btn btn-white  me-1 mb-3 rounded-pill" data-bs-dismiss="modal">Cerrar</a>
+      <%= button_tag( :class => "btn btn-gray text-white   me-1 mb-3 rounded-pill") do %>
+      <i class='fa-solid fa-floppy-disk'></i> Guardar Información
+      <% end %>
+    </div>
+    <!-- end modal-footer --> 
+
+ 
+
+ 
+    <%#= f.submit "Guardar", class: "btn bg-color-blueDark txt-color-white" %>
+    <%#= link_to 'Regresar', [:calendar_management,:course_schedules], class: "btn bg-color-blueDark txt-color-white" %>
+    <%#= link_to "Eliminar".html_safe, [:calendar_management, course_event], method: :delete, data: {confirm: "¿Estás Seguro?"},class: "btn btn-danger" unless @course_event.new_record?   %>   
+   
+<% end %>
+</div>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>  

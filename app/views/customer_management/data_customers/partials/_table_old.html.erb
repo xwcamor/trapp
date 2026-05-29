@@ -1,0 +1,45 @@
+<table id="data-table-buttons1" class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :customer_area_customer_location_customer_country_id,'País', default_order:  { customer_area_customer_location_customer_country_id: 'desc' }) %></th>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :customer_area_customer_location_customer_name,'Cliente', default_order:  { customer_area_customer_location_customer_name: 'desc' }) %></th>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :customer_area_customer_location_name,'Ubicación', default_order:  { customer_area_customer_location_name: 'desc' }) %></th> 
+      <th class="text-nowrap text-center"><%= sort_link(@query, :customer_area_name,'Área', default_order:  { customer_area_name: 'desc' }) %></th> 
+      <th class="text-nowrap text-center"><%= sort_link(@query, :name,'Subestación', default_order:  { name: 'desc' }) %></th> 
+      <th class="text-nowrap text-center"><%= sort_link(@query, :customer_area_customer_location_customer_num_doc,'RUC', default_order:  { customer_area_customer_location_customer_num_doc: 'desc' }) %></th>
+     
+      <th data-orderable="false" class="sorting_disabled"> </th>             
+    </tr>
+  </thead>
+  <tbody>
+    <% @list_substations.each do |customer_substation| %>
+    <tr>
+      <td class="text-center">
+        <div class="flag-icon flag-icon-<%= customer_substation.customer_area.customer_location.customer.country.short_name.downcase %> h1 rounded mb-0 "></div> </td>  
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.customer.name.upcase rescue "-" %></td>  
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.customer_area.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.customer.num_doc rescue "-"  %></td>      
+ 
+      <td>
+        <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe,{:controller=>"customer_management/customers",:action=>"show",:id=>customer_substation.customer_area.customer_location.customer_id} ,{ class: "btn btn-xs btn-default", title: "Ver"} %>
+
+ 
+      </td>                   
+    </tr>
+    <% end %>                  
+  </tbody>
+</table>
+
+ 
+<div style="float:right">
+  <%= will_paginate(@list_substations, :params => params,  :constainer=>true, :previous_label=>"<i class='fa fa-arrow-left'></i>", :next_label=>"<i class='fa fa-arrow-right'></i>",inner_window: 1, outer_window: 1 ,:renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer , class: 'pagination-sm ') %>
+</div> 
+<style>
+ .page-item.active .page-link {
+   color: #fff !important;
+   background: gray !important;
+ }
+</style> 
+ <link href="/assets/plugins/flag-icon-css/css/flag-icons.min.css" rel="stylesheet" />

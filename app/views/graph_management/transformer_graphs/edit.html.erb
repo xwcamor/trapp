@@ -1,0 +1,16 @@
+<% title "Editar" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<%= links  link_to 'Graficos', [:graph_management,:transformer_graphs] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Editar Grafico</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<%= render 'form', transformer_graph: @transformer_graph %>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<!-- end layout-->

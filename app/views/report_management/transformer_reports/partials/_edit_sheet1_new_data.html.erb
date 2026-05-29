@@ -1,0 +1,10 @@
+<p style="font-size:24px"><strong><%= @report.customer.name  %></strong></p>
+
+<p style="font-size:24px"><strong>
+	<% if @report.customer.avatar.nil? %>
+	<% else %>
+ 	  <img src="https://tr.dominio.com<%= @report.customer.avatar_url %>" style="height:200px; width:200px" />   
+	<% end %>
+</strong></p>
+
+<p style="font-size:18px"><strong>Análisis de aceite dieléctrico</strong></p>

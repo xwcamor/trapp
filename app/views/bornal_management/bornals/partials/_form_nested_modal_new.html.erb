@@ -1,0 +1,32 @@
+<div class="row">               
+    <div class="table-responsive">
+      <table   id="factors"  class="table table-striped align-middle">
+        <thead>
+            <tr>
+              <td colspan="11"> <%= f.link_to_add "<i class='fa-solid fa-plus'></i> Agregar Factor".html_safe, :factors, :data => { :target => "#factors" } ,:class=>"btn bg-gray text-white rounded-pill"%></td>
+            </tr>
+          <tr>
+            <th class="text-center">Fecha</th>
+            
+            <th class="text-center">Factor de Potencia (%) </th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <%= f.fields_for :factors, f.object.factors.where('deleted=0').order('date_rehearsal DESC'), :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <td class="text-center"><%= nested_form.date_field :date_rehearsal, class: 'form-control-sm','data-parsley-required'=>"true" , step: "0.001" %> </td>
+            <td class="text-center"><%= nested_form.number_field :num_fac, class: 'form-control','data-parsley-required'=>"true" , step: "0.001" %> </td>
+            <td><%= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %></td>
+
+            
+          </tr>
+        <% end %>    
+
+        </tbody>
+      </table>
+    </div>
+
+</div>
+ 

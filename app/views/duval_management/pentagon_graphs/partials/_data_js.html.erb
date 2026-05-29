@@ -1,0 +1,178 @@
+<script type="text/javascript">
+
+var _MainPoints = [
+    {
+      x: 0,
+      y: 40
+    }, {
+      x: 38,
+      y: 12.4
+    }, {
+      x: 23.5,
+      y: -32.4
+    }, {
+      x: -23.5,
+      y: -32.4
+    }, {
+      x: -38,
+      y: 12.4
+    }, {
+      x: 0,
+      y: 40
+    }
+  ];
+
+var _SegmentPos = [
+    {
+      points: [ {x: 0, y: 1.5}, {x: 0,y: -3}, {x: -6,y: -4}, {x: -22.5,y: -32.4}, {x: -23.5,y: -32.4}, {x: -35,y: 3.1}],
+      fill: 'rgb(152,210,230)',
+      label: { text: 'T1', cx: -25, cy: -12.5, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {x: 0, y: 1.5}, {x: -35, y: 3.1 }, { x: -38, y: 12.4}, { x: 0, y: 40 } ],
+      fill: 'rgb(173,236,225)',
+      label: { text: 'S', cx: -20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: 40 }, { x: 0, y: 1.5 }, { x: 4, y: 16 }, { x: 32, y: -6.1}, { x: 38, y: 12.4}, { x: 0, y: 40} ],
+      fill: 'rgb(209,237,249)',
+      label: { text: 'D1', cx: 20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 32, y: -6.1}, {x: 4,y: 16}, { x: 0, y: 1.5}, { x: 0, y: -3},{ x: 24.3, y: -30 } ],
+      fill: 'rgb(72,167,235)',
+      label: { text: 'D2', cx: 25, cy: -15, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: -3}, { x: 24.3, y: -30}, { x: 23.5, y: -32.4}, { x: 1, y: -32.4},{ x: -6, y: -4}],
+      fill: 'rgb(220,231,251)',
+      label: {text: 'T3', cx: 9, cy: -25, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: -6, y: -4}, { x: 1, y: -32.4}, { x: -22.5, y: -32.4}],
+      fill: 'rgb(149,183,247)',
+      label: {text: 'T2', cx: -8, cy: -20, withLine: false, endX: null, endY: null}
+    }, 
+    {
+      points: [{ x: 0, y: 33}, { x: 0, y: 24.5}, { x: -1, y: 24.5}, { x: -1, y: 33 } ],
+      fill: 'rgb(103,149,234)',
+      label: { text: 'PD', cx: -5, cy: 28.5, withLine: true, endX: -1, endY: 33}
+    }
+];
+var _SegmentPosFaultZone = [
+    {
+      points: [ {x: 0, y: 1.5}, {x: 0,y: -3}, {x: -6,y: -4}, {x: -11,y: -8}, {x: -21.5,y: -32.4}, {x: -23.5,y: -32.4}, {x: -35,y: 3.1}],
+      fill: 'rgb(117,195,127)',
+      label: { text: 'O', cx: -25, cy: -12.5, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {x: 0, y: 1.5}, {x: -35, y: 3.1 }, { x: -38, y: 12.4}, { x: 0, y: 40 } ],
+      fill: 'rgb(173,236,225)',
+      label: { text: 'S', cx: -20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: 40 }, { x: 0, y: 1.5 }, { x: 4, y: 16 }, { x: 32, y: -6.1}, { x: 38, y: 12.4}, { x: 0, y: 40} ],
+      fill: 'rgb(209,237,249)',
+      label: { text: 'D1', cx: 20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 32, y: -6.1}, {x: 4,y: 16}, { x: 0, y: 1.5}, { x: 0, y: -3},{ x: 24.3, y: -30 } ],
+      fill: 'rgb(72,167,235)',
+      label: { text: 'D2', cx: 25, cy: -15, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: -3}, { x: 24.3, y: -30}, { x: 23.5, y: -32.4}, { x: 2.5, y: -32.4},{ x: -3.5, y: -3.5}],
+      fill: 'rgb(219,193,225)',
+      label: {text: 'T3-H', cx: 9, cy: -25, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: -6, y: -4}, { x: -11, y: -8}, { x: -21.5, y: -32.4}, { x: 2.5, y: -32.4}, {x: -3.5, y: -3.5}],
+      fill: 'rgb(110,177,170)',
+      label: {text: 'C', cx: -8, cy: -20, withLine: false, endX: null, endY: null}
+    }, 
+    {
+      points: [{ x: 0, y: 33}, { x: 0, y: 24.5}, { x: -1, y: 24.5}, { x: -1, y: 33 } ],
+      fill: 'rgb(103,149,234)',
+      label: { text: 'PD', cx: -5, cy: 28.5, withLine: true, endX: -1, endY: 33}
+    }
+];
+var _SegmentPosCombine = [
+    {
+      points: [ {x: 0, y: 1.5}, {x: 0,y: -3}, {x: -6,y: -4}, {x: -11,y: -8}, { x: -19.8, y: -26.4}, {x: -22.5,y: -32.4}, {x: -23.5,y: -32.4}, {x: -35,y: 3.1}],
+      fill: 'rgb(159,214,183)',
+      label: { text: 'T1-O', cx: -25, cy: -12.5, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {x: 0, y: 1.5}, {x: -35, y: 3.1 }, { x: -38, y: 12.4}, { x: 0, y: 40 } ],
+      fill: 'rgb(173,236,225)',
+      label: { text: 'S', cx: -20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: 40 }, { x: 0, y: 1.5 }, { x: 4, y: 16 }, { x: 32, y: -6.1}, { x: 38, y: 12.4}, { x: 0, y: 40} ],
+      fill: 'rgb(209,237,249)',
+      label: { text: 'D1', cx: 20, cy: 20, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 32, y: -6.1}, {x: 4,y: 16}, { x: 0, y: 1.5}, { x: 0, y: -3},{ x: 24.3, y: -30 } ],
+      fill: 'rgb(72,167,235)',
+      label: { text: 'D2', cx: 25, cy: -15, withLine: false, endX: null, endY: null }
+    }, 
+    {
+      points: [{ x: 0, y: -3}, { x: 24.3, y: -30}, { x: 23.5, y: -32.4}, { x: 2.5, y: -32.4},{ x: -3.5, y: -3.5}],
+      fill: 'rgb(219,194,227)',
+      label: {text: 'T3-H', cx: 9, cy: -25, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [{ x: -6, y: -4}, { x: -3.5, y: -3.5}, { x: 2.5, y: -32.4}, { x: 1, y: -32.4} ],
+      fill: 'rgb(252,252,252)',
+      label: {text: 'T3-C', cx: 2, cy: -20, withLine: false, endX: null, endY: null}
+    },
+    {
+      points: [{ x: -6, y: -4}, { x: 1, y: -32.4}, { x: -21.5, y: -32.4}, { x: -19.8, y: -26.4} ],
+      fill: 'rgb(149,183,247)',
+      label: {text: 'T2-C', cx: -8, cy: -30, withLine: false, endX: null, endY: null}
+    },
+    {
+      points: [{ x: -6, y: -4}, { x: -11, y: -8}, { x: -19.8, y: -26.4} ],
+      fill: 'rgb(255,253,255)',
+      label: {text: 'T1-C', cx: -34, cy: -18, withLine: true, endX: -15.5, endY: -35.4}
+    },
+    {
+      points: [{ x: -21.5, y: -32.4}, { x: -22.5, y: -32.4}, { x: -19.8, y: -26.4} ],
+      fill: 'rgb(255,255,253)',
+      label: {text: 'T2-O', cx: -32, cy: -28, withLine: true, endX: -21.5, endY: -35.4}
+    },
+    {
+      points: [{ x: 0, y: 33}, { x: 0, y: 24.5}, { x: -1, y: 24.5}, { x: -1, y: 33 } ],
+      fill: 'rgb(103,149,234)',
+      label: { text: 'PD', cx: -5, cy: 28.5, withLine: true, endX: -1, endY: 33}
+    }
+];
+
+//https://codepen.io/carlosmola6la/pen/jOadmmP
+//https://tr.mydentistcorin.com/cromas/23.json
+
+let _RegistryData =   
+//OLD LOAD COMMENT BY CARLOS mola6 2022
+//[ // hid : H2, met : CH4, eti : C2H4 , eta : C2H6, ace : C2H2
+//  {"id":36,"transformer_id":23,"str_date_rehearsal":"23-01-2022","num_hid":7,"num_met":33,"num_eti":23,"num_eta":3,"num_ace":2},
+//  {"id":37,"transformer_id":23,"str_date_rehearsal":"18-12-2021","num_hid":7,"num_met":3,"num_eti":21,"num_eta":3,"num_ace":1},
+//  {"id":38,"transformer_id":23,"str_date_rehearsal":"17-11-2021","num_hid":6,"num_met":2,"num_eti":21,"num_eta":3,"num_ace":1},
+//{"id":39,"transformer_id":23,"str_date_rehearsal":"06-10-2021","num_hid":5,"num_met":2,"num_eti":21,"num_eta":1,"num_ace":1},
+//  {"id":40,"transformer_id":23,"str_date_rehearsal":"08-09-2021","num_hid":5,"num_met":1,"num_eti":20,"num_eta":1,"num_ace":1},
+//  {"id":41,"transformer_id":23,"str_date_rehearsal":"05-03-2022","num_hid":37,"num_met":85,"num_eti":10,"num_eta":19,"num_ace":5},
+//  {"id":50,"transformer_id":23,"str_date_rehearsal":"09-03-2022","num_hid":0,"num_met":2,"num_eti":0,"num_eta":1,"num_ace":30}
+//];
+[
+<%= render :partial =>"duval_management/pentagon_graphs/partials/data_values" %>
+];
+
+
+// const xhr = new XMLHttpRequest();
+// const url = 'https://tr.mydentistcorin.com/cromas/23.json';
+
+// xhr.open('GET', url, true);
+// xhr.send();
+let _RegistryPosition = [];	
+
+</script>

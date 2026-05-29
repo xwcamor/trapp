@@ -1,0 +1,195 @@
+<%= form_for [:user_management, @user],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Datos Personales</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">País</label>
+              <div class="col-md-8 col-sm-8">
+                <%= f.select :country_id, @countries.collect { |t| [t.name,t.id]},{},class: "form-select default-select",'data-parsley-required'=>"true",:id=>"select-required" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Nombres</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :name, class: 'form-control','data-parsley-required'=>"true" , autocomplete: "off"  %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Apellido Paterno</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :lastname1, class: 'form-control','data-parsley-required'=>"true", autocomplete: "off"   %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Apellido Materno</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :lastname2, class: 'form-control','data-parsley-required'=>"true", autocomplete: "off"   %>
+              </div>
+            </div>
+          </div>                    
+        </div>
+
+        <br>
+        <div class="row">
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">N° Documento</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :num_doc, class: 'form-control','data-parsley-required'=>"true", autocomplete: "off"   %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Email</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :email, class: 'form-control','data-parsley-required'=>"true",'data-parsley-type'=>"email", autocomplete: "off"  %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Foto</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.file_field :avatar, class: 'input-sm validate[optional]'  %>
+              </div>
+            </div>  
+          </div>         
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Asignación de Clientes</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <h6>Seleccione 1 ó más clientes <span class="text-red">(Sòlo se mostrarán los transformadores de los clientes asignados).</span></h6>
+         <input type="checkbox" id="checkbox" > Seleccionar Todos
+        <%#= select_tag "user_customers", "<option value=\"\">Selleccione por favor</option>".html_safe+options_for_select(@customers.collect{ |e| [e.name.to_s,e.id] },params[:user_customers].to_a),class: "multiple-select2",'data-parsley-required'=>"true",:id=>"select-required2" ,multiple: true %>
+        <%= f.select :customer_id, @customers.collect.collect {|p| [ p.str_country_customer, p.id ] }, {include_hidden: false}, { class: 'form-control multiple-select2',multiple: true ,'data-parsley-required'=>"true"  }  %> 
+
+        <%#= f.select(:customer_id, Customer.all.collect {|a| [a.name, a.id]}, {include_hidden: false}, id: "user_customer_id", :multiple => true) %>
+        <script>
+        $("#checkbox").click(function(){
+            if($("#checkbox").is(':checked') ){
+                $("#user_customer_id > option").prop("selected","selected");
+                $("#user_customer_id").trigger("change");
+            }else{
+                $("#user_customer_id > option").removeAttr("selected");
+                 $("#user_customer_id").trigger("change");
+             }
+        });
+        </script>   
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Accesos</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Perfil</label>
+              <div class="col-md-8 col-sm-8">
+                <%= f.select :profile_id, @profiles.collect { |t| [t.name,t.id]},{},class: "form-select default-select ",'data-parsley-required'=>"true",:id=>"select-required" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-8 col-sm-8">
+            <%= f.select :state, [["Activo",0],["Inactivo",1]],{},class: "form-control",'data-parsley-required'=>"true",:id=>"select-required" %></p>
+          </div>
+          </div>
+        </div>          
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Seguridad</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="form-group row m-b-15">
+              <label class="col-md-4 col-sm-4 col-form-label">Nombre de Ingreso</label>
+              <div class="col-md-8 col-sm-8">
+                  <%= f.text_field :username, class: 'form-control','data-parsley-required'=>"true",autocomplete: 'off',:readonly => true  %>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>  
+         
+        <br>
+        <p align="center">
+          <%= f.submit "Guardar", class: 'btn btn-gray' %>  
+          <%= link_to 'Regresar', [:user_management,:users], class: "btn btn-gray" %>
+        </p>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+</div>
+<!-- end row -->
+<% end %>

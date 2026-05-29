@@ -1,0 +1,1 @@
+json.partial! "json_management/lab_registries/transformers/partials/data_show", transformer: @transformer

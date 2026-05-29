@@ -1,0 +1,22 @@
+<%= form_for [:transformer_management, @transformer],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off"} do |f| %> 
+<%= f.hidden_field :deleted , :value=> 1 %>
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Eliminar Transformador: Serie: <%= @transformer.num_serie.upcase %> </h4>
+</div>
+<div class="modal-body">
+  <div class="note note-danger note-with-start-icon mb-2">
+  <div class="note-content text-start text-white">
+      <h1 class="text-center"><b><i class="fa fa-info-circle"></i> Aviso Importante!</b></h1>
+    <h2>Se eliminará la información del Transformador.</h2><br>
+    <h2>¿Está realmente seguro?</h2>
+  </div>
+  <div class="note-icon"><i class="fa fa-trash"></i></div>
+</div>
+<div class="text-center">
+  <%= button_tag( :class => "btn btn-danger text-white   me-1 mb-3 rounded-pill",:'data-method' =>:delete,:'data-confirm' => "Se eliminará el registro, ¿Está realmente seguro de eliminar?") do %>
+     <i class='fa-solid fa-trash-can'></i> Eliminar Transformador
+  <% end %>        
+</div>
+<!-- end form --> 
+<% end %> 

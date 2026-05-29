@@ -1,0 +1,176 @@
+<% title "Ver" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<%= links  link_to 'Usuarios', [:user_management,:users] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Ver Usuario</h1>
+<!-- end page-header -->
+
+<%= form_for [:user_management, @user],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-6 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Nombres</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :name, class: 'form-control-plaintext','data-parsley-required'=>"true", :readonly =>"true" %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Apellido Paterno</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :lastname1, class: 'form-control-plaintext','data-parsley-required'=>"true", :readonly =>"true"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Apellido Mterno</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :lastname2, class: 'form-control-plaintext','data-parsley-required'=>"true", :readonly =>"true"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Email</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :email, class: 'form-control-plaintext','data-parsley-required'=>"true",'data-parsley-type'=>"email", autocomplete: "off", :readonly =>"true"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Número Documento</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :num_doc, class: 'form-control-plaintext','data-parsley-required'=>"true", :readonly =>"true"  %>
+          </div>
+        </div>
+  
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-6 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Acceso a Transformadores</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        
+        <div class="row">
+         
+ 
+          
+           <% @user.user_customers.each do |user_customer|%>
+          <div class="col-md-2">  
+            <div class="card border-0 bg-white mb-2">
+              <div class="card-body">
+               
+                <small class="card-subtitle mb-10px text-semi-bold">
+                  <span class="card-subtitle mb-10px text-semi-bold">
+                    <div class="flag-icon flag-icon-<%= user_customer.customer.country.short_name.downcase %> "></div><%= user_customer.customer.name %>
+                  </span>
+                </small>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        
+
+       
+ 
+
+      
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-6 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-3">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Accesos</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Perfil</label>
+          <div class="col-md-8 col-sm-8">
+            <%= f.text_field :profile_id,:value=> @user.profile.name, class: 'form-control-plaintext','data-parsley-required'=>"true", autocomplete: 'off', :readonly =>"true" %>
+          </div>
+        </div>
+
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-8 col-sm-8">
+            <%= f.text_field :state,:value=> @user.str_state, class: 'form-control-plaintext','data-parsley-required'=>"true", autocomplete: 'off', :readonly =>"true" %>
+          </div>
+        </div>          
+           
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-6 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-4">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Seguridad</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Nombre de Ingreso</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :username, class: 'form-control-plaintext','data-parsley-required'=>"true",autocomplete: 'off', :readonly =>"true"  %>
+          </div>
+        </div>
+        <p align="center">
+          <%= link_to 'Editar', [:edit_user_management,:user], class: "btn btn-gray" %>
+          <%= link_to 'Regresar', [:user_management,:users], class: "btn btn-gray" %>
+        </p>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+</div>
+<!-- end row -->
+<% end %>
+
+<%= render :partial =>"layouts/app_bottom_script" %>

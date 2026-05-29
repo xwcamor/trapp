@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+
+<table id="data-table-buttons1" class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-center">Cliente</th> 
+      <th class="text-nowrap text-center">Ubicación</th> 
+      <th class="text-nowrap text-center">Área</th> 
+      <th class="text-nowrap text-center">Subestación</th> 
+      <th class="text-nowrap text-center">RUC</th>
+           
+    </tr>
+  </thead>
+  <tbody>
+    <% @export_results.each do |customer_substation| %>
+    <tr>
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.customer.name.upcase rescue "-" %></td>  
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.customer_area.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.name rescue "-"  %></td>   
+      <td class="text-center"><%= customer_substation.customer_area.customer_location.customer.num_doc rescue "-"  %></td>      
+ 
+                   
+    </tr>
+    <% end %>                  
+  </tbody>
+</table>

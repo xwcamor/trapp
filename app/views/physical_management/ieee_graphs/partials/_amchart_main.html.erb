@@ -1,0 +1,327 @@
+<!-- Styles -->
+<style>
+#fqchartdiv0 {
+  width: 100%;
+  height: 350px;
+  max-width: 100%;
+}
+</style>
+
+<!-- Resources -->
+
+<!-- Chart code -->
+<script>
+am5.ready(function fqfunc0() {
+am5.addLicense('<%= amchart_license %>');
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("fqchartdiv0");
+
+var exporting = am5plugins_exporting.Exporting.new(root, {
+  menu: am5plugins_exporting.ExportingMenu.new(root, {})
+});
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+root.locale = {
+  "Jan": "Ene",
+  "Apr": "Abr",
+  "Aug": "Ago",
+  "Sep": "Set",  
+  "Dec": "Dic" 
+};
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(
+  am5xy.XYChart.new(root, {
+    focusable: true,
+    panX: true,
+    panY: true,
+    wheelX: "panX",
+    wheelY: "zoomX"
+  })
+);
+
+var easing = am5.ease.linear;
+chart.get("colors").set("step", 3);
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xAxis = chart.xAxes.push(
+  am5xy.DateAxis.new(root, {
+    maxDeviation: 0.1,
+    groupData: false,
+    baseInterval: {
+      timeUnit: "day",
+      count: 1
+    },
+    renderer: am5xy.AxisRendererX.new(root, {}),
+    tooltip: am5.Tooltip.new(root, {})
+  })
+);
+
+function createAxisAndSeries(startValue, opposite) {
+  var yRenderer = am5xy.AxisRendererY.new(root, {
+    opposite: opposite
+  });
+  var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      maxDeviation: 1,
+      numberFormat: "#.000  '%'",
+      tooltipNumberFormat: "#.000'%'",       
+      renderer: yRenderer
+    })
+  );
+
+ 
+
+  if (chart.yAxes.indexOf(yAxis) > 0) {
+    yAxis.set("syncWithAxis", chart.yAxes.getIndex(0));
+  }
+
+  // Add series
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+  var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      valueXField: "date",
+      tooltip: am5.Tooltip.new(root, {
+        pointerOrientation: "horizontal",
+        labelText: "Factor de Potencia: {valueY} %"
+      })
+    })
+  );
+
+  //series.fills.template.setAll({ fillOpacity: 0.2, visible: true });
+  series.strokes.template.setAll({ strokeWidth: 1 });
+
+  yRenderer.grid.template.set("strokeOpacity", 0.05);
+  yRenderer.labels.template.set("fill", series.get("fill"));
+  yRenderer.setAll({
+    stroke: series.get("fill"),
+    strokeOpacity: 1,
+    opacity: 1
+  });
+
+  // Set up data processor to parse string dates
+  // https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+  series.data.processor = am5.DataProcessor.new(root, {
+    dateFormat: "yyyy-MM-dd",
+    dateFields: ["date"]
+  });
+
+  series.data.setAll(generateChartData(startValue));
+  series.bullets.push(function() {
+    return am5.Bullet.new(root, {
+      locationY: 0,
+      sprite: am5.Circle.new(root, {
+        radius: 3,
+        stroke: root.interfaceColors.get("background"),
+        strokeWidth: 0,
+        fill: series.get("fill")
+      })
+    });
+  });  
+
+}
+
+
+function createAxisAndSeries2(startValue, opposite) {
+  var yRenderer = am5xy.AxisRendererY.new(root, {
+    opposite: opposite
+  });
+  var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      maxDeviation: 1,
+      numberFormat: "#  KV/2.0mm",
+      tooltipNumberFormat: "#  KV/2.0mm",          
+      renderer: yRenderer
+    })
+  );
+
+  if (chart.yAxes.indexOf(yAxis) > 0) {
+    yAxis.set("syncWithAxis", chart.yAxes.getIndex(0));
+  }
+
+  // Add series
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+  var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      valueXField: "date",
+      tooltip: am5.Tooltip.new(root, {
+        pointerOrientation: "horizontal",
+        labelText: "Rigidez Dieléctrica: {valueY} KV/2.0mm"
+      })
+    })
+  );
+
+  //series.fills.template.setAll({ fillOpacity: 0.2, visible: true });
+  series.strokes.template.setAll({ strokeWidth: 1 });
+
+  yRenderer.grid.template.set("strokeOpacity", 0.05);
+  yRenderer.labels.template.set("fill", series.get("fill"));
+  yRenderer.setAll({
+    stroke: series.get("fill"),
+    strokeOpacity: 1,
+    opacity: 1
+  });
+
+  // Set up data processor to parse string dates
+  // https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+  series.data.processor = am5.DataProcessor.new(root, {
+    dateFormat: "yyyy-MM-dd",
+    dateFields: ["date"]
+  });
+
+  series.data.setAll(generateChartData2(startValue));
+  series.bullets.push(function() {
+    return am5.Bullet.new(root, {
+      locationY: 0,
+      sprite: am5.Circle.new(root, {
+        radius: 3,
+        stroke: root.interfaceColors.get("background"),
+        strokeWidth: 0,
+        fill: series.get("fill")
+      })
+    });
+  });    
+}
+
+function createAxisAndSeries3(startValue, opposite) {
+  var yRenderer = am5xy.AxisRendererY.new(root, {
+    opposite: opposite
+  });
+  var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      maxDeviation: 1,
+      numberFormat: "#  ppm",
+      tooltipNumberFormat: "#  ppm",          
+      renderer: yRenderer
+    })
+  );
+
+  if (chart.yAxes.indexOf(yAxis) > 0) {
+    yAxis.set("syncWithAxis", chart.yAxes.getIndex(0));
+  }
+
+  // Add series
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+  var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      valueXField: "date",
+      tooltip: am5.Tooltip.new(root, {
+        pointerOrientation: "horizontal",
+        labelText: "Contenido de Agua: {valueY} ppm"
+      })
+    })
+  );
+
+  //series.fills.template.setAll({ fillOpacity: 0.2, visible: true });
+  series.strokes.template.setAll({ strokeWidth: 1 });
+
+  yRenderer.grid.template.set("strokeOpacity", 0.05);
+  yRenderer.labels.template.set("fill", series.get("fill"));
+  yRenderer.setAll({
+    stroke: series.get("fill"),
+    strokeOpacity: 1,
+    opacity: 1
+  });
+
+  // Set up data processor to parse string dates
+  // https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+  series.data.processor = am5.DataProcessor.new(root, {
+    dateFormat: "yyyy-MM-dd",
+    dateFields: ["date"]
+  });
+
+  series.data.setAll(generateChartData3(startValue));
+  series.bullets.push(function() {
+    return am5.Bullet.new(root, {
+      locationY: 0,
+      sprite: am5.Circle.new(root, {
+        radius: 3,
+        stroke: root.interfaceColors.get("background"),
+        strokeWidth: 0,
+        fill: series.get("fill")
+      })
+    });
+  });    
+  
+}
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+  xAxis: xAxis,
+  behavior: "none"
+}));
+cursor.lineY.set("visible", false);
+
+// add scrollbar
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+createAxisAndSeries2(100, false);
+createAxisAndSeries(100, true);
+createAxisAndSeries3(100, true);
+ 
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+// Generates random data, quite different range
+function generateChartData(value) {
+var data = [
+   <% @graphic_physicals.each do |a| %>               
+ { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_pot %>
+      
+    },<% end %>
+  ];
+   
+  return data;
+}
+
+function generateChartData2(value) {
+var data = [
+   <% @graphic_physicals.each do |a| %>               
+ { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_rig %>
+      
+    },<% end %>
+  ];
+   
+  return data;
+}
+
+function generateChartData3(value) {
+var data = [
+   <% @graphic_physicals.each do |a| %>               
+ { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_wat %>
+      
+    },<% end %>
+  ];
+   
+  return data;
+}
+
+}); // end am5.ready()
+</script>
+ 
+
+<!-- HTML -->
+<div id="fqchartdiv0" class="bg-white"></div>

@@ -1,0 +1,20 @@
+<%= form_for @query, url: [:step2_transformer_management,:import_cromas], html: { method: 'post' }  do %> 
+<div class="card-body"> 
+  <br>
+  <div class="row">
+    Por favor seleccine Cliente: 
+  </div>
+  <br> 
+  <div class="row">
+    <div class="col-xl-3">
+      <%= select_tag "search_customer" , "<option value=\"\">Seleccione</option>".html_safe+options_for_select(@customers.collect{ |e| [e.name ,e.id] },params[:search_customer].to_i ), class: "form-control default-select2 text-black", :style=>"width: 100%",:required=> true %>
+    </div>
+  </div>
+</div>
+
+ 
+	<%= button_tag(:id=> "button_save", :class => "btn btn-dark") do %>
+	<i class='fa-solid fa-buildings'></i> Continuar Proceso
+	<% end %>
+ 
+<% end %>

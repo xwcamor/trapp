@@ -1,0 +1,32 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Ubicación</th>       
+      <th data-orderable="false" class="sorting_disabled"></th>             
+    </tr>
+    <tr class="text-center">
+      <th>Ubicación</th>       
+      <td></td>           
+    </tr>    
+  </thead>
+  <tbody>
+  <% @list_customer_locations.each do |customer_location| %>
+  <%# cache customer_location do %>
+    <tr class="text-center">
+      <td><%= customer_location.name.upcase %></td>                
+      <td >
+        <div class="widget-list-action">
+          <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" style="">
+            <%=link_to "<i class='fa fa-pencil'></i> Editar Ubicación".html_safe, edit_customer_management_customer_customer_location_path(@customer,customer_location) ,  class: "dropdown-item", title: "Editar"%>
+            <div class="dropdown-divider"></div>
+            <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Ubicación".html_safe,customer_management_customer_customer_location_delete_path(@customer,customer_location) ,{    class: "dropdown-item bg-danger text-white", title: "Eliminar"} %>  
+          </div>
+        </div> 
+      </td>                   
+    </tr>
+  <%# end %> 
+  <% end %>                  
+  </tbody>
+</table> 

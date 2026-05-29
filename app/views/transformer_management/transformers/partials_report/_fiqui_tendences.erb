@@ -1,0 +1,198 @@
+<br><br>
+<div class="container" >
+  <div class="row text-center pt-1 pb-0" style="background-color: #E8E8E8" >
+    <div class="col-xl-12">
+      <b style="font-size: 14px;" > GRÁFICAS DE TENDENCIAS DE ANÁLISIS FISICOQUÍMICO</b> 
+    </div>
+  </div>
+</div>
+
+<div class="container" style="font-size: 10px;">
+<% @physical_charts = Physical.where("deleted=0 AND transformer_id = #{@transformer.id}").order("date_rehearsal ASC").last(5) %>
+ 
+
+  <div class="row pb-2 text-center">
+    <div class="col-6 pt-2">
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">
+        	<p class="text-center"><b>Nº Ácido</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @aci_limit_tendence %></i> </p>  
+        	<p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_acid }.join(',').html_safe %>&data2=<%= @aci_limit_tendence %>,<%= @aci_limit_tendence %>,<%= @aci_limit_tendence %>,<%= @aci_limit_tendence %>,<%= @aci_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_acid_report == "success"%>
+              Número Ácido se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+              <% if @physical.ieee_color_num_acid_report == "warning"%>
+              <b class="text-warning">Número Ácido se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+              <% if @physical.ieee_color_num_acid_report == "danger"%>
+              <b class="text-danger">Número Ácido excede en el rango de la Norma IEE C57.106. </b>
+              <% end %>  
+          </p>    
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 pt-2">
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">
+          <p class="text-center"><b>Contenido de Agua</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @agu_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_wat }.join(',').html_safe %>&data2=<%= @agu_limit_tendence %>,<%= @agu_limit_tendence %>,<%= @agu_limit_tendence %>,<%= @agu_limit_tendence %>,<%= @agu_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+            <% if @physical.ieee_color_num_wat_report == "success"%>
+            Contenido de agua se encuentra en el rango de la Norma IEE C57.106. 
+            <% end %>
+            <% if @physical.ieee_color_num_wat_report == "warning"%>
+            <b class="text-warning">Contenido de agua se acerca al límite del rango de la Norma IEE C57.106. </b>
+            <% end %>
+            <% if @physical.ieee_color_num_wat_report == "danger"%>
+            <b class="text-danger">Contenido de agua excede en el rango de la Norma IEE C57.106. </b>
+            <% end %> 
+          </p>  
+        </div>
+      </div>          
+    </div>
+
+  </div>
+
+  <div class="row pb-2 text-center">  
+    <div class="col-6 pt-2">
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">
+          <p class="text-center"><b>Factor de Potencia 25º</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @pot_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_pot }.join(',').html_safe %>&data2=<%= @pot_limit_tendence %>,<%= @pot_limit_tendence %>,<%= @pot_limit_tendence %>,<%= @pot_limit_tendence %>,<%= @pot_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_pot_report == "success"%>
+              Factor de Potencia 25 °C. se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+              <% if @physical.ieee_color_num_pot_report == "warning"%>
+              <b class="text-warning">Factor de Potencia 25 °C. se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+              <% if @physical.ieee_color_num_pot_report == "danger"%>
+              <b class="text-danger">Factor de Potencia 25 °C. excede en el rango de la Norma IEE C57.106. </b>
+              <% end %>
+          </p>    
+        </div>
+      </div>            
+    </div>    
+    <div class="col-6 pt-2">
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">
+          <p class="text-center"><b>Rigidez Dieléctrica (kV/2.0mm)</b><br>
+          <i style="font-size: 8px;">Valor Mínimo:  <%= @rig_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_rig }.join(',').html_safe %>&data2=<%= @rig_limit_tendence %>,<%= @rig_limit_tendence %>,<%= @rig_limit_tendence %>,<%= @rig_limit_tendence %>,<%= @rig_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_rig_report == "success"%>
+              Rigidez Dieléctrica (kV/2.0mm) se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+              <% if @physical.ieee_color_num_rig_report == "warning"%>
+              <b class="text-warning">Rigidez Dieléctrica (kV/2.0mm) se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+              <% if @physical.ieee_color_num_rig_report == "danger"%>
+              <b class="text-danger">Rigidez Dieléctrica (kV/2.0mm) excede en el rango de la Norma IEE C57.106. </b>
+              <% end %> 
+          </p>  
+        </div>
+      </div>             
+    </div>
+
+
+  </div>
+
+  <div class="row pb-2 text-center">  
+    <div class="col-6 pt-2">
+      <% if @physical.num_pot2.to_f > 0 %>
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">             
+          <p class="text-center"><b>Factor de Potencia 100º</b><br>
+            <i style="font-size: 8px;">Valor Máximo:  <%= @pot2_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_pot2 }.join(',').html_safe %>&data2=<%= @pot2_limit_tendence %>,<%= @pot2_limit_tendence %>,<%= @pot2_limit_tendence %>,<%= @pot2_limit_tendence %>,<%= @pot2_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_pot2_report == "success"%>
+              Factor de Potencia 100 °C. se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+              <% if @physical.ieee_color_num_pot2_report == "warning"%>
+              <b class="text-warning">Factor de Potencia 100 °C. se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+              <% if @physical.ieee_color_num_pot2_report == "danger"%>
+              <b class="text-danger">Factor de Potencia 100 °C. excede en el rango de la Norma IEE C57.106. </b>
+              <% end %> 
+          </p>  
+        </div>
+      </div>            
+      <% end %>    
+    </div> 
+    
+    <div class="col-6 pt-2">
+      <% if @physical.num_rig2.to_f > 0 %>
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">          
+          <p class="text-center"><b>Rigidez Dieléctrica (kV/2.54mm)</b><br>
+            <i style="font-size: 8px;">Valor Mínimo:  <%= @rig2_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_rig2 }.join(',').html_safe %>&data2=<%= @rig2_limit_tendence %>,<%= @rig2_limit_tendence %>,<%= @rig2_limit_tendence %>,<%= @rig2_limit_tendence %>,<%= @rig2_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_rig2_report == "success"%>
+              Rigidez Dieléctrica (kV/2.54mm) se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+              <% if @physical.ieee_color_num_rig2_report == "warning"%>
+              <b class="text-warning">Rigidez Dieléctrica (kV/2.54mm) se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+              <% if @physical.ieee_color_num_rig2_report == "danger"%>
+              <b class="text-danger">Rigidez Dieléctrica (kV/2.54mm) excede en el rango de la Norma IEE C57.106. </b>
+              <% end %>
+          </p>  
+        </div>
+      </div>             
+      <% end %> 
+    </div>  
+  </div>
+  
+  <% if @physical.transformer.oil_type_id == 1 or @physical.transformer.oil_type_id == 5 or @physical.transformer.oil_type_id == 6 %>
+  <div class="row pb-2 text-center">
+    <div class="col-6 pt-2">
+      <div class="card">
+        <div class="card-body border border-dark pb-0 pt-2">      
+          <p class="text-center"><b>Tensión Interfacial</b><br>
+            <i style="font-size: 8px;">Valor Mínimo:  <%= @ten_limit_tendence %></i> </p>  
+          <p>
+            <img width="400" height="150"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @physical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @physical_charts.map { |e| e.num_ten }.join(',').html_safe %>&data2=<%= @ten_limit_tendence %>,<%= @ten_limit_tendence %>,<%= @ten_limit_tendence %>,<%= @ten_limit_tendence %>,<%= @ten_limit_tendence %>">
+          </p>
+          <p style="font-size: 10px;">
+              <% if @physical.ieee_color_num_ten_report == "success"%>
+                Tensión Interfacial se encuentra en el rango de la Norma IEE C57.106. 
+              <% end %>
+
+              <% if @physical.ieee_color_num_ten_report == "warning"%>
+                <b class="text-warning">Tensión Interfacial se acerca al límite del rango de la Norma IEE C57.106. </b>
+              <% end %>
+
+              <% if @physical.ieee_color_num_ten_report == "danger"%>
+                <b class="text-danger">Tensión Interfacial excede en el rango de la Norma IEE C57.106. </b>
+              <% end %>    
+          </p>    
+        </div>
+      </div>            
+    </div>
+  </div>
+  <% end %>
+
+     
+
+  
+
+
+</div>

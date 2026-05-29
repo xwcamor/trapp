@@ -1,0 +1,190 @@
+<div class="row pr-1">
+  <table class="table table-sm pb-2" style="font-size: 10px;">
+	<tbody>
+		<% @count_empty_num_pot2 = @transformer.physicals.where("deleted=0 AND (num_pot2 IS NOT NULL OR num_pot2 = '' )").limit(10).size %>
+		<% @count_empty_num_rig2 = @transformer.physicals.where("deleted=0 AND (num_rig2 IS NOT NULL OR num_rig2 = '' )").limit(10).size %>
+
+		<% @transformer.physicals.where("deleted=0").limit(10).order("date_rehearsal DESC").first(1).each do |physical|%>
+		<tr class="text-center">
+		  <td class="border border-dark">
+		    <b>Límites</b>
+		  </td>
+
+		  <td class="border border-dark">
+		    <em><b>Máx. <%= @aci_limit_tendence = physical.ieee_num_acid rescue "" %></b></em>
+		  </td>
+
+		  <td class="border border-dark">
+			<em><b>Máx. <%= @pot_limit_tendence = physical.ieee_num_pot rescue "" %></b></em>
+		  </td>
+
+		  <% if @count_empty_num_pot2 > 0 %>
+		  <td class="border border-dark">
+			<em><b>Máx. <%= @pot2_limit_tendence = @num_pot2 = physical.ieee_num_pot2 rescue "" %></b></em>
+		  </td>
+		  <% end %>		  
+
+		  <td class="border border-dark">
+			<em><b>Mín. <%= @rig_limit_tendence = physical.ieee_num_rig rescue ""  %></b></em>
+		  </td>
+
+		  <% if @count_empty_num_rig2 > 0 %>
+		  <td class="border border-dark">
+		    <em><b>Mín. <%= @rig2_limit_tendence = @num_rig2 = physical.ieee_num_rig2 rescue ""  %></b></em>
+		  </td>
+		  <% end %>
+
+		  <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>  
+		  <td class="border border-dark">
+			<em><b>Mín. <%= @ten_limit_tendence = physical.ieee_num_ten rescue ""  %></b></em>
+		  </td>			
+		  <% end %>
+
+		  <td class="border border-dark">
+			<em><b>Máx. <%= @agu_limit_tendence = physical.ieee_num_wat rescue ""  %></b></em>
+		  </td>
+		</tr>
+		<% end %>
+
+		<tr class="text-center">
+		  <td style="background-color:#d9d9d9" class="border border-dark">
+			<br><b>Fecha</b>
+		  </td>
+		  <td style="background-color:#d9d9d9" class="border border-dark">
+			<b>Número Ácido<br />
+				ASTM D974<br>mg KOH/g</b>
+		  </td>
+		  <td style="background-color:#d9d9d9" class="border border-dark">
+			<b>Factor de Potencia<br />
+				ASTM D924<br>25 &deg;C. %</b>
+		  </td>
+
+		  <% if @count_empty_num_pot2 > 0 %>
+		  <td style="background-color:#d9d9d9" class="border border-dark">
+			<b>Factor de Potencia<br />
+				ASTM D924<br>100 &deg;C. %</b>
+		  </td>
+		  <% end %>		 
+
+		  <td style="background-color:#d9d9d9;" class="border border-dark">
+		 	<b>Rigidez Dieléctrica<br />
+				ASTM D1816<br>kV/2.0 mm</b>
+		  </td>
+
+	      <% if @count_empty_num_rig2 > 0 %>		  
+		  <td style="background-color:#d9d9d9;" class="border border-dark">
+			<b>Rigidez Dieléctrica<br />
+				ASTM D1877<br>kV 2.54 mm</b>
+		  </td>	
+		  <% end %>		
+
+		  <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+		  <td style="background-color:#d9d9d9;" class="border border-dark">
+			<b>Tensión Interfacial<br>
+				ASTM D971<br>mN/m</b>
+		  </td>
+		  <% end %>
+		  <td style="background-color:#d9d9d9;" class="border border-dark">
+			<b>Contenido de Agua<br />
+				ASTM D1533<br>ppm</b>
+		  </td>
+		</tr>
+
+		<% @transformer.physicals.where("deleted=0").order("date_rehearsal DESC").each do |physical|%>
+		<tr class="text-center">
+		  <td class="border border-dark">
+		  	<%= physical.str_date_rehearsal %>
+		  </td>
+
+		  <td class="border border-dark">
+		      <span class="text-<% if physical.ieee_color_num_acid_report == "warning" or physical.ieee_color_num_acid_report == "danger" %><%= physical.ieee_color_num_acid_report rescue "" %><% end %>">
+		        <%= physical.num_acid %>
+		      </span> 
+		      <% if physical.ieee_color_num_acid_report == "warning" or physical.ieee_color_num_acid_report == "danger" %>
+		       <% @error_aci = "error" %>
+		      <% end %>		      
+		  </td>
+
+		  <td class="border border-dark">
+			  <span class="text-<% if physical.ieee_color_num_pot_report == "warning" or physical.ieee_color_num_pot_report == "danger" %><%= physical.ieee_color_num_pot_report rescue "" %><% end %>">
+			    <%= physical.num_pot %>
+			  </span>
+		      <% if physical.ieee_color_num_pot_report == "warning" or physical.ieee_color_num_pot_report == "danger" %>
+		       <% @error_pot = "error" %>
+		      <% end %>				  
+		  </td>
+
+		 
+		  <% if @count_empty_num_pot2 > 0 %>		
+		  <td class="border border-dark"> 
+		  <% if physical.num_pot2 != nil %>	
+ 	        <% if physical.num_pot2 > 0   %>
+		      <span class="text-<% if physical.ieee_color_num_pot2_report == "warning" or physical.ieee_color_num_pot2_report == "danger" %><%= physical.ieee_color_num_pot2_report rescue "" %><% end %>">
+			      <%= physical.num_pot2  rescue ""%>
+			  </span>
+		      <% if physical.ieee_color_num_pot2_report == "warning" or physical.ieee_color_num_pot2_report == "danger" %>
+		       <% @error_pot2 = "error" %>
+		      <% end %>				  
+		     <% end %>
+		  <% end %>
+		  </td>  
+		  <% end %>
+		   
+
+		  <td class="border border-dark">
+		      <span class="text-<% if physical.ieee_color_num_rig_report == "warning" or physical.ieee_color_num_rig_report == "danger" %><%= physical.ieee_color_num_rig_report rescue "" %><% end %>">
+			    <%= physical.num_rig %>
+			  </span>
+		      <% if physical.ieee_color_num_rig_report == "warning" or physical.ieee_color_num_rig_report == "danger" %>
+		       <% @error_rig = "error" %>
+		      <% end %>				  
+		  </td>
+          
+          <% if @count_empty_num_rig2 > 0 %>		
+		  <td class="border border-dark">
+		  <% if physical.num_rig2 != nil %>	
+ 	        <% if physical.num_rig2 > 0 %>
+		      <span class="text-<% if physical.ieee_color_num_rig2_report == "warning" or physical.ieee_color_num_rig2_report == "danger" %><%= physical.ieee_color_num_rig2_report rescue "" %><% end %>">
+			        <%= physical.num_rig2 %>
+			  </span>
+		      <% if physical.ieee_color_num_rig2_report == "warning" or physical.ieee_color_num_rig2_report == "danger" %>
+		       <% @error_rig2 = "error" %>
+		      <% end %>				  
+		    <% end %>
+		  <% end %>
+		  </td>  
+		  <% end %>
+
+		  <% if physical.transformer.oil_type_id == 1 or physical.transformer.oil_type_id == 5 or physical.transformer.oil_type_id == 6 %>
+		  <td class="border border-dark">
+		   	  <span class="text-<% if physical.ieee_color_num_ten_report == "warning" or physical.ieee_color_num_ten_report == "danger" %><%= physical.ieee_color_num_ten_report rescue "0" %><% end %>">
+			    <%= physical.num_ten rescue "0" %>
+			  </span>
+		      <% if physical.ieee_color_num_ten_report == "warning" or physical.ieee_color_num_ten_report == "danger" %>
+		       <% @error_ten = "error" %>
+		      <% end %>				   
+		  </td>              
+		  <% end %>
+
+		  <td class="border border-dark">
+		   	  <span class="text-<% if physical.ieee_color_num_wat_report == "warning" or physical.ieee_color_num_wat_report == "danger" %><%= physical.ieee_color_num_wat_report rescue "" %><% end %>">
+			    <%= physical.num_wat %>
+			  </span>
+		      <% if physical.ieee_color_num_wat_report == "warning" or physical.ieee_color_num_wat_report == "danger" %>
+		       <% @error_wat = "error" %>
+		      <% end %>				  
+		  </td>
+		</tr>
+		<% end %>	
+		<tr class="text-center">
+		  <td colspan="10">
+		      <% if @count_fiquis.to_i > 10 %>
+		        <em><b>Historial de los últimas calidades de aceite &ndash; Encabezado umbrales típicos de la IEEE C57.106.</b></em>   
+		      <% else%>
+		        <em><b>Historial de calidades de aceite &ndash; Encabezado umbrales típicos de la IEEE C57.106.</b></em>            
+		      <% end%>
+		  </td>
+		</tr>
+	</tbody>
+  </table>
+</div>

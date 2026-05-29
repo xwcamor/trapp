@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Análisis de Condición Transformadores</h1>
+<br>
+<h2>Aceite Dieléctrico</h2>
+<br><br>
+<h5>Contenido</h5>
+<hr>
+<b>1.  Alcance......................................................................................................................................................1</b><br>
+<b>2.  Datos de Placa..........................................................................................................................................2</b><br>
+<b>3.  Transformadores Observados................................................................................................................2</b><br>
+
+ 
+<!-- PAGINA 2 -->
+<p style="page-break-before: always">
+
+<h2>1.  Alcance</h2>
+
+<p>El alcance del presente servicio contempla la extracción de aceite de los transformadores y posterior análisis en laboratorio; los ensayos corresponde a las pruebas de :</p>
+<ul>
+  <li>Análisis Físico Químico.</li>
+  <li>Análisis de Gases disueltos.</li>
+  <li>Sedimentos.</li>
+  <li>Metales.</li>
+</ul>
+
+<br><br>
+
+<h2>2.  Datos de Placa</h2>
+<table>
+  <thead>
+  	<tr>
+  	  <th>Subestación</th>
+  	  <th>Potencia</th>
+  	  <th>Tensión</th>
+  	  <th>TAG</th>
+	    <th>N° Serie</th>
+	    <th>Marca</th>
+	    <th>Año</th>
+	    <th>Condición</th>
+  	</tr>	
+  </thead>
+  <tbody>
+  	<% @report_details.each do |report_detail| %>
+  	<tr>
+  	  <td><%= report_detail.transformer.customer_substation.name %></td>
+  	  <td><%= report_detail.transformer.num_pot %> MVA</td>
+  	  <td><%= report_detail.transformer.num_vol %> KV</td>
+  	  <td><%= report_detail.transformer.num_tag %></td>
+  	  <td><%= report_detail.transformer.num_serie %></td>
+  	  <td><%= report_detail.transformer.mark.name %></td>
+  	  <td><%= report_detail.transformer.age %></td>
+  	  <td bgcolor="red">
+  	  	<%= report_detail.transformer.hi_calculation_fin_color rescue '<i class="fa fa-circle fa-fw text-red me-2 fs-10px"></i>'.html_safe %> <%= report_detail.transformer.hi_calculation_fin_condition rescue "Muy Malo" %>
+
+  	  </td>
+  	</tr>
+  	<% end %>  	
+  </tbody>	
+</table>
+<br><br>
+
+<h2>3. Transformadores observados</h2>
+
+<% @report_details.each_with_index.each do |report_detail,index| %>
+<h3>3.<%=  index + 1 %>  <%= report_detail.transformer.customer_substation.name %></h3>
+
+<table id="data-table-buttons-filter" class="table table-bordere table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Fecha</th>
+      <th>Hidrógeno <br>H2 <br>ppm</th>
+      <th>Oxígeno <br>O2 <br>ppm</th>
+      <th>Nitrógeno <br>N2 <br>ppm</th>       
+      <th>Metano <br>CH4 <br>ppm</th>
+      <th>M.Carbono <br>CO <br>ppm</th>
+      <th>D.Carbono <br>CO2 <br>ppm</th>
+      <th>Etileno <br>C2H4 <br>ppm</th>
+      <th>Etano <br>C2H6 <br>ppm</th>
+      <th>Acetileno <br>C2H2 <br>ppm</th>
+      <th>Estado</th>
+      <th data-orderable="false" class="sorting_disabled"></th>   
+    </tr>
+    <tr class="text-center">
+      <th>Fecha</th>
+      <th>Hidrógeno <br>H2 <br>ppm</th>
+      <th>Oxígeno <br>O2 <br>ppm</th>
+      <th>Nitrógeno <br>N2 <br>ppm</th>       
+      <th>Metano <br>CH4 <br>ppm</th>
+      <th>M.Carbono <br>CO <br>ppm</th>
+      <th>D.Carbono <br>CO2 <br>ppm</th>
+      <th>Etileno <br>C2H4 <br>ppm</th>
+      <th>Etano <br>C2H6 <br>ppm</th>
+      <th>Acetileno <br>C2H2 <br>ppm</th>
+      <th>Estado</th>
+      <td></td>   
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_chromatographicals.each do |chromatographical| %>
+    <% cache chromatographical do %> 
+    <tr class="text-center">
+      <td data-sort='<%= chromatographical.str_date_rehearsal_table %>'>  
+            <% @chromatographical_post =  Post.where("chromatographical_id =?",chromatographical.id) %>
+            <% if @chromatographical_post.size > 0 %>
+              <% if User.authentication(session[:user_id],97) %> 
+                <% @chromatographical_post.each do |post| %>
+                 <i class='fa-solid fa-comment'></i> 
+                <% end %>
+              <% end %>
+            <% else %>
+              <% if User.authentication(session[:user_id],96) %> 
+               <i class='fa-regular fa-comment'></i> 
+              <% end %>
+            <% end %>    
+
+        <%= chromatographical.str_date_rehearsal %>
+
+      </td>
+      
+      <% if @search_rule.to_i == 2 %>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_hidrogeno == "yellow" or chromatographical.iec_color_hidrogeno == "red" %><%= chromatographical.iec_color_hidrogeno rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_hid %>
+        </p>
+      </td>
+      <% else %>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_hidrogeno == "yellow" or chromatographical.ieee_color_hidrogeno == "red" %><%= chromatographical.ieee_color_hidrogeno rescue "" %><% end %> mb-0">   
+          <%= chromatographical.num_hid %>
+        </p>
+      </td>
+      <% end %>
+
+      <td>
+        <%= chromatographical.num_oxi %>
+      </td>
+      <td>
+        <%= chromatographical.num_nit %>
+      </td>    
+
+      <% if @search_rule.to_i == 2 %>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_metano == "yellow" or chromatographical.iec_color_metano == "red" %><%= chromatographical.iec_color_metano rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_met %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_monocarbono == "yellow" or chromatographical.iec_color_monocarbono == "red" %><%= chromatographical.iec_color_monocarbono rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_mon %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_diocarbono == "yellow" or chromatographical.iec_color_diocarbono == "red" %><%= chromatographical.iec_color_diocarbono rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_dio %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_etileno == "yellow" or chromatographical.iec_color_etileno == "red" %><%= chromatographical.iec_color_etileno rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_eti %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_etano == "yellow" or chromatographical.iec_color_etano == "red" %><%= chromatographical.iec_color_etano rescue "" %><% end %> mb-0">                  
+          <%= chromatographical.num_eta %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_acetileno == "yellow" or chromatographical.iec_color_acetileno == "red" %><%= chromatographical.iec_color_acetileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_ace %>
+        </p>
+      </td>
+      <% else %>
+
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_metano == "yellow" or chromatographical.ieee_color_metano == "red" %><%= chromatographical.ieee_color_metano rescue "" %><% end %> mb-0">   
+          <%= chromatographical.num_met %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_monocarbono == "yellow" or chromatographical.ieee_color_monocarbono == "red" %><%= chromatographical.ieee_color_monocarbono rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_mon %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_diocarbono == "yellow" or chromatographical.ieee_color_diocarbono == "red" %><%= chromatographical.ieee_color_diocarbono rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_dio %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_etileno == "yellow" or chromatographical.ieee_color_etileno == "red" %><%= chromatographical.ieee_color_etileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_eti %>
+        </p>                  
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_etano == "yellow" or chromatographical.ieee_color_etano == "red" %><%= chromatographical.ieee_color_etano rescue "" %><% end %> mb-0">                    
+          <%= chromatographical.num_eta %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_acetileno == "yellow" or chromatographical.ieee_color_acetileno == "red" %><%= chromatographical.ieee_color_acetileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_ace %>
+        </p>
+      </td>
+      <% end %>
+          
+      <td class="text-start"><%=chromatographical.dgaf_condition %>
+      </td> 
+      
+    </tr>
+   
+    <% end %>                  
+  </tbody>
+  
+</table> 
+
+
+
+<% report_detail.transformer.chromatographicals.each do |cr| %>
+ <%= cr.id %>
+<% end %>
+
+
+<% end %>
+
+
+
+<!-- PAGINA 3 -->
+<p style="page-break-before: always">	
+bb
+
+</body>
+</html>

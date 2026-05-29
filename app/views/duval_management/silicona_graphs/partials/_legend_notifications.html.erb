@@ -1,0 +1,44 @@
+<!-- required files -->
+<link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+<script src="/assets/plugins/gritter/js/jquery.gritter.js"></script>
+
+<script>
+var handleDashboardGritterNotification = function() {
+  setTimeout(function() {
+    $.gritter.add({
+      title: '<i class="fa fa-flask"></i> Análisis Cromatográfico <br><br> Gráfica de Gas Clave',
+      text: '',
+      //image: '/assets/img/notifications/cromatologia.jpg',
+      sticky: false,
+      time: '',
+      class_name: 'gritter-black'
+    });
+  }, 12);
+};
+
+var handleDashboardGritterNotification2 = function() {
+  setTimeout(function() {
+    $.gritter.add({
+      title: '<i class="fa fa-flask"></i> Gas Clave <br><br> Por favor seleccione una opciòn para visualizar en Resumen',
+      text: '',
+      //image: '/assets/img/notifications/cromatologia.jpg',
+      sticky: false,
+      time: '',
+      class_name: 'gritter-black'
+    });
+  }, 12);
+}; 
+
+$(document).ready(function not1() {
+  handleDashboardGritterNotification();
+  handleDashboardGritterNotification2();
+ 
+  
+});
+</script>
+<style>
+/* the norm 
+#gritter-notice-wrapper {
+  width:300px !important; ;
+}*/
+</style>

@@ -1,0 +1,1 @@
+json.array! @substations, partial: "customer_management/user_customer_substations/partials/customer_substation", as: :customer_substation

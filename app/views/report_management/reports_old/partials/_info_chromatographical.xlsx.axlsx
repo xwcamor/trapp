@@ -1,0 +1,46 @@
+wb.styles do |style|
+  style_head = style.add_style(b: true, sz: 14, alignment: { horizontal: :center }, bg_color: 'BFB9B9' )
+  style_body = style.add_style(b: false, sz: 14,alignment: { horizontal: :center } )
+
+  wb.add_worksheet(name: "Análisis Cromatográfico") do |sheet|
+
+    sheet.add_row [
+    'NºSerie',
+    'TAG',
+    'Fecha',
+    'Hidrógeno - H2 (ppm)',
+    'Oxígeno - O2 (ppm)',
+    'Nitrógeno - N2 (ppm)',
+    'Metano - CH4 (ppm)',
+    'M.Carbono - CO (ppm)',
+    'D.Carbono - CO2 (ppm)',
+    'Etileno - C2H4 (ppm)',
+    'Etano - C2H2 (ppm)',
+    'Acetileno - C2H6 (ppm)'
+    ], style: style_head
+
+    @report_details = ReportDetail.where("report_id = ?",@report.id)
+
+    @report_details.each do |report_detail|
+      report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal DESC").each do |chromatographical|
+
+        sheet.add_row [
+         chromatographical.transformer.num_serie,
+         chromatographical.transformer.num_tag,
+         chromatographical.str_date_rehearsal,
+         chromatographical.num_hid,
+         chromatographical.num_oxi,
+         chromatographical.num_nit,
+         chromatographical.num_met,
+         chromatographical.num_mon,
+         chromatographical.num_dio,
+         chromatographical.num_eti,
+         chromatographical.num_eta,
+         chromatographical.num_ace
+        ], style: style_body
+      end
+    end
+
+  end
+  
+end

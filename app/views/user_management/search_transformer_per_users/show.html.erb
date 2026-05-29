@@ -1,0 +1,21 @@
+<% title "Dashboard" %>
+ 
+<!-- begin alert --> 
+<%= flash_messages %>
+<!-- end alert -->  
+
+<!-- begin dashboard --> 
+<% if @condicion > 1 %>
+  <%= render :partial =>"user_management/search_transformer_per_users/partials/view_all_customers_show" %>
+   
+<% else %>
+  <%= render :partial =>"user_management/search_transformer_per_users/partials/view_one_customer_show" %>
+<% end %>
+<!-- begin dashboard --> 
+
+ 
+<!-- begin script -->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end script -->

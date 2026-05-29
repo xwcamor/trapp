@@ -1,0 +1,90 @@
+        <table id="data-table-buttons-filter" class="table table-hover table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+              <th>F.Creación</th>  
+              <th>Cliente</th>                          
+              <th>Nº Transformadores</th>
+              <th>NºSerie</th>
+              <th>Usuario</th>
+              <th data-orderable="false" class="sorting_disabled">Acciones  </th>
+              <th data-orderable="false" class="sorting_disabled">Descargas </th>
+              <th data-orderable="false" class="sorting_disabled">Informe Final </th>
+            </tr>
+            <tr>
+              <th>F.Creación</th>              
+              <th>Cliente</th>
+              <th>Transformadores</th>
+              <th>NºSerie</th>
+              <th>Usuario</th>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+ 
+            </tr>            
+          </thead>
+          <tbody>
+            <% @reports.each do |report| %>
+            <tr>
+              <td data-sort='<%= report.id %>'><%= report.str_created_at %></td>
+              <td><%= report.customer.name %></td>
+              <td><%= report.str_transformers %></td>
+              <td>
+                <% report.report_details
+                       .joins(:transformer) 
+                       .where(transformers:   { deleted: 0 }) 
+                       .each do |detail| %>
+                  <%= detail.transformer.num_serie %><br>
+                <% end %>
+                
+              </td>                     
+              <td><%= report.user.str_complete_name %></td>
+
+              <td>
+                <% if report.avatar.blank? %>
+                <% if report.sheet1 != nil %>
+                <div class="btn-group">
+                  <a href="#" title="Ver" class="btn btn-xs btn-default me-2" target="popup" onclick="window.open('<%= report_management_report_url(report) %>','popup','width=600,height=600'); return false;">
+                    <i class='fa-solid fa-eye'></i> 
+                  </a>
+                  
+                  <a title="Editar" class="btn btn-xs btn-default" href="/report_management/reports/<%= report.id %>/edit?sheet=1">
+                    <i class='fa-solid fa-pencil'></i>
+                  </a>
+                </div>    
+                <% else %>            
+                  <%= link_to "<i class='fa-solid fa-check'></i>".html_safe, edit_report_management_report_path(report) ,{:title=>"Confirmar",class: "btn btn-xs btn-default"} %>
+                <% end %>  
+                 <% end %>  
+              </td>
+              <td class="text-center">
+                <%= link_to "<i class='fa-solid fa-file-excel'></i>".html_safe,{:action=>"show" ,:id=>report.id, :format=>"xlsx", } ,{class: "btn btn-xs btn-green", title: "Exportar Excel"}  %>  
+
+                <% if User.authentication(session[:user_id],76) %>
+                <%#= link_to "<i class='fa-solid fa-trash'></i>".html_safe, [:report_management, report], method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+                <% end %>
+                <% if report.avatar.blank? %>
+                <% if report.sheet1 != nil %>
+                <%= link_to "<i class='fa-solid fa-file-word'></i>".html_safe,{:action=>"show" ,:id=>report.id, :format=>"doc", } ,{class: "btn btn-xs btn-blue", title: "Exportar Word"}  %>   
+
+                <%#= link_to "<i class='fa-solid fa-file-pdf'></i>".html_safe,{:action=>"show" ,:id=>report.id, :format=>"pdf", } ,{class: "btn btn-xs btn-red",:target=>"_blank", title: "Exportar PDF",:download=>"reporte"}  %>              
+                <% end %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if report.sheet1 != nil %>
+                  <% if report.avatar.blank? %>
+                  <% if User.authentication(session[:user_id],158) %>
+                  <%= link_to "<i class='fa-solid fa-upload'></i>".html_safe, report_management_report_upload_customer_file_path(report.id) ,{:title=>"Subir Archivo",:class=>"btn btn-xs btn-default"} %>
+                  <% end %>
+                  <% else %>
+                  <a class="btn btn-xs btn-red" title="Informe Final" href="<%= report.avatar_url %>" target="_blank"><i class="fa-solid fa-file-pdf"></i></a>
+                  <% end %>
+                <% else %>
+                  <%#= link_to "<i class='fa-solid fa-upload'></i>".html_safe, report_management_report_upload_customer_file_path(report.id) ,{:title=>"Subir Archivo",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>

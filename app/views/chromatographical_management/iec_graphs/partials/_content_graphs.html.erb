@@ -1,0 +1,319 @@
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+ 
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Tendencia de Todos los Gases
+      <% if @transformer.oil_type_id == 1 %> 
+      <span class="badge text-black"><a href="<%= chromatographical_management_transformer_iec_graphs_path(@transformer.id) %>" class="btn btn-gray rounded-pill btn-xs" ><i class='fa-solid fa-syringe'></i> Interpretar en Norma IEC </a></span>
+      <% end %>
+   
+       <span class="badge text-black"><a href="<%= chromatographical_management_transformer_ieee_graphs_path(@transformer.id) %>" class="btn btn-default rounded-pill btn-xs"><i class='fa-solid fa-syringe'></i> Interpretar en Norma IEEE </a></span> 
+      
+    </h4>
+
+      <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">          
+              <h5>
+                 <i class="fa fa-chart-line"></i> Tendencia de Todos los Gases - Norma IEC
+              </h5>
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart" %>
+            </div>
+          </div>
+        </div>
+      
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->   
+
+
+<div class="row">
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Hidrógeno (H2)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_hidrogeno rescue "" %> me-2 fs-15px'></i> Análisis de Hidrógeno (H2) <br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_hidrogeno  rescue ""%> ppm
+              </h6>   
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_hidrogeno" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Metano (CH4)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_metano rescue "" %> me-2 fs-15px'></i> Análisis de Metano (CH4)<br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_metano  rescue ""%> ppm
+              </h6>   
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_metano" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Monóxido de Carbono (CO)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_monocarbono rescue "" %> me-2 fs-15px'></i> Análisis de Monóxido de Carbono (CO)<br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_monocarbono rescue "" %> ppm
+              </h6>             
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_monocarbono" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Dióxido de Carbono (CO2)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_diocarbono rescue "" %> me-2 fs-15px'></i> Análisis de Dióxido de Carbono (CO2)<br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_diocarbono rescue "" %> ppm
+              </h6>                
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_diocarbono" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Etileno (C2H4)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_etileno rescue "" %> me-2 fs-15px'></i>  Análisis de Etileno (C2H4)<br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_etileno rescue "" %> ppm
+              </h6>                   
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_etileno" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Etano (C2H6)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_etano rescue "" %> me-2 fs-15px'></i> Análisis de Etano (C2H6) <br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_etano rescue "" %> ppm
+              </h6>                  
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_etano" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Acetileno (C2H2)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.iec_color_acetileno rescue "" %> me-2 fs-15px'></i> Análisis de Acetileno (C2H2)<br>
+               Valor Límite Máx: <%= @last_chromatographical.iec_acetileno rescue "" %> ppm
+              </h6>             
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_acetileno" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Oxígeno (O2)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6><i class="fa-solid fa-syringe"></i> Análisis de Oxígeno (O2)</h6>              
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_oxigeno" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <!-- END Col-6 -->      
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Nitrógeno (N2)</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6><i class="fa-solid fa-syringe"></i> Análisis de Nitrógeno (N2)</h6>
+              <%= render :partial =>"chromatographical_management/iec_graphs/partials/amchart_nitrogeno" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>  
+  <!-- END Col-6 -->    
+</div>

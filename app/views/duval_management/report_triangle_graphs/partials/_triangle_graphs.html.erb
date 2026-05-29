@@ -1,0 +1,229 @@
+<script>
+$( "#display_last" ).click(function n1() {
+  $( ".button_last" ).click();
+});
+</script>
+
+<style type="text/css">
+  div.info{
+    position: absolute;
+    top: 0px;
+    display: none;
+    background-color: white;
+    /*border: 1px solid dimgray;*/
+    /*padding: 10px;*/
+    flex-direction: row;
+    /*width:115px;*/
+  }
+</style>
+
+<!--- BEGIN  ROW -->  
+<div  class="row bg-white">
+  <!--- BEGIN COL 4 -->  
+  <div class="col-xl-4">
+    <!--- BEGIN TRIANGLE -->  
+    <div class="triangle">
+        <canvas id="normal" width=360 height=370></canvas>
+        <div style="display: none;"><label class="normal">Result : </label><input type="text" name="triangle[normal]" class="normal"></div><br><br>
+        <div class="alert-secondary  text-center">
+          <label class="normal">
+            <% @duval_type1.where("short_name = ?",@chromatographical_duval.triangle_diag_first).each  do |dd| %>
+             <%=  dd.name %>
+            <% end %>
+            <%  if @chromatographical_duval.triangle_diag_first.blank?%>
+              PD = Descarga Parcial.
+            <% end %>              
+          </label>
+        </div><br>      
+        <!--- BEGIN LEGEND --> 
+        <div id="leyenda">
+         <%  @duval_type1.each do |duval| %>
+           <%= duval.name %><br>
+         <% end %>
+        </div>         
+        <!--- END LEGEND -->  
+        <!--- BEGIN INFO -->         
+        <div class="info">
+            <table class="table table">
+              <thead>
+                <tr>
+                  <th class="table-active" colspan="3"><h5><label class="date"> Registry date </label></h5></th>  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CH4</td>   
+                  <td align="right"><label class="met"></label> ppm</td>  
+                  <td align="right"><label class="tr1_met_percent"></label> %</td>  
+                </tr>      
+                <tr>
+                  <td>C2H4</td>   
+                  <td align="right"><label class="eti"></label> ppm</td>  
+                  <td align="right"><label class="tr1_eti_percent"></label> %</td>  
+                </tr>       
+                <tr>
+                  <td>C2H2</td>   
+                  <td align="right"><label class="ace"></label> ppm</td>  
+                  <td align="right"><label class="tr1_ace_percent"></label> %</td>  
+                </tr>       
+              </tbody>
+            </table>
+        </div>
+        <!--- END INFO -->  
+    </div>
+    <!--- END TRIANGLE -->  
+  </div>
+  <!--- END COL4 -->  
+
+  <!--- BEGIN COL4 -->  
+  <div class="col-xl-4" style="display:
+  <%if @chromatographical_duval.triangle_diag_first =="PD" or @chromatographical_duval.triangle_diag_first =="T1" or @chromatographical_duval.triangle_diag_first =="T2"%>
+   <% else %>
+     none;   
+  <% end %>
+  ">
+    <!--- BEGIN TRIANGLE -->          
+    <div class="triangle">
+        <canvas id="middle" width=360 height=370></canvas>
+        <div style="display: none;"><label class="middle">Result : </label><input type="text" name="triangle[middle]" class="middle"></div><br><br>
+        <div class="alert-secondary  text-center">
+          <label class="middle">
+            <% @duval_type4.where("short_name = ?",@chromatographical_duval.triangle_diag_second).each  do |dd| %>
+             <%=  dd.name %>
+            <% end %>  
+            <%  if @chromatographical_duval.triangle_diag_second.blank?%>
+              PD = Descarga Parcial.
+            <% end %>                          
+          </label>
+        </div><br>      
+        <!--- BEGIN LEGEND -->  
+        <div id="leyenda">
+          <% @duval_type4.each do |duval| %>
+            <%= duval.name %><br>
+          <% end %>              
+        </div>         
+        <!--- END LEGEND -->        
+        <!--- BEGIN INFO -->  
+        <div class="info">
+          <table class="table table">
+            <thead>
+              <tr>
+                <th class="table-active" colspan="3"><h5><label class="date"> Registry date </label></h5></th>  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>H2</td>   
+                <td align="right"><label class="hid"></label> ppm </td>  
+                <td align="right"><label class="tr2_hid_percent"></label> %</td>  
+              </tr>      
+              <tr>
+                <td>CH4</td>   
+                <td align="right"><label class="met"></label> ppm</td>  
+                <td align="right"><label class="tr2_met_percent"></label> %</td>  
+              </tr>       
+              <tr>
+                <td>C2H6</td>   
+                <td align="right"><label class="eta"></label> ppm</td>  
+                <td align="right"><label class="tr2_eta_percent"></label> %</td>  
+              </tr>       
+            </tbody>
+          </table> 
+        </div>
+        <!--- END INFO -->  
+    </div>
+    <!--- END TRIANGLE -->  
+  </div>
+  <!--- END COL4 -->  
+ 
+  <!--- BEGIN COL4 --> 
+  <div class="col-xl-4" style="display:
+  <%if @chromatographical_duval.triangle_diag_first =="T2" or @chromatographical_duval.triangle_diag_first =="T3"%>
+   <% else %>
+     none;   
+  <% end %>
+  "> 
+    <!--- BEGIN TRIANGLE -->             
+    <div class="triangle">
+        <canvas id="last" width=360 height=370></canvas>
+        <div style="display: none;"><label class="last">Result :</label><input type="text" name="triangle[last]" class="last"></div><br><br>
+        <div class="alert-secondary  text-center">
+          <label class="last">
+            <% @duval_type5.where("short_name = ?",@chromatographical_duval.triangle_diag_third).each  do |dd| %>
+             <%=  dd.name %>
+            <% end %>
+            <%  if @chromatographical_duval.triangle_diag_third.blank?%>
+              PD = Descarga Parcial.
+            <% end %>              
+          </label>            
+        </div><br>
+        <!--- BEGIN LEGEND -->  
+        <div id="leyenda">
+          <% @duval_type5.each do |duval| %>
+            <%= duval.name %><br>
+          <% end %>                    
+        </div>         
+        <!--- END LEGEND -->        
+        <!--- BEGIN INFO -->  
+        <div class="info">
+          <table class="table table">
+            <thead>
+              <tr>
+                <th class="table-active" colspan="3"><h5><label class="date"> Registry date </label></h5></th>  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CH4</td>   
+                <td align="right"><label class="met"></label> ppm </td>  
+                <td align="right"><label class="tr3_met_percent"></label> %</td>  
+              </tr>      
+              <tr>
+                <td>C2H4</td>   
+                <td align="right"><label class="eti"></label> ppm</td>  
+                <td align="right"><label class="tr3_eti_percent"></label> %</td>  
+              </tr>       
+              <tr>
+                <td>C2H6</td>   
+                <td align="right"><label class="eta"></label> ppm</td>  
+                <td align="right"><label class="tr3_eta_percent"></label> %</td>  
+              </tr>       
+            </tbody>
+          </table>     
+        </div>
+        <!--- END INFO -->  
+    </div>
+    <!--- END TRIANGLE --> 
+  </div>
+  <!--- END COL4 --> 
+</div>
+<!--- END ROW --> 
+
+
+
+<div class="inputs" style="display: none;">
+    <h3 id="head1">  Give the inputs for the gases</h3>
+    <div>
+        <label>H2 = </label><input type="number" id="gas_hid" name="value2" value="<%= @last_chromatographical.num_hid rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>CH4 = </label><input type="number" id="gas_met" name="value2" value="<%= @last_chromatographical.num_met rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H2 = </label><input type="number" id="gas_ace" name="value4" value="<%= @last_chromatographical.num_ace rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H4 = </label><input type="number" id="gas_eti" name="value3" value="<%= @last_chromatographical.num_eti rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H6 = </label><input type="number" id="gas_eta" name="value4" value="<%= @last_chromatographical.num_eta rescue "" %>"/>ppm
+    </div>
+    <div type="normal">
+        <button id="calc" class="button_last"> Locate </button>
+        <button id="displayRegistry"> Display Registry </button>
+    </div>
+</div>
+
+<%= render :partial =>"duval_management/report_triangle_graphs/partials/duval_js" %>
+<%= render :partial =>"duval_management/report_triangle_graphs/partials/data_js" %>
+ 

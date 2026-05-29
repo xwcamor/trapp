@@ -1,0 +1,13 @@
+<%= form_for [:report_management, @report],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>
+  <div class="alert alert-primary alert-dismissible fade show h-100 mb-0">
+    <i class="fa fa-lightbulb"></i> Por favor seleccione los transformadores luego click en Confirmar o presione la tecla ENTER. <%= f.submit "Confirmar", class: 'btn bg-gray text-white rounded-pill' %> 
+  </div>   
+  <br>            
+  <%= f.hidden_field :customer_id, value: @customer.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+    
+  <div id="nested_report_details">
+    <%= render :partial => 'report_management/step2_reports/partials/form_nested_new', :locals => {:f => f} %>
+  </div>  
+<% end %>
+

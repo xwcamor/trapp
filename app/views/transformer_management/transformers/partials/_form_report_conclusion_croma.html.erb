@@ -1,0 +1,51 @@
+<textarea id="textarea_npsp1" name="transformer[con_cro]" rows="12" class="form-control"><% if @transformer.con_cro.nil? or @transformer.con_cro.blank? or @transformer.con_cro == ''%>
+<% @chromatographical = Chromatographical.where("deleted=0 AND transformer_id = ?", @transformer.id).order("date_rehearsal DESC").first %><% if @chromatographical.present? %><% if @chromatographical.iec_color_hidrogeno_report   == "success" &&
+           @chromatographical.iec_color_metano_report      == "success" &&
+           @chromatographical.iec_color_monocarbono_report == "success" &&
+           @chromatographical.iec_color_diocarbono_report  == "success" &&
+           @chromatographical.iec_color_etileno_report     == "success" &&
+           @chromatographical.iec_color_etano_report       == "success" &&
+           @chromatographical.iec_color_acetileno_report   == "success" %>
+<% @croma_ok = 1%>
+Las concentraciones de los gases combustibles se encuentran por debajo del umbral típico sin indicios de defectos térmicos o eléctrico.
+<% else %>
+Los gases combustibles observados se asocian a:
+      <% if @chromatographical.iec_color_hidrogeno_report   == "danger"  or
+            @chromatographical.iec_color_metano_report      == "danger"  or
+            @chromatographical.iec_color_hidrogeno_report   == "warning" or
+            @chromatographical.iec_color_metano_report      == "warning" %>
+• Descargas parciales.
+      <% end %>
+      <% if @chromatographical.iec_color_monocarbono_report  == "danger"  or
+            @chromatographical.iec_color_diocarbono_report   == "danger"  or
+            @chromatographical.iec_color_monocarbono_report  == "warning" or 
+            @chromatographical.iec_color_diocarbono_report   == "warning"%>
+• Degradación del aislamiento sólido.
+      <% end %>
+      <% if @chromatographical.iec_color_etileno_report  == "danger"  or
+            @chromatographical.iec_color_etano_report    == "danger"  or
+            @chromatographical.iec_color_etileno_report  == "warning" or
+            @chromatographical.iec_color_etano_report    == "warning" %>
+• Defectos térmicos.
+      <% end %>
+      <% if @chromatographical.iec_color_acetileno_report   == "danger" or
+            @chromatographical.iec_color_acetileno_report   == "warning"%>
+• Descargas eléctricas.
+<% end %>
+
+
+
+    <% end %>
+  <% end %>
+<% else %>
+  <%= @transformer.con_cro rescue "" %>
+<% end %>
+</textarea>  
+
+<script>
+function rm1() {
+ var ta1 = document.getElementById("textarea_npsp1");
+ ta1.value = ta1.value.replace(/^\s*|\s*$/g,"");   
+}
+window.onload=rm1();
+</script>   

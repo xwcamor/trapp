@@ -1,0 +1,39 @@
+ 
+<!-- begin form-->
+<!-- Begin Alert -->
+<%= flash_messages %>
+<!-- End Alert -->
+<!-- Begin Form -->
+ 
+ 
+<%= @report.sheet1.html_safe rescue "" %> 
+<p style="page-break-before: always">   
+
+ 
+<%= @report.sheet2.html_safe rescue "" %> 
+ <p style="page-break-before: always">  
+ 
+ 
+<%= @report.sheet3.html_safe rescue "" %> 
+ <p style="page-break-before: always">  
+
+ 
+<%= @report.sheet4.html_safe rescue "" %> 
+ <p style="page-break-before: always">  
+<!-- end form -->
+ 
+ <%= @report.sheet5.html_safe rescue "" %> 
+ <p style="page-break-before: always">  
+<!-- end form -->
+
+<%= @report.sheet6.html_safe rescue "" %> 
+ <p style="page-break-before: always">  
+
+ <%= @report.sheet7.html_safe rescue "" %> 
+ <p style="page-break-before: always"> 
+<!-- end form -->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<!-- end layout-->

@@ -1,0 +1,45 @@
+<%= form_for [:usernew_management, @usernew],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert --> 
+      <% @usernew.errors.each do |attr,message| %>
+      <div class="alert alert-danger">
+        <i class="ion-md-alert"></i> <%= message %>
+      </div>
+      <% end %>
+      <!-- end alert -->             
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Marca</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :user_id, class: 'form-control','data-parsley-required'=>"true"  %>
+          </div>
+        </div>
+        <br>
+        <p align="center">
+          <%= f.submit "Guardar", class: 'btn bg-gray text-white rounded-pill' %>  
+          <%= link_to 'Regresar', [:user_new_management,:user_news], class: "btn bg-gray text-white rounded-pill" %>
+        </p>
+         
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  
+</div>
+<!-- end row -->
+<% end %>

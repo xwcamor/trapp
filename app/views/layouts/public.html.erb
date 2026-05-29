@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= ENV.fetch("APP_BRAND_NAME", "Software BU") %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
+
+  <body class="bg-light">
+    <div class="container py-5">
+
+      <!-- Branding superior -->
+      <div class="text-center mb-4">
+        <%= image_tag asset_path("default_logo.png"), class: "mb-2", height: 60 %>
+        <h1 class="h4 text-muted"><%= ENV.fetch("APP_BRAND_NAME", "Software BU") %></h1>
+      </div>
+
+      <!-- Contenido dinámico de la vista -->
+      <%= yield %>
+
+      <!-- Footer público -->
+      <hr class="my-4">
+      <footer class="text-center small text-muted mt-4">
+        <p>
+          <%= link_to t("login.terms", default: "Términos y Condiciones"), "/terms" %> |
+          <%= link_to t("login.privacy", default: "Política de Privacidad"), "/privacy" %>
+        </p>
+        <p class="mb-0">© <%= Time.current.year %> <%= ENV.fetch("APP_BRAND_NAME", "Software BU") %></p>
+      </footer>
+    </div>
+  </body>
+</html>

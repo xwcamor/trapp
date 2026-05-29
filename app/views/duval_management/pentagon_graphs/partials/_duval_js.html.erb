@@ -1,0 +1,463 @@
+<script type="text/javascript">
+var _CenterPoint = {x: 220, y: 220};
+var labelfontsize = 12;
+var labelfontface = 'verdana';
+var labelpadding = 3;
+var legendTexts = ['PD = Partial Discharge', 'T1 = Thermal fault < 300 celcius', '...'];
+_Ratio = 4.5;    //edited by CM
+$(document).ready(function graph_pentagon(){
+  //offset :  
+  resetCanvas(_CenterPoint, _Ratio, "all");
+  // $.getJSON("segment.json", function(data) {
+    // _RegistryData = data;
+    _RegistryData.sort(function(a,b){
+      let adate = getDate(a.str_date_rehearsal);
+      let bdate = getDate(b.str_date_rehearsal);
+      return adate - bdate;
+    });
+    DrawRegistryPoint(_RegistryData);
+  // });
+  $("input").change(function(){
+    $("button#calc").trigger("click");
+  });
+
+  $("button#registry").click(function(){
+    resetCanvas(_CenterPoint, _Ratio, "all");
+    DrawRegistryPoint(_RegistryData);
+  });
+  $("button#calc").click(function(){
+    let type = $(this).parent().attr("type");
+    resetCanvas(_CenterPoint, _Ratio, type);
+
+    let h2 = parseInt($("input#h2").val());
+    let ch4 = parseInt($("input#ch4").val());
+    let c2h2 = parseInt($("input#c2h2").val());
+    let c2h4 = parseInt($("input#c2h4").val());
+    let c2h6 = parseInt($("input#c2h6").val());
+    let total = ch4 + c2h2 + c2h4 + c2h6 + h2;
+    //get percent
+    let percentAry = [c2h2, c2h4, ch4, c2h6, h2], cpoints = [];
+    let anguloAry = [18, 306, 234, 162, 90];
+    let radianAry = [0.31416, 5.34071, 4.08407, 2.82743, 1.5708];
+    percentAry = percentAry.map( x => parseFloat((x / total * 100)) );
+    // console.log(percentAry);
+    for(let i = 0; i < percentAry.length; i++){
+      let pos = {x: 0, y: 0};
+      pos.x = parseFloat( (percentAry[i] * Math.cos(radianAry[i])).toFixed(3) );
+      pos.y = parseFloat( (percentAry[i] * Math.sin(radianAry[i])).toFixed(3) );
+      cpoints[i] = pos;
+    }
+    //get Area del pentagonc
+    let Area = 0;
+    for(let i = 0; i < cpoints.length; i++){
+      let vari = cpoints[i].x * cpoints[ (i+1)%cpoints.length ].y - cpoints[ (i+1)%cpoints.length ].x * cpoints[i].y;
+      Area += vari;
+    }
+    Area /= 2;
+
+    //get Centroide point
+    let Cx = 0, Cy = 0;
+    for(let i = 0; i < cpoints.length; i++){
+      let cp = cpoints[i];
+      let np = cpoints[ (i+1) % cpoints.length ];
+      Cx += (cp.x + np.x) * (cp.x*np.y - np.x*cp.y);
+      Cy += (cp.y + np.y) * (cp.x*np.y - np.x*cp.y);
+    }
+    Cx /= 6*Area;
+    Cy /= 6*Area;
+    var canvas1 = document.getElementById("normal");
+    var normalCtx = canvas1.getContext("2d");
+ 
+
+    var canvas2 = document.getElementById("combine");
+    var combine = canvas2.getContext("2d");
+ 
+
+    var canvas3 = document.getElementById("faultzone");
+    var faultzone = canvas3.getContext("2d");
+    switch(type){
+      case "all":
+        drawMiddlePoint(normalCtx, _SegmentPos, Cx, Cy, "normal");
+        drawMiddlePoint(combine, _SegmentPosCombine, Cx, Cy, "combine");
+        drawMiddlePoint(faultzone, _SegmentPosFaultZone, Cx, Cy, "faultzone");
+        break;
+      case "normal":
+        drawMiddlePoint(normalCtx, _SegmentPos, Cx, Cy, type);
+        break;
+      case "combine":
+        drawMiddlePoint(combine, _SegmentPosCombine, Cx, Cy, type);
+        break;
+      case "faultzone":
+        drawMiddlePoint(faultzone, _SegmentPosFaultZone, Cx, Cy, type);
+        break;
+    }
+  });
+
+  $("canvas").mousemove(function(e){
+    let cPos = {x: e.offsetX, y: e.offsetY}, selectIndex = -1;
+    for(let i in _RegistryPosition){
+      let rPoint = _RegistryPosition[i];
+      if ( Math.abs(cPos.x - rPoint.x) < rPoint.r && Math.abs(cPos.y - rPoint.y) <  rPoint.r ){
+        selectIndex = i;
+      }
+    }
+    // console.log(selectIndex);
+    let infoDiv = $("div.info");
+    if ( selectIndex >= 0 ){
+      // console.log(e.clientX, e.clientY);
+      infoDiv.css("top",e.clientY);
+      infoDiv.css("left",e.clientX);
+      let rPoint = _RegistryData[selectIndex];
+      infoDiv.show();
+      infoDiv.find("label:last-child").html("");
+      infoDiv.find(".date").html(rPoint.str_date_rehearsal);
+      infoDiv.find("label.h2gas").html(rPoint.num_hid);
+      infoDiv.find("label.c2h2").html(rPoint.num_ace);
+      infoDiv.find("label.c2h4").html(rPoint.num_eti);
+      infoDiv.find("label.ch4").html(rPoint.num_met);
+      infoDiv.find("label.c2h6").html(rPoint.num_eta);
+      infoDiv.find("label.pn1_hid_percent").html(rPoint.pn1_hid_percent);
+      infoDiv.find("label.pn1_met_percent").html(rPoint.pn1_met_percent);
+      infoDiv.find("label.pn1_eti_percent").html(rPoint.pn1_eti_percent);
+      infoDiv.find("label.pn1_eta_percent").html(rPoint.pn1_eta_percent);
+      infoDiv.find("label.pn1_ace_percent").html(rPoint.pn1_ace_percent);                              
+    }
+    else
+      infoDiv.hide();
+  });
+});
+
+function getDate(dateString){
+  let dateAry = dateString.split("-");
+  let rdate = new Date(dateAry[2], dateAry[1] - 1, dateAry[0]);
+  return rdate;
+}
+
+function drawSegment(ctx, s, centpos, ratio) {
+  // draw and fill the segment path
+  ctx.beginPath();
+  ctx.moveTo(centpos.x + s.points[0].x * ratio, centpos.y - s.points[0].y*ratio);
+  for (var i = 1; i < s.points.length; i++) {
+    ctx.lineTo(centpos.x + s.points[i].x * ratio, centpos.y - s.points[i].y*ratio);
+  }
+  ctx.closePath();
+  ctx.fillStyle = s.fill;
+  ctx.fill();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = s.fill;
+  ctx.stroke();
+  // draw segment's box label
+  if (s.label.withLine) {
+    lineBoxedLabel(ctx, s, labelfontsize, labelfontface, labelpadding, centpos, ratio);
+  } else {
+    boxedLabel(ctx, s, labelfontsize, labelfontface, labelpadding, centpos, ratio);
+  }
+}
+
+function boxedLabel(ctx, s, fontsize, fontface, padding, centpos, ratio) {
+  var centerX = centpos.x + s.label.cx * ratio;
+  var centerY = centpos.y - s.label.cy * ratio;
+  var text = s.label.text;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = fontsize + 'px ' + fontface;
+  var textwidth = ctx.measureText(text).width;
+  var textheight = fontsize * 1.286;
+  var leftX = centerX - textwidth / 2 - padding;
+  var topY = centerY - textheight / 2 - padding;
+  ctx.fillStyle = 'white';
+  // ctx.fillRect(leftX, topY, textwidth + padding * 2, textheight + padding * 2);
+  ctx.lineWidth = 1;
+  // ctx.strokeRect(leftX, topY, textwidth + padding * 2, textheight + padding * 2);
+  ctx.fillStyle = 'black';
+  ctx.fillText(text, centerX, centerY);
+}
+
+
+function lineBoxedLabel(ctx, s, fontsize, fontface, padding, centpos, ratio) {
+  var centerX = centpos.x + s.label.cx * ratio;
+  var centerY = centpos.y - s.label.cy * ratio;
+  var text = s.label.text;
+  var lineToX = centpos.x + s.label.endX * ratio;
+  var lineToY = centpos.y + s.label.endY * ratio;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle'
+  ctx.font = fontsize + 'px ' + fontface
+  var textwidth = ctx.measureText(text).width;
+  var textheight = fontsize * 1.286;
+  var leftX = centerX - textwidth / 2 - padding;
+  var topY = centerY - textheight / 2 - padding;
+  // the line
+  ctx.beginPath();
+  ctx.moveTo(leftX+textwidth, topY + textheight / 2);
+  ctx.lineTo(lineToX, topY + textheight / 2);
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  // the boxed text
+  ctx.fillStyle = 'white';
+  // ctx.fillRect(leftX, topY, textwidth + padding * 2, textheight + padding * 2);
+  // ctx.strokeRect(leftX, topY, textwidth + padding * 2, textheight + padding * 2);
+  ctx.fillStyle = 'black';
+  ctx.fillText(text, centerX, centerY);
+}
+
+function moleculeLabel(V, P, text) {
+  var dx = V.x - P.x;
+  var dy = V.y - P.y;
+  var rAngle = Math.atan2(dy, dx);
+  var padding = 15; // == how far outside the pentagon you want to go
+  var outsideX = P.x + (P.radius + padding) * Math.cos(rAngle);
+  var outsideY = P.y + (P.radius + padding) * Math.sin(rAngle);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = 'black';
+  ctx.fillText(text, outsideX, outsideY);
+}
+
+
+/**
+ * draw basic pentagon.
+ **/
+function drawPentagon(inputPoints) {
+  // console.log(inputPoints);
+  // let centerPos = {x: inputPoints[0].x, y: inputPoints[0].y};
+  ctx.beginPath();
+  ctx.moveTo(inputPoints[0].x, inputPoints[0].y);
+  for (var i = 1; i < inputPoints.length; i++) {
+    ctx.lineTo(inputPoints[i].x, inputPoints[i].y);
+    ctx.moveTo(inputPoints[i].x, inputPoints[i].y);
+  }
+  ctx.lineTo(inputPoints[0].x, inputPoints[0].y);
+
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.closePath();
+}
+
+function drawLegend(texts, x, y, lineheight) {
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = 'black';
+  ctx.font = '12px arial';
+  for (var i = 0; i < texts.length; i++) {
+    ctx.fillText(texts[i], x, y + i * lineheight);
+  }
+}
+
+function drawMiddlePoint(ctx, segment, cx, cy, type, size = 10){
+    // draw the polygon
+    ctx.beginPath();
+
+    let startX = _CenterPoint.x + cx*_Ratio;
+    let startY = _CenterPoint.y - cy*_Ratio;
+
+    let currentArea = "";
+    let point = {x: startX, y:startY};
+    for(let i = 0; i < segment.length; i++){
+      let points = segment[i].points;
+      let polygon = [];
+      for (var j = 0; j < points.length; j++) {
+        let iPoint = {x: 0, y: 0};
+        iPoint.x = _CenterPoint.x + points[j].x * _Ratio;
+        iPoint.y = _CenterPoint.y - points[j].y * _Ratio;
+        polygon.push(iPoint);
+      }
+      if (  IsPointInPolygon(point, polygon) )
+        currentArea = segment[i].label.text;
+    }
+
+    ctx.arc(startX, startY,size,0,Math.PI*2);
+    ctx.strokeStyle='white';
+    ctx.fillStyle='black';   ///edited by CM 2022
+    ctx.fill();
+    ctx.stroke();
+    
+    let result = currentArea;
+    $("div.pentagon input."+type).val(result);
+    // ctx.textBaseline = 'middle';
+    // ctx.font = 12 + 'px ';
+    // var textwidth = ctx.measureText(result).width;
+    // var textheight = 12 * 1.286;
+    // let leftX = _CenterPoint.x;
+    // let topY = _CenterPoint.y + 40 * _Ratio;
+    // let padding = 2;
+    // ctx.fillStyle = 'white';
+    // ctx.fillRect(leftX - textwidth/2, topY - textheight/2, textwidth + padding * 2, textheight + padding * 2);
+    // ctx.fillStyle = 'black';
+    // ctx.fillText(result, leftX, topY);
+    ctx.closePath();
+}
+
+function draw(ctx, points, centpos, ratio){
+    // draw the polygon
+    ctx.beginPath();
+    ctx.moveTo(centpos.x + points[0].x*ratio, centpos.y - points[0].y*ratio);
+    for(var i=1;i<points.length;i++){
+        ctx.lineTo(centpos.x + points[i].x*ratio, centpos.y - points[i].y*ratio);
+    }
+    ctx.stroke();
+    
+    // draw the labels at their radial extension points
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    var padding = 3;
+    let labelTexts = ["H2","C2H2","C2H4","CH4","C2H6"];
+    for(var i=0; i < points.length-1; i++){
+        var p = points[i];
+        var dx = p.x;
+        var dy = p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var rAngle = Math.atan2(dy, dx);
+        var labelX = centpos.x + (dist + padding) * Math.cos(rAngle) * ratio;
+        if ( i == 0 )
+          padding = 1;
+        else
+          padding = 3;
+        var labelY = centpos.y - (dist + padding) * Math.sin(rAngle) * ratio;
+        ctx.fillText(labelTexts[i], labelX, labelY)
+        
+        ctx.beginPath();
+        ctx.strokeStyle='black';
+        ctx.stroke();
+        //ctx.fillStyle='red';
+        //ctx.fill();
+        ctx.strokeStyle='black';
+        ctx.fillStyle='black';
+    }   
+}
+
+function resetCanvas(centPos, ratio, type){
+  var canvas1 = document.getElementById("normal");
+  var normalCtx = canvas1.getContext("2d");
+ 
+
+  var canvas2 = document.getElementById("combine");
+  var combine = canvas2.getContext("2d");
+ 
+
+  var canvas3 = document.getElementById("faultzone");
+  var faultzone = canvas3.getContext("2d");
+ 
+
+  for (var i = 0; i < _SegmentPos.length; i++) {
+    if ( type == "normal" || type == "all")
+      drawSegment(normalCtx, _SegmentPos[i],centPos,ratio);
+    if ( type == "faultzone" || type == "all")
+      drawSegment(faultzone, _SegmentPosFaultZone[i],centPos,ratio);
+  }
+  
+  for (var i = 0; i < _SegmentPosCombine.length; i++) {
+    if ( type == "combine" || type == "all")
+      drawSegment(combine, _SegmentPosCombine[i],centPos,ratio);
+  }
+  draw(normalCtx, _MainPoints, centPos, ratio);
+  draw(combine, _MainPoints, centPos, ratio);
+  draw(faultzone, _MainPoints, centPos, ratio);
+}
+
+function IsPointInPolygon( p, polygon )
+{
+    let minX = polygon[ 0 ].x;
+    let maxX = polygon[ 0 ].x;
+    let minY = polygon[ 0 ].y;
+    let maxY = polygon[ 0 ].y;
+    for ( var i = 0 ; i < polygon.length ; i++ )
+    {
+        let q = polygon[ i ];
+        if ( q.x < minX ) minX = q.x;
+        if ( q.x > maxX ) maxX = q.x;
+        if ( q.y < minY ) minY = q.y;
+        if ( q.y > maxY ) maxY = q.y;
+    }
+    
+    if ( p.x < minX || p.x > maxX || p.y < minY || p.y > maxY )
+    {
+        return false;
+    }
+
+    let inside = false;
+    for ( let i = 0, j = polygon.length - 1 ; i < polygon.length ; j = i++ )
+    {
+        if ( ( polygon[ i ].y > p.y ) != ( polygon[ j ].y > p.y ) && p.x < ( polygon[ j ].x - polygon[ i ].x ) * ( p.y - polygon[ i ].y ) / ( polygon[ j ].y - polygon[ i ].y ) + polygon[ i ].x )
+        {
+            inside = !inside;
+        }
+    }
+
+    return inside;
+}
+
+function DrawRegistryPoint( points ){
+  _RegistryPosition = [];
+  let type = $(this).parent().attr("type");
+  // resetCanvas(_CenterPoint, _Ratio, type);
+  let anguloAry = [18, 306, 234, 162, 90];
+  let radianAry = [0.31416, 5.34071, 4.08407, 2.82743, 1.5708];
+  for ( let i in points ){
+    let h2 = points[i].num_hid;
+    let ch4 = points[i].num_met;
+    let c2h2 = points[i].num_ace;
+    let c2h4 = points[i].num_eti;
+    let c2h6 = points[i].num_eta;
+    let total = ch4 + c2h2 + c2h4 + c2h6 + h2;
+    //get percent
+    let percentAry = [c2h2, c2h4, ch4, c2h6, h2], cpoints = [];
+    percentAry = percentAry.map( x => parseFloat((x / total * 100)) );
+    // console.log(percentAry);
+    for(let j = 0; j < percentAry.length; j++){
+      let pos = {x: 0, y: 0};
+      pos.x = parseFloat( (percentAry[j] * Math.cos(radianAry[j])).toFixed(3) );
+      pos.y = parseFloat( (percentAry[j] * Math.sin(radianAry[j])).toFixed(3) );
+      cpoints[j] = pos;
+    }
+    //get Area del pentagonc
+    let Area = 0;
+    for(let j = 0; j < cpoints.length; j++){
+      let vari = cpoints[j].x * cpoints[ (j+1)%cpoints.length ].y - cpoints[ (j+1)%cpoints.length ].x * cpoints[j].y;
+      Area += vari;
+    }
+    Area /= 2;
+
+    //get Centroide point
+    let Cx = 0, Cy = 0;
+    for(let j = 0; j < cpoints.length; j++){
+      let cp = cpoints[j];
+      let np = cpoints[ (j+1) % cpoints.length ];
+      Cx += (cp.x + np.x) * (cp.x*np.y - np.x*cp.y);
+      Cy += (cp.y + np.y) * (cp.x*np.y - np.x*cp.y);
+    }
+    Cx /= 6*Area;
+    Cy /= 6*Area;
+    var canvas1 = document.getElementById("normal");
+    var normalCtx = canvas1.getContext("2d");
+    normalCtx.font = "15px Arial";  //edited by CM
+    normalCtx.fillText("Tipo 1",20, 15); //edited by CM
+
+
+    var canvas2 = document.getElementById("combine");
+    var combine = canvas2.getContext("2d");
+    combine.font = "15px Arial"; //edited by CM
+    combine.fillText("Tipo 3 (Combinado)",70, 15); //edited by CM
+
+
+    var canvas3 = document.getElementById("faultzone");
+    var faultzone = canvas3.getContext("2d");
+    faultzone.font = "15px Arial"; //edited by CM
+    faultzone.fillText("Tipo 2",20, 15); //edited by CM
+    
+    let size = 2 + parseInt(10 / points.length * i);    
+    let startX = _CenterPoint.x + Cx*_Ratio;
+    let startY = _CenterPoint.y - Cy*_Ratio;
+    let point = {x: startX, y: startY, r: size};
+    _RegistryPosition.push(point);
+
+    drawMiddlePoint(normalCtx, _SegmentPos, Cx, Cy, "normal", size);
+    drawMiddlePoint(combine, _SegmentPosCombine, Cx, Cy, "combine", size);
+    drawMiddlePoint(faultzone, _SegmentPosFaultZone, Cx, Cy, "faultzone", size);
+    
+  }
+}
+
+</script>

@@ -1,0 +1,48 @@
+<table id="data-table-buttons1" class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :country_id,'País', default_order:  { country_id: 'desc' }) %></th>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :name,'Cliente', default_order:  { name: 'desc' }) %></th>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :num_doc,'RUC', default_order:  { num_doc: 'desc' }) %></th>
+      <th class="text-nowrap text-center"><%= sort_link(@query, :address,'Dirección', default_order:  { address: 'desc' }) %></th>
+      <th data-orderable="false" class="sorting_disabled"> </th>             
+    </tr>
+  </thead>
+  <tbody>
+    <% @list_customers.each do |customer| %>
+    <tr>
+      <td class="text-center"><div class="flag-icon flag-icon-<%= customer.country.short_name.downcase %> h1 rounded mb-0 "></div>   </td>  
+      <td class="text-center"><%= customer.name.upcase %></td>  
+      <td class="text-center"><%= customer.num_doc %></td>   
+      <td class="text-center"><%= customer.address %></td>    
+      <td>
+        <% if @user_permission.include?(25) %>
+        <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe,{:controller=>"customer_management/customers",:action=>"show",:id=>customer} ,{ class: "btn btn-xs btn-default", title: "Ver"} %>
+        <% end %>
+        
+        <% if @user_permission.include?(27) %>
+        <%= link_to "<i class='fa fa-pencil'></i>".html_safe, edit_customer_management_customer_path(customer), remote: true ,  class: "btn btn-xs btn-default", title: "Editar"%>
+        <% end %>
+
+        <% if @user_permission.include?(28) %>
+        <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe,{:controller=>"customer_management/customers",:action=>"destroy",:id=>customer} ,{:remote=> true, method: :delete,  class: "btn btn-xs btn-default", title: "Eliminar"} %>
+        <% end %>
+       
+      </td>                   
+    </tr>
+    <% end %>                  
+  </tbody>
+</table>
+
+ 
+<div style="float:right">
+  <%= will_paginate(@list_customers, :params => params,  :constainer=>true, :previous_label=>"<i class='fa fa-arrow-left'></i>", :next_label=>"<i class='fa fa-arrow-right'></i>",inner_window: 1, outer_window: 1 ,:renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer , class: 'pagination-sm ') %>
+</div> 
+<style>
+ .page-item.active .page-link {
+   color: #fff !important;
+   background: gray !important;
+ }
+</style> 
+
+ 

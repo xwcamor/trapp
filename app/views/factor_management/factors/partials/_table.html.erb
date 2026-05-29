@@ -1,0 +1,43 @@
+<table id="data-table-buttonas2" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap text-center">Fecha</th>
+                 
+              <th class="text-nowrap text-center">Factor de Potencia (%) </td>
+ 
+              <th class="text-nowrap text-center">Estado</th>
+              <th data-orderable="false" class="sorting_disabled text-center"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @list_factors.each do |factor| %>
+              <td class="text-nowrap text-center"><%= factor.str_date_rehearsal %></td>
+              <td class="text-nowrap text-center" data-animation="number" data-value="<%= factor.num_fac %>"><%= factor.num_fac %></td>
+              <td class="text-nowrap text-start"><%= factor.dgaf_condition %></td> 
+              <td class="text-nowrap text-center">
+                <% if @user_permission.include?(65) %>
+                <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe, factor_management_factor_path(factor) ,{:title=>"Ver",class: "btn btn-xs btn-default", :remote => true} %>
+                <% end %>
+
+                <% if @user_permission.include?(67) %>
+                <%=link_to "<i class='fa fa-pencil'></i>".html_safe, edit_factor_management_factor_path(factor), remote: true ,  class: "btn btn-xs btn-default", title: "Editar"%>
+                <% end %>
+
+                <% if @user_permission.include?(68) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe,{:controller=>"factor_management/factors",:action=>"destroy",:id=>factor} ,{:remote=> true, method: :delete, class: "btn btn-xs btn-default", title: "Eliminar"} %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>       
+
+ <div style="float:right">
+  <%= will_paginate(@list_factors, :params => params,  :constainer=>true, :previous_label=>"<i class='fa fa-arrow-left'></i>", :next_label=>"<i class='fa fa-arrow-right'></i>",inner_window: 1, outer_window: 1 ,:renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer , class: 'pagination-sm ') %>
+</div> 
+<style>
+ .page-item.active .page-link {
+   color: #fff !important;
+   background: gray !important;
+ }
+</style> 

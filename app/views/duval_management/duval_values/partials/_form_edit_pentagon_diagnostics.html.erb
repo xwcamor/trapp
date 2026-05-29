@@ -1,0 +1,59 @@
+<!-- ONLY DISPLAYS WITH EDIT CHROMA PERMISSION -->
+<% if @user_permission.include?(42) %>
+
+<!-- toggler -->
+<a href="#modal-dialog" class="btn btn-primary btn-xs" data-bs-toggle="modal"data-backdrop="static"><i class="fa-solid fa-pencil"></i> Editar Valor</a>
+
+ <% @chromatographical_duval = ChromatographicalDuval.find_by( transformer_id: @transformer.id) %>
+ <% @duval1 = Duval.where("duval_type_id = 2 AND graph_type = 3")%>
+ <% @duval2 = Duval.where("duval_type_id = 2 AND graph_type = 1")%>
+ <% @duval3 = Duval.where("duval_type_id = 2 AND graph_type = 2")%>
+
+<!-- #modal-dialog -->
+<div class="modal fade" id="modal-dialog"data-backdrop="static">
+  <div class="modal-dialog">
+    <%= form_for @chromatographical_duval, :url => {:controller=>"chromatographical_management/chromatographical_duval_pentagons",:action => "update",:id =>@chromatographical_duval.id },:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" },method: "patch" do |f| %> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar Valores de los Triángulos Duvales</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3"><b>Combinado</b></div>
+          <div class="col-9"><%= f.select :pentagon_diag_first,  @duval1.collect{ |d| [d.name,d.short_name] },{} , class: "form-control"%></div>
+        </div>  
+
+        <div class="row pt-2">
+          <div class="col-3"><b>Tipo 1 </b></div>
+          <div class="col-9"><%= f.select :pentagon_diag_second,  @duval2.collect{ |d| [d.name,d.short_name] },{} , class: "form-control"%></div>
+        </div>  
+
+        <div class="row pt-2">
+          <div class="col-3"><b>Tipo 2 </b></div>
+          <div class="col-9"><%= f.select :pentagon_diag_third,  @duval3.collect{ |d| [d.name,d.short_name] },{} , class: "form-control"%></div>
+        </div>                  
+        
+
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Close</a>
+
+       <button name="button" type="submit" class="btn btn-success" data-bs-dismiss="modal">
+         <i class="fa-solid fa-floppy-disk"></i> Guardar Valores
+       </button>
+    
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+$('#modal-dialog').modal({backdrop: 'static', keyboard: false}, 'show');
+
+</script>
+
+<% end %>

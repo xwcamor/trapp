@@ -1,0 +1,209 @@
+<br><br>
+<div class="container" >
+<div class="row text-center pt-1 pb-0" style="background-color: #E8E8E8" >
+  <div class="col-xl-12">
+    <b style="font-size: 14px;" > GRÁFICAS DE TENDENCIAS DE GASES DISUELTOS</b> 
+  </div>
+</div>
+</div>
+
+<div class="container" style="font-size: 10px;">
+<% @chromatographical_charts = Chromatographical.where("deleted=0 AND transformer_id = #{@transformer.id}").order("date_rehearsal ASC").last(5) %>
+ 
+
+<div class="row pb-2 text-center">
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">    
+      	<p><b>Oxígeno</b></p>
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.second.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_oxi }.join(',').html_safe %>">
+        </p>
+      </div>
+    </div> 
+  </div>
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p><b>Nitrógeno</b></p>
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.second.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_nit }.join(',').html_safe %>">
+        </p>  	
+      </div>
+    </div>         
+  </div>
+</div>
+
+<div class="row pb-2 text-center">
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">
+      	<p class="text-center"><b>Hidrógeno</b><br>
+         <i style="font-size: 8px;">Valor Máximo:  <%= @hid_limit_tendence %></i> </p>
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_hid }.join(',').html_safe %>&data2=<%= @hid_limit_tendence %>,<%= @hid_limit_tendence %>,<%= @hid_limit_tendence %>,<%= @hid_limit_tendence %>,<%= @hid_limit_tendence %>">
+        </p>
+        <p style="font-size: 10px;">
+    		  	<% if @chromatographical.iec_color_hidrogeno_report == "success"%>
+    		  	Hidrógeno se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_hidrogeno_report == "warning"%>
+    		  	<b class="text-warning">Hidrógeno se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_hidrogeno_report == "danger"%>
+    		  	<b class="text-danger">Hidrógeno excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	    
+        </p>    
+      </div>
+    </div>
+  </div>
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">         
+      	<p class="text-center"><b>Metano</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @met_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_met }.join(',').html_safe %>&data2=<%= @met_limit_tendence %>,<%= @met_limit_tendence %>,<%= @met_limit_tendence %>,<%= @met_limit_tendence %>,<%= @met_limit_tendence %>">
+        </p>  	
+        <p style="font-size: 10px;">
+    		  	<% if @chromatographical.iec_color_metano_report == "success"%>
+    		  	Metano se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_metano_report == "warning"%>
+    		  	<b class="text-warning">Metano se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_metano_report == "danger"%>
+    		  	<b class="text-danger">Metano excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	    	
+        </p>
+      </div>
+    </div>        
+  </div>
+</div>
+
+<div class="row pb-2 text-center">
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p class="text-center"><b>Monóxido de Carbono</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @mon_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_mon }.join(',').html_safe %>&data2=<%= @mon_limit_tendence %>,<%= @mon_limit_tendence %>,<%= @mon_limit_tendence %>,<%= @mon_limit_tendence %>,<%= @mon_limit_tendence %>">
+        </p>
+        <p style="font-size: 10px;">
+    		  	<% if @chromatographical.iec_color_monocarbono_report == "success"%>
+    		  	Monóxido de Carbono  se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_monocarbono_report == "warning"%>
+    		  	<b class="text-warning">Monóxido de Carbono  se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_monocarbono_report == "danger"%>
+    		  	<b class="text-danger">Monóxido de Carbono  excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	    	
+
+        </p>
+      </div>
+    </div>         
+  </div>
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p class="text-center"><b>Dióxido de Carbono</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @dio_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_dio }.join(',').html_safe %>&data2=<%= @dio_limit_tendence %>,<%= @dio_limit_tendence %>,<%= @dio_limit_tendence %>,<%= @dio_limit_tendence %>,<%= @dio_limit_tendence %>">
+        </p>  	
+        <p style="font-size: 10px;">
+    		  	<% if @chromatographical.iec_color_diocarbono_report == "success"%>
+    		  	Dióxido de Carbono  se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_diocarbono_report == "warning"%>
+    		  	<b class="text-warning">Dióxido de Carbono  se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_diocarbono_report == "danger"%>
+    		  	<b class="text-danger">Dióxido de Carbono  excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>		
+        	
+        </p>    
+      </div>
+    </div>         
+  </div>
+</div>
+
+<div class="row pb-2 text-center">
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p class="text-center"><b>Etileno</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @eti_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_eti }.join(',').html_safe %>&data2=<%= @eti_limit_tendence %>,<%= @eti_limit_tendence %>,<%= @eti_limit_tendence %>,<%= @eti_limit_tendence %>,<%= @eti_limit_tendence %>">
+        </p>
+        <p style="font-size: 10px;">
+    		  	<% if @chromatographical.iec_color_etileno_report == "success"%>
+    		  	Etileno se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_etileno_report == "warning"%>
+    		  	<b class="text-warning">Etileno se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_etileno_report == "danger"%>
+    		  	<b class="text-danger">Etileno excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	   	
+        	
+        </p>    
+      </div>
+    </div>         
+  </div>
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p class="text-center"><b>Etano</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @eta_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_eta }.join(',').html_safe %>&data2=<%= @eta_limit_tendence %>,<%= @eta_limit_tendence %>,<%= @eta_limit_tendence %>,<%= @eta_limit_tendence %>,<%= @eta_limit_tendence %>">
+        </p>  
+        <p style="font-size: 10px;">	
+
+    		  	<% if @chromatographical.iec_color_etano_report == "success"%>
+    		  	Etano se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_etano_report == "warning"%>
+    		  	<b class="text-warning">Etano se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_etano_report == "danger"%>
+    		  	<b class="text-danger">Etano excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	    
+        </p>
+      </div>
+    </div>         
+  </div>
+</div>
+
+
+<div class="row pb-2 text-center">
+  <div class="col-6 pt-2">
+    <div class="card">
+      <div class="card-body border border-dark pb-0 pt-2">        
+      	<p class="text-center"><b>Acetileno</b><br>
+          <i style="font-size: 8px;">Valor Máximo:  <%= @ace_limit_tendence %></i> </p>          
+      	<p>
+          <img width="400" height="120"src="<%= @transformer_graphs.first.code_graph %>?&width=600&height=200&labels=<%= @chromatographical_charts.map { |e| e.str_date_rehearsal }.join(',').html_safe %>&data1=<%= @chromatographical_charts.map { |e| e.num_ace }.join(',').html_safe %>&data2=<%= @ace_limit_tendence %>,<%= @ace_limit_tendence %>,<%= @ace_limit_tendence %>,<%= @ace_limit_tendence %>,<%= @ace_limit_tendence %>">
+        </p>
+        <p>
+    		  	<% if @chromatographical.iec_color_acetileno_report == "success"%>
+    		  	Acetileno se encuentra en el rango de la Norma IEC 60599. 
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_acetileno_report == "warning"%>
+    		  	<b class="text-warning">Acetileno se acerca al límite del rango de la Norma IEC 60599. </b>
+    		  	<% end %>
+    		  	<% if @chromatographical.iec_color_acetileno_report == "danger"%>
+    		  	<b class="text-danger">Acetileno excede en el rango de la Norma IEC 60599. </b>
+    		  	<% end %>	    	
+        </p>
+      </div>
+    </div>         
+  </div>
+  
+</div>
+
+</div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      .footer-table {
+        width: 100%;
+        font-size: 9px;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+      }
+      .footer-table td {
+        padding: 2px 4px;
+      }
+      .footer-table th {
+        text-align: left;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="footer-table">
+      <tr>
+        <th>STATUS</th>
+        <th>SECURITY LEVEL</th>
+        <th>DOCUMENT ID</th>
+        <th>REV.</th>
+        <th>LANG.</th>
+        <th>PAGE</th>
+      </tr>
+      <tr>
+        <td>Approved</td>
+        <td>Internal</td>
+        <td><%= report_detail.id rescue "a" %></td>
+        <td>A</td>
+        <td>ES</td>
+        <td><%#= local_assigns[:current_page] || '...' %>  <%#= total_pages %></td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+
+ 

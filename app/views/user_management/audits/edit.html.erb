@@ -1,0 +1,36 @@
+<% title "Editar Área Comercial" %>
+
+<% javascript "jquery/jquery-1.8.2.min.js" %>
+<% javascript "jquery/jquery.validationEngine","jquery/jquery.validationEngine-es" %>
+<% jquery_validationengine "validate_form" %>
+<% stylesheet "validationEngine.jquery" %>
+
+<% links  link_to 'Configuraciones', [:configuration_management,:configurations] %>   
+<% links  link_to 'Áreas Comerciales', [:configuration_management,:comercial_areas] %>   
+
+<%= form_for [:configuration_management, @comercial_area],:html=>{:id=>"validate_form"} do |f| %>
+<div class="well">
+  <h2 class="semi-bold">Editar Área Comercial</h2>
+  <%= flash_messages %>
+
+  <%  @comercial_area.errors.each do |attr,message| %>
+  <div class="alert alert-danger fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <i class="fa-fw fa fa-warning"></i> <%= message %>
+  </div>
+  <% end %>   
+  
+  <fieldset>
+    <legend><label class="label label-success">Información</label></legend>
+      <p><label class="label label-info tas">Área Comercial</label> <%= f.text_field :name, class: 'input-sm validate[required]'  %></p>
+    
+  </fieldset>
+</div>
+
+<div id="buttons" style="display:inline">
+      <%= f.submit "Aceptar", class: 'btn bg-color-blueDark txt-color-white' %>
+      <%= link_to 'Regresar', [:configuration_management,:comercial_areas], class: "btn bg-color-blueDark txt-color-white" %>
+</div>
+
+<% end %>
+ 

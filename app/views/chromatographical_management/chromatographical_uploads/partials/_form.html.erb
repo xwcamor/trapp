@@ -1,0 +1,34 @@
+
+  <h2 class="semi-bold">Importación de Cromatografías</h2>
+
+  <div class="alert alert-danger mb-1">
+    <p>Usar el formato para Importar.<a href="https://drive.google.com/uc?id=1JYytywNxvJ9zdTNJGPLXNnYqMdl_TGZe&export=download"> Descargar Formato Excel</a></p>
+    <p>El formato de la Fecha sólo se importará correctamente si está en el formato dd/mm/aaaa, si está en otro formato por favor modificarlo.</p>
+    <p>Los datos de la línea 2 contiene datos de demostración, por favor eliminar los datos y usar los datos a importar.</p>
+ 
+  </div>
+  
+ 
+  <% if notice %>
+    <div class="notice"><%= notice.html_safe %></div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert"><%= alert.html_safe %></div>
+  <% end %>
+ 
+  <%= form_with url: import_chromatographical_management_transformer_chromatographical_uploads_path(@transformer), local: true, multipart: true do |form| %>
+
+  <div >
+    <p><%= form.file_field :file, accept: '.xlsx', class: "form-control", :required => true %></p>
+   
+  </div>
+
+  <div id="buttons"  class="text-center">
+
+   <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+     <i class="fa-solid fa-floppy-disk"></i> Importar
+   </button>      
+   <a class="btn btn-gray  me-1 mb-3 rounded-pill" href="/chromatographical_management/transformer/<%= params[:transformer_id].to_s%>/chromatographicals">Regresar</a>
+  </div>
+  <% end %>

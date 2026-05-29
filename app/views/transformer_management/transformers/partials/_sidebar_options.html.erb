@@ -1,0 +1,23 @@
+<li class="<%= active_link_to_class(transformer_management_transformers_path , :active => :exclusive)  %>">
+  <a href="<%= transformer_management_transformers_path %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-search fa-lg fa-fw me-2"></i> Búsqueda</a> 
+</li>
+<li>
+  <a href="<%= transformer_management_transformers_path %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-broom fa-lg fa-fw me-2"></i> Limpiar Búsqueda</a> 
+</li>    
+<li class="<%= active_link_to_class(new_transformer_management_transformer_path , :active => :exclusive)  %>">
+  <% if @user_permission.include?(33) %>  
+  <a href="<%= new_transformer_management_transformer_path %>" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-plus fa-lg fa-fw me-2"></i> Crear Transformador</a> 
+  <% end %>
+</li>  
+
+<li class="<%= active_link_to_class(transformer_management_import_transformers_path , :active => :exclusive)  %>">
+  <% if @user_permission.include?(159) %>  
+  <a href="/transformer_management/import_transformers/step1" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-upload fa-lg fa-fw me-2"></i> Importar Transformadores</a> 
+  <% end %>
+</li>  
+
+<li class="<%= active_link_to_class(transformer_management_import_cromas_path , :active => :exclusive)  %>">
+  <% if @user_permission.include?(160) %>  
+  <a href="/transformer_management/import_cromas/step1" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-upload fa-lg fa-fw me-2"></i> Importar Cromatografías</a> 
+  <% end %>
+</li>  

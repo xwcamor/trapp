@@ -1,0 +1,76 @@
+<div class="form-group row m-b-15 text-black">
+  <h2>Cliente: <%= @customer.name %></h2>
+
+</div>
+
+<table id="data-table-buttons-filter" class="table table-sm table-hover">
+	<thead>
+		<tr>
+		 
+			<th>Serie</th>	
+			<th>Fecha</th>	
+			<th>Hidrogeno</th>	
+			<th>Oxigeno</th>
+			<th>Nitrogeno</th>
+			<th>Metano</th>
+			<th>Monóxido de Carbono</th>
+			<th>Dioóxido de Carbono</th>
+			<th>Etileno</th>
+			<th>Etano</th>
+			<th>Acetileno</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @list_array.each_with_index do |array,index| %>
+		<tr>
+ 
+
+			<td>
+				<% @transformer = Transformer.find_by(deleted: 0, num_serie: array.num_serie.delete(" \t\r\n")  ) %>
+ 
+				<% if @transformer.present? %>
+				  <%= array.num_serie.delete(" \t\r\n") %>
+				<% else %>
+				  <%= array.num_serie.delete(" \t\r\n") %><p class="bg-danger text-white" title="No Existe">Error</p>
+				  <% @error_col="error" %>
+				  <% if array.num_serie.strip.empty? or array.num_serie.blank? %>
+				    <p class="bg-danger text-white" title="No Existe">Campo Vacio</p><% @error_col="error" %> 
+				  <% end %>		          
+				<% end %>
+
+			</td>
+
+			<td><%= array.date_rehearsal.strftime("%d-%m-%Y") %></td>
+
+			<td><%= array.num_hid %></td>
+
+			<td><%= array.num_oxi %></td>
+
+			<td><%= array.num_nit %></td>
+
+			<td><%= array.num_met %></td>
+
+			<td><%= array.num_mon %></td>
+
+			<td><%= array.num_dio %></td>
+
+			<td><%= array.num_eti %></td>
+
+			<td><%= array.num_eta %></td>
+
+			<td><%= array.num_ace %></td>
+
+		 
+		</tr>
+		<% end%>
+	</tbody>
+</table>
+
+
+<% if @list_array.size  > 0%>
+  <a <% if @error_col.present? %><%else %>href="/transformer_management/import_cromas/step4?customer_id=<%= @customer.id %>&user_id=<%= current_user.id %>"<%end %> id="button_save" class="btn btn-primary"   type="button"  >
+    <i class="fa-solid fa-check-double"></i> Continuar Proceso
+  </a>  
+
+  <% end %>

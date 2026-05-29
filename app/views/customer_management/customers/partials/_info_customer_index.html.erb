@@ -1,0 +1,123 @@
+<!--begin panel-information -->
+<div class="row panel mb-0 ">
+  <!--begin panel-head -->
+  <div class="panel-heading bg-gray-800 text-white pb-2">
+    <div class="panel-title"><i class="fa fa-user"></i> Datos de Clientes</div> 
+    <div class="panel-heading-btn">
+      <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+        <i class="fa fa-minus"></i>
+      </a>
+    </div>
+  </div>
+  <!--end panel-head -->
+  <!--begin panel-main -->
+  <div class="panel-body">
+    <!--begin row inside cols -->
+    <div class="row">
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Clientes</h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span class="card-subtitle mb-10px text-semi-bold"><%= Customer.where(deleted:0).size %> </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Ubicaciones</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= CustomerLocation.where(deleted:0).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Áreas</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= CustomerArea.where(deleted:0).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Subestaciones</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= CustomerSubstation.where(deleted:0).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+ 
+    </div>
+    <!--end row inside cols -->
+  </div>
+  <!--end panel-main -->
+  <!--begin panel-secondary -->
+  <div class="panel-body" style="display: none;">
+    <!--begin row inside cols -->
+    <div class="row">
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Clientes</h6>
+            <div class="flag-icon flag-icon-pe h4 rounded mb-0 "></div>            
+            <small class="card-subtitle mb-10px text-semi-bold"><%= Customer.where(deleted:0, country_id: 1).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Clientes</h6>
+            
+            <div class="flag-icon flag-icon-co h4 rounded mb-0 "></div>
+            <small class="card-subtitle mb-10px text-semi-bold text-center"><%= Customer.where(deleted:0, country_id: 2).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Clientes</h6>
+            <div class="flag-icon flag-icon-cl h4 rounded mb-0 "></div>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= Customer.where(deleted:0, country_id: 3).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-3">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total de Clientes</h6>
+            <div class="flag-icon flag-icon-br h4 rounded mb-0 "></div>
+             <small class="card-subtitle mb-10px text-semi-bold"><%= Customer.where(deleted:0, country_id: 4).size %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+     
+    </div>
+  </div>
+  <!--end panel-secondary -->  
+</div> 
+<!--end panel-information -->
+
+
+
+
+ <link href="/assets/plugins/flag-icon-css/css/flag-icons.min.css" rel="stylesheet" />

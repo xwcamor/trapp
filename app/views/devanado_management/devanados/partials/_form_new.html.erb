@@ -1,0 +1,75 @@
+<%= nested_form_for [:devanado_management, @devanado],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+
+Ingrese Fecha de Prueba: <%= f.date_field :date_rehearsal,'data-parsley-required'=>"true" %> 
+<%= f.hidden_field :transformer_id, :value =>@transformer.id %>
+<!-- #modal-dialog -->
+<div class="row">
+  <div class="col-xl-6">
+    <div class="modal-dialog1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">AT</h4>
+        </div>
+        <div class="modal-body">
+          <!-- begin alert --> 
+          <%= flash_messages %>
+          <!-- end alert -->                 
+          <div id="nested_devanado_details">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_new_r1', :locals => {:f => f} %>
+          </div>       
+        </div>
+        <div class="modal-footer">
+          <%= f.link_to_add "<i class='fa-solid fa-plus'></i> Agregar Tap".html_safe, :devanado_details, :data => { :target => "#devanado_details_r1" } ,:class=>"btn bg-gray text-white rounded-pill"%>      
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="col-xl-6">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT1</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details2">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_new_r2', :locals => {:f => f} %>
+          </div>       
+        </div>
+        <div class="modal-footer">
+          <%= f.link_to_add "<i class='fa-solid fa-plus'></i> Agregar Tap".html_safe, :devanado_details, :data => { :target => "#devanado_details_r2" } ,:class=>"btn bg-gray text-white rounded-pill"%>      
+        </div>        
+      </div>
+    </div> 
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT2</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details3">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_new_r3', :locals => {:f => f} %>
+          </div>       
+        </div>
+      </div>
+    </div>   
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT3</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details4">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_new_r4', :locals => {:f => f} %>
+          </div>       
+        </div>
+        <div class="modal-footer">
+          <%= button_tag( :class => "btn btn-gray text-white  me-1 mb-1 rounded-pill") do %>
+             <i class='fa-solid fa-floppy-disk'></i> Guardar Información
+          <% end %>
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+<% end %> 

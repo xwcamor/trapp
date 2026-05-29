@@ -1,0 +1,331 @@
+var _CenterPoint = {x: 220, y: 220};
+var labelfontsize = 8;
+var labelfontface = 'Arial';
+var labelpadding = 3;
+var legendTexts = ['PD = Partial Discharge', 'T1 = Thermal fault < 300 celcius', '...'];
+_Ratio = 240; //edited BY CM
+var _StartPos = {x: (370 - _Ratio ) / 2, y: (300 - _Ratio ) / 2 + _Ratio}; //edited By CM  estaba en 300
+var arrowheadLength = 10;
+var arrowheadWidth = 8;
+var arrowhead = document.createElement('canvas');
+premakeArrowhead();
+
+$(document).ready(function graph_triangle(){
+  resetCanvas( _Ratio, "all");
+  // $.getJSON("segment.json", function(data) {
+  //   _RegistryData = data;
+  _RegistryData.sort(function(a,b){
+    let adate = getDate(a.str_date_rehearsal);
+    let bdate = getDate(b.str_date_rehearsal);
+    return adate - bdate;
+  });
+  DrawRegistryPoint(_RegistryData);
+  // });
+  //offset :  
+   
+  
+})
+function drawSegment(ctx, s, centpos, ratio) {
+  // draw and fill the segment path
+  ctx.beginPath();
+  let x = centpos.x + s.points[0].p1 * ratio * Math.cos(1.0472) + s.points[0].p2 * ratio ;
+  let y = centpos.y - s.points[0].p1 * ratio * Math.sin(1.0472);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = s.fill;
+  ctx.moveTo(x, y);
+  for (var i = 1; i < s.points.length; i++) {
+    let x = centpos.x + s.points[i].p1 * ratio * Math.cos(1.0472) + s.points[i].p2 * ratio ;
+    let y = centpos.y - s.points[i].p1 * ratio * Math.sin(1.0472);
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = s.fill;
+  ctx.fill();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = s.fill;
+  ctx.stroke();
+}
+
+function drawMiddlePoint(resultTarget, ctx, segment, startX, startY, size = 10){ //edited by CM size was 12
+    // draw the polygon
+    ctx.beginPath();
+    let currentArea = "";
+    let point = {x: startX, y:startY};
+    for(let i = 0; i < segment.length; i++){
+      let points = segment[i].points;
+      let polygon = [];
+      for (var j = 0; j < points.length; j++) {
+        let iPoint = {x: 0, y: 0};
+        iPoint.x = parseInt( calcRealPos(points[j].p1, points[j].p2).x );
+        iPoint.y = parseInt( calcRealPos(points[j].p1, points[j].p2).y ) ;
+        polygon.push(iPoint);
+      }
+      // if (i == 0){
+      //   console.log(polygon);
+      //   console.log(points);
+      // }
+      if (  IsPointInPolygon(point, polygon) )
+        currentArea = segment[i].label.text;
+      // let fillval = segment[i(point)].fill;
+      // let compare = "rgb("+red+","+green+","+blue+")";
+      // if ( compare == fillval )
+      //   currentArea = segment[i].label.text;
+    }
+
+
+    ctx.arc(startX, startY, size,0,Math.PI*2);
+    ctx.strokeStyle='white'; //edited by CM
+    ctx.fillStyle='black'; //edited by CM
+    ctx.fill();
+    ctx.stroke();
+    
+    let result = currentArea;
+    resultTarget.val(result);
+    ctx.closePath();
+}
+function resetCanvas(ratio, type){
+  var canvas1 = document.getElementById("normal");
+  var normalCtx = canvas1.getContext("2d");
+
+   
+
+  for (var i = 0; i < _SegmentPos1.length; i++) {
+    if ( type == "normal" || type == "all")
+      drawSegment(normalCtx, _SegmentPos1[i], _StartPos, ratio);
+    
+  }
+  
+  switch(type)
+  {
+    case "all":
+      draw(normalCtx, _SegmentPos1, _TriangleTexts["normal"]);
+    
+      break;
+    case "normal":
+      draw(normalCtx, _SegmentPos1, _TriangleTexts["normal"]);
+      break;
+    
+  }
+  // draw(combine, _MainPoints, centPos, ratio);
+  // draw(faultzone, _MainPoints, centPos, ratio);
+}
+function draw(ctx, points , triangleTexts){
+  // draw the polygon
+  ctx.beginPath();
+  // ctx.moveTo(centpos.x + points[0].x*ratio, centpos.y - points[0].y*ratio);
+  // for(var i=1;i<points.length;i++){
+  //     ctx.lineTo(centpos.x + points[i].x*ratio, centpos.y - points[i].y*ratio);
+  // }
+  // ctx.stroke();
+  
+  // draw the labels at their radial extension points
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  var padding = 3;
+  for(var i = 0; i < points.length; i++){
+      var label = points[i].label;
+      
+      let labelX = calcRealPos(label.cx, label.cy).x;
+      let labelY = calcRealPos(label.cx, label.cy).y;
+
+      
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 12 + 'px Arial';
+      var textwidth = ctx.measureText(label.text).width;
+      var textheight = 10 * 1.286;
+      var leftX = labelX - textwidth / 2 - padding;
+      var topY = labelY - textheight / 2 - padding;
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle='red';
+      //ctx.strokeRect(leftX, topY, textwidth + padding * 2, textheight + padding * 2); edited by CM
+
+      ctx.fillStyle='black';
+      ctx.fillText(label.text, labelX, labelY)
+      
+      ctx.beginPath();
+      ctx.strokeStyle='black';
+      ctx.stroke();
+      //ctx.fillStyle='red';
+      //ctx.fill();
+      ctx.strokeStyle='red';
+      ctx.fillStyle='red';
+  }
+  for(var i = 0; i < triangleTexts.length; i++){
+    moleculeLabel(ctx, triangleTexts[i]);
+  }
+  //ctx.font = '14px arial black';  edited by CM
+  //ctx.fillText("Duval's Triangle DGA", 220, 20, 300); edited by CM
+  ticklines(ctx, vector0, vector1, 10, 0, 3);
+  ticklines(ctx, vector1, vector2, 10, Math.PI * 3 / 4, 3);
+  ticklines(ctx, vector2, vector0, 10, Math.PI * 5 / 4, 3);
+  // molecules
+}
+
+function moleculeLabel(ctx, textEle) {
+  let start = textEle.start;
+  let end = textEle.end;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '10px Arial';
+  var dx = end.x - start.x;
+  var dy = end.y - start.y;
+  var x0 = calcRealPos(start.x + dx * 0.5, start.y + dy * 0.5).x;
+  var y0 = calcRealPos(start.x + dx * 0.5, start.y + dy * 0.5).y;
+  var x1 = parseInt(x0 + textEle.offset * Math.cos(textEle.angle));
+  var y1 = parseInt(y0 + textEle.offset * Math.sin(textEle.angle));
+  ctx.fillStyle = 'black';
+  ctx.fillText(textEle.text, x1, y1);
+  // arrow
+  x0 = calcRealPos(start.x + dx * 0.4, start.y + dy * 0.4).x;
+  y0 = calcRealPos(start.x + dx * 0.4, start.y + dy * 0.4).y;
+  x1 = parseInt(x0 + 30 * Math.cos(textEle.angle));
+  y1 = parseInt(y0 + 30 * Math.sin(textEle.angle));
+  var x2 = calcRealPos(start.x + dx * 0.6, start.y + dy * 0.6).x;
+  var y2 = calcRealPos(start.x + dx * 0.6, start.y + dy * 0.6).y;
+  var x3 = parseInt(x2 + 30 * Math.cos(textEle.angle));
+  var y3 = parseInt(y2 + 30 * Math.sin(textEle.angle));
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x3, y3);
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  // get angles
+  start = calcRealPos(textEle.start.x, textEle.start.y);
+  end = calcRealPos(textEle.end.x, textEle.end.y);
+  dx = end.x - start.x;
+  dy = end.y - start.y; 
+  let angle = Math.atan2(dy, dx);
+  ctx.translate(x3, y3);
+  ctx.rotate(angle);
+  ctx.drawImage(arrowhead, -arrowheadLength, -arrowheadWidth / 2);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+function premakeArrowhead() {
+  var actx = arrowhead.getContext('2d');
+  arrowhead.width = arrowheadLength;
+  arrowhead.height = arrowheadWidth;
+  actx.beginPath();
+  actx.moveTo(0, 0);
+  actx.lineTo(arrowheadLength, arrowheadWidth / 2);
+  actx.lineTo(0, arrowheadWidth);
+  actx.closePath();
+  actx.fillStyle = 'black';
+  actx.fill();
+}
+
+function calcRealPos(p1, p2){
+  let returnPos = {x: 0, y: 0};
+  returnPos.x = _StartPos.x + p2 * _Ratio + p1 * _Ratio * Math.cos(1.0472);
+  returnPos.y = _StartPos.y - p1 * _Ratio * Math.sin(1.0472);
+  return returnPos;
+}
+
+function ticklines(ctx, start, end, count, angle, length) {
+  var dx = end.x - start.x;
+  var dy = end.y - start.y;
+  ctx.lineWidth = 1;
+  for (var i = 1; i < count; i++) {
+    let posx = start.x + dx * i / count;
+    let posy = start.y + dy * i / count;
+    var x0 = calcRealPos(posx, posy).x;
+    var y0 = calcRealPos(posx, posy).y;
+    var x1 = parseInt(x0 + length * Math.cos(angle));
+    var y1 = parseInt(y0 + length * Math.sin(angle));
+    var x2 = parseInt(x0 - 10 * Math.cos(angle));
+    var y2 = parseInt(y0 - 10 * Math.sin(angle));
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+    if (i == 2 || i == 4 || i == 6 || i == 8) {
+      var labelOffset = length * 3 / 4;
+      x1 = parseInt(x0 - labelOffset * Math.cos(angle));
+      y1 = parseInt(y0 - labelOffset * Math.sin(angle));
+      ctx.fillStyle = 'black';
+      ctx.font = 7 + 'px Arial';
+      ctx.fillText(parseInt(i * 10), x2, y2);
+    }
+  }
+}
+
+function IsPointInPolygon( p, polygon )
+{
+    let minX = polygon[ 0 ].x;
+    let maxX = polygon[ 0 ].x;
+    let minY = polygon[ 0 ].y;
+    let maxY = polygon[ 0 ].y;
+    for ( var i = 0 ; i < polygon.length ; i++ )
+    {
+        let q = polygon[ i ];
+        if ( q.x < minX ) minX = q.x;
+        if ( q.x > maxX ) maxX = q.x;
+        if ( q.y < minY ) minY = q.y;
+        if ( q.y > maxY ) maxY = q.y;
+    }
+    
+    if ( p.x < minX || p.x > maxX || p.y < minY || p.y > maxY )
+    {
+        return false;
+    }
+
+    let inside = false;
+    for ( let i = 0, j = polygon.length - 1 ; i < polygon.length ; j = i++ )
+    {
+        if ( ( polygon[ i ].y > p.y ) != ( polygon[ j ].y > p.y ) && p.x < ( polygon[ j ].x - polygon[ i ].x ) * ( p.y - polygon[ i ].y ) / ( polygon[ j ].y - polygon[ i ].y ) + polygon[ i ].x )
+        {
+            inside = !inside;
+        }
+    }
+
+    return inside;
+}
+function DrawRegistryPoint( points ){
+  _RegistryPosition = [];
+  let type = $(this).parent().attr("type");
+  resetCanvas( _Ratio, "all");
+  
+  var canvas1 = document.getElementById("normal");
+  var normalCtx = canvas1.getContext("2d");
+  normalCtx.font='bold 15px Arial';  //edited by CM  
+  normalCtx.fillText("Tipo 1",24, 15); //edited by CM  
+ 
+    
+  for (let i in points){
+    let p1,p2,p3;
+    let point = points[i];
+    switch(point.triangle_type){
+      case "triangle_MEA":
+        p1 = point.num_met;
+        p2 = point.num_eti;
+        p3 = point.num_ace;
+        break;
+    }
+    let total = p1 + p2 + p3;
+    //get percent
+    let percentAry = [p1, p2, p3], cpoints = [];
+    percentAry = percentAry.map( x => parseFloat((x / total)) );
+
+    let Cx = parseInt(calcRealPos(percentAry[0], percentAry[1]).x);
+    let Cy = parseInt(calcRealPos(percentAry[0], percentAry[1]).y);
+    let size = 2;
+    let pointPos = {x: Cx, y: Cy, r: size, index: i};
+    switch(point.triangle_type){
+      case "triangle_MEA":
+        _RegistryPosition1.push(pointPos);
+        break;
+ 
+    }
+  }
+  for ( let i = 0; i < _RegistryPosition1.length; i++ ){
+    let point = _RegistryPosition1[i];
+    //let size = 2 + 10 / _RegistryPosition1.length * (_RegistryPosition1.length - i);  
+    let size = 5 + parseInt(10 / _RegistryPosition1.length * i);   
+    _RegistryPosition1[i].r = size;
+    drawMiddlePoint($("input.normal"), normalCtx, _SegmentPos1, point.x, point.y, size);
+  }
+  
+}
+
+  

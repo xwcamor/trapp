@@ -1,0 +1,90 @@
+
+
+<!-- BEGIN Timeline -->
+<div class="timeline">
+  <% @posts.where("physical_id > 0").each do |post| %>
+  <!-- BEGIN Timeline Item-->
+  <div class="timeline-item">
+
+    <!-- BEGIN Timeline Time-->
+    <div class="timeline-time">
+      <span class="date"><%= post.physical.str_date_rehearsal_day %></span> <span class="time"><%= post.physical.str_date_rehearsal %></span>
+    </div>
+    <!-- END Timeline Time-->
+
+    <!-- BEGIN Timeline Icon-->
+    <div class="timeline-icon"><a href="javascript:;">&nbsp;</a></div>
+    <!-- END Timeline Icon-->
+
+    <!-- BEGIN Timeline Content-->
+    <div class="timeline-content">
+      <!-- BEGIN Timeline Header-->
+      <div class="timeline-header">
+        <div class="userimage">
+          <% if post.user.avatar_url %>
+            <%= image_tag post.user.avatar_url %>
+          <% else %>
+            <div class="image image-icon bg-gray-800 text-gray-600">
+              <i class="fa fa-user"></i>
+            </div>
+          <% end %>
+        </div>
+        <div class="username">
+          <%= post.user.str_complete_name %> 
+          <div class="text-muted fs-12px">Serie: <%= post.physical.transformer.num_serie %><i class="fa fa-transformer-bolt opacity-5 ms-1"></i></div>
+          <% if post.rate == 1%>
+            <span class="badge bg-danger ms-1 py-2px position-relative" style="top: -1px;">Importante</span> 
+          <% else %>
+            <span class="badge bg-info ms-1 py-2px position-relative" style="top: -1px;">Información</span>
+          <% end %>
+        </div>
+
+   
+      </div>
+      <!-- END Timeline Header-->
+
+      <!-- BEGIN TIMELINE BODY -->
+      <div class="timeline-body">
+        <div class="mb-3">
+ 
+		  <div class="mb-2"><%= post.description %></div>
+          <!-- BEGIN Gas Images -->
+          <div class="row gx-1">
+         
+          </div>
+          <!-- END Gas Images -->
+        </div>
+  
+        <hr class="my-10px">
+
+        <!-- BEGIN SC BUTTONS-->
+        <div class="d-flex align-items-center fw-bold">
+     	  <a href="javascript:;" class="flex-fill text-decoration-none text-center text-gray-600">
+			<i class="fa fa-comments fa-fw me-3px"></i> Comentarios
+		  </a>
+		</div>
+        <!-- END SC BUTTONS-->
+		<hr class="mt-10px mb-3">
+        
+        <div class="align-items-center fw-bold">
+        
+        <!-- BEGIN ANSWERS-->
+        <div id="nested_comments">
+          <%= render :partial => 'physical_management/posts/partials/timeline_comments', :locals => {:post => post}  %>
+        </div>  
+        <!-- END ANSWERS-->
+      </div>
+      <!-- END TIMELINE BODY -->
+    </div>
+    <!-- END Timeline Content-->
+  </div>
+  <!-- END Timeline Item-->
+  
+</div>
+
+
+<% end %>
+</div>
+<!-- END Timeline -->
+</div>
+<!-- END Timeline -->

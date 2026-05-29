@@ -1,0 +1,28 @@
+<li class="<%= active_link_to_class(devanado_management_transformer_devanados_path(@transformer), :active => :exclusive)  %>">
+  <a href="<%= devanado_management_transformer_devanados_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-search"></i> Búsqueda</a> 
+</li>
+<li>
+  <a href="<%= devanado_management_transformer_devanados_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-broom"></i> Limpiar Búsqueda</a> 
+</li>    
+<li class="<%= active_link_to_class(new_devanado_management_transformer_devanado_path(@transformer), :active => :exclusive)  %>">
+
+<% if @transformer.num_tap.nil? %>  
+  <%= link_to "<i class='fa-solid fa-plus'></i> Asignar Taps".html_safe, edit_transformer_management_transformer_path(@transformer.id), { class: "btn btn-default w-100 mb-2 text-start" }   %> 
+<% else %>
+  <% if @user_permission.include?(58) %>
+  <%= link_to "<i class='fa-solid fa-plus'></i> Crear Prueba".html_safe, new_devanado_management_transformer_devanado_path(@transformer.id), { class: "btn btn-default w-100 mb-2 text-start" }   %> 
+  <% end %>
+<% end %>  
+</li>  
+ 
+<li class="<%= active_link_to_class(devanado_management_transformer_ieee_graphs_path(@transformer), :active => :exclusive)  %>">   
+  <% if @user_permission.include?(62) %>
+  <%= link_to "<i class='fa fa-chart-line'></i> Tendencia".html_safe,devanado_management_transformer_ieee_graphs_path(@transformer) , { class: "btn btn-default w-100 mb-2 text-start" }   %>    
+  <% end %>                       
+</li>
+
+<li class="<%= active_link_to_class(devanado_management_transformer_devanado_flows_path(@transformer), :active => :exclusive)  %>">   
+  <% if @user_permission.include?(62) %>
+  <%= link_to "<i class='fa fa-award'></i> Templates".html_safe, edit_devanado_management_transformer_devanado_template_transformer_path(@transformer,@devanado_template_transformer.id), { class: "btn btn-default w-100 mb-2 text-start" }   %>    
+  <% end %>                       
+</li>

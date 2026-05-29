@@ -1,0 +1,75 @@
+<%= nested_form_for [:devanado_management, @devanado_template],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+
+<%= f.hidden_field :user_id,:value =>current_user.id  %>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div>
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Template para la Resistencia de Devanado
+        </h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <!-- begin alert --> 
+        <%= flash_messages %>
+        <!-- end alert -->        
+        <%= hidden_field_tag "transformer_id",  @transformer.id  %>
+        <div class="col-md-12">
+          <div class="form-group row m-b-15">
+            <label class="col-md-2 col-sm-4 col-form-label">Nombre del Template</label>
+            <div class="col-md-10 col-sm-8">
+              <%= f.text_field :name, class: "form-control", 'data-parsley-required'=>"true", placeholder: "Ingrese Nombre" %> 
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="col-md-12">
+          <div class="form-group row m-b-15">
+            <label class="col-md-2 col-sm-4 col-form-label">Descripción</label>
+            <div class="col-md-10 col-sm-8">
+              <%= f.text_field :description, class: "form-control", 'data-parsley-required'=>"true", placeholder: "Ingrese Descripción" %> 
+            </div>
+          </div>
+        </div>    
+        <br>      
+        <div class="col-md-12">
+          <div class="form-group row m-b-15">
+            <label class="col-md-2 col-sm-4 col-form-label">Unidad de Medida</label>
+            <div class="col-md-10 col-sm-8">
+              <%= f.text_field :unit_name, class: "form-control", 'data-parsley-required'=>"true", placeholder: "Ingrese Unidad de Medida" %> 
+            </div>
+          </div>
+        </div>    
+        <br>               
+        <br>               
+        <div id="nested_devanado_details">
+          <%= render :partial => 'devanado_management/devanado_templates/partials/form_nested_new', :locals => {:f => f} %>
+        </div>        
+        <br>
+        <div class="text-center me-1 mb-3">
+          <%= link_to "<i class='fa-solid fa-left'></i> Regresar a Pruebas Eléctricas".html_safe, electrical_management_transformer_electricals_path(@transformer), class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+ 
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa fa-floppy-disk'></i> Guardar Template
+            <% end %> 
+        </div>           
+      </div>  
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+ 
+</div>
+<!-- end row -->
+
+<% end %> 

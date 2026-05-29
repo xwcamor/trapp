@@ -1,0 +1,25 @@
+<%= form_for @query, url: [:search_user_management,:authentications], html: { method: 'post'}  do %>  
+
+<div id="myModal">
+  <div class="form-group row m-b-15">
+    
+    <div class="col-9">
+      <%#= select_tag "search_customer" , "<option value=\"0\">Todos</option>".html_safe+options_for_select(@user_customers.collect { |p| [p.customer.country.short_name.to_s + " - " + p.customer.name,p.customer_id.to_s] }, params[:search_customer].to_i )  , class: "default-select2 form-select" %>
+      <select id="first_array" name="search_customer">
+        <option value="" >Seleccione</option>
+      </select> 
+
+    </div>
+    <div class="col-3">
+      <%= button_tag(type: "submit", class: "btn btn-gray text-white rounded-pill ", title: "Buscar") do %>
+        <i class="fa fa-chart-line"></i> Mostrar Información 
+      <% end %>  
+    </div>	
+  </div>  
+</div>
+
+<% end %>
+ 
+<!-- begin select2 -->
+<%= render :partial =>"user_management/authentications/partials/select2_index" %>
+<!-- end select2 -->

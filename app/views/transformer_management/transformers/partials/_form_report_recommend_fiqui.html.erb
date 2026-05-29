@@ -1,0 +1,79 @@
+		<textarea id="textarea_npsp4" name="transformer[rec_fiq]" rows="12" class="form-control">
+        <% if @transformer.rec_fiq.nil? or @transformer.rec_fiq.blank? or @transformer.rec_fiq == ''%>
+          <% if @physical.present? %>
+      <% if  @physical.ieee_color_num_acid_report   == "success" &&
+             @physical.ieee_color_num_pot_report    == "success" &&
+             #@physical.ieee_color_num_pot2_report  == "success" &&
+             @physical.ieee_color_num_rig_report    == "success" &&
+             #@physical.ieee_color_num_rig2_report  == "success" &&
+             @physical.ieee_color_num_ten_report    == "success" &&
+             @physical.ieee_color_num_wat_report    == "success" %>
+Se sugiere realizar siguiente análisis Físico Químico cada 12 meses o de acuerdo con el plan de mantenimiento.
+      <% else %>
+Es necesario realizar la recuperación del aceite mediante el proceso de:
+        <% if @physical.ieee_color_num_acid_report   == "danger"  or
+              @physical.ieee_color_num_pot_report    == "danger"  or
+              @physical.ieee_color_num_ten_report    == "danger"  or
+              @physical.ieee_color_num_acid_report   == "warning" or
+              @physical.ieee_color_num_pot_report    == "warning" or
+              @physical.ieee_color_num_ten_report    == "warning"  %>
+          <% if @physical.ieee_color_num_acid_report == "danger" or
+                @physical.ieee_color_num_acid_report == "warning" %>       
+            <% @recomendacion1 = "recomencacion1"%>
+          <% end %>
+          <% if @physical.ieee_color_num_pot_report   == "danger" or
+                @physical.ieee_color_num_pot_report   == "warning"%>        
+            <% @recomendacion1 = "recomencacion1"%>
+          <% end %>
+          <% if @physical.num_pot2 == '' or @physical.num_pot2.nil? or @physical.num_pot2.blank? %>
+          <% else %>
+          <% if @physical.ieee_color_num_pot2_report  == "danger" or
+                @physical.ieee_color_num_pot2_report  == "warning" %>       
+            <% @recomendacion1 = "recomencacion1"%>
+          <% end %>
+          <% end %>
+          <% if @physical.ieee_color_num_ten_report   == "danger" or
+                @physical.ieee_color_num_ten_report   == "warning" %>        
+            <% @recomendacion1 = "recomencacion1"%>
+          <% end %> 
+          <% if @recomendacion1.present?%>  
+• Regeneración.
+          <% end %>
+          <% end %>
+        <% if @physical.ieee_color_num_rig_report   == "danger"  or
+              @physical.ieee_color_num_ten_report   == "danger"  or 
+              @physical.ieee_color_num_rig_report   == "warning" or
+              @physical.ieee_color_num_ten_report   == "warning" %>
+          <% if @physical.ieee_color_num_rig_report == "danger" or
+                @physical.ieee_color_num_rig_report == "warning" %>        
+            <% @recomendacion2 = "recomencacion2"%>
+          <% end %>
+          <% if @physical.num_rig2 == '' or @physical.num_rig2.nil? or @physical.num_rig2.blank? %>
+          <% else %>
+          <% if @physical.ieee_color_num_rig2_report  == "danger" or
+                @physical.ieee_color_num_rig2_report  == "warning" %>       
+            <% @recomendacion2 = "recomencacion2"%>
+          <% end %>
+          <% end %>
+          <% if @physical.ieee_color_num_ten_report   == "danger" or
+                @physical.ieee_color_num_ten_report   == "warning" %>        
+            <% @recomendacion2 = "recomencacion2"%>
+          <% end %>
+          <% if @recomendacion2.present?%>  
+• Termovacío.
+          <% end %>
+          <% end %>
+      <% end %>
+<% end %>
+<% else %>
+  <%= @transformer.rec_fiq rescue "" %>
+<% end %>
+</textarea>  
+
+<script>
+function rm4() {
+ var ta4 = document.getElementById("textarea_npsp4");
+ ta4.value = ta4.value.replace(/^\s*|\s*$/g,"");   
+}
+window.onload=rm4();
+</script>   

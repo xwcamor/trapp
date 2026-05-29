@@ -1,0 +1,1 @@
+json.array! @areas, partial: "customer_management/user_customer_areas/partials/customer_area", as: :customer_area

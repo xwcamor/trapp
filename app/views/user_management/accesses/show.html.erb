@@ -1,0 +1,24 @@
+<% title "Ver Acceso" %>
+
+ 
+
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<% links  link_to 'Accesos', [:user_management,:accesses] %>   
+
+<div class="pnela">
+  <div>
+  <h2 class="semi-bold columns_2">Ver Acceso</h2> <%= link_to "Editar",[:edit_user_management,:access],{class: "btn btn-gray text-white rounded-pill"} %>  <%= link_to 'Regresar', [:user_management,:accesses], class: "btn btn-gray text-white rounded-pill" %></h2> 
+  </div>
+  <div style="clear:both"></div> 
+
+  <%= flash_messages %>
+  <fieldset>
+      <br>
+     <p>  <%= text_field_tag "name",@access.name.upcase.to_s + " (id: " + @access.id.to_s + ")", class: 'form-control plain-text', readonly: 'true' %></p>
+  </fieldset>
+</div>
+
+
+<div id="grants" class="panela">
+  <%= render partial: "user_management/accesses/partials/grants" %>
+</div>

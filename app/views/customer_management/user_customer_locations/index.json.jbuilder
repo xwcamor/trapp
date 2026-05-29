@@ -1,0 +1,1 @@
+json.array! @locations, partial: "customer_management/user_customer_locations/partials/customer_location", as: :customer_location

@@ -1,0 +1,74 @@
+<div class="section">
+  <p>A continuación, los datos de placa de la flota de transformadores y el estado de riesgo asociado:</p>
+
+  <div style="margin-top: 10px; font-size: 13px; font-family: Arial, sans-serif; text-align: center;">
+    <span style="display: inline-block; margin: 0 15px;">
+      <strong>Riesgo Alto:</strong>
+      <span style="display: inline-block; background-color: #ff0000; width: 40px; height: 14px; vertical-align: middle; border: 1px solid #ccc; margin-left: 6px;"></span>
+    </span>
+
+    <span style="display: inline-block; margin: 0 15px;">
+      <strong>Riesgo Medio:</strong>
+      <span style="display: inline-block; background-color: #ffff00; width: 40px; height: 14px; vertical-align: middle; border: 1px solid #ccc; margin-left: 6px;"></span>
+    </span>
+
+    <span style="display: inline-block; margin: 0 15px;">
+      <strong>Riesgo Bajo:</strong>
+      <span style="display: inline-block; background-color: #00a933; width: 40px; height: 14px; vertical-align: middle; border: 1px solid #ccc; margin-left: 6px;"></span>
+    </span>
+  </div>
+</div>
+
+
+<style type="text/css">
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
+  padding: 4px;
+}
+
+table th {
+  background-color: #f2f2f2;
+}	
+
+</style>
+
+<table class="table table-sm table-bordered" align="center">
+	<tbody>
+		<tr style="font-size:12px;background-color:#f2f2f2;">
+			<th>Item</th>
+			<th>Área</th>
+			<th>TAG</th>
+			<th>Nº Serie</th>
+			<th>Marca</th>
+			<th>Potencia (MVA)</th> 
+			<th>Voltaje (Kv)</th>
+			<th>Año</th> 
+			<th>Estado</th>
+		</tr>
+		<% @report.report_details.each_with_index do |report_detail, index|%>
+		<tr>
+			<td><%= index + 1 %></td>
+			<td><%= report_detail.transformer.customer_substation.customer_area.name rescue "-" %></td>
+			<td><%= report_detail.transformer.num_tag %></td>
+			<td><%= report_detail.transformer.num_serie %></td>
+			<td><%= report_detail.transformer.mark.name %></td>
+			<td><%= report_detail.transformer.num_pot %></td>
+			<td><%= report_detail.transformer.num_vol %></td>
+			<td><%= report_detail.transformer.age %></td>
+			<td style="background-color:<%= report_detail.transformer.color_health %>; vertical-align:bottom; width:36px;font-size:12px">
+			<span>&nbsp;</span>
+			</td>
+		</tr>
+		<% end %>
+
+ 
+	</tbody>
+</table>

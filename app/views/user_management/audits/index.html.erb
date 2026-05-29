@@ -1,0 +1,39 @@
+<% title "Auditoría" %>
+
+ 
+
+<div class="well">
+  <h2 class="semi-bold">Auditoría de Usuarios</h2>  
+  <%= flash_messages %>
+
+  <fieldset class="main">
+    <legend><label class="label label-success">Buscador</label></legend>
+    <%= form_for @query, url: [:search_user_management,:audits], html: { method: 'post'}  do %>                        
+      <div class="columns_2">
+        <p><label class="tas">Usuario:</label>
+        <%= select_tag "search_user",  "<option value=\"0\">Todos</option>".html_safe+options_for_select(@users.collect { |u| [u.name_complete.to_s,u.id] },params[:search_user].to_i), class: "search_select" %></p>
+      </div> 
+      
+      <div style="clear:both"></div> 
+
+      <p><%= submit_tag "Buscar",:class=>"btn bg-color-blueDark txt-color-white" %></p> 
+    <% end %>
+  </fieldset>
+</div>
+
+<div class="well"> 
+  <fieldset>
+    <legend><label class="label label-success">Resultados de la búsqueda</label></legend>  
+    <% if @user_permission.include?(1) %>
+      <div>
+        <p align="right">
+          <%= link_to "Nueva Auditoría",[:new_user_management,:audit],{class: "btn bg-color-blueDark txt-color-white", title: "Nueva Auditoría"} %>
+        </p>
+      </div>
+    <% end %>
+
+    <div id="table">
+      <%= render partial: "user_management/audits/partials/table" %>
+    </div>
+  </fieldset>
+</div>

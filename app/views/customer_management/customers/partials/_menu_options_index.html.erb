@@ -1,0 +1,12 @@
+<div class="row">
+  <!-- begin nav-->
+  <ul class="nav nav-tabs nav-tabs-inverse pt-1 pb-1">
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_customers_path  %>" class="nav-link <%= active_link_to_class(customer_management_customers_path , :active => :inclusive)  %> text- "><i class="fa-solid fa-circle-info"></i> Resumen </a>
+    </li>
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_data_customers_path %>" class="nav-link <%= active_link_to_class(customer_management_data_customers_path , :active => :inclusive)  %> text- "><i class="fa fa-building-circle-arrow-right"></i> Vista Avanzada </a>
+    </li>
+  </ul>
+  <!-- end nav-->
+</div>

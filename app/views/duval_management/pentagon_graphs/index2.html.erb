@@ -1,0 +1,79 @@
+
+<div class="row" style="display: flex; justify-content: space-between;">
+    <div class="pentagon col-md-4">
+        <p class="text-center">Pentágono Duval: Tipo 3</p>
+        <canvas id="combine" width=430 height=450 style="width: 380px,weight=450px; "></canvas>
+        <div class="alert alert-secondary  text-center">
+          <label class="combine">Result is</label>
+        </div>
+        <div id="leyenda">
+          PD  = Corona partial discharges<br>
+          S = Stray Gassing of mineral oil; Temp <200℃<br>
+          T1-O  = Low temperature faults without paper carbonization<br>
+          T1-C  = Low temperature faults with likely paper carbonization<br>
+          T2-C  = Medium temperature faults with likely paper carbonization<br>
+          T2-O  = Medium temperature faults without paper carbonization<br>
+          T3-C  = High temperature faults with likely paper carbonization<br>
+          T3-H  = High temperature faults without paper carbonization<br>
+          D1  = Electrical discharges of Low energy<br>
+          D2  = Electrical discharges of High energy
+        </div>        
+    </div>
+    <div class="pentagon col-md-4">
+       <p class="text-center">Pentágono Duval: Tipo 1</p>
+        <canvas id="normal" width=430 height=450 style="width: 380px;"></canvas>
+        <div class="alert alert-secondary  text-center">
+          <label class="normal">Result is</label>
+        </div>  
+        <div id="leyenda">
+          PD  = Corona partial discharges<br>
+          S = Stray Gassing of mineral oil; Temp <200℃<br>
+          T1  = Thermal faults; Temp <300℃<br>
+          T2  = Thermal faults; Temp >300℃ & <700℃<br>
+          T3  = Thermal faults; Temp >700℃<br>
+          D1  = Electrical discharges of Low energy<br>
+          D2  = Electrical discharges of High energy<br>
+        </div>        
+    </div>
+    <div class="pentagon col-md-4">
+        <p class="text-center">Pentágono Duval: Tipo 2</p>
+        <canvas id="faultzone" width=430 height=450 style="width: 380px;"></canvas>
+        <div class="alert alert-secondary  text-center">
+          <label class="faultzone">Result is</label>
+        </div>
+        <div id="leyenda">
+          PD  = Corona partial discharges<br>
+          S = Stray Gassing of mineral oil; Temp <200℃<br>
+          O = Overheating; Temp <250℃<br>
+          C = Hot spots with carbonization of paper; Temp >300℃<br>
+          T3-H  = High temperature faults without paper carbonization<br>
+          D1  = Electrical discharges of Low energy<br>
+          D2  = Electrical discharges of High energy  <br>
+        </div>        
+    </div>
+</div>
+
+<div class="inputs" style="display: none;">
+    <h3 id="head1">  Give the inputs for the gases</h3>
+    <div>
+        <label>H2 = </label><input type="number" id="h2" name="value5" value="<%= @last_chromatographical.num_hid rescue "" %>"/>ppm
+    </div>
+    <div>
+    <label>C2H2 = </label><input type="number" id="c2h2" name="value2" value="<%= @last_chromatographical.num_ace rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H4 = </label><input type="number" id="c2h4" name="value3" value="<%= @last_chromatographical.num_eti rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>CH4 = </label><input type="number" id="ch4" name="value1" value="<%= @last_chromatographical.num_met rescue "" %>"/> ppm
+    </div>
+    <div>
+        <label>C2H6 = </label><input type="number" id="c2h6" name="value4" value="<%= @last_chromatographical.num_eta rescue "" %>"/>ppm
+    </div>
+    <div type="all">
+        <button id="calc"  class="botones" > Locate </button> <span id="result"></span>
+    </div>
+</div>
+
+<%= render :partial =>"duval_management/pentagon_graphs/partials/duval_js" %>
+<%= render :partial =>"duval_management/pentagon_graphs/partials/data_js" %>

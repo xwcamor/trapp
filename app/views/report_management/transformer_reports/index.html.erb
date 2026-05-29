@@ -1,0 +1,59 @@
+<% title "Reportes" %>
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-file-chart-pie"></i> Reportes
+
+    
+    
+    <%= link_to "Regresar", transformer_management_transformer_path(params[:transformer_id]),{class: "btn btn-gray btn-xs"} %> 
+  
+    </h4>
+    <h6>Total de Reportes: <%= @reports.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Listado de Reportes</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="table-responsive">
+        <%= render :partial =>"report_management/transformer_reports/partials/table" %>   
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+ 

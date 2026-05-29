@@ -1,0 +1,22 @@
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+
+<div class="bg-white">
+<table  class="table table-responsive bg-white rounded-3">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-start">2-Furfuraldehido </th>
+      <th class="text-nowrap text-start">Grado de Polimerización</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-nowrap text-start"><span data-animation="number" data-value="<%= @last_furano.num_fal rescue ""  %>"> 0</span> PPB</td>
+      <td class="text-nowrap text-start"><span data-animation="number" data-value="<%= @last_furano.shendong rescue ""  %>"> 0</span> DP</td>      
+    </tr>
+                                                  
+  </tbody>
+</table>  
+<%= render :partial =>"furano_management/ieee_graphs/partials/amchart_for_transformer" %>
+</div>

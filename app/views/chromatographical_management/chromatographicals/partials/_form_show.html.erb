@@ -1,0 +1,76 @@
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Límites del Análisis Cromatográfico</h4>
+</div>
+<div class="modal-body">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr class="text-center">
+        <th>Fecha</th>
+        <th>Hidrógeno<br>H2<br>ppm</th>
+        <th>Oxígeno<br>O2<br>ppm</th>
+        <th>Nitrógeno<br>N2<br>ppm</th>          
+        <th>Metano<br>CH4<br>ppm</th>
+        <th>M.Carbono<br>CO<br>ppm</th>
+        <th>D.Carbono<br>CO2<br>ppm</th>
+        <th>Etileno<br>C2H4<br>ppm</th>
+        <th>Etano<br>C2H6<br>ppm</th>
+        <th>Acetileno<br>C2H2<br>ppm</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center">
+        <td><%= @chromatographical.str_date_rehearsal %></td>
+        <td><%= @chromatographical.num_hid %></td>
+        <td><%= @chromatographical.num_oxi %></td>
+        <td><%= @chromatographical.num_nit %></td>          
+        <td><%= @chromatographical.num_met %></td>
+        <td><%= @chromatographical.num_mon %></td>
+        <td><%= @chromatographical.num_dio %></td>
+        <td><%= @chromatographical.num_eti %></td>
+        <td><%= @chromatographical.num_eta %></td>
+        <td><%= @chromatographical.num_ace %></td>
+        <td><%= @chromatographical.dgaf_condition %></td> 
+      </tr>
+
+      <tr class="text-center">
+        <td>Límite Máx</td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_hidrogeno rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_hidrogeno_tabla1 %></td>
+        <td><i class="fa-solid fa-syringe"></i></td>
+        <td><i class="fa-solid fa-syringe"></i></td>           
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_metano rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_metano_tabla1 %></td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_monocarbono rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_monocarbono_tabla1 %></td>
+        <!-- LIMITE IEEE para tipo de aceite vegetal: soya y girasol  -->
+        <% if @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %> 
+         <td><i class="fa-solid fa-syringe"></i></td>
+        <% else %>
+         <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_diocarbono rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_diocarbono_tabla1 %></td>
+        <% end %>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_etileno rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_etileno_tabla1 %></td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_etano rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_etano_tabla1 %></td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.ieee_color_acetileno rescue "" %> me-2 fs-15px'></i> <%= @chromatographical.ieee_acetileno_tabla1 %></td>
+        <td class="text-nowrap text-center">Norma IEEE</td>              
+      </tr>   
+      <!-- INICIO Muestra LIMITES DE NORMA IEC -->
+      <% if @transformer.oil_type_id == 1 %> 
+      <tr class="text-center">
+        <td>Limite Máx</td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_hidrogeno rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_hidrogeno  rescue ""%> </td>
+        <td><i class="fa-solid fa-syringe"></i></td>
+        <td><i class="fa-solid fa-syringe"></i></td>          
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_metano rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_metano  rescue ""%> </td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_monocarbono rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_monocarbono  rescue ""%> </td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_diocarbono rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_diocarbono  rescue ""%> </td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_etileno rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_etileno  rescue ""%> </td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_etano rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_etano  rescue ""%> </td>
+        <td><i class='fa-solid fa-syringe fa-fw text-<%= @chromatographical.iec_color_acetileno rescue ""  %> me-2 fs-15px'></i> <%= @chromatographical.iec_acetileno rescue ""%> </td>
+          
+        <td class="text-nowrap text-center">Norma IEC</td>              
+      </tr>    
+      <% end %>
+      <!-- FIN Muestra LIMITES DE NORMA IEC -->
+    </tbody>
+  </table>
+  </div>
+</div>

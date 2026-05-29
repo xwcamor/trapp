@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+
+      <table id="data-table-buttonas2" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap text-center">Cliente </th>
+              <th class="text-nowrap text-center">RUC</th>
+ 
+            </tr>
+          </thead>
+          <tbody>
+            <% @export_results.each do |customer| %>
+            <tr>
+              <td class="text-nowrap text-center"><%= customer.name %></td>
+              <td class="text-nowrap text-center"><%= customer.num_doc %></td>
+ 
+              
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>       
+  </body>
+</body>

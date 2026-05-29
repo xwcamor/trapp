@@ -1,0 +1,350 @@
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-6 ">
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse border" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-user"></i>  Búsqueda de Cliente </h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+	      <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers" %>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Estado</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Estado
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph1" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->      
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Indice de Salud</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Indice de Salud
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph2" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->    
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Tipo de Conexión</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Tipo de Conexión
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph4" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->     
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Tipo de Transformador</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                   <i class="fa fa-chart-line"></i> Total de Transformadores por Tipo de Transformador
+                 </h5>
+                 <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph6" %>
+               </div>
+             </div>
+           </div>
+
+         </div> 
+       </div>        
+
+     </div>
+     <!-- end panel-body -->
+   </div>
+   <!-- end panel -->      
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Voltaje</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Voltaje
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph8" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->          
+  </div>
+  <!-- end col-6 -->
+  <!-- begin col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Edad</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Edad
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph5" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->  
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Marca</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Marca
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph3" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->    
+    <div class="row">
+      <!-- begin col-6 -->
+      <div class="col-xl-6">
+        <!-- begin panel -->
+        <div class="panel panel-inverse border"  >
+          <!-- begin panel-heading -->
+          <div class="panel-heading bg-gray-800 text-white">
+            <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Tipo de Aceite</h4>
+            <%= render :partial =>"layouts/panel_heading" %>
+          </div>
+          <!-- end panel-heading -->
+          <!-- begin panel-body -->
+          <div class="panel-body bordered table-responsive">
+
+            <div class="panel-content">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class="card border-2 bg-light mb-4">
+                    <div class="card-body">          
+                      <h5>
+                         <i class="fa fa-chart-line"></i> Total de Transformadores por Tipo de Aceite
+                      </h5>
+                      <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph10" %>
+                    </div>
+                  </div>
+                </div>
+              
+              </div> 
+            </div>        
+            
+          </div>
+          <!-- end panel-body -->
+        </div>
+        <!-- end panel -->    
+      </div>
+      <!-- end col-6 -->
+      <!-- begin col-6 -->
+      <div class="col-xl-6">
+        <!-- begin panel -->
+        <div class="panel panel-inverse border"  >
+          <!-- begin panel-heading -->
+          <div class="panel-heading bg-gray-800 text-white">
+            <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Tipo de Conmutador</h4>
+            <%= render :partial =>"layouts/panel_heading" %>
+          </div>
+          <!-- end panel-heading -->
+          <!-- begin panel-body -->
+          <div class="panel-body bordered table-responsive">
+
+            <div class="panel-content">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class="card border-2 bg-light mb-4">
+                    <div class="card-body">          
+                      <h5>
+                         <i class="fa fa-chart-line"></i> Total de Transformadores por Tipo de Conmutador
+                      </h5>
+                      <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph7" %>
+                    </div>
+                  </div>
+                </div>
+              
+              </div> 
+            </div>        
+            
+          </div>
+          <!-- end panel-body -->
+        </div>
+        <!-- end panel -->    
+      </div>
+      <!-- end col-6 -->    
+    </div>
+    <!-- begin panel -->
+    <div class="panel panel-inverse border"  >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title"><i class="fa-solid fa-transformer-bolt"></i> Transformadores Por Potencia</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+
+        <div class="panel-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="card border-2 bg-light mb-4">
+                <div class="card-body">          
+                  <h5>
+                     <i class="fa fa-chart-line"></i> Total de Transformadores por Potencia
+                  </h5>
+                  <%= render :partial =>"user_management/search_transformer_per_users/partials/all_customers_graph9" %>
+                </div>
+              </div>
+            </div>
+          
+          </div> 
+        </div>        
+        
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->  
+     
+  </div>
+  <!-- end col-6 -->
+</div>
+<!-- end row -->

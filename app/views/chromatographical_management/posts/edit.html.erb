@@ -1,0 +1,35 @@
+<% title "Ver" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+ 
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal-message fade show" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Editar Evento</h4>
+            <a href="<%= chromatographical_management_transformer_chromatographicals_path(@chromatographical.transformer_id) %>" class="btn-close" ></a>
+          </div>                    
+          <div class="modal-body">
+          <%= render :partial =>"chromatographical_management/posts/partials/form_post_edit",  post: @post %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel --> 
+
+<!-- BEGIN background color --> 
+<div class="modal-backdrop show"></div>
+<!-- END background color --> 
+
+<!-- BEGIN layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %> 
+<%= render :partial =>"layouts/form_validation" %>
+ <!-- END layout--> 

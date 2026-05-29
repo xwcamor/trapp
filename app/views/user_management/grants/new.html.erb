@@ -1,0 +1,32 @@
+ 
+
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<% links  link_to 'Accesos', [:user_management,:accesses] %>   
+
+<%= form_for @grant, :url => [:user_management,:grants],:html=>{:id=>"validate_form"} do |f| %>
+
+<%= f.hidden_field :parent_id,:value=>@obj_grant.id %>
+<div class="well"> 
+  <h2 class="semi-bold">Nuevo Permiso</h2>
+  <%= flash_messages %>
+
+  <%  @grant.errors.each do |attr,message| %>
+  <div class="alert alert-danger fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <i class="fa-fw fa fa-warning"></i> <%= message %>
+  </div>
+  <% end %>
+
+  <fieldset>
+ 
+      <p><label class="label label-info tas">Nombre</label> <%= f.text_field :name, class: 'form-control validate[required]'  %></p>
+  </fieldset>
+</div>
+
+<div id="buttons" style="display:inline">
+    <%= f.submit "Guardar", class: 'btn btn-gray text-white rounded-pill' %>
+    <%= link_to "Regresar",{:controller=>"user_management/accesses",:action=>"show",:id=>@obj_grant.id},{ class: "btn btn-gray text-white rounded-pill"} %>
+</div>
+
+<% end %>
+ 

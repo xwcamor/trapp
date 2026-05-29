@@ -1,0 +1,35 @@
+  <h5>Eventos Importantes del Análisis Cromatográfico
+      <% if @user_permission.include?(103) %>
+      <%= link_to "<i class='fa fa-list-timeline '></i> Mostrar Listado".html_safe, chromatographical_management_transformer_posts_path(@transformer.id)  ,{ class: "btn bg-default  text-black rounded-pill btn-xs"} %>
+      <% end %>   
+
+  </h5>
+  <div class="theme-panel-divider"></div>
+  <%  if @posts.size > 0 %>
+  <!-- Begin Posts -->
+  <%  @posts.includes([:chromatographical]).where("chromatographical_id  >0 ").each do |post| %>
+  <div class="row mt-10px">
+    <div class="col-12 control-label text-dark fw-bold">
+  	  <div><%= post.chromatographical.str_date_rehearsal %>
+  	  	<% if post.rate == 1 %>
+  	  	<span class="badge bg-danger ms-1 py-2px position-relative" style="top: -1px;">Importante</span>
+  	  	<% else %>
+  	  	<span class="badge bg-info ms-1 py-2px position-relative" style="top: -1px;">Información</span>
+  	  	<% end %>
+  	  </div>
+      <div><%= post.type_comment.name %></div>
+  	  <div class="lh-14">
+  	    <small class="text-dark opacity-80">
+  			 <%= post.description %>
+  	    </small>
+  	  </div>
+    </div>
+  </div>
+  <div class="theme-panel-divider"></div>   
+  <% end %>
+  <% else %>
+    No hay eventos importantes<br><br>
+  <% end %>
+  <!-- End Posts -->
+
+ 

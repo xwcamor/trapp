@@ -1,0 +1,2 @@
+class Duval < ApplicationRecord
+end

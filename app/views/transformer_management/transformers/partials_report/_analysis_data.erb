@@ -1,0 +1,19 @@
+<div class="row text-center pt-1 pb-0" style="background-color: #E8E8E8" >
+  <div class="col-xl-12">
+    <b style="font-size: 14px;" > CONCLUSIONES Y RECOMENDACIONES</b> 
+  </div>
+</div>
+<br>
+ 
+<% if @count_cromas.to_i > 0 %> 
+<div id="croma_diagnostics" class="container" style="font-size: 10px;">
+  <%= render partial: "transformer_management/transformers/partials_report/croma_diagnostics", :locals => {:transformer => @transformer} %>       
+</div>
+<% end %>
+
+ 
+<% if @count_fiquis.to_i > 0 %> 
+<div id="fiqui_diagnostics" class="container" style="font-size: 10px;">
+  <%= render partial: "transformer_management/transformers/partials_report/fiqui_diagnostics", :locals => {:transformer => @transformer} %>       
+</div>
+<% end %>

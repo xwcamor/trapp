@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte Múltiple</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+
+    .section {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #000;
+      margin: 0 40px;
+    }
+   
+    .section ul {
+      margin-left: 20px;
+      padding-left: 10px;
+    }
+
+    .section ul li {
+      margin-bottom: 5px;
+    }
+
+    .section p {
+      margin-bottom: 12px;
+    }
+
+    .section img {
+      display: block;
+      margin: 10px auto;
+      border: 1px solid #ccc;
+    }
+
+  </style>
+</head>
+<body>
+ 
+
+<div class="alwaysbreak"></div> <!-- Salto a la siguiente página (TOC) -->
+
+  <% transformer_text = @total_transformers > 1 ? "de los transformadores" : "del transformador " %>
+
+  <!-- Numeracion 1 -->
+  <h1 class="toc-entry-level-1">1. Alcance</h1>
+
+  <div id="scope"> 
+    <%= render partial: "report_management/reports/partials/pdf_scope", :locals => {:report => @report, :transformer_text => transformer_text} %> 
+  </div>
+
+  <!-- Numeracion 2-->
+  <h1 class="toc-entry-level-1">2. Responsable</h1>
+
+  <div id="responsable"> 
+    <%= render partial: "report_management/reports/partials/pdf_elaborated", :locals => {:report => @report} %> 
+  </div>
+  <div class="alwaysbreak"></div>
+   <div id="responsable"> 
+    <%= render partial: "report_management/reports/partials/pdf_transformer_block", :locals => {:report => @report} %> 
+  </div>
+  <div class="alwaysbreak"></div>
+
+  
+
+</body>
+</html>

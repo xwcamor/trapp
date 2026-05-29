@@ -1,0 +1,71 @@
+<% title "Editar" %>
+<%= links  link_to 'Reportes', [:report_management,:reports] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Editar Reporte</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<!-- Begin Alert -->
+<%= flash_messages %>
+<!-- End Alert -->
+<!-- Begin Form -->
+<%= render :partial =>"report_management/reports/partials/edit_buttons"  %>
+
+<%= form_for [:report_management, @report],:html=>{:class=>"mt-4 needs-validation",:autocomplete =>"off",:novalidate=> :true } do |f| %> 
+
+  <% if    params[:sheet].to_i == 1 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet1" %>
+  <% elsif params[:sheet].to_i == 2 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet2" %>
+  <% elsif params[:sheet].to_i == 3 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet3" %>  
+  <% elsif params[:sheet].to_i == 4 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet4" %>
+  <% elsif params[:sheet].to_i == 5 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet5" %>
+  <% elsif params[:sheet].to_i == 6 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet6" %>        
+  <% elsif params[:sheet].to_i == 7 %>
+    <%= render :partial =>"report_management/reports/partials/edit_sheet7" %>            
+  <% else %>
+    <%= render :partial =>"report_management/reports/partials/new_popup"  %>  
+
+  <% end %>    
+ 
+<br>
+
+<!-- end form -->
+<% end %>
+
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end layout-->
+
+<!-- required files -->
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script>
+<!-- end form-->
+
+
+<script>
+
+ 
+    CKEDITOR.replace( 'editor', {
+        height: 500
+    } );
+
+CKEDITOR.on("instanceReady", function(event) {
+  event.editor.on("beforeCommandExec", function(event) {
+    // Show the paste dialog for the paste buttons and right-click paste
+    if (event.data.name == "paste") {
+      event.editor._.forcePasteDialog = true;
+    }
+    // Don't show the paste dialog for Ctrl+Shift+V
+    if (event.data.name == "pastetext" && event.data.commandData.from == "keystrokeHandler") {
+      event.cancel();
+    }
+  })
+});
+
+</script>

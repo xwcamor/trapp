@@ -1,0 +1,145 @@
+<% title "Análisis Cromatografíco" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4><i class='fa-solid fa-transformer-bolt'></i> Serie: <%= @transformer.num_serie.upcase %></h4>
+    <h6><%= @transformer.customer_substation.customer.name.upcase %></h6>
+    <%= render :partial =>"transformer_management/transformers/partials/info_transformer" %> 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"transformer_management/transformers/partials/menu_options" %> 
+</div>
+<!-- end menu-tab -->
+
+<div class="row bg-default">
+<!-- begin mailbox -->
+<div class="mailbox bg-default ps-0 pe-0">
+  <!-- begin mailbox-sidebar -->
+  <div class="mailbox-sidebar bg-default">
+    <!-- begin mailbox-sidebar-header -->
+    <div class="mailbox-sidebar-header d-flex justify-content-center">
+      <a href="#emailNav" data-bs-toggle="collapse" class="btn btn-dark btn-sm me-auto d-block d-lg-none">
+      <i class="fa fa-cog"></i> <h5>OPCIONES</h5>
+      </a>
+      <h5 class="pt-2"> Resultados: <%= @list_chromatographicals.size %></h5>
+    </div>  
+    <!-- end mailbox-sidebar-header -->  
+    <!-- begin mailbox-sidebar-content -->
+    <div class="mailbox-sidebar-content d-lg-block collapse" id="emailNav">
+      <div data-scrollbar="true" data-height="100%" data-skip-mobile="true" class="ps" data-init="true" style="height: 100%;">
+        <div class="nav-title"><b>OPCIONES</b></div>
+        <ul class="nav nav-inbox">
+          <li class="active">
+            <a href="<%= chromatographical_management_transformer_chromatographicals_path(@transformer.id) %>"  class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-search"></i> Búsqueda</a> 
+          </li>
+          <li>
+            <a href="<%= chromatographical_management_transformer_chromatographicals_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-broom"></i> Limpiar Búsqueda</a> 
+          </li>  
+          <% if @user_permission.include?(41) %>  
+          <li>
+            <%= link_to "<i class='fa-solid fa-plus'></i> Crear Ensayo".html_safe, new_chromatographical_management_transformer_chromatographical_path(@transformer) ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+          </li>  
+          <% end %>    
+          <% if @user_permission.include?(94) %>
+          <li>  
+            <%= link_to "<i class='fa-solid fa-table-cells'></i> Modificar Tabla".html_safe,new_chromatographical_management_transformer_table_chromatographical_path(@transformer.id) , { class: "btn btn-default w-100 mb-2 text-start" } %>
+          <% end %>                    
+          </li>  
+          <li>   
+          <% if @user_permission.include?(45) %>
+            <%= link_to "<i class='fa fa-chart-line'></i> Tendencia".html_safe, chromatographical_management_transformer_ieee_graphs_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+          <% end %>                  
+          </li>
+
+          
+          <% if @transformer.chromatographicals.where("deleted=0").size > 0 %>
+          <li>     
+          <% if @transformer.oil_type_id == 1 %>
+            <% if @user_permission.include?(46) %>
+              <a href="<%= duval_management_transformer_last_triangle_graphs_path(@transformer.id) %>"  class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-chart-scatter"></i> Análisis Duval</a>   
+            <% end %>
+          <% end %>               
+          </li> 
+          <% end %>
+
+
+          <li>    
+          <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 4 %>
+            <% if @user_permission.include?(83) %>
+              <%= link_to "<i class='fa-solid fa-star-christmas'></i> Gas Clave".html_safe, duval_management_transformer_silicona_graphs_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+            <% end %>
+          <% end %>                  
+          </li>
+          <li>     
+          <% if @user_permission.include?(103) %>
+            <%= link_to "<i class='fa fa-list-timeline '></i> Eventos Importantes".html_safe, chromatographical_management_transformer_posts_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+          <% end %>                 
+          </li>                              
+          <li>     
+          <% if @user_permission.include?(94) %>
+            <%= link_to "<i class='fa fa-upload '></i> Importar Datos".html_safe, new_chromatographical_management_transformer_chromatographical_upload_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+          <% end %>                 
+          </li>  
+
+        </ul>
+      </div> 
+    </div>
+    <!-- end mailbox-sidebar-content -->
+  </div>
+  <!-- end mailbox-sidebar -->
+  <!-- begin mailbox-content -->
+  <div class="mailbox-content bg-default pt-2 rounded-3 pe-0"> 
+    <div class="table-responsive">
+      <!-- begin panel -->
+      <div class="panel panel-inverse" >
+        <!-- begin panel-heading -->
+        <div class="panel-heading bg-gray-800 text-white">
+          <i class="fa-regular fa-syringe text-white pe-2"></i>
+          <h4 class="panel-title">Búsqueda de Análisis Cromatográficos
+            <%= render :partial =>"layouts/datatable_display_hide_button" %>
+          </h4>
+          <%= render :partial =>"layouts/panel_heading_fullscreen" %>
+        </div>
+        <!-- end panel-heading -->
+        <!-- begin panel-body -->
+        <div class="panel-body bordered table-responsive">
+          <%= render :partial =>"chromatographical_management/chromatographicals/partials/table" %>
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end panel -->          
+    </div>
+  </div>
+  <!-- end mailbox-content -->
+</div>
+<!-- end mailbox -->
+</div>
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<!-- end script--> 
+
+<!-- begin notification--> 
+<%= render :partial =>"chromatographical_management/chromatographicals/partials/legend_notifications" %>  
+<!-- end notification--> 
+
+<!-- begin right side--> 
+<div class="theme-panel">
+  <a href="javascript:;" data-toggle="theme-panel-expand" class="theme-collapse-btn">
+    <i class="fa  fa-list-timeline " title="Eventos"></i>
+  </a>
+  <!-- Begin panel scroll -->
+  <div class="theme-panel-content ps ps--active-y" data-scrollbar="true" data-height="100%"   style="height: 100%;">
+    <%= render :partial =>"post_management/event_posts/partials/all_events" %> 
+  </div>
+  <!-- End panel scroll -->   
+</div>
+<!-- end right side--> 

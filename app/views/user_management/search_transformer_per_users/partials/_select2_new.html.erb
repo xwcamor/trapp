@@ -1,0 +1,82 @@
+ <script>
+    let getFirstArray = async (id, path) => {
+        let data = []
+        await fetch(path)
+            .then(response => response.json())
+            .then(response => {
+                data = response.map((value, index) => {
+                    return {
+                        id: value.id,
+                        text: value.name,
+                        short_name: value.country_short_name
+                    }
+                })
+
+                function formatWithIcon (array) {
+                  if (!array.id) {
+                    return array.text;
+                  }
+                  var $array = $(
+                    '<span class="flag-icon flag-icon-' + array.short_name + ' h4 rounded mb-0"></span><span>&nbsp;&nbsp; ' + array.text + '</span>'
+                  );
+                  return $array;
+                };
+
+                $(id).select2({
+                    placeholder: "Seleccione",
+                    width: 'auto',
+                    allowClear: true,
+                    dropdownParent: $('#myModal'),
+                    templateResult: formatWithIcon,
+                    templateSelection: formatWithIcon,
+                    data: data
+                }).select2('val', ['<%= @search_customer %>'])
+            });
+        return data
+    }
+    let getSecondArray = async (id, path, $el, field) => {
+        let data = []
+        await fetch(path)
+            .then(response => response.json())
+            .then(response => {
+                let filter = response.filter((value, index) => {
+                    return ($el.value == value[field])
+                })
+ 
+                filter.forEach((value, index) => {
+                    data.push({
+                        id: value.id,
+                        text: value.num_serie
+                    })
+                })
+
+
+                $(id).empty()
+                $(id).select2({
+                    placeholder: "Seleccione",
+                    width: 'auto',
+                    allowClear: true,
+                    dropdownParent: $('#myModal'),
+                    data: data
+                })                  
+            });
+        return data
+    }
+ 
+    $(window).on('load', () => {
+        $('select').select2({
+            placeholder: "Seleccione",
+            width: 'auto',
+            dropdownParent: $('#myModal')
+        })
+        getFirstArray('#first_array', '<%= customer_management_user_customers_path(:format=> "json") %>')
+        
+        $('#first_array').on('change', (e) => {
+            $('#second_array').val(null).trigger('change');
+            let $element = e.target
+            getSecondArray('#second_array', '<%= customer_management_user_customer_transformers_path(:format=> "json") %>', $element, 'customer_id')
+        })
+         
+        
+    })
+</script>

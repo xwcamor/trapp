@@ -1,0 +1,154 @@
+<!--BEGIN oil_type_id = 1 -->
+<% if @transformer.oil_type_id == 1 %>   
+<div class="row">
+  <% @lhid = @last_chromatographical.num_hid rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @loxi = @last_chromatographical.num_oxi rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @lnit = @last_chromatographical.num_nit rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lmet = @last_chromatographical.num_met rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lmon = @last_chromatographical.num_mon rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @ldio = @last_chromatographical.num_dio rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @leti = @last_chromatographical.num_eti rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @leta = @last_chromatographical.num_eta rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lace = @last_chromatographical.num_ace rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lfur = @last_furano.num_fal rescue "Registar 1 Análisis de Furano"%>        
+  <% @ldiomon = @ldio/@lmon rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @loxinit  = @loxi/@lnit rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @lacehid  = @lace/@lhid rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @tdgc    = @lhid + @lmet + @lmon + @leti + @leta + @lace rescue "Registar 1 Análisis Cromatográfico" %>
+
+  <table class="table table-bordered table-sm" style="font-size: 10px;">
+    <tbody>
+      <tr class="text-center">
+        <td style="background-color:#d9d9d9;" class="border border-dark" colspan="2">
+          <b>Interpretación CO y CO2</b>
+        </td>
+        <td style="background-color:#d9d9d9;" class="border border-dark">
+          <b>Interpretación</b>
+        </td>         
+      </tr>    
+
+      <tr class="text-center">
+        <td class="border border-dark">CO2/CO</td>
+        <td class="border border-dark"><%= @ldiomon.round(2) rescue "Registar 1 Análisis Cromatográfico" %></td>  
+        <td class="border border-dark align-middle" rowspan="6">
+            <% if @last_chromatographical.present?  %>
+              <% if @lmon.to_f > 1000 && @ldiomon.to_f < 3 %>
+                <p>Unidad en condiciones normales.</p>
+              <% elsif @lmon.to_f > 1000 && @ldiomon.to_f < 3 && @tdgc.to_f > 720 %>
+                <p>Posible degradación de papel, consultar pentágono 2 y triángulos 4, 5.</p>            
+              <% elsif @ldio.to_f > 10000 && @ldiomon.to_f > 20 && @lfur.to_f > 5000 %>
+                <p>Degradación lenta del papel a bajas temperaturas.</p>                        
+              <% else %>
+                <p>No hay interpretación CO y CO2.</p>
+              <% end %>
+            <% end %>    
+        </td>
+      </tr>
+     
+      <tr class="text-center">
+        <td class="border border-dark">CO2</td>
+        <td class="border border-dark"><%= @last_chromatographical.num_dio  rescue "Registar 1 Análisis Cromatográfico"%> ppm</td>
+       
+      </tr>
+
+      <tr class="text-center">
+        <td class="border border-dark">CO</td>
+        <td class="border border-dark"><%= @last_chromatographical.num_mon  rescue "Registar 1 Análisis Cromatográfico"%> ppm</td>
+       
+      </tr>
+
+      <tr class="text-center">
+        <td class="border border-dark">O2/N2</td>
+        <td class="border border-dark"><%= @loxinit.round(2) rescue "Registar 1 Análisis Cromatográfico" %></td>
+ 
+      </tr>
+
+      <tr class="text-center">
+        <td class="border border-dark">TDGC</td>
+        <td class="border border-dark"><%= @tdgc.round(2) rescue "Registar 1 Análisis Cromatográfico" %> ppm</td>
+       
+      </tr>
+
+      <tr class="text-center">
+        <td class="border border-dark">2-Furfuraldehido</td>
+        <td class="border border-dark"><%= @last_furano.num_fal  rescue "Registar 1 Furano" %> ppb</td>
+       
+      </tr>
+      
+    </tbody>
+  </table>  
+</div>
+<div class="row">
+  <% @lhid = @last_chromatographical.num_hid rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @loxi = @last_chromatographical.num_oxi rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @lnit = @last_chromatographical.num_nit rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lmet = @last_chromatographical.num_met rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lmon = @last_chromatographical.num_mon rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @ldio = @last_chromatographical.num_dio rescue "Registar 1 Análisis Cromatográfico"%>
+  <% @leti = @last_chromatographical.num_eti rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @leta = @last_chromatographical.num_eta rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lace = @last_chromatographical.num_ace rescue "Registar 1 Análisis Cromatográfico"%> 
+  <% @lfur = @last_furano.num_fal rescue "Registar 1 Análisis de Furano"%>        
+  <% @ldiomon = @ldio/@lmon rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @loxinit  = @loxi/@lnit rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @lacehid  = @lace/@lhid rescue "Registar 1 Análisis Cromatográfico" %>
+  <% @tdgc    = @lhid + @lmet + @lmon + @leti + @leta + @lace rescue "Registar 1 Análisis Cromatográfico" %>
+
+  <table class="table table-bordered table-sm" style="font-size: 10px;">
+    <tbody>
+      <tr class="text-center">
+        <td style="background-color:#d9d9d9;" class="border border-dark" colspan="2">
+          <b>Interpretación C2H2 y H2</b>
+        </td>
+        <td style="background-color:#d9d9d9;" class="border border-dark">
+          <b>Interpretación</b>
+        </td>         
+      </tr>    
+
+      <tr class="text-center">
+        <td class="border border-dark">C2H2/H2</td>
+        <td class="border border-dark">
+                <% if @lacehid == "nan" %>
+                  0
+                <% else %>
+                  <%= @lacehid.round(2) rescue "Registar 1 Análisis Cromatográfico"%>
+                <% end %>  
+        </td>  
+        <td class="border border-dark align-middle" rowspan="6">
+            <% if @lacehid.to_f > 3 %>
+              <p>Posible contaminación del aceite del compartimiento del OLTC y el tanque principal. </p>
+            <% else %>
+              <p>No hay interpretación C2H2 y H2.</p>
+            <% end %>     
+        </td>
+      </tr>
+     
+      <tr class="text-center">
+        <td class="border border-dark">C2H2</td>
+        <td class="border border-dark"><%= @last_chromatographical.num_ace  rescue "Registar 1 Análisis Cromatográfico"%> ppm</td>
+       
+      </tr>
+
+      <tr class="text-center">
+        <td class="border border-dark">H2</td>
+        <td class="border border-dark"><%= @last_chromatographical.num_hid  rescue "Registar 1 Análisis Cromatográfico"%> ppm</td>
+       
+      </tr>
+ 
+ 
+      
+    </tbody>
+  </table>  
+</div>
+<% end %>
+<!--END oil_type_id = 1 -->
+
+<!--begin oil_type_id = 4 -->
+<% if @transformer.oil_type_id == 4 %>    
+<% end %>
+<!--end oil_type_id = 4 -->
+
+<!--begin oil_type_id = 5,6 -->
+<% if @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>    
+<% end %>
+<!--end oil_type_id = 5,6 -->

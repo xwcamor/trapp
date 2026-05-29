@@ -1,0 +1,28 @@
+<%= flash_messages %>
+<div id="myModal">
+<%= form_for [:customer_management, @customer_location],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Editar Ubicación</h4>
+</div>
+<div class="modal-body">
+  <div class="col-md-12">
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Ubicación</label>
+      <div class="col-md-10 col-sm-8">
+          <%= f.text_field :name, class: 'form-control','data-parsley-required'=>"true" , placeholder: "Por favor digitar el nombre de la Ubicación.",:onkeyup=>"this.value = this.value.toUpperCase();", :style=>"text-transform:uppercase" %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal-body -->
+<!-- begin modal-footer -->
+<div class="text-center">
+ <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+   <i class="fa-solid fa-floppy-disk"></i> Guardar Ubicación
+ </button>
+</div>
+<!-- end modal-footer -->
+<!-- end form --> 
+<% end %>
+</div>

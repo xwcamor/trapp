@@ -1,0 +1,65 @@
+ 
+
+<div class="row">               
+    <div class="table-responsive">
+      <table   id="chromatographicals"  class="table table-striped align-middle">
+        <thead>
+          <tr class="text-center">
+              <th>Fecha</th>
+              <th>Hidrógeno<br>H2<br>ppm</th>
+              <th>Oxígeno<br>O2<br>ppm</th>
+              <th>Nitrógeno<br>N2<br>ppm</th>                
+              <th>Metano<br>CH4<br>ppm</th>
+              <th>M.Carbono<br>CO<br>ppm</th>
+              <th>D.Carbono<br>CO2<br>ppm</th>
+              <th>Etileno<br>C2H4<br>ppm</th>
+              <th>Etano<br>C2H6<br>ppm</th>
+              <th>Acetileno<br>C2H2<br>ppm</th>
+              <th>Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <%= f.fields_for :chromatographicals, f.object.chromatographicals.where('deleted=0').order('date_rehearsal DESC'), :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <td>
+
+             
+                
+           <% if @transformer.has_special_testing_cro == 0%>
+              <%= nested_form.date_field :date_rehearsal, class: 'form-control-xs masked','data-parsley-required'=>"true" %>
+           <% else %>  
+              <%= nested_form.datetime_field :date_rehearsal, class: 'form-control-xs masked','data-parsley-required'=>"true" %>
+           <% end %>
+            
+
+
+            </td>
+            <td><%= nested_form.text_field :num_hid, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Hidrògeno (H2)" %></td>
+            <td><%= nested_form.text_field :num_oxi, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Oxígeno (O2)" %></td>
+            <td><%= nested_form.text_field :num_nit, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Nitrògeno (N2)" %></td>               
+            <td><%= nested_form.text_field :num_met, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Metano (CH4)" %></td>
+            <td><%= nested_form.text_field :num_mon, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "M.Carbono (CO)" %></td>
+            <td><%= nested_form.text_field :num_dio, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "D.Carbono (CO2)" %></td>
+            <td><%= nested_form.text_field :num_eti, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Etileno (C2H4)" %></td>
+            <td><%= nested_form.text_field :num_eta, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Etano (C2H6)" %></td>
+            <td><%= nested_form.text_field :num_ace, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Acetileno (C2H2)" %></td>
+            <td> 
+              <%= nested_form.select :deleted , [ ["<i class='fa-solid fa-floppy-disk'></i> Guardar".html_safe,0],["Eliminar",1] ],{}, class: 'form-control text-black'     %>
+              <%#= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %>
+            </td>            
+          </tr>
+        <% end %>    
+
+        </tbody>
+      </table>
+    </div>
+
+</div>
+ 
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 100% !important; 
+}
+</style>

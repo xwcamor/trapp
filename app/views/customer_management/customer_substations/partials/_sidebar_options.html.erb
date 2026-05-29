@@ -1,0 +1,9 @@
+<li class="<%= active_link_to_class(customer_management_customer_customer_substations_path(@customer) , :active => :exclusive)  %>">
+	<a href="<%= customer_management_customer_customer_substations_path(@customer) %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-search fa-lg fa-fw me-2"></i> Búsqueda</a> 
+</li>
+<li>
+	<a href="<%= customer_management_customer_customer_substations_path(@customer) %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-broom fa-lg fa-fw me-2"></i> Limpiar Búsqueda</a> 
+</li>    
+<li class="<%= active_link_to_class(new_customer_management_customer_customer_substation_path(@customer) , :active => :exclusive)  %>">
+	<a href="<%= new_customer_management_customer_customer_substation_path  %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-plus fa-lg fa-fw me-2"></i> Crear Subestación</a>  
+</li>   

@@ -1,0 +1,31 @@
+<%#= form_for [:user_management, @search],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>  
+
+<%#= f.hidden_field :user_id, :value => current_user.id %>
+<%  @transformers_saved = @search.transformer_id.to_s%>
+<div id="myModal">
+  <div class="form-group row m-b-15">
+    
+    <div class="col-9">
+      <i class="fa-solid fa-user"></i> Listado de Clientes: 
+      <select id="first_array" name="search_customer" data-parsley-required="true" >
+        <option value="" >Seleccione</option>
+      </select> 
+      <i class="fa-solid fa-transformer-bolt"></i> Listado de Transformadores:
+      <select id="second_array" name="search_transformer" multiple  data-parsley-required="true">
+        <option value="">Seleccione</option>
+      </select>       
+    </div>
+    <div class="col-3">
+       <%= link_to "<i class='fa-solid fa-search'></i> Buscar de Nuevo".html_safe,{:controller=>"user_management/search_transformer_per_users",:action=>"new"  } ,{class: "btn bg-gray text-white rounded-pill"}   %>
+      <br><br><br>
+      
+      <%= link_to "<i class='fa-solid fa-transformer-bolt'></i> Mostrar Transform.".html_safe,{:controller=>"transformer_management/transformers",:action=>"search" ,   search_transformer:  @search.transformer_id } ,{class: "btn bg-gray text-white rounded-pill"}   %>
+      
+    </div>	
+  </div>  
+</div>
+<%# end %>
+
+<!-- begin select2 -->
+<%= render :partial =>"user_management/search_transformer_per_users/partials/select2_show" %>
+<!-- end select2 -->

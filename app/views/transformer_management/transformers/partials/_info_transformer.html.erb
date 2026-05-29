@@ -1,0 +1,274 @@
+<!--begin panel-information -->
+<div class="row panel mb-0 ">
+  <!--begin panel-head -->
+  <div class="panel-heading  bg-gray-800 text-white pb-2">
+    <div class="panel-title"><i class="fa fa-transformer-bolt"></i> Datos del Transformador</div> 
+    <div class="panel-heading-btn">
+      <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+        <i class="fa fa-minus"></i>
+      </a>
+    </div>
+  </div>
+  <!--end panel-head -->
+  <!--begin panel-main -->
+  <div class="panel-body">
+    <!--begin row inside cols -->
+    <div class="row">
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">TAG</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.num_tag.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Voltaje</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.num_vol %> KV</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Potencia</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.num_pot %> MVA</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Fabricación - Edad</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.age %>  - <%= @transformer.str_edad %> años</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Índice de Salud    </h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span data-animation="number" data-value="<%= @transformer.hi_calculation_fin.round(0)  rescue "0"%>  "> 0</span> % 
+              </small>
+            <%#= render :partial =>"transformer_management/transformers/partials/hi_graph" %> 
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Estado  </h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <%= @transformer.hi_calculation_fin_condition rescue "Muy Malo"  %> 
+              <i class="fa fa-circle fa-fw text-<%= @transformer.hi_calculation_fin_color_view_show rescue 'red'.html_safe %> me-2 fs-17px"></i> </small>
+            <%#= render :partial =>"transformer_management/transformers/partials/hi_graph" %> 
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+    </div>
+    <!--end row inside cols -->
+  </div>
+  <!--end panel-main -->
+  <!--begin panel-secondary -->
+  <div class="panel-body" style="display: none;">
+    <!--begin row inside cols -->
+    <div class="row">
+      <!--bein col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Ubicación</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.customer_substation.customer_area.customer_location.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Área </h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.customer_substation.customer_area.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Subestación</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @tr_substation = @transformer.customer_substation.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">TAG</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @tr_tag = @transformer.num_tag.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Voltaje</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.num_vol %> KV</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Potencia</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.num_pot %> MVA</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Tipo Transformador</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.transformer_type.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Tipo Conmutador</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.conmutation_type.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Tipo de Conexión</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.connection_type.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Tipo de Aceite</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.oil_type.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Marca</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.mark.name %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Sistema de Preservación</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.transformer_preservation.name.upcase %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Fabricación - Edad</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @transformer.age %>  - <%= @transformer.str_edad %> años</small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Nº de Fases</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><% if @transformer.num_fas.nil? %>Sin Asignar<% else %><%= @transformer.str_num_fas %><% end %> </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Nº de Taps</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><% if @transformer.num_tap.nil? %>Sin Asignar<% else %><%= @transformer.num_tap %><% end %> </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->        
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Índice de Salud    </h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span data-animation="number" data-value="<%= @num_health = @transformer.hi_calculation_fin.round(0)  rescue "0"%>  "> 0</span> % 
+              </small>
+            <%#= render :partial =>"transformer_management/transformers/partials/hi_graph" %> 
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Estado  </h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <%= @state_health = @transformer.hi_calculation_fin_condition rescue "Muy Malo"  %> 
+              <i class="fa fa-circle fa-fw text-<%= @color_health =@transformer.hi_calculation_fin_color_view_show rescue 'red' %> me-2 fs-17px"></i>
+            </small>
+            <%#= render :partial =>"transformer_management/transformers/partials/hi_graph" %> 
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+    </div>
+    <!--end row inside cols -->
+  <!--end panel-secondary -->
+</div> 
+<!--end panel-information -->
+
+<% Transformer.where('id = ?',@transformer.id).update_all(num_health: @num_health, state_health: @state_health, color_health: @color_health)%>

@@ -1,0 +1,256 @@
+<!-- Styles -->
+<style>
+#chart_main {
+  width: 100%;
+  height: 350px;
+  max-width: 100%;
+}
+</style>
+
+<!-- Resources -->
+ 
+<!-- Chart code -->
+<script>
+am5.ready(function func_main() {
+am5.addLicense('<%= amchart_license %>');
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element 
+var root = am5.Root.new("chart_main");
+
+var exporting = am5plugins_exporting.Exporting.new(root, {
+  menu: am5plugins_exporting.ExportingMenu.new(root, {})
+});
+ 
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/ 
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Set Traslattion
+// https://www.amcharts.com/docs/v5/concepts/locales/creating-translations/#Getting_started
+root.locale = {"Jan": "Ene","Apr": "Abr","Aug": "Ago","Sep": "Set","Dec": "Dic"};
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelX: "panX",
+  wheelY: "zoomX" 
+}));
+ 
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+  maxDeviation: 0.5,
+  baseInterval: {
+    timeUnit: "day",  // edited by CM
+    count: 1
+  },
+  renderer: am5xy.AxisRendererX.new(root, {}),
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+   maxDeviation:1,
+   numberFormat: "#  'ppm'",
+   tooltipNumberFormat: "#'%'",  
+  renderer: am5xy.AxisRendererY.new(root, {})
+}));
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+<% @gas.where("id NOT IN (2,3)").each do |gas| %>
+  var series<%= gas.id.to_i %> = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+  name: "<%= gas.name %> (<%= gas.short_name %>)" ,
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "value",
+  valueXField: "date",
+  legendValueText: "{valueY}",
+  tooltip: am5.Tooltip.new(root, {
+    pointerOrientation: "horizontal",
+    labelText: "<%= gas.name %> = {valueY} ppm"
+  })
+}));
+<% end %>
+
+<% @gas.where("id IN (2,3)").each do |gas| %>
+  var series<%= gas.id.to_i %> = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+  name: "<%= gas.name %> (<%= gas.short_name %>)" ,
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "value",
+  valueXField: "date",
+  legendValueText: "{valueY}",
+  tooltip: am5.Tooltip.new(root, {
+    pointerOrientation: "horizontal",
+    labelText: "<%= gas.name %> = {valueY} ppm"
+  })
+}));
+<% end %>
+
+var data_gases1 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_hid %>
+    },
+    <% end %>
+]  
+var data_gases2 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_oxi %>
+    },
+    <% end %>
+]    
+var data_gases3 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_nit %>
+    },
+    <% end %>
+]    
+var data_gases4 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_met %>
+    },
+    <% end %>
+]    
+var data_gases5 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_mon %>
+    },
+    <% end %>
+]   
+var data_gases6 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_dio %>
+    },
+    <% end %>
+]     
+var data_gases7 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_eti %>
+    },
+    <% end %>
+]      
+var data_gases8 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_eta %>
+    },
+    <% end %>
+]   
+var data_gases9 = [
+   <% @graphic_chromatographicals.each do |a| %>               
+   { 
+      date: new Date(<%= a.date_rehearsal.year %>,<%= a.date_rehearsal.month-1 %>,<%= a.date_rehearsal.day %>).getTime(),
+      value: <%= a.num_ace %>
+    },
+    <% end %>
+]   
+
+<% @gas.each do |ga| %>
+  series<%= ga.id %>.data.setAll(data_gases<%= ga.id %>);
+  series<%= ga.id %>.bullets.push(function() {
+    return am5.Bullet.new(root, {
+      locationY: 0,
+      sprite: am5.Circle.new(root, {
+        radius: 3,
+        stroke: root.interfaceColors.get("background"),
+        strokeWidth: 0,
+        fill: series<%= ga.id %>.get("fill")
+      })
+    });
+  });
+<% end %>
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+  behavior: "none"
+}));
+cursor.lineY.set("visible", false);
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
+  width: 200,
+  paddingLeft: 15,
+  height: am5.percent(100)
+}));
+
+// When legend item container is hovered, dim all the series except the hovered one
+legend.itemContainers.template.events.on("pointerover", function(e) {
+  var itemContainer = e.target;
+
+  // As series list is data of a legend, dataContext is series
+  var series = itemContainer.dataItem.dataContext;
+
+  chart.series.each(function(chartSeries) {
+    if (chartSeries != series) {
+      chartSeries.strokes.template.setAll({
+        strokeOpacity: 0.15,
+        stroke: am5.color(0x00000)
+      });
+    } else {
+      chartSeries.strokes.template.setAll({
+        strokeWidth: 3
+      });
+    }
+  })
+})
+
+// When legend item container is unhovered, make all series as they are
+legend.itemContainers.template.events.on("pointerout", function(e) {
+  var itemContainer = e.target;
+  var series = itemContainer.dataItem.dataContext;
+
+  chart.series.each(function(chartSeries) {
+    chartSeries.strokes.template.setAll({
+      strokeOpacity: 1,
+      strokeWidth: 1,
+      stroke: chartSeries.get("fill")
+    });
+  });
+})
+
+legend.itemContainers.template.set("width", am5.p100);
+legend.valueLabels.template.setAll({
+  width: am5.p100,
+  textAlign: "right"
+});
+
+// It's is important to set legend data after all the events are set on template, otherwise events won't be copied
+legend.data.setAll(chart.series.values);
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chart_main"  class="bg-white"></div>

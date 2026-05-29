@@ -1,0 +1,59 @@
+<% title "Admin de Reuniones" %>
+ 
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-calendar-day"></i> Admin de Reuniones
+    <% if @user_permission.include?(87) %>
+    <%= link_to "Nuevo",[:new_meeting_management,:admin_meeting],{class: "btn btn-gray btn-xs"} %> 
+    <% end %>
+    <% if @user_permission.include?(136) %>
+    <%= link_to "Vista Calendario",[:meeting_management,:admin_calendar_meetings],{class: "btn btn-gray btn-xs"} %> 
+    <% end %>  
+    <% if @user_permission.include?(136) %>138
+    <%= link_to "Sólo Ver Eventos",[:meeting_management,:view_meetings],{class: "btn btn-gray btn-xs"} %> 
+    <% end %>       
+    </h4>
+    <h6>Total de Reuniones: <%= @admin_meetings.size %></h6>
+ 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Listado de Reuniones</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <%= render :partial =>"meeting_management/admin_meetings/partials/table" %>   
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+  
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<%= render :partial =>"layouts/calendar" %>

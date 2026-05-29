@@ -1,0 +1,142 @@
+<!-- begin alert --> 
+<%= flash_messages %>
+<!-- end alert --> 
+
+<!-- begin panel -->
+<div class="panel panel-inverse border">
+  <!-- begin panel-heading -->
+  <div class="panel-heading">
+    <h4 class="panel-title">Diagnóstico IEEE Por Periodo
+    </h4>
+    <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <!-- begin table-responsive -->
+    <div class="table-responsive">
+      <table id="data-table-buttonas2" class="table table-hover align-middle">
+        <thead>
+          <tr class="text-center">
+            <th>Fecha </th>
+            <th>Hidrógeno<br>H2<br>ppm</th>
+            <th>Metano<br>CH4<br>ppm</th>
+            <th>M.Carbono<br>CO<br>ppm</th>
+            <th>D.Carbono<br>CO2<br>ppm</th>
+            <th>Etileno<br>C2H4<br>ppm</th>
+            <th>Etano<br>C2H6<br>ppm</th>
+            <th>Acetileno<br>C2H2<br>ppm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @ieee_diag_details.each do |ieee| %>
+          <% cache ieee do %>
+          <tr class="text-center">
+            <td><%= ieee.chromatographical.str_date_rehearsal %></td>
+            <td><%= ieee.chromatographical.num_hid %></td>
+            <td><%= ieee.chromatographical.num_met %></td>
+            <td><%= ieee.chromatographical.num_mon %></td>
+            <td><%= ieee.chromatographical.num_dio %></td>
+            <td><%= ieee.chromatographical.num_eti %></td>
+            <td><%= ieee.chromatographical.num_eta %></td>
+            <td><%= ieee.chromatographical.num_ace %></td>
+          </tr>
+          <% end %> 
+          <% end %>    
+          <!-- begin result diagnostic -->
+          <%= render 'chromatographical_management/ieee_diags/partials/diag_table4_results', ieee_diag: @ieee_diag %>
+          <!-- end result diagnostic -->   
+        </tbody>
+      </table>    
+    </div>
+    <!-- end table-responsive -->    
+
+    <% if @ieee_diag_details.size == 3 %>
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+    <% @month_period = ieee_diag_detail.p_fila1_test3.to_i / 30  %> 
+    <% end %>  
+    <% elsif @ieee_diag_details.size == 4 %>
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+    <% @month_period = ieee_diag_detail.p_fila1_test4.to_i / 30  %> 
+    <% end %>  
+    <% elsif @ieee_diag_details.size == 5 %>
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+    <% @month_period = ieee_diag_detail.p_fila1_test5.to_i / 30  %> 
+    <% end %>          
+    <% elsif @ieee_diag_details.size == 6 %>
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+    <% @month_period = ieee_diag_detail.p_fila1_test6.to_i / 30  %> 
+    <% end %>                    
+    <% end %>
+
+    <div class="row">
+      <div class="col-3 text-center">
+        <%= link_to "<i class='fa-solid fa-circle-info'></i> Regresar a Resumen".html_safe, transformer_management_transformer_path(@transformer), class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+      </div>
+
+      <% if @ieee_diag.month_period.present? %>
+      <div class="col-3 text-center">
+        <!-- begin formulalario estado 0 -->
+        <%= form_for [:chromatographical_management, @ieee_diag],:html=>{} do |f| %>
+        <%= f.hidden_field :state, value: 0  %>
+        <%= f.hidden_field :deleted, value: 0  %>
+        <%= f.hidden_field :month_period, value: @month_period  %>
+        <%= f.hidden_field :ratio, value: @ratio_value  %>
+        <div style="display: none">
+          <%= render 'chromatographical_management/ieee_diags/partials/diag_table4_results', ieee_diag: @ieee_diag %>
+        </div>
+        <% if @month_period.to_i > 3 && @month_period.to_i < 25 %>
+          <% if @user_permission.include?(84) %>
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+              <i class='fa-solid fa-floppy-disk'></i> Guardar Diagnóstico
+            <% end %> 
+          <% end %> 
+        <% else %>
+          <% if @user_permission.include?(84) %>
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill", :disabled => true) do %>
+              <i class='fa-solid fa-floppy-disk'></i> Guardar Diagnóstico
+            <% end %> 
+          <% end %>
+        <% end %>
+        <% end %> 
+        <!-- end formulalario estado 0 -->   
+      </div>
+      <% else %>        
+      <div class="col-3 text-center">
+        <!-- begin formulalario Limites -->   
+        <%=  form_for [:chromatographical_management, @ieee_diag],:html=>{:id=>"form_limits",remote: false} do |f|  %>
+        <%= f.hidden_field :ppm_hid, value: 18791879%>  
+        <%= f.hidden_field :deleted, value: 2 %>    
+        <%= f.hidden_field :month_period, value: @month_period  %>    
+        <%= f.hidden_field :ratio, value: @ratio_value  %>  
+        <% if @user_permission.include?(84) %>
+          <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill" ) do %>
+            <i class='fa fa-eye'></i> Mostrar Limites
+          <% end %> 
+        <% end %> 
+        <% end %>
+        <!-- end formulalario Limites -->          
+      </div>
+      <% end %>        
+
+      <div class="col-3 text-center">
+        <% if @user_permission.include?(84) %>
+        <%= link_to "<i class='fa fa-calculator'></i> Calcular de Nuevo".html_safe, new_chromatographical_management_transformer_ieee_diag_path(@transformer), class: "btn btn-gray  me-1 mb-3  rounded-pill" %>
+        <% end %>   
+      </div>
+
+      <div class="col-3 text-center">
+        <% if @user_permission.include?(84) %>
+        <%= link_to "<i class='fa-solid fa-ban'></i> Omitir Tabla 4".html_safe, chromatographical_management_ieee_diag_path(@ieee_diag), method: :delete ,:title=>"Eliminar", data: {:title=>"Eliminar",confirm: "¿Está Seguro que desea Omitir Tabla 4?"},class: "btn btn-gray  me-1 mb-3 rounded-pill"  %> 
+        <% end %>   
+      </div>  
+    </div>    
+
+  </div>
+  <!-- end panel-body -->
+</div>
+    <!-- end panel -->

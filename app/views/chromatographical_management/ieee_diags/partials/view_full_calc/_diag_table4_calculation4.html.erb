@@ -1,0 +1,194 @@
+<table id="data-table-buttonas2" class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-center">Fecha </th>
+      <th class="text-nowrap text-center">P</th>
+      <th class="text-nowrap text-center">P2</th>
+      <th class="text-nowrap text-center">Hidrógeno<br>H2</th>
+      <th class="text-nowrap text-center">H2 * P </th>
+      <th class="text-nowrap text-center">Metano<br>CH4</th>
+      <th class="text-nowrap text-center">CH4 * P</th>      
+      <th class="text-nowrap text-center">M.Carbono<br>CO</th>
+      <th class="text-nowrap text-center">CO * P</th>   
+      <th class="text-nowrap text-center">D.Carbono<br>CO2</th>
+      <th class="text-nowrap text-center">CO2 * P</th>  
+      <th class="text-nowrap text-center">Etileno<br>C2H4</th>
+      <th class="text-nowrap text-center">C2H4 * P</th>  
+      <th class="text-nowrap text-center">Etano<br>C2H6</th>
+      <th class="text-nowrap text-center">C2H6 * P</th>  
+      <th class="text-nowrap text-center">Acetileno<br>C2H2</th>
+      <th class="text-nowrap text-center">C2H2 * P</th>  
+    </tr>
+  </thead>
+  <tbody>
+    <!-- BEGIN Datos de fila 1 -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.str_date_rehearsal %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p2_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_hid %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_hid_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_met %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_met_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_mon %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_mon_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_dio %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_dio_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eti %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eti_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eta %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eta_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_ace %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_ace_fila1_test4 %></td>
+    </tr>
+    <% end %>                  
+    <!-- END Datos de fila 1 -->
+
+    <!-- BEGIN Datos de fila 2 -->
+    <% @ieee_diag_details.limit(1).offset(1).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.str_date_rehearsal %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p2_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_hid %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_hid_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_met %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_met_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_mon %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_mon_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_dio %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_dio_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eti %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eti_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eta %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eta_fila2_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_ace %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_ace_fila2_test4 %></td>
+    </tr>
+    <% end %>        
+    <!-- END Datos de fila 2 -->
+
+    <!-- BEGIN Datos de fila 3 -->
+    <% @ieee_diag_details.limit(1).offset(2).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.str_date_rehearsal %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p2_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_hid %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_hid_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_met %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_met_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_mon %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_mon_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_dio %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_dio_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eti %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eti_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eta %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eta_fila3_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_ace %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_ace_fila3_test4 %></td>
+    </tr>
+    <% end %>     
+    <!-- END Datos de fila 3 -->
+ 
+    <!-- BEGIN Datos de fila 4 -->
+    <% @ieee_diag_details.limit(1).offset(3).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.str_date_rehearsal %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p2_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_hid %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_hid_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_met %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_met_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_mon %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_mon_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_dio %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_dio_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eti %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eti_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_eta %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eta_fila4_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.chromatographical.num_ace %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_ace_fila4_test4 %></td>
+    </tr>
+    <% end %>     
+    <!-- END Datos de fila 4 -->
+
+    <!-- BEGIN SUMATORIAS  -->
+    <% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center">SUMATORIAS</td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p2_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.hid_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_hid_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.met_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_met_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.mon_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_mon_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.dio_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_dio_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.eti_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eti_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.eta_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_eta_sum_filas_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.ace_fila1_test4 %></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.p_ace_sum_filas_test4 %></td>
+    </tr>
+    <% end %>   
+    <!-- END SUMATORIAS  -->
+
+    <!-- BEGIN PPM POR DIA  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center">PPM POR DIA</td>
+      <td class="text-nowrap text-center"> </td>
+      <td class="text-nowrap text-center"> </td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_hid_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_met_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_mon_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_dio_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_eti_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_eta_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.day_ace_fila1_test4.round(4) %></td>
+      <td class="text-nowrap text-center"></td>
+    </tr>
+    <% end %>   
+    <!-- END PPM POR DIA  -->
+
+    <!-- BEGIN PPM POR AÑO  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr>
+      <td class="text-nowrap text-center">PPM POR AÑO</td>
+      <td class="text-nowrap text-center"> </td>
+      <td class="text-nowrap text-center"> </td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_hid_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_met_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_mon_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_dio_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_eti_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_eta_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+      <td class="text-nowrap text-center"><%= ieee_diag_detail.year_ace_fila1_test4.round(0) %></td>
+      <td class="text-nowrap text-center"></td>
+    </tr>
+    <% end %>   
+    <!-- END PPM POR AÑO  -->
+
+
+  </tbody>
+</table>     

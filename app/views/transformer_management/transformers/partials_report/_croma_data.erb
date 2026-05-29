@@ -1,0 +1,38 @@
+<div class="row text-center pt-1 pb-0" style="background-color: #E8E8E8" >
+  <div class="col-xl-12">
+    <b style="font-size: 14px;" >ANÁLISIS DE GASES DISUELTOS</b> 
+  </div>
+</div>
+
+<p style="font-size: 10px;" class="pt-2">
+El análisis de gases disueltos en el aceite toma como referencia la tabla A.4 – de concentraciones típicas para transformadores de distribución del estándar IEC 60599.</p>
+
+<div id="main_info" class="container" style="font-size: 10px;">
+  <%= render partial: "transformer_management/transformers/partials_report/croma_data_tests", :locals => {:transformer => @transformer} %>       
+</div>
+
+
+<% if @chromatographical.iec_color_hidrogeno_report   == "success" &&
+            @chromatographical.iec_color_metano_report      == "success" &&
+            @chromatographical.iec_color_monocarbono_report == "success" &&
+            @chromatographical.iec_color_diocarbono_report  == "success" &&
+            @chromatographical.iec_color_etileno_report     == "success" &&
+            @chromatographical.iec_color_etano_report       == "success" &&
+            @chromatographical.iec_color_acetileno_report   == "success" %>
+<% else %>
+<div id="secondary_info" class="container" style="font-size: 10px;">
+  <div class="row">
+    <div class="col-5">
+      <div class="row">
+        <%= render partial: "transformer_management/transformers/partials_report/croma_data_diagnostics_left", :locals => {:transformer => @transformer} %>    
+      </div>
+    </div>
+    <div class="col-2">
+    </div>
+
+    <div class="col-5">        
+      <%= render partial: "transformer_management/transformers/partials_report/croma_data_diagnostics_right", :locals => {:transformer => @transformer} %> 
+    </div>
+  </div>
+</div> 
+<% end %>

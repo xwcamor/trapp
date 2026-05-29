@@ -1,0 +1,95 @@
+<%=  form_for [:chromatographical_management, @chromatographical_dga_diag],:html=>{:id=>"form_dga_diags",remote: true} do |f|  %>
+
+<% @croma_count = Chromatographical.where('deleted= 0 AND transformer_id=?',@transformer.id).count %>
+ 
+<% if @croma_count > 0 %>
+	<!-- Datos Tabla 1: -->
+	<% @t1hid = @last_chromatographical.ieee_hidrogeno_tabla1_eva %>
+	<% @t1met = @last_chromatographical.ieee_metano_tabla1_eva %>
+	<% @t1eta = @last_chromatographical.ieee_etano_tabla1_eva %>
+	<% @t1eti = @last_chromatographical.ieee_etileno_tabla1_eva %>
+	<% @t1ace = @last_chromatographical.ieee_acetileno_tabla1_eva %>
+	<% @t1mon = @last_chromatographical.ieee_monocarbono_tabla1_eva %>
+	<% @t1dio = @last_chromatographical.ieee_diocarbono_tabla1_eva %>
+	<!-- Resultado Tabla 1: -->
+	<% if @t1hid =="si" && @t1met =="si" && @t1eta =="si" && @t1eti =="si" && @t1ace =="si" && @t1mon =="si" && @t1dio =="si" %>
+	<i class="fa-solid fa-square-1 fa-fw text-green me-2 fs-18px" title="Tabla 1"></i><input type="hidden" name="chromatographical_dga_diag[eval_first]" value="green">
+	<% else %>
+	<i class="fa-solid fa-square-1 fa-fw text-red   me-2 fs-18px" title="Tabla 1"></i><input type="hidden" name="chromatographical_dga_diag[eval_first]" value="red">
+	<% end %>
+	<!-- Datos Tabla 2: -->
+	<% @t2hid = @last_chromatographical.ieee_hidrogeno_tabla2_eva %>
+	<% @t2met = @last_chromatographical.ieee_metano_tabla2_eva %>
+	<% @t2eta = @last_chromatographical.ieee_etano_tabla2_eva %>
+	<% @t2eti = @last_chromatographical.ieee_etileno_tabla2_eva %>
+	<% @t2ace = @last_chromatographical.ieee_acetileno_tabla2_eva %>
+	<% @t2mon = @last_chromatographical.ieee_monocarbono_tabla2_eva %>
+	<% @t2dio = @last_chromatographical.ieee_diocarbono_tabla2_eva %>
+	<!-- Resultado Tabla 2: -->
+	<% if @t2hid =="si" && @t2met =="si" && @t2eta =="si" && @t2eti =="si" && @t2ace =="si" && @t2mon =="si" && @t2dio =="si" %>
+	<i class="fa-solid fa-square-2 fa-fw text-green me-2 fs-18px" title="Tabla 2"></i><input type="hidden" name="chromatographical_dga_diag[eval_second]" value="green">
+	<% else %>
+	<i class="fa-solid fa-square-2 fa-fw text-red   me-2 fs-18px" title="Tabla 2"></i><input type="hidden" name="chromatographical_dga_diag[eval_second]" value="red" >
+	<% end %>
+<% else %>
+	<i class="fa-solid fa-square-1 fa-fw text-black me-2 fs-18px" title="Tabla 1"></i><input type="hidden" name="chromatographical_dga_diag[eval_first]"  value="red">
+	<i class="fa-solid fa-square-2 fa-fw text-black me-2 fs-18px" title="Tabla 2"></i><input type="hidden" name="chromatographical_dga_diag[eval_second]" value="red">
+<% end %>
+ 
+ 
+<% if @croma_count >= 2 %> 
+	<!-- Datos Tabla 3: -->
+	<% @t3hid = @last_chromatographical.ieee_hidrogeno_tabla3_eva %>
+	<% @t3met = @last_chromatographical.ieee_metano_tabla3_eva %>
+	<% @t3eta = @last_chromatographical.ieee_etano_tabla3_eva %>
+	<% @t3eti = @last_chromatographical.ieee_etileno_tabla3_eva %>
+	<% @t3mon = @last_chromatographical.ieee_monocarbono_tabla3_eva %>
+	<% @t3dio = @last_chromatographical.ieee_diocarbono_tabla3_eva %>
+	<!-- Resultado Tabla 3: -->
+	<% if @t3hid =="si" && @t3met =="si" && @t3eta =="si" && @t3eti =="si" && @t3mon =="si" && @t3dio =="si" %>
+	<i class="fa-solid fa-square-3 fa-fw text-green me-2 fs-18px" title="Tabla 3"></i><input type="hidden" name="chromatographical_dga_diag[eval_third]" value="green">
+	<% else %>
+	<i class="fa-solid fa-square-3 fa-fw text-red   me-2 fs-18px" title="Tabla 3"></i><input type="hidden" name="chromatographical_dga_diag[eval_third]" value="red">
+	<% end %>
+<% else %>
+	<i class="fa-solid fa-square-3 fa-fw text-black me-2 fs-18px" title="Tabla 3"></i><input type="hidden" name="chromatographical_dga_diag[eval_third]" value="green">
+<% end %>
+
+
+<% @ieee_diag_count = IeeeDiag.where('deleted= 0 AND transformer_id=?',@transformer.id).count %>
+<% if @ieee_diag_count > 0 %> 
+	<!-- Datos Tabla 4: -->
+	<% @t4hid = @last_ieee_diag.ieee_hidrogeno_tabla4_eva %>
+	<% @t4met = @last_ieee_diag.ieee_metano_tabla4_eva %>
+	<% @t4mon = @last_ieee_diag.ieee_monocarbono_tabla4_eva %>
+	<% @t4dio = @last_ieee_diag.ieee_diocarbono_tabla4_eva %>	
+	<% @t4eti = @last_ieee_diag.ieee_etileno_tabla4_eva %>	
+	<% @t4eta = @last_ieee_diag.ieee_etano_tabla4_eva %>
+
+	<!-- Resultado Tabla 4: -->
+	<% if @t4hid =="si" && @t4met =="si" && @t4eta =="si" && @t4eti =="si" && @t4mon =="si" && @t4dio =="si" %>
+	<i class="fa-solid fa-square-4 fa-fw text-green me-2 fs-18px" title="Tabla 4"></i><input type="hidden" name="chromatographical_dga_diag[eval_fourth]" value="green">
+	<% else %>
+	<i class="fa-solid fa-square-4 fa-fw text-red   me-2 fs-18px" title="Tabla 4"></i><input type="hidden" name="chromatographical_dga_diag[eval_fourth]" value="red">
+	<% end %>
+<% else %>
+	<i class="fa-solid fa-square-4 fa-fw text-black me-2 fs-18px" title="Tabla 4"></i><input type="hidden" name="chromatographical_dga_diag[eval_fourth]" value="green">
+<% end %>
+
+
+
+  <div style="display:none;">
+  <!-- Begin save and click load -->
+  <button name="button" type="submit" id="button_diag" class="button_diag" onclick="setTimeout(disableFunction, 0);"> Diagnosticar</button>             
+  <script>
+  	window.onload=function(){ 
+      document.getElementById("button_diag").click();
+    };
+    function disableFunction() {
+	  document.getElementById("button_diag").disabled = 'true';
+	}
+  </script>   
+  <!-- End save and click load -->
+  </div>
+
+<% end %>

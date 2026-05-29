@@ -1,0 +1,15 @@
+<% title "Transformador" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+<% @legend_name =  "<i class='fa-solid fa-transformer-bolt fa-2x'></i>".html_safe %> 
+
+<!-- begin form-->
+<%= render :partial =>"transformer_management/transformers/partials/form_show",  transformer: @transformer %>
+<!-- end form-->
+
+<!-- begin GRAFICOS-->
+<%#= bar_chart User.group(:name).sum(:id) %>
+<!-- end GRAFICOS-->
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end script-->

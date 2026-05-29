@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secciones Iniciales</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+  </style>
+</head>
+<body>
+  <h1 id="recomendaciones" style="font-size: 20pt; font-weight: bold;">9. Conclusiones</h1>
+  <% transformers.each do |transformer| %>
+    <% detail = transformer.report_details.find_by(report_id: report.id) %>
+    <% next unless detail && detail.auto_recommendation.present? %>
+
+    <ul>
+      <li><b><%= transformer.num_serie %>:</b> <%= detail.auto_recommendation %></li>
+    </ul>
+  <% end %>
+</body>
+</html>

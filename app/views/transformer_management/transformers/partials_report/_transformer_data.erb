@@ -1,0 +1,56 @@
+<div>
+  <b style="font-size: 12px;">INFORMACIÓN DEL EQUIPO</b>
+</div>
+
+<div class="container" style="font-size: 10px;">
+  <div class="row">
+    <table class="table table-bordered  table-sm" style="font-size: 10px;">
+      <tbody>
+        <tr>
+          <td class="border border-dark"><b>Nº Serie</b></td>
+          <td class="border border-dark"><%= @transformer.num_serie rescue "-" %></td>
+          <td class="border border-dark"><b>Tensión (Kv)</b></td>
+          <td class="border border-dark"><%= @transformer.num_vol rescue "-" %></td>
+          <td class="border border-dark"><b>Tipo de Transformador</b></td>
+          <td class="border border-dark"><%= @transformer.transformer_type.name.titleize rescue "-" %></td>  
+        </tr>
+        <tr>
+          <td class="border border-dark"><b>Tag</b></td>
+          <td class="border border-dark"><%= @transformer.num_tag rescue "-" %></td>
+          <td class="border border-dark"><b>Potencia (MVA)</b></td>
+          <td class="border border-dark"><%= @transformer.num_pot rescue "-" %></td>
+          <td class="border border-dark"><b>Tipo de Aceite</b></td>
+          <td class="border border-dark"><%= @transformer.oil_type.name.titleize rescue "-" %></td>  
+        </tr>       
+        <tr>
+          <td class="border border-dark"><b>Marca</b></td>
+          <td class="border border-dark"><%= @transformer.mark.name.titleize rescue "-" %></td>
+          <td class="border border-dark"><b>Sistema de Preservación </b></td>
+          <td class="border border-dark"><%= @transformer.transformer_preservation.name.titleize rescue "-" %></td>  
+          <td class="border border-dark"><b>Nº de Fases </b></td>
+          <td class="border border-dark"><%= @transformer.str_num_fas rescue "-" %></td>  
+        </tr>   
+        <tr>
+          <td class="border border-dark"><b>Edad (años)</b></td>
+          <td class="border border-dark"><%= @transformer.str_edad rescue "-" %></td>
+          <td class="border border-dark"><b>Tipo de Conmutador</b></td>
+          <td class="border border-dark"><%= @transformer.conmutation_type.name.titleize rescue "-"%></td>
+          <td class="border border-dark"><b>Tipo de Conexión</b></td>
+          <td class="border border-dark"><%= @transformer.connection_type.name.titleize rescue "-"%></td>
+        </tr> 
+        <tr>
+          <td class="border border-dark"><b>Índice de Salud (%)</b></td>
+          <td class="border border-dark"><%= @transformer.num_health rescue "-" %></td> 
+          <td class="border border-dark"><b>Estado</b></td>
+          <td class="border border-dark"><%= @transformer.state_health rescue "Muy Malo" rescue "-" %></td> 
+          <td class="border border-dark"><b>Condición</b></td>
+          <td class="border border-dark"> <a class="btn btn-<%= @transformer.str_color_health rescue 'danger'  %> btn-md"></td>  
+        </tr>       
+ 
+
+      </tbody>
+    </table>
+  </div>      
+</div>
+ 
+

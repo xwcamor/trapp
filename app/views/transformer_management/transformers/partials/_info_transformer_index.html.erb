@@ -1,0 +1,89 @@
+<!--begin panel-information -->
+<div class="row panel mb-0  ">
+  <!--begin panel-head -->
+  <div class="panel-heading bg-gray-800 text-white pb-2">
+    <div class="panel-title"><i class="fa fa-transformer-bolt"></i> Datos de Transformadores</div> 
+    <div class="panel-heading-btn">
+      <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+        <i class="fa fa-minus"></i>
+      </a>
+    </div>
+  </div>
+  <!--end panel-head -->
+  <!--begin panel-main -->
+  <div class="panel-body  ">
+    <!--begin row inside cols -->
+    <div class="row">
+     <% @aa= @list_transformers.map { |e| e.hi_calculation_fin_condition_count_index rescue '<i class="fa fa-circle fa-fw text-red me-2 fs-10px"></i>'.html_safe+"Muy Malo" }%>
+      <% @array =@aa.tally %>   
+      <% @array.each do |info|%>   
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total en Estado: <%= info[0] %></h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span class="card-subtitle mb-10px text-semi-bold">
+                <span data-animation="number" data-value="<%= info[1] %> ">0 </span>
+              </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <% end %>
+ 
+    </div>
+    <!--end row inside cols -->
+  </div>
+  <!--end panel-main -->
+  <!--begin panel-secondary -->
+  <div class="panel-body   " style="display: none;">
+    <!--begin row inside cols -->
+    <div class="row">
+     <% @aa= @list_transformers.map { |e| e.hi_calculation_fin_condition_count_index rescue '<i class="fa fa-circle fa-fw text-red me-2 fs-10px"></i>'.html_safe+"Muy Malo" }%>
+      <% @array =@aa.tally %>   
+      <% @array.each do |info|%>   
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total en Estado: <%= info[0] %></h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span class="card-subtitle mb-10px text-semi-bold">
+                <span data-animation="number" data-value="<%= info[1] %> ">0 </span>
+              </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <% end %>    
+    </div>
+    
+    <div class="row">
+     <% @aa= @list_transformers.map { |e| e.hi_calculation_fin.round(0)  rescue "0" }%>
+      <% @array =@aa.tally %>   
+      <% @array.each do |info|%>   
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Total en Indice Salud: <%= info[0] %></h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <span class="card-subtitle mb-10px text-semi-bold">
+                <span data-animation="number" data-value="<%= info[1] %> ">0 </span>
+              </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <% end %>    
+    </div>        
+  </div>
+  <!--end panel-secondary -->  
+</div> 
+<!--end panel-information -->
+
+ 

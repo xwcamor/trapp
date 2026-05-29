@@ -1,0 +1,1 @@
+json.array! @countries, partial: "country_management/countries/partials/country", as: :country

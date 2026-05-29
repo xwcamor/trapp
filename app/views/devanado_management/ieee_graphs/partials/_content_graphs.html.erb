@@ -1,0 +1,74 @@
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+ 
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Tendencia 
+       
+    </h4>
+
+      <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">          
+              <h5>
+                 <i class="fa fa-chart-line"></i> Tendencia en Alta Tensión
+              </h5>
+              <%= render :partial =>"devanado_management/ieee_graphs/partials/amchart" %>
+            </div>
+          </div>
+        </div>
+      
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->   
+
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Tendencia 
+       
+    </h4>
+
+      <%= render :partial =>"layouts/panel_heading" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">          
+              <h5>
+                 <i class="fa fa-chart-line"></i> Tendencia en Baja Tensión
+              </h5>
+              <%= render :partial =>"devanado_management/ieee_graphs/partials/amchart_second" %>
+            </div>
+          </div>
+        </div>
+      
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->   
+
+  
+

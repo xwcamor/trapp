@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row text-center pt-1 pb-0" style="background-color: #E8E8E8">
+    <div class="col-12"><b>INFORME DE RESULTADOS <%= @transformer.num_serie rescue "-" %></b></div>
+  </div>
+</div>
+
+<div class="pt-2">
+  <b style="font-size: 12px;">INFORMACIÓN DEL CLIENTE </b>
+</div>
+
+<div class="container" style="font-size: 10px;">
+  <div class="row">
+  	<table class="table table-bordered table-sm" style="font-size: 10px;">
+  	  <tbody>
+  	  <tr>
+  	    <td class="border border-dark"><b>Cliente</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer.name.titleize  rescue ""%></td>
+  	    <td class="border border-dark"><b>RUC</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer.num_doc  rescue "" %></td>
+  	  </tr>
+  	  <tr>
+  	    <td class="border border-dark"><b>Ubicación</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer_area.customer_location.name.titleize  rescue ""%></td>
+  	    <td class="border border-dark"><b>Cod. Cliente</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation_id  rescue ""%></td>
+  	  </tr>
+  	  <tr>
+  	    <td class="border border-dark"><b>Área</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer_area.name.titleize  rescue ""%></td>
+  	    <td class="border border-dark"><b>País</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer.country.name.titleize  rescue ""%></td>
+  	  </tr>
+  	  <tr>
+  	    <td class="border border-dark"><b>Subestación</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.name.titleize  rescue ""%></td>
+  	    <td class="border border-dark"><b>Dirección</b></td>
+  	    <td class="border border-dark"><%= @transformer.customer_substation.customer.address.titleize  rescue ""%></td>
+  	  </tr>  	    	    	  
+  	  </tbody>
+  	</table>
+  </div>
+</div>

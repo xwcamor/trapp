@@ -1,0 +1,193 @@
+<h1 align="center">Reporte del Transformador</h1> 
+
+Nº Serie: <%= @transformer.num_serie %><br>
+
+TAG: <%= @transformer.num_tag %><br>
+
+Cliente: <%= @transformer.customer_substation.customer_area.customer_location.customer.name.upcase %><br>
+
+Ubicación: <%= @transformer.customer_substation.customer_area.customer_location.name.upcase %><br>
+
+área  <%= @transformer.customer_substation.customer_area.name.upcase %><br>
+
+Subestación <%= @transformer.customer_substation.name.upcase %><br>
+
+TAG: <%= @transformer.num_tag.upcase %><br>
+
+Voltaje:  <%= @transformer.num_vol %> KV<br>
+
+Potencia: <%= @transformer.num_pot %> MVA<br>
+
+Fabricación - Edad: <%= @transformer.str_edad %> años<br>
+   
+Tipo Transformador: <%= @transformer.transformer_type.name.upcase %><br>
+    
+Tipo Conmutador: <%= @transformer.conmutation_type.name.upcase %><br>
+     
+Tipo de Conexión: <%= @transformer.connection_type.name.upcase %><br>
+
+Tipo de Aceite: <%= @transformer.oil_type.name.upcase %><br>
+     
+Marca: <%= @transformer.mark.name %><br>
+    
+Sistema de Preservación: <%= @transformer.transformer_preservation.name %><br>
+ 
+índice de Salud:     <br>
+
+
+<hr>
+
+<div class="alert alert-secondary  text-center">
+  <h3> Análisis Cromatográfico</h3>
+  <div class="row">
+	  <div class="col-6">
+	    última muestra: <%= @last_chromatographical.str_date_rehearsal rescue ""  %>  
+    </div>
+    <div class="col-6">
+      Peso de Factor: <span data-animation="number" data-value="<%= @last_chromatographical.dgaf_score rescue ""  %> "> 0</span> % 
+    </div>    
+  </div>
+</div>
+ 
+<table  class="table table-responsive">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-start">Diagnóstico </th>
+      <th class="text-nowrap text-start">Resultado</th>    
+    </tr>
+  </thead>
+  <tbody>
+<!--     <tr>
+      <td class="text-nowrap text-start">Triangulo de duval</td>
+      <td class="text-nowrap text-start"><%# @duvals.where("duval_type_id = 1 AND graph_type = 1 AND short_name = ?",@chromatographical_duval.triangle_diag_first).each  do |dd| %><%#=  dd.name %><%# end %></td>
+    </tr>
+    <tr>
+      <td class="text-nowrap text-start">Pentágono de duval</td>
+      <td class="text-nowrap text-start"><%# @duvals.where("duval_type_id = 2 AND graph_type = 1 AND short_name = ?",@chromatographical_duval.pentagon_diag_second).each  do |de| %><%#=  de.name %><%# end %></td>
+    </tr> -->
+    <tr>
+      <td class="text-nowrap text-start">Ratios de Roger</td>
+      <td class="text-nowrap text-start"><%= @last_chromatographical.rogers_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="text-nowrap text-start">Doernenburg</td>
+      <td class="text-nowrap text-start"><%= @last_chromatographical.doe_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="text-nowrap text-start">IEC 60599</td>
+      <td class="text-nowrap text-start"><%= @last_chromatographical.iec_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="text-nowrap text-start">IEEE C57.104</td>
+      <td class="text-nowrap text-start">  </td>
+    </tr>                                                        
+  </tbody>
+</table>  
+
+
+
+
+<hr>
+
+
+
+<div class="alert alert-secondary  text-center">
+  <h3> Análisis Físico Químico</h3>
+  <div class="row">
+    <div class="col-6">
+      última muestra: <%= @last_physical.str_date_rehearsal rescue ""  %>  
+    </div>
+    <div class="col-6">
+      Peso de Factor: <span data-animation="number" data-value="<%= @last_physical.dgaf_score rescue ""  %> "> 0</span> % 
+    </div>
+  </div>
+</div>
+
+
+<table  class="table table-responsive">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-start">Parámetro </th>
+      <th class="text-nowrap text-center" colspan="3">Limite</th>
+ 
+      <th class="text-nowrap text-center">Valor</th>
+      <th class="text-nowrap text-center">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-nowrap text-start">Número ácido</td>
+      <td class="text-nowrap text-start">Máx.</td>      
+      <td class="text-nowrap text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_acid rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-start">  mgKOH/g <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-nowrap text-center"><span data-animation="number" data-value="<%= @last_physical.num_acid rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-center"><%= @last_physical.ieee_color_num_acid_circle rescue "Registrar 1 Análisis Físico Químico" %></td>
+    </tr>
+    <tr>
+      <td class="text-nowrap text-start">Factor de Potencia a 25°C</td>
+      <td class="text-nowrap text-start">Máx.</td>      
+      <td class="text-nowrap text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_pot  rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-start">% <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-nowrap text-center"><span data-animation="number" data-value="<%= @last_physical.num_pot rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-center"><%= @last_physical.ieee_color_num_pot_circle rescue "Registrar 1 Análisis Físico Químico" %></td>
+    </tr>            
+    <tr>
+      <td class="text-nowrap text-start">Rigidez Dieléctrica</td>
+      <td class="text-nowrap text-start">Min.</td>      
+      <td class="text-nowrap text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_rig  rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-start">Kv <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-nowrap text-center"><span data-animation="number" data-value="<%= @last_physical.num_rig rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-center"><%= @last_physical.ieee_color_num_rig_circle rescue "Registrar 1 Análisis Físico Químico" %></td>
+    </tr>  
+    <tr>
+      <td class="text-nowrap text-start">Tensión interfacial</td>
+      <td class="text-nowrap text-start">Min.</td>      
+      <td class="text-nowrap text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_ten  rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-start">Nm/m <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-nowrap text-center"><span data-animation="number" data-value="<%= @last_physical.num_ten rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-center"><%= @last_physical.ieee_color_num_ten_circle rescue "Registrar 1 Análisis Físico Químico" %></td>
+    </tr>  
+    <tr>
+      <td class="text-nowrap text-start">Contenido de Agua</td>
+      <td class="text-nowrap text-start">Máx.</td>      
+      <td class="text-nowrap text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_wat  rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-start">ppm <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-nowrap text-center"><span data-animation="number" data-value="<%= @last_physical.num_wat rescue ""  %>"> 0</span></td>
+      <td class="text-nowrap text-center"><%= @last_physical.ieee_color_num_wat_circle rescue "Registrar 1 Análisis Físico Químico" %></td>
+    </tr>                                                      
+  </tbody>
+</table>  
+
+
+
+<hr>
+
+
+<div class="alert alert-secondary  text-center">
+  <h3> Análisis de Furanos</h3>
+  <div class="row">
+    <div class="col-6">
+      última muestra: <%= @last_furano.str_date_rehearsal rescue ""  %>  
+    </div>
+    <div class="col-6">
+      Peso de Factor: <span data-animation="number" data-value="<%= @last_furano.dgaf_score rescue ""  %> "> 0</span> % 
+    </div>    
+  </div>
+</div>
+ 
+ <table  class="table table-responsive">
+  <thead>
+    <tr>
+      <th class="text-nowrap text-start">2-Furfuraldehido </th>
+      <th class="text-nowrap text-start">Grado de Polimerización</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-nowrap text-start"><span data-animation="number" data-value="<%= @last_furano.num_fal rescue ""  %>"> 0</span> PPB</td>
+      <td class="text-nowrap text-start"><span data-animation="number" data-value="<%= @last_furano.shendong rescue ""  %>"> 0</span> DP</td>      
+    </tr>
+                                                  
+  </tbody>
+</table>  
+

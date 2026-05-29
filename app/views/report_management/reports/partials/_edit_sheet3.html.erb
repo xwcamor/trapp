@@ -1,0 +1,41 @@
+<div class="panel panel-inverse border">
+	<!-- begin panel-heading -->
+	<div class="panel-heading bg-gray-800 text-white ui-sortable-handle">
+		<h4 class="panel-title"><i class="fa-solid fa-file-chart-pie"></i>  Datos de Transformadores </h4>
+		<div class="panel-heading-btn">
+			<a href="javascript:;" title="Pantalla Completa" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand">
+				<i class="fa fa-expand" aria-hidden="true"></i>
+			</a>
+
+			<a href="javascript:;" title="Ocultar / Mostrar" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+				<i class="fa fa-minus" aria-hidden="true"></i>
+			</a>
+
+		</div>
+	</div>
+	<!-- end panel-heading -->
+	<!-- begin panel-body -->
+	<div class="panel-body">
+	  <% if @report.sheet3 != nil%>
+        <textarea id="editor" class="ckeditor" cols="80" name="report[sheet3]" rows="10">
+        	<%= @report.sheet3  %>
+        </textarea>
+      <% else %>
+        <textarea id="editor" class="ckeditor" cols="80" name="report[sheet3]" rows="10">
+        	<%= render :partial =>"report_management/reports/partials/edit_sheet3_new_data"  %>    
+        </textarea>
+      <% end%>
+	</div>
+	<!-- end panel-body -->
+	<% if @report.sheet3 != nil%>
+	<!-- Begin Footer -->
+	<div class="modal-footer">
+	  <button name="button" type="submit" class="btn btn-gray">
+	    <i class="fa-solid fa-floppy-disk"></i> Guardar Información
+	  </button>
+	</div>
+	<!-- end modal-footer -->	
+	<% end%>
+</div>
+ 
+ 

@@ -1,0 +1,113 @@
+<% title "Ver" %>
+<%= links  link_to 'Notificaciones', [:notification_management,:user_notifications] %> 
+ 
+ 
+
+<!-- begin form-->
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h2 class="page-header"><i class="fa-solid fa-bell"></i> Ver Notificación</h2>
+    <hr>
+
+    <br><br>
+    <!-- begin row-->
+    <div class="row">
+      <!-- begin col-3 -->
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Fecha</label>
+          <div class="col-md-9 col-sm-8">
+             <%= text_field_tag "date_notification", @user_notification.str_date_notification, class: 'form-control-plaintext'  %>
+          </div>
+        </div>
+      </div>
+      <!-- end col-3 -->
+    </div>
+    <!-- end row-->
+
+    <br><br>
+      <!-- begin row -->
+      <div class="row">
+        <!-- begin col4 -->
+        <div class="col-md-12">
+          <div class="form-group row m-b-15">
+              <label class="col-md-3 col-sm-4 col-form-label">Usuario</label>
+              <div class="col-md-9 col-sm-8">
+                <%= text_field_tag "date_notification", @user_notification.user.str_complete_name, class: 'form-control-plaintext'  %>
+                  
+              </div>
+          </div>   
+        </div>    
+        <!-- end col4 -->
+               
+      </div>
+      <!-- end row -->
+
+    <br><br>
+    <!-- begin row-->
+    <div class="row">
+      <!-- begin col-3 -->
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Transformador</label>
+          <div class="col-md-9 col-sm-8">
+            <%= text_field_tag "date_notification", @user_notification.transformer.num_serie, class: 'form-control-plaintext'  %>
+          </div>
+        </div>
+      </div>
+      <!-- end col-3 -->
+    </div>
+    <!-- end row-->
+
+    <br><br>
+    <!-- begin row-->
+    <div class="row">
+      <!-- begin col-3 -->
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Descripción</label>
+          <div class="col-md-9 col-sm-8">
+             <%= text_field_tag "date_notification", @user_notification.description, class: 'form-control-plaintext'  %>
+          </div>
+        </div>
+      </div>
+      <!-- end col-3 -->
+    </div>
+    <!-- end row-->
+     
+    <br><br>
+    <!-- begin row-->
+    <div class="row">
+      <!-- begin col-3 -->
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-9 col-sm-8">
+             <%= text_field_tag "date_notification", @user_notification.str_state, class: 'form-control-plaintext'  %>             
+          </div>
+        </div>
+      </div>
+      <!-- end col-3 -->
+      
+                                
+    </div>
+    <!-- end row-->
+      <br>
+      <div class="text-center me-1 mb-3">
+        <%= link_to "<i class='fa fa-arrow-left'></i> Regresar a Notificaciones".html_safe, [:notification_management,:user_notifications], class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+ 
+            
+          
+       </div>  
+
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end layout-->

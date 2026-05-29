@@ -1,0 +1,42 @@
+wb.styles do |style|
+  style_head = style.add_style(b: true, sz: 14, alignment: { horizontal: :center }, bg_color: 'BFB9B9' )
+  style_body = style.add_style(b: false, sz: 14,alignment: { horizontal: :center } )
+
+  wb.add_worksheet(name: "Análisis Físico Químico") do |sheet|
+
+    sheet.add_row [
+    'NºSerie',
+    'TAG',  
+    'Fecha',
+    'Número Ácido ASTM D974 (mg KOH/g)',
+    'Factor de Potencia ASTM D924 (25ºC. %)',
+    'Factor de Potencia ASTM D924 (100ºC. %)',
+    'Rigidez Dieléctrica ASTM D1816 (kV/2.0 mm)',
+    'Rigidez Dieléctrica ASTM D877 (kV 2.54 mm)',
+    'Tensión Interfacial ASTM D971 (mN/m)',
+    'Contenido De Agua ASTM D1533 (ppm)'
+    ], style: style_head
+
+    @report_details = ReportDetail.where("report_id = ?",@report.id)
+
+    @report_details.each do |report_detail|
+      report_detail.transformer.physicals.where("deleted=0").order("date_rehearsal DESC").each do |physical|
+
+        sheet.add_row [
+         physical.transformer.num_serie,
+         physical.transformer.num_tag,      
+         physical.str_date_rehearsal,
+         physical.num_acid,
+         physical.num_pot,
+         physical.num_pot2,
+         physical.num_rig,
+         physical.num_rig2,
+         physical.num_ten,
+         physical.num_wat
+        ], style: style_body
+      end
+    end
+
+  end
+
+end

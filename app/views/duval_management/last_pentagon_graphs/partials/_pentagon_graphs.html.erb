@@ -1,0 +1,165 @@
+<div class="row">
+    <!-- BEGIN col-4 -->
+    <div class="col-xl-4">
+        <div class="panela" >
+            <!-- BEGIN panel-body -->
+            <div class="panel-body">
+             <div class="pentagon">
+                <canvas id="combine" width=430 height=400></canvas>
+                <div style="display: none;"><label class="combine">Result is &nbsp</label><input type="text" name="pentagon[combine]" class="combine"></div>
+                <div class="alert-secondary  text-center">
+                  <% @duval_type3.where("short_name = ?",@chromatographical_duval.pentagon_diag_first).each  do |dd| %>
+                   <%=  dd.name %> <%= render :partial =>"duval_management/duval_values/partials/form_edit_pentagon_diagnostics" %>
+                  <% end %>          
+                  <%  if @chromatographical_duval.pentagon_diag_first.blank?%>
+                  PD = Descarga Parcial.
+                  <% end %>                              
+                </div><br>
+                <div id="leyenda">
+                  <%  @duval_type3.each do |duval| %>
+                    <%= duval.name %><br>
+                  <% end %>                  
+                </div>             
+            </div>
+
+
+            </div>
+            <!-- END panel-body -->
+         </div>
+     </div>
+     <!-- END col-4 -->
+     <!-- BEGIN col-4 -->
+    <div class="col-xl-4">
+        <div class="panela">
+            <!-- BEGIN panel-body -->
+            <div class="panel-body">
+              <div class="pentagon">
+                  <canvas id="normal" width=430 height=400></canvas>
+                  <div style="display: none;"><label class="normal">Result is &nbsp</label><input type="text" name="pentagon[normal]" class="normal"></div>
+                  <div class="alert-secondary  text-center">
+                    <% @duval_type1.where("short_name = ?",@chromatographical_duval.pentagon_diag_second).each  do |dd| %>
+                     <%=  dd.name %> <%= render :partial =>"duval_management/duval_values/partials/form_edit_pentagon_diagnostics" %>
+                    <% end %> 
+                    <%  if @chromatographical_duval.pentagon_diag_second.blank?%>
+                    PD = Descarga Parcial.
+                    <% end %>                    
+                  </div><br>        
+                  <div id="leyenda">
+                  <%  @duval_type1.each do |duval| %>
+                    <%= duval.name %><br>
+                  <% end %>                       
+                  </div>         
+              </div>
+
+
+            </div>
+            <!-- END panel-body -->
+         </div>
+     </div>
+     <!-- END col-4 -->
+    <!-- BEGIN col-4 -->
+    <div class="col-xl-4">
+        <div class="panela">
+            <!-- BEGIN panel-body -->
+            <div class="panel-body">
+              <div class="pentagon">
+                <canvas id="faultzone" width=430 height=400></canvas>
+                  <div style="display: none;"><label class="faultzone">Result is &nbsp</label><input type="text" name="pentagon[faultzone]" class="faultzone"></div>
+                  <div class="alert-secondary  text-center">
+                    <% @duval_type2.where("short_name = ?",@chromatographical_duval.pentagon_diag_third).each  do |dd| %>
+                     <%=  dd.name %> <%= render :partial =>"duval_management/duval_values/partials/form_edit_pentagon_diagnostics" %>
+                    <% end %> 
+                    <%  if @chromatographical_duval.pentagon_diag_third.blank?%>
+                    PD = Descarga Parcial.
+                    <% end %>                    
+                  </div><br>     
+                  <div id="leyenda">
+                    <%  @duval_type2.each do |duval| %>
+                      <%= duval.name %><br>
+                    <% end %>                     
+                  </div>                
+              </div>
+
+
+            </div>
+            <!-- END panel-body -->
+         </div>
+     </div>
+     <!-- END col-4 -->     
+
+
+</div>
+<div class="inputs" style="display: none;">
+    <h3 id="head1">  Give the inputs for the gases</h3>
+    <div>
+        <label>H2 = </label><input type="number" id="h2" name="value5" value="<%= @last_chromatographical.num_hid rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H2- Acetileno = </label><input type="number" id="c2h2" name="value2" value="<%= @last_chromatographical.num_ace rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>C2H4- Etileno = </label><input type="number" id="c2h4" name="value3" value="<%= @last_chromatographical.num_eti rescue "" %>"/>ppm
+    </div>
+    <div>
+        <label>CH4 -Metano = </label><input type="number" id="ch4" name="value1" value="<%= @last_chromatographical.num_met rescue "" %>"/> ppm
+    </div>
+    <div>
+        <label>C2H6 - Etano = </label><input type="number" id="c2h6" name="value4" value="<%= @last_chromatographical.num_eta rescue "" %>"/>ppm
+    </div>
+
+</div>
+ 
+<div class="info">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="table-active" colspan="3"><h5><label class="date"> Registry date </label></h5></th>  
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H2</td>   
+          <td align="right"><label class="h2gas"></label> ppm</td>  
+          <td align="right"><label class="pn1_hid_percent"></label> %</td>  
+        </tr>      
+        <tr>
+          <td>C2H2</td>   
+          <td align="right"><label class="c2h2"></label> ppm</td>  
+          <td align="right"><label class="pn1_ace_percent"></label> %</td>  
+        </tr>       
+        <tr>
+          <td>C2H4</td>   
+          <td align="right"><label class="c2h4"></label> ppm</td>  
+          <td align="right"><label class="pn1_eti_percent"></label> %</td>  
+        </tr>       
+        <tr>
+          <td>CH4</td>   
+          <td align="right"><label class="ch4"></label> ppm</td>  
+          <td align="right"><label class="pn1_met_percent"></label> %</td>  
+        </tr>    
+        <tr>
+          <td>C2H6</td>   
+          <td align="right"><label class="c2h6"></label> ppm</td>  
+          <td align="right"><label class="pn1_eta_percent"></label> %</td>  
+        </tr>                                          
+      </tbody>
+    </table>
+</div>
+
+
+<style type="text/css">
+
+ 
+    div.info{
+        position: fixed;
+        top: 0px;
+        display: none;
+        background-color: white;
+        /* Edited by CM 
+         border: 1px solid dimgray;
+        padding: 10px; e / 
+    }
+</style>
+
+<%= render :partial =>"duval_management/last_pentagon_graphs/partials/duval_js" %>
+<%= render :partial =>"duval_management/last_pentagon_graphs/partials/data_js" %>

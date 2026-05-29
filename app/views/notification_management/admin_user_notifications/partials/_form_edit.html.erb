@@ -1,0 +1,77 @@
+<%= form_for [:notification_management, @admin_user_notification],url: notification_management_user_notification_path(@admin_user_notification)  ,:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<%#= f.text_field :id  %>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+         
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Fecha</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.date_field :date_notification, class: 'form-control','data-parsley-required'=>"true"  %>
+          </div>
+        </div>
+        <br>        
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Usuario</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.select :user_id, @users.map { |t| [t.str_complete_name , t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Transformador</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.select :transformer_id, @transformers.map { |t| [t.num_serie, t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+        <br>        
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Descripciòn</label>
+          <div class="col-10">
+              <%= f.text_area :description, :class => 'ckeditor border' %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.select :state, [["Activo",0],["Inactivo",1]],{},class: "form-control" %>
+          </div>
+        </div>
+        <br>                
+        <p align="center">
+             <%= link_to "<i class='fa fa-arrow-left'></i> Regresar a Notificaciones".html_safe, [:notification_management,:admin_user_notifications], class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+ 
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa-solid fa-floppy-disk'></i> Guardar Notifiación
+            <% end %>
+        </p>
+         
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  
+</div>
+<!-- end row -->
+<% end %>
+
+<!-- required files -->
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script>
+
+ 

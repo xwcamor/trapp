@@ -1,0 +1,29 @@
+<%= nested_form_for [:transformer_management, @transformer],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+<!-- #modal-dialog -->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Ensayos Físico Químicos</h4>
+      <a href="<%= physical_management_transformer_physicals_path(@transformer.id) %>" class="btn-close"></a>
+    </div>
+    <div class="modal-body">
+      <!-- begin alert --> 
+      <%= flash_messages %>
+      <!-- end alert -->           
+      <div id="nested_physicals">
+        <%= render :partial => 'physical_management/table_physicals/partials/form_nested_modal_new', :locals => {:f => f} %>
+      </div>    
+       
+    </div>
+    <div class="modal-footer">
+      <a href="<%= physical_management_transformer_physicals_path(@transformer.id) %>" class="btn btn-gray me-1 mb-1  rounded-pill"><i class="fa fa-xmark"></i> Cerrar</a>
+      <%= button_tag( :class => "btn btn-gray text-white   me-1 mb-1 rounded-pill") do %>
+         <i class='fa-solid fa-floppy-disk'></i> Guardar Información
+      <% end %>
+      <%= f.link_to_add "<i class='fa-solid fa-plus'></i> Agregar Ensayo".html_safe, :physicals, :data => { :target => "#physicals" } ,:class=>"btn bg-gray text-white rounded-pill"%> 
+    </div>
+  </div>
+</div> 
+<% end %>
+
+ 

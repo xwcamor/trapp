@@ -1,0 +1,174 @@
+<% title "Reporte Paso 2" %>
+ 
+<% if params[:transformer_id].present? %> 
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal fade show" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Generar Reporte</h4>
+            <a href="javascript:history.go(-1)" class="btn-close" > </a>   
+          </div>           
+          <div class="modal-body">
+            <%= form_for [:report_management, @report],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>
+           
+            <%= f.hidden_field :customer_id, value: @customer.id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+
+            <input  type="hidden" name="report[report_details_attributes][0][transformer_id]" value="<%= @transformer.id %>"> </td>
+            Por favor click en el botón Generar Reporte.
+          </div>
+          <div class="modal-footer">
+            <a href="javascript:history.go(-1)" class="btn btn-white  me-1 mb-1 rounded-pill" >Cerrar</a>
+            <%= f.submit "Generar Reporte", class: 'btn bg-gray text-white rounded-pill' %>  
+            <% end %>          
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel -->  
+ <%else %>
+
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal-message fade show" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Paso 2 : Selección de Transformadores</h4>
+ 
+            <a href="<%= report_management_reports_url %>" class="btn-close" > </a>   
+          </div>           
+          <div class="modal-body">
+            <div class="table-responsive">
+              <%= render :partial =>"report_management/step2_reports/partials/table_users" %>
+            </div>   
+            <div class="table-responsive">
+              <%= render :partial =>"report_management/step2_reports/partials/table_transformers" %>   
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <a href="<%= report_management_reports_url %>" class="btn btn-white  me-1 mb-1 rounded-pill" >Cerrar</a>            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel --> 
+<% end %>
+
+<!-- BEGIN background color --> 
+<div class="modal-backdrop show"></div>
+<!-- END background color --> 
+
+<!-- BEGIN layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<!-- END layout--> 
+ 
+ <style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 100% !important; 
+}
+</style>
+
+
+<script>
+$(document).ready(function (){   
+
+    // Setup - add a text input to each footer cell
+    $('#example thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( ' <input type="text" placeholder="'+title+'" class="form-control column_search"  /> ' );
+    } );
+
+   var table_demo = $('#example').DataTable({
+      order: [[1, 'asc']],         
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start text-black"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex ">>>t<"row"<"col-md-6 text-black"i><"col-md-6 text-black"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+      "lengthMenu": [ [ -1], [ "Todos"] ]      
+   });
+
+    // Apply the search
+    $( '#example thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table_demo
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+   // Handle click on "Select all" control
+   $('#example-select-all').on('click', function(){
+      // Check/uncheck all checkboxes in the table
+      var rows = table_demo.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+   // Handle click on checkbox to set state of "Select all" control
+   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+      // If checkbox is not checked
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         // If "Select all" control is checked and has 'indeterminate' property
+         if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control 
+            // as 'indeterminate'
+            el.indeterminate = true;
+         }
+      }
+   });
+    
+   $('#frm-example').on('submit', function(e){
+      var form = this;
+
+      // Iterate over all checkboxes in the table
+      table_demo.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+         if(!$.contains(document, this)){
+            // If checkbox is checked
+            if(this.checked){
+               // Create a hidden element 
+               $(form).append(
+                  $('<input>')
+                     .attr('type', 'hidden')
+                     .attr('name', this.name)
+                     .val(this.value)
+               );
+            }
+         } 
+      });
+
+      // FOR TESTING ONLY
+      
+      // Output form data to a console
+      //$('#example-console').text($(form).serialize()); 
+      //console.log("Form submission", $(form).serialize()); 
+       
+      // Prevent actual form submission
+      //e.preventDefault();
+   });
+});
+ </script> 
+<!-- end script--> 

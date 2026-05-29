@@ -1,0 +1,17 @@
+<% @eva1 = @last_chromatographical_dga_diag.eval_first %>
+<% @eva2 = @last_chromatographical_dga_diag.eval_second %>
+<% @eva3 = @last_chromatographical_dga_diag.eval_third %>
+<% @eva4 = @last_chromatographical_dga_diag.eval_fourth %>
+
+<% if @eva1 == "green"&& @eva3 == "green" && @eva4 == "green" %>
+	DGA Estado 1:  Continue rutina de muestras DGA.<br>
+	Transformador en normal operaciòn.
+<% else %>
+	<% if @eva2 == "red" or @eva4 == "red" %>
+	DGA Estado 3: Realice evaluación del transformador e <br>identificación de fallas. Tome acciones apropiadas basadas en <br>la evaluación del transformador y políticas de la compañía.
+	<% else %>
+	DGA Estado 2: Incrementar vigilancia del transformador<br> y frecuencia de muestras DGA.
+	<% end %>
+<% end %>
+
+ 

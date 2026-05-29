@@ -1,0 +1,108 @@
+<%= nested_form_for [:chromatographical_management, @post],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+
+ 
+<!-- begin alert --> 
+<% if @post.errors.any? %>
+<div class="note note-gray">
+  <div class="note-icon"><i class="ion-md-alert"></i></div>
+  <div class="note-content">
+    <h4><b>Se encontraron los siguientes errores:</b></h4>
+    <% @post.errors.each do |error| %>
+      <i class="ion-md-alert"></i> <%= error.message %><br>
+    <% end %>
+  </div>
+</div>  
+<% end %>
+<!-- end alert -->   
+
+<!-- BEGIN Timeline -->
+<div class="timeline">
+
+  <!-- BEGIN Timeline Item-->
+  <div class="timeline-item">
+
+    <!-- BEGIN Timeline Time-->
+    <div class="timeline-time">
+      <span class="date">Fecha de Análisis</span> <span class="time"><%= @chromatographical.str_date_rehearsal %></span>
+    </div>
+    <!-- END Timeline Time-->
+
+    <!-- BEGIN Timeline Icon-->
+    <div class="timeline-icon"><a href="javascript:;">&nbsp;</a></div>
+    <!-- END Timeline Icon-->
+
+    <!-- BEGIN Timeline Content-->
+    <div class="timeline-content">
+      <!-- BEGIN Timeline Header-->
+      <div class="timeline-header">
+        <div class="userimage">
+          <% if @post.user.avatar_url %>
+            <%= image_tag @post.user.avatar_url %>
+          <% else %>
+            <div class="image image-icon bg-gray-800 text-gray-600">
+              <i class="fa fa-user"></i>
+            </div>
+          <% end %>
+        </div>
+        <div class="username">
+          <%= @post.user.str_complete_name %>  
+          <div class="text-muted fs-12px">Serie: <%= @chromatographical.transformer.num_serie %><i class="fa fa-transformer-bolt opacity-5 ms-1"></i>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="btn btn-lg border-0 rounded-pill w-40px h-40px p-0 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown"><i class="fa fa-ellipsis-h text-dark"></i></a>
+
+        <div class="dropdown-menu dropdown-menu-end">
+ 
+          <a href="#" class="dropdown-item"><i class="fa fa-fw fa-trash-alt fa-lg me-1"></i> Move to Recycle bin</a>
+        </div>
+      </div>
+      </div>
+      <!-- END Timeline Header-->
+
+      <!-- BEGIN TIMELINE BODY -->
+      <div class="timeline-body">
+        <div class="mb-3">
+          <div class="row mb-1">
+          <div class="col-6"> <%= f.select :type_comment_id, @type_comments.map { |t| [t.name , t.id] }, {:include_blank => 'Seleccione Motivo','data-parsley-required'=>"true" }, class: "form-control" ,:prompt => 'Select Person','data-parsley-required'=>"true" %> </div>
+          <div class="col-6"><span class="badge bg-danger ms-1 py-2px position-relative" style="top: -1px;">Importante</span> <%= f.check_box :rate %></div>
+          </div>
+          <div class="mb-2"><%= f.text_area :description,  rows: "3",placeholder:"Por favor escribir los detalles del Análisis Cromatogràfico",class: 'form-control','data-parsley-required'=>"true"  %> </div>
+          <!-- BEGIN Gas Images -->
+          <div class="row gx-1">
+            
+          </div>
+          <!-- END Gas Images -->
+        </div>
+  
+        <hr class="my-10px">
+
+        <!-- BEGIN SC BUTTONS-->
+        <div class="d-flex align-items-center fw-bold">
+          <%= link_to "<i class='fa fa-xmark'></i> Cerrar".html_safe, chromatographical_management_transformer_chromatographicals_path(@chromatographical.transformer_id), class: "btn flex-fill text-center" %>  
+          <%= button_tag( :class => "btn flex-fill text-center") do %>
+            <i class='fa-solid fa-floppy-disk'></i> Guardar 
+          <% end %>            
+          <%= f.link_to_add "<i class='fa-solid fa-comments'></i> Comentar".html_safe, :comments, :data => { :target => "#comments" } ,:class=>"btn flex-fill text-decoration-none text-center"%>           
+        </div>
+        <!-- END SC BUTTONS-->
+
+        <hr class="mt-10px mb-3">
+        <!-- BEGIN ANSWERS-->
+        <%= render :partial => 'chromatographical_management/posts/partials/list_comments_edit' %>
+        <div id="nested_comments">
+          <%= render :partial => 'chromatographical_management/posts/partials/form_nested_modal_edit', :locals => {:f => f} %>
+        </div>  
+        <!-- END ANSWERS-->
+      </div>
+      <!-- END TIMELINE BODY -->
+    </div>
+    <!-- END Timeline Content-->
+  </div>
+  <!-- END Timeline Item-->
+</div>
+<!-- END Timeline -->
+</div>
+<!-- END Timeline -->
+<% end %>

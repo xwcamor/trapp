@@ -1,0 +1,55 @@
+<div class="row">                
+    <div class="table-responsive">
+      <table   id="physicals"  class="table table-striped align-middle">
+        <thead>
+          <tr class="text-center">
+            <th>Fecha</th>
+            <th>Número Ácido ASTM D974<br>mg KOH/g</th>
+            <th>Factor de Potencia ASTM D924 25ºC. %<br>%</th>
+            <th>Factor de Potencia ASTM D924 100ºC. %<br>%</th>
+            <th>Rigidez Dieléctrica ASTM D1816<br>kV/2.0 mm </th>
+            <th>Rigidez Dieléctrica ASTM D877<br> kV 2.54 mm </th>
+            <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+            <th>Tensión Interfacial ASTM D971<br>mN/m  </th>
+            <% end %>
+            <th>Contenido de Agua ASTM D1533<br>ppm</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= f.fields_for :physicals, f.object.physicals.where('deleted=0').order('date_rehearsal DESC'), :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <td>
+           <% if @transformer.has_special_testing_fiq == 0%>
+              <%= nested_form.date_field :date_rehearsal, class: 'form-control-xs masked','data-parsley-required'=>"true" %>
+           <% else %>  
+              <%= nested_form.datetime_field :date_rehearsal, class: 'form-control-xs masked','data-parsley-required'=>"true" %>
+           <% end %>
+            </td>
+            <td><%= nested_form.text_field :num_acid, class: 'form-control text-center','data-parsley-required'=>"true" ,'data-parsley-type': "number", placeholder: "Número Acido (mgKOH/g) " %></td>
+            <td><%= nested_form.text_field :num_pot, class: 'form-control text-center','data-parsley-required'=>"true" ,'data-parsley-type': "number",placeholder: "Factor de Potencia 25ºC. " %></td>
+             <td><%= nested_form.text_field :num_pot2, class: 'form-control text-center', 'data-parsley-type': "number",placeholder: "Factor de Potencia 100ºC. " %></td>
+            <td><%= nested_form.text_field :num_rig, class: 'form-control text-center','data-parsley-required'=>"true",'data-parsley-type': "number", placeholder: "Rigidez Dieléctrica KV 2 mm" %></td>
+            <td><%= nested_form.text_field :num_rig2, class: 'form-control text-center', 'data-parsley-type': "number", placeholder: "Rigidez Dieléctrica 2.54 mm" %></td>
+            <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+            <td><%= nested_form.text_field :num_ten, class: 'form-control text-center','data-parsley-required'=>"true" ,'data-parsley-type': "number", placeholder: "Tensión Interfacial mN/m" %></td>
+            <% end %>
+            <td><%= nested_form.text_field :num_wat, class: 'form-control text-center','data-parsley-required'=>"true" ,'data-parsley-type': "number",placeholder: "Contenido Agua ppm" %></td>
+            <td> 
+              <%= nested_form.select :deleted , [ ["<i class='fa-solid fa-floppy-disk'></i> Guardar".html_safe,0],["Eliminar",1] ],{}, class: 'form-control text-black'     %>
+              <%#= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %>
+            </td> 
+          </tr>
+        <% end %>    
+        </tbody>
+      </table>
+    </div>
+
+</div>
+ 
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 100% !important; 
+}
+</style>

@@ -1,0 +1,29 @@
+<%= form_for [:factor_management, @factor],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off"} do |f| %> 
+  <%= f.hidden_field :deleted , :value=> 1 %>
+
+<!-- #modal-dialog -->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Eliminar Factor de Potencia</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-danger">
+        <h5><i class="fa fa-info-circle"></i> Aviso</h5>
+        <p>Se eliminará la información del Factor de Potencia</p>
+        <p>¡Está realmente seguro?</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="javascript:;" class="btn btn-white me-1 mb-3  rounded-pill" data-bs-dismiss="modal">Cerrar</a>
+      <%= button_tag( :class => "btn btn-danger text-white   me-1 mb-3 rounded-pill") do %>
+         <i class='fa-solid fa-trash-can'></i> Eliminar
+      <% end %>      
+    </div>
+  </div>
+</div>
+<% end %>  
+  
+
+<%= render :partial =>"layouts/form_validation" %>s

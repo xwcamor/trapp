@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Contenido</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    .toc-entry {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+    .toc-indent {
+      margin-left: 32px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .page-num {
+      min-width: 40px;
+      text-align: right;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="text-center">Tabla de Contenido</h1>
+
+  <table style="width: 100%; font-size: 15px; border-collapse: collapse;">
+    <% toc_main[0..5].each do |item| %>
+      <tr>
+        <td><b><%= item[:label] %></b></td>
+        <td class="page-num"><%= item[:page] %></td>
+      </tr>
+    <% end %>
+
+    <tr><td colspan="2" style="padding-top: 8px;"><b>7. Análisis Individual por Transformador</b></td></tr>
+    <% toc_transformers.each do |item| %>
+      <tr>
+        <td style="padding-left: 32px;"><%= item[:label] %></td>
+        <td class="page-num"><%= item[:page] %></td>
+      </tr>
+    <% end %>
+
+    <% toc_main[6..7].each do |item| %>
+      <%# anchor = item[:label].downcase.gsub(/[^\w]+/, '-') %>
+      <tr>
+        <td style="padding-top: 8px;">
+          <a href="##{anchor}" class="text-dark"><b><%= item[:label] %></b></a>
+        </td>
+        <td class="page-num"><%= item[:page] %></td>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>

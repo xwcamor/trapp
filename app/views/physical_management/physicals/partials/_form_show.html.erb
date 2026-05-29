@@ -1,0 +1,108 @@
+<%= flash_messages %>
+<%= form_for [:physical_management, @physical],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Límites del Análisis Físico Químico</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Fecha de Ensayo</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.hidden_field :transformer_id , :value => params[:transformer_id] %>
+          <%= f.date_field :date_rehearsal, class: 'form-control  masked','data-parsley-required'=>"true",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <%= @physical.dgaf_condition %>
+        </label>
+      </div>
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Número Ácido ASTM D974 (mg KOH/g)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_acid, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_acid rescue "" %> me-2 fs-15px'></i>  
+          Máx: <%= @physical.ieee_num_acid rescue ""  %>
+        </label>
+      </div>
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Factor de Potencia ASTM D924 (25ºC. %)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_pot, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_pot rescue "" %> me-2 fs-15px'></i>  
+          Máx: <%= @physical.ieee_num_pot rescue ""  %>
+        </label>        
+      </div>  
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Factor de Potencia ASTM D924 (100ºC. %)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_pot2, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: " ",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_pot2 rescue "" %> me-2 fs-15px'></i>  
+          Máx: <%= @physical.ieee_num_pot2 rescue ""  %>
+        </label>           
+      </div>       
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Rigidez Dieléctrica ASTM D1816 (kV/2.0 mm)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_rig, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_rig rescue "" %> me-2 fs-15px'></i>  
+          Min: <%= @physical.ieee_num_rig rescue ""  %>
+        </label>            
+      </div>   
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Rigidez Dieléctrica ASTM D877 (kV 2.54 mm)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_rig2, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: " ",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_rig2 rescue "" %> me-2 fs-15px'></i>  
+          Min: <%= @physical.ieee_num_rig2 rescue ""  %>
+        </label>          
+      </div> 
+
+      <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Tensión Interfacial ASTM D971 (mN/m)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_ten, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_ten rescue "" %> me-2 fs-15px'></i>  
+          Min: <%= @physical.ieee_num_ten rescue ""  %>
+        </label>          
+      </div> 
+      <% else %>
+        <%= f.hidden_field :num_ten, :value=> 0 %>
+      <% end %>   
+      <br>    
+      <div class="form-group row m-b-15">
+        <label class="col-md-5 col-sm-4 col-form-label">Contenido De Agua ASTM D1533 (ppm)</label>
+        <div class="col-md-5 col-sm-8">
+          <%= f.text_field :num_wat, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido",:readonly => true %>
+        </div>
+        <label class="col-md-2 col-sm-4 col-form-label">
+          <i class='fa-solid fa-bong fa-fw text-<%= @physical.ieee_color_num_wat rescue "" %> me-2 fs-15px'></i>  
+          Máx: <%= @physical.ieee_num_wat rescue ""  %>
+        </label>          
+      </div>       
+    </div>
+ 
+  </div>
+</div>
+<!-- end modal-body --> 
+<% end %> 
+<!-- end form --> 

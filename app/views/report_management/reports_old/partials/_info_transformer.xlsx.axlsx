@@ -1,0 +1,62 @@
+wb.styles do |style|
+  style_head = style.add_style(b: true, sz: 14, alignment: { horizontal: :center }, bg_color: 'BFB9B9' )
+  style_body = style.add_style(b: false, sz: 14,alignment: { horizontal: :center } )
+
+  @report_details = ReportDetail.where("report_id = ?",@report.id)
+  if @report_details.size > 1
+    @name = "Transformadores"
+  else
+    @name = "Transformador"
+  end
+  wb.add_worksheet(name: @name) do |sheet|
+    sheet.add_row [
+    'NºSerie',
+    'TAG',  
+    'Cliente',
+    'Ubicación',
+    'Área',
+    'Subestación',
+    'Voltaje (Kv)',
+    'Potencia (MVA)',
+    'Edad (años)',
+    'Tipo de Transformador',
+    'Tipo de Conmutador',
+    'Tipo de Conexión',
+    'Nº de Fases',
+    'Nº de Taps',
+    'Tipo de Aceite',
+    'Marca',
+    'Sistema de Preservación',    
+    'Indice de Salud', 
+    'Estado'    
+    ], style: style_head
+
+   
+
+    @report_details.each do |report_detail|
+      sheet.add_row [
+        report_detail.transformer.num_serie,
+        report_detail.transformer.num_tag,
+        report_detail.transformer.customer_substation.customer_area.customer_location.customer.name.upcase,
+        report_detail.transformer.customer_substation.customer_area.customer_location.name.upcase,
+        report_detail.transformer.customer_substation.customer_area.name.upcase,
+        report_detail.transformer.customer_substation.name.upcase,
+        report_detail.transformer.num_vol,
+        report_detail.transformer.num_pot,
+        report_detail.transformer.str_edad,  
+        report_detail.transformer.transformer_type.name.upcase,
+        report_detail.transformer.conmutation_type.name.upcase, 
+        report_detail.transformer.connection_type.name, 
+        report_detail.transformer.str_num_fas, 
+        report_detail.transformer.num_tap, 
+        report_detail.transformer.oil_type.name.upcase, 
+        report_detail.transformer.mark.name.upcase, 
+        report_detail.transformer.transformer_preservation.name.upcase, 
+        report_detail.transformer.num_health, 
+        report_detail.transformer.state_health 
+      ], style: style_body
+    end
+
+  end           
+
+end

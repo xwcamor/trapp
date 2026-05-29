@@ -1,0 +1,12 @@
+<h1 class="pdf-font-h1">9. Conclusiones</h1>
+
+<div class="pdf-font-content">
+  <% transformers.each do |transformer| %>
+    <% detail = transformer.report_details.find_by(report_id: report.id) %>
+    <% next unless detail && detail.auto_recommendation.present? %>
+
+    <ul>
+      <li><b><%= transformer.num_serie %>:</b><br> <%= detail.auto_recommendation %></li>
+    </ul>
+  <% end %>
+</div>

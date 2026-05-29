@@ -1,0 +1,49 @@
+<style>
+#furanos tbody {
+    display: block;
+    height: 350px;
+    overflow: auto;
+}
+#furanos thead, #furanos tbody tr{
+    display: table;
+ 
+    table-layout: fixed;/* even columns width , fix width of table too*/
+}
+#furanos thead  {
+    width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
+}
+ 
+</style>
+
+<%= f.link_to_add "<i class='fa-solid fa-plus'></i> Agregar Factor".html_safe, :factors, :data => { :target => "#factors" } ,:class=>"btn bg-gray text-white rounded-pill"%> 
+           
+<div class="row">               
+    <div class="table-responsive">
+      <table   id="factors"  class="table table-striped align-middle">
+        <thead>
+
+          <tr>
+            <th class="text-center">Fecha</th>
+            
+            <th class="text-center">Factor de Potencia (%) </th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <%= f.fields_for :factors, f.object.factors.where('deleted=0').order('date_rehearsal DESC'), :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <td class="text-center"><%= nested_form.date_field :date_rehearsal, class: 'form-control-sm','data-parsley-required'=>"true" %> </td>
+            <td class="text-center"><%= nested_form.text_field :num_fac, class: 'form-control','data-parsley-required'=>"true"  %> </td>
+            <td><%= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %></td>
+
+            
+          </tr>
+        <% end %>    
+
+        </tbody>
+      </table>
+    </div>
+
+</div>
+ 

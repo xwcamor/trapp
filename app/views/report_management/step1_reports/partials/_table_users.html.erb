@@ -1,0 +1,56 @@
+<%= flash_messages %>
+<table id="data-table-nobuttons-filter" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th >Seleccionar</th>       
+      <th>País</th>
+      <th>Cliente</th>   
+      <th>RUC</th>
+      <th>Ubicaciones</th>
+      <th>Áreas</th>
+      <th>Subestaciones</th>
+      <th>Transformadores</th>
+            
+    </tr>
+    <tr class="text-center">
+      <td></td>        
+      <th>País</th>
+      <th>Cliente</th>   
+      <th>RUC</th>
+      <th>Ubicaciones</th>
+      <th>Áreas</th>
+      <th>Subestaciones</th>
+      <th>Transformadores</th>
+           
+    </tr>    
+  </thead>
+  <tbody>
+  <% @list_user_customers.each do |user_customer| %>
+ 
+    <tr class="text-center" valign="middle">
+      <td data-orderable="false" class="sorting_disabled">
+        <% @condition = user_customer.customer.str_count_transformers %>
+        <% if @condition > 0 %>
+        <%= link_to "<i class='fa-solid fa-person-to-portal'></i> ".html_safe,new_report_management_customer_step2_report_path(user_customer.customer_id) ,{ class: "btn bg-light border", title: "Seleccionar"} %>
+        <% end %>
+      </td>        
+      <td><small class="flag-icon flag-icon-<%= user_customer.customer.country.short_name.downcase %> h4 rounded mb-0" title="<%= user_customer.customer.country.short_name.upcase %>"></small><p style="display: none"><%= user_customer.customer.country.name %></p></td>  
+      <td><%= user_customer.customer.name.upcase %></td>  
+      <td><%= user_customer.customer.num_doc %></td>   
+      <td><%= user_customer.customer.str_count_locations %></td>
+      <td><%= user_customer.customer.str_count_areas %></td>
+      <td><%= user_customer.customer.str_count_substations %></td>   
+      <td><%= user_customer.customer.str_count_transformers %></td>       
+                 
+    </tr>
+     
+  <% end %>                  
+  </tbody>
+       
+</table> 
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 100% !important; 
+}
+</style>

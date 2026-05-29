@@ -1,0 +1,205 @@
+
+
+   <!-- ================== BEGIN page-css ================== -->
+  <link href="/assets/plugins/@fullcalendar/common/main.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/@fullcalendar/daygrid/main.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/@fullcalendar/timegrid/main.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/@fullcalendar/list/main.min.css" rel="stylesheet" />
+  <link href="/assets/plugins/@fullcalendar/bootstrap/main.min.css" rel="stylesheet" />
+  <!-- ================== END page-css ================== -->
+
+  <!-- ================== BEGIN page-js ================== -->
+  <script src="/assets/plugins/moment/min/moment.min.js"></script>
+  <script src="/assets/plugins/@fullcalendar/core/main.global.js"></script>
+  <script src="/assets/plugins/@fullcalendar/daygrid/main.global.js"></script>
+  <script src="/assets/plugins/@fullcalendar/timegrid/main.global.js"></script>
+  <script src="/assets/plugins/@fullcalendar/interaction/main.global.js"></script>
+  <script src="/assets/plugins/@fullcalendar/list/main.global.js"></script>
+  <script src="/assets/plugins/@fullcalendar/bootstrap/main.global.js"></script>
+  <script>
+var handleCalendarDemo2 = function() {
+   
+  // fullcalendar
+  
+ 
+  var calendarElm = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarElm, {
+    headerToolbar: {
+      left: 'dayGridMonth,timeGridWeek,timeGridDay',
+      center: 'title',
+      right: 'prev,next today'
+    },
+    buttonText: {
+      today:    'Hoy',
+      month:    'Mes',
+      week:     'Semana',
+      day:      'Dia'
+    },
+    locale: 'es',
+
+    initialView: 'dayGridMonth',
+     dayMaxEventRows: 1,
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true,
+    displayEventEnd: true,  // mostrar el fin del evento
+    //timeFormat: 'h(:mm) AAP', //formato am pm
+   // minTime: '11:00:00',    // para empezar a las 11 am
+    allDaySlot : false,  //quitar all day
+    eventStartEditable: false,
+    themeSystem: 'bootstrap',
+    views: {
+      timeGrid: {
+        eventLimit: 6 // adjust to 6 only for timeGridWeek/timeGridDay
+      }
+    },
+    eventTimeFormat: { 
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    } ,
+    slotLabelFormat: { 
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    } ,
+
+  
+    events:  '/meeting_management/meetings.json',
+
+   // select: function(start, end) {
+   //   $.getScript('/meeting_management/meetings/new', function() {
+   //   });
+   // },
+
+    select: function(info) {
+      //alert('clicked ' + moment(info.start).format('DD/MM/YYYY, HH:mm'));
+      $.getScript('/meeting_management/meetings/new', function() {
+
+          $("#default-daterange-new input").val(moment(info.start).format("DD/MM/YYYY 07:00") + ' - ' + moment(info.start).format("DD/MM/YYYY 18:00"));
+          $('.start_hidden_new').val(moment(info.start).format("DD/MM/YYYY 07:00"));
+          $('.end_hidden_new').val(moment(info.start).format('DD-MM-YYYY 18:00'));                    
+      });      
+    },
+    
+         
+
+
+    eventClick: function(info) {
+      $('#myModal').modal();
+      var eventObj = info.event;
+      $.getScript("/meeting_management/meetings/"+eventObj.id+"/edit", function() {
+        $('#myModal').modal();
+          $('.start_hidden_edit').val(moment(eventObj.start).format("DD/MM/YYYY HH:mm"));
+          $('.end_hidden_edit').val(moment(eventObj.end).format('DD-MM-YYYY HH:mm'));  
+          $("#default-daterange-edit input").val(moment(eventObj.start).format("DD/MM/YYYY HH:mm") + " - " + moment(eventObj.end).format("DD/MM/YYYY HH:mm"));         
+      });        
+    },
+   
+  });
+  
+  calendar.render();
+};
+
+var Calendar2 = function () {
+  "use strict";
+  return {
+    //main function
+    init: function () {
+      handleCalendarDemo2();
+    }
+  };
+}();
+
+$(document).ready(function() {
+  Calendar2.init();
+});    
+
+
+  </script>
+
+ <script>
+var handleCalendarDemo3 = function() {
+   
+  // fullcalendar
+  
+ 
+  var calendarElm = document.getElementById('calendar3');
+  var calendar = new FullCalendar.Calendar(calendarElm, {
+    headerToolbar: {
+      left: 'dayGridMonth,timeGridWeek,timeGridDay',
+      center: 'title',
+      right: 'prev,next today'
+    },
+    buttonText: {
+      today:    'Hoy',
+      month:    'Mes',
+      week:     'Semana',
+      day:      'Dia'
+    },
+    locale: 'es',
+
+    initialView: 'dayGridMonth',
+     dayMaxEventRows: 1,
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true,
+    displayEventEnd: true,  // mostrar el fin del evento
+    //timeFormat: 'h(:mm) AAP', //formato am pm
+   // minTime: '11:00:00',    // para empezar a las 11 am
+    allDaySlot : false,  //quitar all day
+    eventStartEditable: false,
+    themeSystem: 'bootstrap',
+    views: {
+      timeGrid: {
+        eventLimit: 6 // adjust to 6 only for timeGridWeek/timeGridDay
+      }
+    },
+    eventTimeFormat: { 
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    } ,
+    slotLabelFormat: { 
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    } ,
+ 
+    events:  '/meeting_management/meetings.json',
+  
+    eventClick: function(info) {
+      $('#myModal').modal();
+      var eventObj = info.event;
+      $.getScript("/meeting_management/meetings/"+eventObj.id, function() {
+        $('#myModal').modal();
+          $('.start_hidden_edit').val(moment(eventObj.start).format("DD/MM/YYYY HH:mm"));
+          $('.end_hidden_edit').val(moment(eventObj.end).format('DD-MM-YYYY HH:mm'));  
+          $("#default-daterange-edit input").val(moment(eventObj.start).format("DD/MM/YYYY HH:mm") + " - " + moment(eventObj.end).format("DD/MM/YYYY HH:mm"));         
+      });        
+    },
+   
+  });
+  
+  calendar.render();
+};
+
+var Calendar3 = function () {
+  "use strict";
+  return {
+    //main function
+    init: function () {
+      handleCalendarDemo3();
+    }
+  };
+}();
+
+$(document).ready(function() {
+  Calendar3.init();
+});    
+
+
+  </script>  
+<!-- ================== END page-js ================== -->

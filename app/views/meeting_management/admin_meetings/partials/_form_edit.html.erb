@@ -1,0 +1,80 @@
+<%= form_for [:meeting_management, @admin_meeting],:url => meeting_management_admin_meeting_path(@admin_meeting) ,:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+     <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+           
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Usuario</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.select :user_id, @users.collect.collect {|p| [ p.str_complete_name + " ("+ p.email  + ")", p.id ] }, {include_hidden: false}, { class: 'form-select multiple-select2',multiple: true ,'data-parsley-required'=>"true" }  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Motivo</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.text_field :title, :class => 'form-control' %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Desde</label>
+          <div class="col-md-4 col-sm-8">
+              <%= f.datetime_select :start,  {ampm: true} %>
+          </div>
+          <label class="col-md-2 col-sm-4 col-form-label">Hasta</label>
+          <div class="col-md-4 col-sm-8">
+              <%= f.datetime_select :end,  {ampm: true} %>
+          </div>          
+        </div>        
+        <br>        
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Descripciòn</label>
+          <div class="col-10">
+              <%= f.text_area :description, :class => 'ckeditor border' %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Importancia</label>
+          <div class="col-md-10 col-sm-8">
+             <%= f.select :color ,   [['Alta','black'], ['Normal','green'], ['Baja','red']] , {},:class => 'form-control'%>
+          </div>
+        </div>
+        <br>                
+        <p align="center">
+             <%= link_to "<i class='fa fa-arrow-left'></i> Regresar a Reuniones".html_safe, [:meeting_management,:admin_meetings], class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+ 
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa-solid fa-floppy-disk'></i> Guardar Reunión
+            <% end %>
+         
+        </p>
+         
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  
+</div>
+<!-- end row -->
+<% end %>
+
+<!-- required files -->
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script>
+
+ 

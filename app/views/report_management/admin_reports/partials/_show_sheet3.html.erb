@@ -1,0 +1,85 @@
+ <h1><strong>3. Datos de transformadores</strong></h1>
+
+<hr />
+<p>A continuación, los datos de placa de la flota de transformadores y el estado de riesgo asociado:</p>
+
+<table align="center" style="width:660px">
+	<tbody>
+		<tr>
+			<td style="background-color:#f2f2f2; height:24px; width:24px">
+			<p><strong>Item</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:114px">
+			<p><strong>&Aacute;rea</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:95px">
+			<p><strong>TAG</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:98px">
+			<p><strong>N&deg;Serie</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:57px">
+			<p><strong>Marca</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:60px">
+			<p><strong>Potencia<br />
+			(MVA)</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:47px">
+			<p><strong>Voltaje<br />
+			(Kv)</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:37px">
+			<p><strong>A&ntilde;o</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2; width:36px">
+			<p><strong>Estado</strong></p>
+			</td>
+		</tr>
+		<% @report.report_details.each_with_index do |report_detail, index|%>
+		<tr>
+			<td style="height:9px; width:24px">
+			<p><%= index + 1 %></p>
+			</td>
+			<td style="width:114px">
+			<p><%= report_detail.transformer.customer_substation.customer_area.name %></p>
+			</td>
+			<td style="width:95px">
+			<p><%= report_detail.transformer.num_tag %></p>
+			</td>
+			<td style="width:98px">
+			<p><%= report_detail.transformer.num_serie %></p>
+			</td>
+			<td style="width:57px">
+			<p><%= report_detail.transformer.mark.name %></p>
+			</td>
+			<td style="width:60px">
+			<p><%= report_detail.transformer.num_pot %></p>
+			</td>
+			<td style="width:47px">
+			<p><%= report_detail.transformer.num_vol %></p>
+			</td>
+			<td style="width:37px">
+			<p><%= report_detail.transformer.age %></p>
+			</td>
+			<td style="background-color:#66ff33; vertical-align:bottom; width:36px">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<% end %>
+
+ 
+	</tbody>
+</table>
+
+<p><br />
+&nbsp;</p>
+
+<p>Riesgo Alto</p>
+
+<p>Riesgo Medio</p>
+
+<p>Riesgo Bajo</p>
+
+<p><br />
+&nbsp;</p> 

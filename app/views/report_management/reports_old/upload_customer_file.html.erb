@@ -1,0 +1,69 @@
+<% title "Editar" %>
+<%= links  link_to 'Reportes', [:report_management,:reports] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Subir Archivo Final </h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<!-- Begin Alert -->
+<%= flash_messages %>
+<!-- End Alert -->
+<!-- Begin Form -->
+ 
+<div class="panel panel-inverse border">
+	<!-- begin panel-heading -->
+	<div class="panel-heading bg-gray-800 text-white ui-sortable-handle">
+		<h4 class="panel-title"><i class="fa-solid fa-file-chart-pie"></i>  Archivo PDF Final </h4>
+		<div class="panel-heading-btn">
+			<a href="javascript:;" title="Pantalla Completa" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand">
+				<i class="fa fa-expand" aria-hidden="true"></i>
+			</a>
+
+			<a href="javascript:;" title="Ocultar / Mostrar" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+				<i class="fa fa-minus" aria-hidden="true"></i>
+			</a>
+
+		</div>
+	</div>
+	<!-- end panel-heading -->
+	<%= form_for [:report_management, @report],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+	<!-- begin panel-body -->
+	<div class="panel-body">
+ 
+
+		        <div class="form-group row m-b-15">
+		          <label class="col-md-4 col-sm-4 col-form-label">Cliente</label>
+		          <div class="col-md-8 col-sm-8">
+		              <%= @report.customer.name.upcase  %>
+		          </div>
+		        </div> 
+                <br>  
+
+		        <div class="form-group row m-b-15">
+		          <label class="col-md-4 col-sm-4 col-form-label">Archivo Final</label>
+		          <div class="col-md-8 col-sm-8">
+		              <%= f.file_field :avatar, class: 'input-sm validate[optional]',:accept=>"application/pdf",'data-parsley-required'=>"true"  %>
+		          </div>
+		        </div> 
+
+		         
+
+		       
+	</div>
+	<!-- end panel-body -->
+	<!-- Begin Footer -->
+	<div class="modal-footer">
+	  <button name="button" type="submit" class="btn btn-gray">
+	    <i class="fa-solid fa-floppy-disk"></i> Guardar Información
+	  </button>
+	  <%= link_to 'Regresar', [:report_management,:reports], class: "btn btn-gray" %>
+	</div>
+	<!-- end modal-footer -->	
+	<% end %> 
+</div> 
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<!-- end script-->

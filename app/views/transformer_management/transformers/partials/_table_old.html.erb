@@ -1,0 +1,78 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordere table-hover">
+  <thead>
+    <tr valign="middle" align="center">
+      <th>País</th>
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Cliente  </th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>              
+      <th>Marca</th>              
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>   
+    </tr>
+    <tr valign="middle" align="center" class="filter_row">
+      <th>País</th>
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Cliente  </th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>              
+      <th>Marca</th>              
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+      <td></td>
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_transformers.each do |transformer| %>
+    <%# cache transformer do %>
+    <tr align="center">
+      <td><div class="flag-icon flag-icon-<%= transformer.customer_substation.customer_area.customer_location.customer.country.short_name.downcase %> "></div><span style="display: none"><%= transformer.customer_substation.customer_area.customer_location.customer.country.name %></span></td> 
+      <td><%= transformer.num_serie rescue "-"%></td>
+      <td><%= transformer.num_tag rescue "-"%></td>      
+      <td> <%= transformer.customer_substation.customer_area.customer_location.customer.name.upcase rescue "-" %></td>
+      <td><%= transformer.customer_substation.customer_area.customer_location.name.upcase rescue "-" %></td>
+      <td><%= transformer.customer_substation.customer_area.name.upcase rescue "-"%></td>
+      <td><%= transformer.customer_substation.name.upcase rescue "-"%></td>
+      <td><%= transformer.num_vol rescue "-"%></td>
+      <td><%= transformer.num_pot rescue "-"%></td>
+      <td><%= transformer.str_edad rescue "-"%></td>
+      <td><%= transformer.mark.name.upcase rescue "-"%></td>
+      <td><%= transformer.num_health  rescue "0" %> %</td>
+      <td align="left"><i class="fa fa-circle fa-fw text-<%= transformer.color_health rescue 'red'.html_safe %> me-2 fs-10px"></i> <%= transformer.state_health rescue "Muy Malo" %></td>
+      <td>
+        <div class="btn-group">
+          
+                
+            <% if @user_permission.include?(32) %>
+              <%= link_to "<i class='fa-solid fa-eye'></i>  ".html_safe, [:transformer_management, transformer] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+            <% end %>
+            <% if @user_permission.include?(34) %>
+            <%= link_to "<i class='fa fa-pencil'></i>  ".html_safe, [:edit, :transformer_management, transformer] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+            <% end %>            
+            <div class="dropdown-divider"></div>
+            <% if @user_permission.include?(35) %>
+              <%= link_to "<i class='fa-solid fa-trash'></i>  ".html_safe, transformer_management_transformer_delete_path(transformer),  :title=>"Eliminar", class: "btn btn-xs btn-default"  %>        
+            <% end %>
+           
+        </div>   
+      </td>   
+    </tr>
+    <%# end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>

@@ -1,0 +1,18 @@
+<% title "Editar" %>
+<%= links  link_to 'Reuniones', [:meeting_management,:admin_meetings] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa-solid fa-newspaper"></i> Editar Reunión</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<div id="myModal">
+<%= render :partial =>'meeting_management/admin_meetings/partials/form_edit'  %>
+</div>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end layout-->

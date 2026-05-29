@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secciones Iniciales</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+
+    .pdf-font-h1 { font-size: 20pt;font-weight: bold; }
+    .pdf-font-h2 { font-size: 18pt;font-weight: bold; }
+    .pdf-font-h3 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-h4 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-content,
+    .pdf-font-content * {          /* el asterisco aplica a todos los descendientes */
+       font-size: 12pt !important;   /* !important por si otra regla trata de pisarla */
+     }    
+  </style>
+</head>
+<body>
+
+  <div class="alwaysbreak"></div>
+
+  <% transformer_text = @total_transformers > 1 ? "de los transformadores" : "del transformador " %>
+
+  <h1 class="pdf-font-h1">1. Alcance</h1>
+  <div class="pdf-font-content">
+    <%= render partial: "report_management/reports/partials/pdf_scope", locals: { report: @report, transformer_text: transformer_text } %>
+  </div>
+
+  <h1 class="pdf-font-h1">2. Objetivo</h1>
+  <div class="pdf-font-content">
+    <%= render partial: "report_management/reports/partials/pdf_objetive", locals: { report: @report } %>
+  </div>
+
+  <h1 class="pdf-font-h1">3. Responsable del Reporte</h1>
+  <div class="pdf-font-content">
+    <%= render partial: "report_management/reports/partials/pdf_responsable", locals: { report: @report } %>
+  </div>
+
+  <h1 class="pdf-font-h1">4. Normas y Referencias</h1>
+  <div class="pdf-font-content">
+    <%= render partial: "report_management/reports/partials/pdf_norms", locals: { report: @report } %>
+  </div>
+
+  <h1 class="pdf-font-h1">5. Metodología de Análisis</h1>
+  <div class="pdf-font-content">
+    <%= render partial: "report_management/reports/partials/pdf_methods", locals: { report: @report } %>  
+  </div>
+  
+  <div class="alwaysbreak"></div>
+
+  <h1 class="pdf-font-h1">6. Datos Generales <%= transformer_text %></h1>
+  <div class="pdf-font-contentx">
+    <%= render partial: "report_management/reports/partials/pdf_transformers_data", locals: { report: @report } %>
+  </div>
+
+  <div class="alwaysbreak"></div>
+
+</body>
+</html>

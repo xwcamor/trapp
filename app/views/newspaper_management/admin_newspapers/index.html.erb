@@ -1,0 +1,100 @@
+<% title "Admin de Novedades" %>
+ 
+
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-newspaper"></i> Admin de Novedades
+    <% if @user_permission.include?(107) %>
+    <%= link_to "Nuevo",[:new_newspaper_management,:admin_newspaper],{class: "btn btn-gray btn-xs"} %> 
+    <% end %>
+    </h4>
+    <h6>Total de Novedades: <%= @admin_newspapers.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Listado de Novedades</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+         
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+             
+              <th class="text-nowrap">Usuario</th>
+              <th class="text-nowrap">Estado</th>
+              <td data-orderable="false" class="sorting_disabled"> </td>
+            </tr>
+            <tr>
+              
+              <th class="text-nowrap">Usuario</th>
+              <th class="text-nowrap">Estado</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @admin_newspapers.each do |admin_newspaper| %>
+            <tr>
+    
+              <td>
+                <% if admin_newspaper.user_id == 0 %>
+                Todos los usuarios
+                <% else %>
+                <%= admin_newspaper.user.str_complete_name %>
+                <% end %>    
+              </td>
+              <td><%= admin_newspaper.str_state %></td>
+              <td>
+                <% if @user_permission.include?(108) %>
+                <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe, newspaper_management_admin_newspaper_path(admin_newspaper) ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+                <% end %>
+
+                <% if @user_permission.include?(109) %>
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, edit_newspaper_management_admin_newspaper_path(admin_newspaper) ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+                <% if @user_permission.include?(110) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, newspaper_management_admin_newspaper_path(admin_newspaper), method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+ 

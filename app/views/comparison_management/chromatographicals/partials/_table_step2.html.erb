@@ -1,0 +1,41 @@
+<table id="example" class="   align-middle table-bordered" style="background-color: rgba(233, 233, 233, 0.85); z-index: 140;  position: fixed;top: 120px;width: 100%">
+ 
+  <thead>
+    <tr valign="middle" align="center" class="bg-white" >
+ 
+ 
+      <th><small>N°Serie</small></th>
+      <th><small>TAG</small></th>
+      <th><small>Voltaje<br> (Kv)</small></th>
+      <th><small>Potencia<br> (MVA)</small></th>
+      <th><small>Edad<br> (años)</small></th>    
+      <th><small>Tipo de<br> Transformador</small></th>   
+      <th><small>Tipo de<br> Conmutador</small></th>   
+      <th><small>Tipo de<br> Conexión</small></th>    
+     
+               
+      <th><small>Tipo de Aceite</small></th>          
+      <th><small>Sistema de Preservación</small></th>           
+    </tr>
+  </thead>
+  <tbody>
+    <% @list_transformers.each do |transformer| %>
+    <tr align="center" class="bg-white">
+      
+      <td><small><%= transformer.num_serie rescue "-"%></small></td>
+      <td><small><%= transformer.num_tag rescue "-"%></small></td>      
+      <td><small><%= transformer.num_vol rescue "-"%></small></td>
+      <td><small><%= transformer.num_pot rescue "-"%></small></td>
+      <td><small><%= transformer.str_edad rescue "-"%></small></td>
+      <td><small><%= transformer.transformer_type.name.upcase rescue "-"%></small></td>
+      <td><small><%= transformer.conmutation_type.name.upcase rescue "-"%></small></td>
+      <td><small><%= transformer.connection_type.name  rescue "-"%></small></td>
+      
+       
+      <td><small><%= transformer.oil_type.name.upcase rescue "-"%></small></td>
+      <td><small><%= transformer.transformer_preservation.name.upcase rescue "-"%></small></td>
+ 
+    </tr>    
+    <% end %>
+  </tbody>
+</table>

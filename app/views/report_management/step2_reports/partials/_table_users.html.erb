@@ -1,0 +1,30 @@
+<table id="data-table-nobuttons-filtera" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>País</th>
+      <th>Cliente</th>   
+      <th>RUC</th> 
+      <th>Ubicaciones</th>
+      <th>Áreas</th>
+      <th>Subestaciones</th>
+      <th>Transformadores</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @list_customers.each do |customer| %>
+    <% cache customer do %>
+    <tr class="text-center" valign="middle">
+      <td><small class="flag-icon flag-icon-<%= customer.country.short_name.downcase %> h4 rounded mb-0" title="<%= customer.country.short_name.upcase %>"></small><p style="display: none"><%= customer.country.name %></p></td>  
+      <td><%= customer.name.upcase %></td>  
+      <td><%= customer.num_doc %></td>   
+      <td><%= customer.str_count_locations %></td>
+      <td><%= customer.str_count_areas %></td>
+      <td><%= customer.str_count_substations %></td>   
+      <td><%= customer.str_count_transformers %></td>       
+    </tr>
+    <% end %> 
+  <% end %>                  
+  </tbody>
+       
+</table> 
+

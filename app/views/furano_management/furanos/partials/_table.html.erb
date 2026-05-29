@@ -1,0 +1,53 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordere table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Fecha</th>
+      <th>2-Furfuraldehido<br> ppb</th>
+      <th>5-Hidroxi-Metil-Furfuraldehido <br> ppb</th>
+      <th>2-Acetilfurano<br> ppb</th>
+      <th>5-Metil-2-Furfuraldehido<br> ppb</th>
+      <th>2-Furfuril Alcohol<br> ppb</th>
+      <th>Grado de Polimerización<br> GP</th>
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>  
+    </tr>
+    <tr class="text-center filter_row">
+      <th>Fecha</th>
+      <th>2-Furfuraldehido<br> ppb</th>
+      <th>5-Hidroxi-Metil-Furfuraldehido <br> ppb</th>
+      <th>2-Acetilfurano<br> ppb</th>
+      <th>5-Metil-2-Furfuraldehido<br> ppb</th>
+      <th>2-Furfuril Alcohol<br> ppb</th>
+      <th>Grado de Polimerización<br> GP</th>
+      <td></td>
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_furanos.each do |furano| %>
+    <tr class="text-center">
+      <td data-sort='<%= furano.str_date_rehearsal_table %>'><%= furano.str_date_rehearsal %></td>
+      <td><%= furano.num_fal %></td>
+      <td><%= furano.num_hme %></td>
+      <td><%= furano.num_ace %></td>
+      <td><%= furano.num_mfu %></td>
+      <td><%= furano.num_fua %></td> 
+      <td><%= furano.shendong %></td> 
+      <td>
+        <div class="widget-list-action">
+          <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" style="">  
+            <% if @user_permission.include?(59) %>
+            <%=link_to "<i class='fa fa-pencil'></i> Editar Furano".html_safe, edit_furano_management_transformer_furano_path(@transformer,furano), class: "dropdown-item", title: "Editar"%>
+            <% end %>
+            <div class="dropdown-divider"></div>
+            <% if @user_permission.include?(60) %>
+            <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Furano".html_safe,furano_management_transformer_furano_delete_path(@transformer,furano) ,{ class: "dropdown-item bg-danger text-white", title: "Eliminar"} %>
+            <% end %>                    
+          </div>
+        </div>                  
+      </td>
+    </tr>
+    <% end %>                  
+  </tbody>
+   
+</table>       

@@ -1,0 +1,14 @@
+<% title "Tendencia IEEE" %>
+ 
+ <%= stylesheet_link_tag "application"  %>
+ <%= javascript_include_tag "application" %>
+ <%= csrf_meta_tags %> 
+ <link href="/assets/css/vendor.min.css" rel="stylesheet" />
+ <link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+ 
+<%= render :partial =>"chromatographical_management/report_ieee_graphs/partials/content_graphs" %>
+   
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end script--> 
+ 

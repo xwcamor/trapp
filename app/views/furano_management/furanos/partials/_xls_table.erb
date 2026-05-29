@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+
+        <table id="data-table-buttonas2" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap text-center">Fecha</th>
+              <th class="text-center">2-Furfuraldehido <br> ppb</th>
+              <th class="text-center">5-Hidroxi-Metil-Furfuraldehido <br> ppb</th>
+              <th class="text-center">2-Acetilfurano <br> ppb</th>
+              <th class="text-center">5-Metil-2-Furfuraldehido <br> ppb</th>
+              <th class="text-center">2-Furfuril Alcohol <br> ppb</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @export_results.each do |furano| %>
+              <td class="text-nowrap text-center"><%= furano.str_date_rehearsal %></td>
+              <td class="text-nowrap text-center"><%= furano.num_fal %></td>
+              <td class="text-nowrap text-center"><%= furano.num_hme %></td>
+              <td class="text-nowrap text-center"><%= furano.num_ace %></td>
+              <td class="text-nowrap text-center"><%= furano.num_mfu %></td>
+              <td class="text-nowrap text-center"><%= furano.num_fua %></td> 
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>       
+  </body>
+</body>

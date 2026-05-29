@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secciones Iniciales</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <p>El presente informe tiene como objetivo analizar los resultados de los ensayos realizados al aceite dieléctrico <%= transformer_text %> de <%= @report.customer.name %>.</p>
+
+    <p>Los análisis contemplados incluyen:</p>
+
+    <ul>
+      <li>Análisis de gases disueltos en el aceite (DGA).</li>
+      <li>Evaluación de la calidad del aceite.</li>
+    </ul>
+
+    <p>El análisis se ha realizado mediante software especializado que aplica metodologías reconocidas internacionalmente, e incorpora la evaluación del riesgo basado en la severidad y la naturaleza de los gases combustibles detectados.</p>
+
+    <p>Se ha considerado el historial individual de cada transformador, evaluando los parámetros de salud y emitiendo un diagnóstico técnico. Posteriormente, se ha categorizado cada unidad según su nivel de riesgo: <b>Alto</b>, <b>Medio</b> o <b>Bajo</b>.</p>
+
+    <p>Como resultado, se proponen actividades correctivas y preventivas de acuerdo al nivel de criticidad identificado:</p>
+
+    <ul>
+      <li>Transformadores con riesgo <b>alto</b> acciones inmediatas.</li>
+      <li>Transformadores con riesgo <b>medio</b> acciones a mediano plazo.</li>  
+      <li>Transformadores con riesgo <b>bajo</b> mantenimiento según lo establecido en el estándar IEEE Std C57.93-2019 <b>"Guide for Installation and Maintenance of Liquid-Immersed Power Transformers".</b></li>
+    </ul>
+ 
+  </div>
+</body>
+</html>

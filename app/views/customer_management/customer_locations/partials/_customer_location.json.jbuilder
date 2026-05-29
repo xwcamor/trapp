@@ -1,0 +1,1 @@
+json.extract! customer_location, :id, :name ,:customer_id

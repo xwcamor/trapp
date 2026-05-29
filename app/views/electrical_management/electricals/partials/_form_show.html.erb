@@ -1,0 +1,77 @@
+<div class="row">       
+         
+
+        <div class="col-xl-3 col-md-6">
+          <div class="widget widget-stats bg-gray">
+            <div class="stats-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stats-info">
+              <h4>Factor de Potencia</h4>
+              <p><%= Factor.where(transformer_id: params[:transformer_id], deleted: 0).count %></p>  
+            </div>
+            <div class="stats-link">
+              <a href="<%= factor_management_transformer_factors_path(@transformer.id) %>">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+          <div class="widget widget-stats bg-gray">
+            <div class="stats-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stats-info">
+              <h4>Factor de Potencia en Bornes</h4>
+              <p>0</p>  
+            </div>
+            <div class="stats-link">
+              <a href="/transformer_management/transformers">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+          <div class="widget widget-stats bg-gray">
+            <div class="stats-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stats-info">
+              <h4>Relación de Transformador</h4>
+              <p>0</p>  
+            </div>
+            <div class="stats-link">
+              <a href="/transformer_management/transformers">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>
+            </div>
+          </div>
+        </div>                                
+
+        <div class="col-xl-3 col-md-6">
+          <div class="widget widget-stats bg-gray">
+            <div class="stats-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stats-info">
+              <h4>Resistencia de Devanados</h4>
+              <p><%= Devanado.where(transformer_id: params[:transformer_id], deleted: 0).count %></p>  
+            </div>
+            <div class="stats-link">
+               
+              <% @devanado_template_transformer = DevanadoTemplateTransformer.where("transformer_id = ?",@transformer.id)%>
+              <% if @devanado_template_transformer.size > 0 %>
+                <a href="<%= devanado_management_transformer_devanados_path(@transformer.id) %>">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>
+              <% else %>          
+                <a href="<%= new_devanado_management_transformer_devanado_template_transformer_path(@transformer.id) %>">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>  
+              <% end %>              
+            </div>
+          </div>
+        </div>    
+
+
+        <div class="col-xl-3 col-md-6">
+          <div class="widget widget-stats bg-gray">
+            <div class="stats-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stats-info">
+              <h4>Resistencia de Aislamiento</h4>
+              <p>0</p>  
+            </div>
+            <div class="stats-link">
+              <a href="/transformer_management/transformers">Ver Información <i class="fa fa-arrow-alt-circle-right"></i></a>
+            </div>
+          </div>
+        </div>    
+</div>

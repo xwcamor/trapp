@@ -1,0 +1,65 @@
+ <script>
+    let getFirstArray = async (id, path) => {
+        let data = []
+        await fetch(path)
+            .then(response => response.json())
+            .then(response => {
+                data = response.map((value, index) => {
+                    return {
+                        id: value.id,
+                        text: value.name
+                    }
+                })
+                $(id).select2({
+                    placeholder: "Seleccione",
+                    width: 'auto',
+                    allowClear: true,
+                    dropdownParent: $('#myModal'),
+                    data: data
+                })
+            });
+        return data
+    }
+    let getSecondArray = async (id, path, $el, field) => {
+        let data = []
+        await fetch(path)
+            .then(response => response.json())
+            .then(response => {
+                let filter = response.filter((value, index) => {
+                    return ($el.value == value[field])
+                })
+                data.push({
+                    id: "",
+                    text: 'Seleccione',
+                })
+                filter.forEach((value, index) => {
+                    data.push({
+                        id: value.id,
+                        text: value.name
+                    })
+                })
+                $(id).empty()
+                $(id).select2({
+                    placeholder: "Seleccione",
+                    width: 'auto',
+                    allowClear: true,
+                    dropdownParent: $('#myModal'),
+                    data: data
+                })
+            });
+        return data
+    }
+    $(window).on('load', () => {
+        $('select').select2({
+            placeholder: "Seleccione",
+            width: 'auto',
+        })
+        getFirstArray('#first_array', '<%= customer_management_customer_customer_locations_path(@customer,:format=> "json") %>')
+        
+        $('#first_array').on('change', (e) => {
+            let $element = e.target
+            getSecondArray('#second_array', '<%= customer_management_customer_customer_areas_path(@customer,:format=> "json") %>', $element, 'customer_location_id')
+        })
+        
+    })
+</script>

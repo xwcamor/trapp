@@ -1,0 +1,119 @@
+<%= flash_messages %>
+<% @url_json = "/json_management/admin_audits.json" %>
+<table id="simple_audits" class="table table-hover align-middle">
+  <thead>
+    <tr valign="middle" align="center">
+      <th>Nº</th>
+      <th>Fecha</th>
+      <th>Usuario</th>
+      <th>Accion</th>
+      <th>Módulo</th>
+      <th>Registro</th>
+      <th>Parámetros</th>
+    </tr>
+    <tr valign="middle" align="center" class="filter_row">
+      <th>Nº</th>
+      <th>Fecha</th>
+      <th>Usuario</th>
+      <th>Accion</th>
+      <th>Módulo</th>
+      <th>Registro</th>
+      <th>Parámetros</th>
+    </tr>    
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<!-- script -->
+<script>
+$(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#simple_audits thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( ' <input type="text" placeholder="'+title+'" class="form-control column_search"  /> ' );
+    } );
+ 
+    // DataTable
+    var table_demo = $('#simple_audits').DataTable({
+      ajax: {
+        url: '<%= @url_json %>',
+        dataSrc: 'data'
+      },      
+      deferRender: true,
+      columns: [
+ 
+        { class: "text-black",data: 'id' },
+        { class: "text-black",data: 'str_created_at' },
+        { class: "text-black",data: 'username' },
+        { class: "text-black",data: 'str_action' },
+        { class: "text-black",data: 'str_auditable_type' },
+        { class: "text-black",data: 'str_auditable_type_details' },
+        { class: "text-black",data: 'audited_changes' }
+  
+      ],     
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      order: [[0, 'desc']],
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start text-black"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex "B>>>t<"row"<"col-md-5 text-black"i><"col-md-7 text-black"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+      buttons: [
+        {  extend: 'colvis', text: 'Mostrar/Ocultar Columnas', className: 'btn btn-outline-primary' , attr: { onclick: 'dtdisplaycols()' }  },        
+        { extend: 'copy', titleAttr:'Copiar', className: 'btn btn-outline-primary' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: ' btn btn-outline-primary' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: 'btn btn-outline-primary', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+    });
+   
+    // Toggle Columns
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table_demo.column($(this).attr('data-column'));
+ 
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
+    // Apply the search
+    $( '#simple_audits thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table_demo
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+    var buttons = new $.fn.dataTable.Buttons(table_demo, {
+      buttons: [
+        {  extend: 'colvis', text: 'Mostrar/Ocultar Columnas', className: 'btn btn-outline-primary' , attr: { onclick: 'dtdisplaycols()' }  },        
+        { extend: 'copy', titleAttr:'Copiar', className: 'btn btn-outline-primary' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: ' btn btn-outline-primary' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: 'btn btn-outline-primary', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+    }).container().appendTo($('#buttons'));
+});
+</script>
+<!-- script -->

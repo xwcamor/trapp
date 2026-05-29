@@ -1,0 +1,19 @@
+<% title "Nuevo" %>
+<%= links  link_to 'Notificaciones', [:notification_management,:admin_user_notifications] %> 
+ 
+ 
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa-solid fa-bell"></i> Nueva Notificación</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<div id="myModal">
+<%= render :partial =>"notification_management/admin_user_notifications/partials/form_new",  user_notification: @user_notification %>
+</div>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end layout-->

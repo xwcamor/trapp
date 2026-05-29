@@ -1,0 +1,42 @@
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+              <th>Participantes</th>
+              <th>Motivo</th>
+              <th>Fecha</th>
+              <td data-orderable="false" class="sorting_disabled"> </td>
+            </tr>
+            <tr>
+              <th>Participantes</th>
+              <th>Motivo</th>
+              <th>Estado</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @admin_meetings.each do |admin_meeting| %>
+            <tr>
+              <td>
+               <% @users= User.where("id IN (?)",admin_meeting.user_id.map { |e| e }) %>
+                <%  @users.each do |user| %>
+                <%= user.str_complete_name %>(<%= user.email %>),
+                <%end %>
+              </td>
+              <td>
+              </td>
+              <td>
+                <% if @user_permission.include?(88) %>
+                <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe, meeting_management_admin_meeting_path(admin_meeting) ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+                <% end %>
+
+                <% if @user_permission.include?(89) %>
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, edit_meeting_management_admin_meeting_path(admin_meeting) ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+                <% if @user_permission.include?(90) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, meeting_management_admin_meeting_path(admin_meeting), method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>

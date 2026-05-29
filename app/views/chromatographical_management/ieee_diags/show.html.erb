@@ -1,0 +1,56 @@
+<% title "Diagnostico IEEE - Tabla 4" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+ 
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal-message fade show pt-5" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+                     
+          <div class="modal-body">
+            <%= render 'chromatographical_management/ieee_diags/partials/form_show' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel --> 
+
+<!-- BEGIN background color --> 
+<div class="modal-backdrop show"></div>
+<!-- END background color --> 
+
+<!-- begin case 3 tests -->
+<%# if @ieee_diag_details.count == 3 %>
+<%#= render 'chromatographical_management/ieee_diags/partials/diag_table4_calculation3', ieee_diag: @ieee_diag %>
+<%# end %>
+<!-- end case 3 tests --> 
+
+<!-- begin case 4 tests -->
+<%# if @ieee_diag_details.count == 4 %>
+<%#= render 'chromatographical_management/ieee_diags/partials/diag_table4_calculation4', ieee_diag: @ieee_diag %>
+<%#end %>
+<!-- end case 4 tests --> 
+
+<!-- begin case 5 tests -->
+<%# if @ieee_diag_details.count == 5 %>
+<%#= render 'chromatographical_management/ieee_diags/partials/diag_table4_calculation5', ieee_diag: @ieee_diag %>
+<%# end %>
+<!-- end case 5 tests --> 
+
+<!-- begin case 6 tests -->
+<%# if @ieee_diag_details.count == 6 %>
+<%#= render 'chromatographical_management/ieee_diags/partials/diag_table4_calculation6', ieee_diag: @ieee_diag %>
+<%# end %>
+<!-- end case 6 tests --> 
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<!-- end layout-->

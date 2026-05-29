@@ -1,0 +1,9 @@
+<div id="myModal">
+  <div class="form-group row m-b-15">
+    <label class="col-md-2 col-sm-4 col-form-label">Cliente</label>
+    <div class="col-md-8 col-sm-8">
+      <%= select_tag "search_customer" , options_for_select(@user_customers.collect { |p| [p.customer.country.short_name.to_s + " - " + p.customer.name,p.customer_id.to_s] }, params[:search_customer].to_i )  , class: "default-select2 form-select" %>
+
+    </div>
+  </div>  
+</div>

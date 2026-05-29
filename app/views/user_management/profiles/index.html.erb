@@ -1,0 +1,78 @@
+<% title "Perfiles" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+ 
+
+<!-- begin page-header -->
+<h1 class="page-header">Perfiles</h1>
+<!-- end page-header -->
+
+<p><%= link_to "Nuevo",[:new_user_management,:profile],{class: "btn btn-gray btn-xs"} %></p>
+
+<!-- begin row -->
+<div class="row">
+
+  <!-- begin col-10 -->
+  <div class="col-xl">
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered table-td-valign-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap">Perfil</th>
+              <th class="text-nowrap">Descripción</th>
+              <th class="text-nowrap">Países</th>
+              <th data-orderable="false" class="sorting_disabled"></th>
+            </tr>
+            <tr>
+              <th class="text-nowrap">Perfil</th>
+              <th class="text-nowrap">Descripción</th>
+              <th class="text-nowrap">Países</th>
+              <td></td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @profiles.each  do |profile| %>
+            <tr>            
+              <td><%= profile.name %></td>
+              <td><%= profile.description %></td>
+              <td><% profile.profile_countries.each do |profile_country| %>
+                <%= profile_country.country.name %><br>
+                <% end %>
+                
+              </td>
+              <td>
+                  <%= link_to "<i class='fa fa-eye'></i>".html_safe, [:user_management, profile] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+
+                  <%= link_to "<i class='fa fa-pencil'></i>".html_safe, [:edit, :user_management, profile] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+
+                  <%= link_to "<i class='fa fa-trash'></i>".html_safe, [:user_management, profile], method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+     
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+
+<!-- begin layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<!-- end layout--> 

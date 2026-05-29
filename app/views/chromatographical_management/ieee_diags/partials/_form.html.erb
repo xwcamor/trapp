@@ -1,0 +1,111 @@
+<%= form_for [:chromatographical_management, @ieee_diag],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+
+<!-- begin alert --> 
+<%= flash_messages %>
+<!-- end alert -->  
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div>
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Diagnóstico IEEE Por Periodo
+        </h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <%= f.hidden_field :transformer_id,:value =>@transformer.id  %>
+         
+        <% if @ieee_diag.new_record? %>
+        <div class="table-responsive">
+        <table  class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap text-center">Seleccionar </th>
+              <th class="text-nowrap text-center">Fecha </th>
+              <th class="text-nowrap text-center">Hidrógeno<br>H2<br>ppm</th>
+              <th class="text-nowrap text-center">Metano<br>CH4<br>ppm</th>
+              <th class="text-nowrap text-center">M.Carbono<br>CO<br>ppm</th>
+              <th class="text-nowrap text-center">D.Carbono<br>CO2<br>ppm</th>
+              <th class="text-nowrap text-center">Etileno<br>C2H4<br>ppm</th>
+              <th class="text-nowrap text-center">Etano<br>C2H6<br>ppm</th>
+              <th class="text-nowrap text-center">Acetileno<br>C2H2<br>ppm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @chromatographicals.each do |chromatographical| %>
+            <tr>
+              <td class="text-nowrap text-center"><input id="chromatographical_<%= chromatographical.id %>" name="chromatographical_<%= chromatographical.id %>" type="checkbox" /></td>
+              <td class="text-nowrap text-center"><%= chromatographical.str_date_rehearsal %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_hid %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_met %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_mon %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_dio %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_eti %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_eta %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_ace %></td>
+            </tr>        
+            <% end %>                  
+          </tbody>
+        </table>     
+        </div>
+
+        <% else %>
+
+          <% @accesses.each do |access| %>
+          <div>
+            <input id="access_<%= access[:parent].id %>" name="access_<%= access[:parent].id %>" type="checkbox" 
+            <% @px_access.each do |pa| %>   
+            <% if pa.access_id == access[:parent].id %>
+            checked="checked"
+            <% end %> 
+            <% end %>                 
+            class="parentCheckBox" /> <%= text_field_tag "name",access[:parent].name.upcase, class: 'input-sm', readonly: 'true' %><a onclick="document.getElementById('div_<%= access[:parent].id %>').style.display='';return false;"><i class="ion ion-ios-add-circle fa-2x fa-fw float-start me-10px text-black-lighter"></i></a>  <a onclick="document.getElementById('div_<%= access[:parent].id %>').style.display='none';return false;"><i class="ion ion-ios-remove-circle fa-2x fa-fw float-start me-10px text-black-lighter"></i></a><br />
+            <div id="div_<%= access[:parent].id %>" style="display:none;">
+             <ul style="list-style: none;">
+              <% access[:children].each do |grant|%>
+              <li><input id="access_<%= grant.id %>" name="access_<%= grant.id %>" type="checkbox" 
+                <% @access.each do |acc| %>   
+                <% if acc.id == grant.id %>
+                checked="checked"
+                <% end %> 
+                <% end %>     
+                class="childCheckBox" /><%= grant.name  %></li>
+                <% end %>
+              </ul>    
+            </div>
+          </div>
+          <% end %>
+
+        <% end %>
+
+      <br>
+      <div class="text-center me-1 mb-3">
+        <%= link_to "<i class='fa-solid fa-circle-info'></i> Regresar a Resumen".html_safe, transformer_management_transformer_path(@transformer), class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+          <% if @ieee_diag.new_record? %>
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa fa-calculator'></i> Cálculo de Tabla 4
+            <% end %>
+          <% else %>
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa fa-floppy-disk'></i> Actualizar Información
+            <% end %> 
+          <% end %>
+       </div>  
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+ 
+</div>
+<!-- end row -->
+<% end %>

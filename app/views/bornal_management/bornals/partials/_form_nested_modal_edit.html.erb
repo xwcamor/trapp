@@ -1,0 +1,26 @@
+<div class="row">               
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">Fecha</th>
+            <th class="text-center">Factor de Potencia (%) </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="fields">
+            <td><%= f.date_field :date_rehearsal, class: 'form-control','data-parsley-required'=>"true" , step: "0.001" %> </td>
+            <td><%= f.number_field :num_fac, class: 'form-control','data-parsley-required'=>"true" , step: "0.001" %> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+</div>
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 70% !important; 
+}
+</style>

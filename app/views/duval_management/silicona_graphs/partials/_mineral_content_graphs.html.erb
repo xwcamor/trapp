@@ -1,0 +1,358 @@
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+ 
+<% @vmon = @last_chromatographical.num_mon rescue "0" %>
+<% @vhid = @last_chromatographical.num_hid rescue "0" %>
+<% @vmet = @last_chromatographical.num_met rescue "0"  %>
+<% @veta = @last_chromatographical.num_eta rescue "0" %>
+<% @veti = @last_chromatographical.num_eti rescue "0" %>
+<% @vace = @last_chromatographical.num_ace rescue "0" %>
+<% @total = @vmon + @vhid + @vmet +@veta + @veti + @vace %>
+ 
+<% @smon = @vmon.to_f/@total.to_f*100   %>
+<% @pmon = number_with_precision(@smon.to_f, :precision => 1 ) %> 
+<% @mon = @pmon.to_d.round rescue "0" %>
+
+<% @shid = @vhid.to_f/@total.to_f*100   %>
+<% @phid = number_with_precision(@shid.to_f, :precision => 1 ) %> 
+<% @hid = @phid.to_d.round rescue "0" %>
+
+<% @smet = @vmet.to_f/@total.to_f*100   %>
+<% @pmet = number_with_precision(@smet.to_f, :precision => 1 ) %> 
+<% @met = @pmet.to_d.round rescue "0" %>
+
+<% @seta = @veta.to_f/@total.to_f*100   %>
+<% @peta = number_with_precision(@seta.to_f, :precision => 1 ) %> 
+<% @eta = @peta.to_d.round rescue "0" %>
+
+<% @seti = @veti.to_f/@total.to_f*100   %>
+<% @peti = number_with_precision(@seti.to_f, :precision => 1 ) %> 
+<% @eti = @peti.to_d.round  rescue "0"%>
+
+<% @sace = @vace.to_f/@total.to_f*100   %>
+<% @pace = number_with_precision(@sace.to_f, :precision => 1 ) %>
+<% @ace = @pace.to_d.round  rescue "0"%>
+
+
+<%= flash_messages %>
+
+<% @condition = GasKey.where('transformer_id = ?',@transformer.id).size %>
+<% @gas_key = GasKey.where('transformer_id = ?',@transformer.id).last %>
+
+<% if @condition > 0 %> 
+<%= form_for [:chromatographical_management, @gas_key ],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+<%= f.hidden_field :transformer_id , :value =>@transformer.id %>
+
+<!--begin row inside cols -->
+<div class="row">
+
+  <!--begin col 2 -->
+  <div class="col-md-2">  
+    <div class="card border-0 bg-light mb-2">
+      <div class="card-body">
+
+        <small class="card-subtitle mb-10px text-semi-bold">
+          <span class="card-subtitle mb-10px text-semi-bold">
+           <%= f.radio_button :state, '1' ,"data-parsley-required"=>"true" %>  Sobrecalentamiento de Aceite 
+         </span>
+       </small>
+     </div>
+   </div>
+ </div>
+ <!--end col 2 -->      
+ <!--begin col 2 -->
+ <div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+          <%= f.radio_button :state, '2',"data-parsley-required"=>"true" %>  Sobrecalentamiento de Celulosa 
+        </span>
+      </small>
+    </div>
+  </div>
+</div>
+<!--end col 2 -->         
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+         <%= f.radio_button :state, '3',"data-parsley-required"=>"true" %> Corona en Aceite 
+       </span>
+     </small>
+   </div>
+ </div>
+</div>
+<!--end col 2 -->  
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+         <%= f.radio_button :state, '4',"data-parsley-required"=>"true"  %> Arco en Aceite 
+       </span>
+     </small>
+   </div>
+ </div>
+</div>
+<!--end col 2 --> 
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+         <%= f.radio_button :state, '0',"data-parsley-required"=>"true"  %> Sin Asignar 
+       </span>
+     </small>
+   </div>
+ </div>
+</div>
+<!--end col 2 --> 
+<% if @user_permission.include?(150) %>
+<!--begin col 2 -->
+<div class="col-md-2">  <%= f.submit "Enviar Gas Clave a Resumen" ,class: "btn btn-gray  me-1 mb-1"%>
+</div>   
+<!--end col 2 -->  
+<% end %>    
+</div>
+<!--end row inside cols --> 
+<% end %>
+<% else %>
+<%= form_for [:chromatographical_management, GasKey.new],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+<%= f.hidden_field :transformer_id , :value =>@transformer.id %>
+
+<!--begin row inside cols -->
+<div class="row">
+
+  <!--begin col 2 -->
+  <div class="col-md-2">  
+    <div class="card border-0 bg-light mb-2">
+      <div class="card-body">
+
+        <small class="card-subtitle mb-10px text-semi-bold">
+          <span class="card-subtitle mb-10px text-semi-bold">
+           <%= f.radio_button :state, '1' ,"data-parsley-required"=>"true"%>  Sobrecalentamiento de Aceite 
+         </span>
+       </small>
+     </div>
+   </div>
+ </div>
+ <!--end col 2 -->      
+ <!--begin col 2 -->
+ <div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+         <%= f.radio_button :state, '2' ,"data-parsley-required"=>"true"%> Sobrecalentamiento de Celulosa  
+       </span>
+     </small>
+   </div>
+ </div>
+</div>
+<!--end col 2 -->         
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+         <%= f.radio_button :state, '3',"data-parsley-required"=>"true" %> Corona en Aceite 
+       </span>
+     </small>
+   </div>
+ </div>
+</div>
+<!--end col 2 -->  
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+          <%= f.radio_button :state, '4',"data-parsley-required"=>"true"  %> Arco en Aceite 
+        </span>
+      </small>
+    </div>
+  </div>
+</div>
+<!--end col 2 --> 
+<!--begin col 2 -->
+<div class="col-md-2">  
+  <div class="card border-0 bg-light mb-2">
+    <div class="card-body">
+
+      <small class="card-subtitle mb-10px text-semi-bold">
+        <span class="card-subtitle mb-10px text-semi-bold">
+          <%= f.radio_button :state, '0',"data-parsley-required"=>"true"  %> Sin Asignar 
+        </span>
+      </small>
+    </div>
+  </div>
+</div>
+<!--end col 2 --> 
+<% if @user_permission.include?(150) %>
+<!--begin col 2 -->
+<div class="col-md-2">  <%= f.submit "Enviar Gas Clave a Resumen" ,class: "btn btn-gray me-1 mb-1"%>
+</div>      
+<!--end col 2 -->   
+<% end %>
+</div>
+<!--end row inside cols --> 
+<% end %>
+<% end %>
+
+<div class="row">
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Sobrecalentamiento de Aceite</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-star-christmas'></i> Sobrecalentamiento de Aceite
+              <% if @gas_key.present? %>
+              <% if @gas_key.state == 1 %>
+                <i class="fa-solid fa-star text-yellow" title="Gas Clave"></i>
+              <% end %>
+              <% end %>
+              </h6>   
+              <%= render :partial =>"duval_management/silicona_graphs/partials/mineral_amchart_first" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Sobrecalentamiento de Celulosa</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-star-christmas'></i> Sobrecalentamiento de Celulosa
+              <% if @gas_key.present? %>
+              <% if @gas_key.state == 2 %>
+                <i class="fa-solid fa-star text-yellow" title="Gas Clave"></i>
+              <% end %>
+              <% end %>              
+              </h6>   
+              <%= render :partial =>"duval_management/silicona_graphs/partials/mineral_amchart_second" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 --> 
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Corona en Aceite</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-star-christmas'></i> Corona en Aceite
+              <% if @gas_key.present? %>
+              <% if @gas_key.state == 3 %>
+                <i class="fa-solid fa-star text-yellow" title="Gas Clave"></i>
+              <% end %>   
+              <% end %>           
+              </h6>   
+              <%= render :partial =>"duval_management/silicona_graphs/partials/mineral_amchart_third" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->  
+  <!-- BEGIN Col-6 -->
+  <div class="col-xl-6">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <i class="fa-regular fa-chart-line text-white pe-2"></i>
+        <h4 class="panel-title">Análisis de Arco en Aceite</h4>
+          <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bordered table-responsive">
+        <div class="panel-content">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">
+              <h6>
+              <i class='fa-solid fa-star-christmas'></i> Arco en Aceite
+              <% if @gas_key.present? %>
+              <% if @gas_key.state == 4 %>
+                <i class="fa-solid fa-star text-yellow" title="Gas Clave"></i>
+              <% end %>              
+              <% end %>
+              </h6>   
+              <%= render :partial =>"duval_management/silicona_graphs/partials/mineral_amchart_fourth" %> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- END Col-6 -->  
+</div>

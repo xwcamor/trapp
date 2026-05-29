@@ -1,0 +1,32 @@
+<div class="row">               
+    <div class="table-responsive">
+      <table id="devanado_details_r1" class="table table-hover align-middle">
+        <thead>
+          <tr class="text-center">
+            <th width="1%"># </th>
+            <% @template_selected = DevanadoTemplateTransformer.find_by_transformer_id(@transformer.id) %>
+            <% @template = DevanadoTemplate.find(@template_selected.devanado_template_id) %>
+            <% @template.devanado_template_details.where("devanado_flow_id = 1").each do |devanado_template_detail| %>
+            <th><%= devanado_template_detail.name %></th>
+            <% end%>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @times = @transformer.num_tap.to_i %>
+        <% @times.times do %>
+        <%= f.fields_for :devanado_details, :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <%= nested_form.hidden_field :devanado_flow_id, value: 1 %>
+            <td width="1%"> <%= nested_form.index.to_i + 1  %></td>
+            <td><%= nested_form.text_field :col1_val, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: "Digitar Valor" %></td>
+            <td><%= nested_form.text_field :col2_val, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: "Digitar Valor" %></td>
+            <td><%= nested_form.text_field :col3_val, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: "Digitar Valor" %></td>
+            <td><%#= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %></td>
+          </tr>
+        <% end %>    
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+</div> 

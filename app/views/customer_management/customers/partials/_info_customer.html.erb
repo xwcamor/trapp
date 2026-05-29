@@ -1,0 +1,131 @@
+<% @locations = CustomerLocation.where(deleted: 0, customer_id: @customer.id) %>
+<% @areas = CustomerArea.where(deleted: 0, customer_id: @customer.id) %>
+<% @substations = CustomerSubstation.where(deleted: 0, customer_id: @customer.id) %>
+<!--begin panel-information -->
+<div class="row panel mb-0 ">
+  <!--begin panel-head -->
+  <div class="panel-heading bg-gray-800 text-white pb-2">
+    <div class="panel-title"><i class="fa fa-user"></i> Datos del Cliente</div> 
+    <div class="panel-heading-btn">
+      <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+        <i class="fa fa-minus"></i>
+      </a>
+    </div>
+  </div>
+  <!--end panel-head -->
+  <!--begin panel-main -->
+  <div class="panel-body">
+    <!--begin row inside cols -->
+    <div class="row">
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">País</h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <div class="flag-icon flag-icon-<%= @customer.country.short_name.downcase %> h5 rounded mb-0 "></div>        
+              <span class="card-subtitle mb-10px text-semi-bold"><%= @customer.country.name rescue "-" %> </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->      
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">RUC</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @customer.num_doc %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-8">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Direccìón</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @customer.address rescue "-" %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+
+ 
+    </div>
+    <!--end row inside cols -->
+  </div>
+  <!--end panel-main -->
+  <!--begin panel-secondary -->
+  <div class="panel-body" style="display: none;">
+    <!--begin row inside cols -->
+    <div class="row">
+       <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">RUC</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @customer.num_doc %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->  
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">Direccìón</h6>
+            <small class="card-subtitle mb-10px text-semi-bold"><%= @customer.address rescue "-" %></small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-2">
+          <div class="card-body">
+            <h6 class="card-title text-muted">País</h6>
+            <small class="card-subtitle mb-10px text-semi-bold">
+              <div class="flag-icon flag-icon-<%= @customer.country.short_name.downcase %> h1 rounded mb-0 "></div>        
+              <span class="card-subtitle mb-10px text-semi-bold"><%= @customer.country.name rescue "-" %> </span>
+            </small>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-1">
+          <div class="card-body mb-3">
+            <h6 class="card-title text-muted">TOTAL DE UBICACIONES </h6>
+            <span class="card-subtitle mb-10px text-semi-bold"><%= @locations.size %></span>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <!--begin col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-1">
+          <div class="card-body mb-3">
+            <h6 class="card-title text-muted">TOTAL DE AREAS </h6>
+            <span class="card-subtitle mb-10px text-semi-bold"><%= @areas.size %></span>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+      <div class="col-md-2">  
+        <div class="card border-0 bg-light mb-1">
+          <div class="card-body mb-3">
+            <h6 class="card-title text-muted">TOTAL DE SUBESTACIONES </h6>
+            <span class="card-subtitle mb-10px text-semi-bold"><%= @substations.size %></span>
+          </div>
+        </div>
+      </div>
+      <!--end col 2 -->
+    </div>
+  </div>
+  <!--end panel-secondary -->  
+</div> 
+<!--end panel-information -->
+
+<link href="/assets/plugins/flag-icon-css/css/flag-icons.min.css" rel="stylesheet" />

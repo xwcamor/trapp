@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= wicked_pdf_stylesheet_link_tag "report.css" -%>
+  <script>
+      function number_pages() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = decodeURIComponent(z[1]);}
+        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+        for(var i in x) {
+          var y = document.getElementsByClassName(x[i]);
+          for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+      }
+  </script>
+</head>
+<body onload="number_pages()">
+
+<div class="container" style="font-size: 8px;">
+  <div class="row">
+    Los resultados obtenidos en este reporte solo corresponden a las muestras analizadas bajo las condiciones de ensayo. Cuando la muestra es proporcionada por el cliente interno o externo los resultados se aplican a la muestra como se recibio. Hitachi Energy Perú S.A. Cuando la muestra es proporcionada por el cliente interno o externo los resultados se aplican a la muestra como se recibio. Hitachi Energy Perú S.A. no se responsabiliza cuando algun componente de este informe ha sido proporcionado por el cliente y tampoco por el uso inadecuado de este documento. Hitachi Energy Perú S.A. no hace ninguna garantía o representación expresa o implícita en cuanto a condición, productividad o correcto funcionamiento de cualquier equipo u otros bienes que pueda ser objeto de este informe o depender de ella para la razón que sea. Se prohíbe la reproducción total o parcial de este documento sin autorización previa escrita. Los resultados de los ensayos no deben ser utilizados como una certificación de conformidad o como un certificado del sistema de calidad. Los análisis, opiniones o interpretaciones contenidas en este informe se basan en el material recolectado y representan el mejor juicio de Hitachi Energy Perú S.A. y no son refrendadas por el ente acreditador
+  </div>
+</div>
+ 
+<div class="container" style="font-size: 10px;">
+  <div class="row text-center">
+    <div class="col-12 border-bottom  border-danger"> 
+      <b>HITACHI ENERGY PERÚ SA</b>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-2" style="font-size: 10px;">
+  <div class="row">
+    <div class="col-1"> 
+       
+    </div>
+    <div class="col-8"> 
+       Calle Kapalla Mz. B Lote 5-6 de Urbanización Las Praderas de Lurín-Lurín-Lima        
+    </div>
+    <div class="col-3"> 
+        Página <span class="page"></span> de <span class="topage"></span>
+    </div>        
+  </div>
+</div>
+                                                
+ 
+
+
+</body>
+</html>

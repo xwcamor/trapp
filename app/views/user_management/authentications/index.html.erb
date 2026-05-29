@@ -1,0 +1,24 @@
+<% title "Dashboard" %>
+
+<!-- begin page-header -->
+<h1 class="page-header">Bienvenido/a <%= current_user.name %> <%= current_user.lastname1 %></h1>
+<!-- end page-header -->
+
+<!-- begin alert --> 
+<%= flash_messages %>
+<!-- end alert -->  
+
+<!-- begin dashboard --> 
+<% if @condicion > 1 %>
+  <%= render :partial =>"user_management/authentications/partials/view_all_customers" %>
+   
+<% else %>
+  <%= render :partial =>"user_management/authentications/partials/view_one_customer" %>
+<% end %>
+<!-- begin dashboard --> 
+
+ 
+<!-- begin script -->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end script -->

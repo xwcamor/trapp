@@ -1,0 +1,27 @@
+ 
+<table  id="comments" class="table table-responsive " border="0">
+  <% post.comments.each do |comment| %>
+    <tr class="fields mb-3">
+      <td valign="middle">
+          <% if comment.user.avatar_url %>
+            <img src="<%= comment.user.avatar_url %>" height="35" class="rounded-pill">
+          <% else %>
+            <i class="fa fa-user text-black ms-1 " aria-hidden="true"></i>
+          <% end %>  
+      </td>
+      <td valign="middle">
+      	<% if comment.rate == 1%>
+          <span class="badge bg-danger ms-1 py-2px position-relative" style="top: -1px;">Importante</span> 
+        <% else %>
+          <span class="badge bg-info ms-1 py-2px position-relative" style="top: -1px;">Información</span>
+        <% end %>
+      </td>         
+      <td valign="middle">
+ 
+        <div class="position-relative">
+          <%=   comment.description  %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

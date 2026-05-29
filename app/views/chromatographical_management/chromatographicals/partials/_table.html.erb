@@ -1,0 +1,183 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordere table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Fecha</th>
+      <th>Hidrógeno <br>H2 <br>ppm</th>
+      <th>Oxígeno <br>O2 <br>ppm</th>
+      <th>Nitrógeno <br>N2 <br>ppm</th>       
+      <th>Metano <br>CH4 <br>ppm</th>
+      <th>M.Carbono <br>CO <br>ppm</th>
+      <th>D.Carbono <br>CO2 <br>ppm</th>
+      <th>Etileno <br>C2H4 <br>ppm</th>
+      <th>Etano <br>C2H6 <br>ppm</th>
+      <th>Acetileno <br>C2H2 <br>ppm</th>
+      <th>Estado</th>
+      <th>Comentarios</th>      
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>   
+    </tr>
+    <tr class="text-center filter_row">
+      <th>Fecha</th>
+      <th>Hidrógeno <br>H2 <br>ppm</th>
+      <th>Oxígeno <br>O2 <br>ppm</th>
+      <th>Nitrógeno <br>N2 <br>ppm</th>       
+      <th>Metano <br>CH4 <br>ppm</th>
+      <th>M.Carbono <br>CO <br>ppm</th>
+      <th>D.Carbono <br>CO2 <br>ppm</th>
+      <th>Etileno <br>C2H4 <br>ppm</th>
+      <th>Etano <br>C2H6 <br>ppm</th>
+      <th>Acetileno <br>C2H2 <br>ppm</th>
+      <th>Estado</th>
+      <th>Comentarios</th>       
+      <td></td>   
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_chromatographicals.each do |chromatographical| %>
+    <%# cache chromatographical do %> 
+    <!-- se comenta lo de cache porque guarda los colores en memoria -->
+    <tr class="text-center">
+      <td data-sort='<%= chromatographical.str_date_rehearsal_table %>'>  
+       
+           <%= chromatographical.str_date_rehearsal %>
+       
+      </td>
+      
+      <!-- NORMA IEC -->
+      <% if chromatographical.transformer.oil_type_id == 1 %>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_hidrogeno == "yellow" or chromatographical.iec_color_hidrogeno == "red" %><%= chromatographical.iec_color_hidrogeno rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_hid %>
+        </p>
+      </td>
+      <!-- NORMA IEEE -->
+      <% else %>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_hidrogeno == "yellow" or chromatographical.ieee_color_hidrogeno == "red" %><%= chromatographical.ieee_color_hidrogeno rescue "" %><% end %> mb-0">   
+          <%= chromatographical.num_hid %> 
+        </p>
+      </td>
+      <% end %>
+
+      <td><%= chromatographical.num_oxi %></td>
+      <td><%= chromatographical.num_nit %></td>    
+      <!-- NORMA IEC -->
+      <% if chromatographical.transformer.oil_type_id == 1%>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_metano == "yellow" or chromatographical.iec_color_metano == "red" %><%= chromatographical.iec_color_metano rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_met %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_monocarbono == "yellow" or chromatographical.iec_color_monocarbono == "red" %><%= chromatographical.iec_color_monocarbono rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_mon %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_diocarbono == "yellow" or chromatographical.iec_color_diocarbono == "red" %><%= chromatographical.iec_color_diocarbono rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_dio %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_etileno == "yellow" or chromatographical.iec_color_etileno == "red" %><%= chromatographical.iec_color_etileno rescue "" %><% end %> mb-0">
+          <%= chromatographical.num_eti %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_etano == "yellow" or chromatographical.iec_color_etano == "red" %><%= chromatographical.iec_color_etano rescue "" %><% end %> mb-0">                  
+          <%= chromatographical.num_eta %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.iec_color_acetileno == "yellow" or chromatographical.iec_color_acetileno == "red" %><%= chromatographical.iec_color_acetileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_ace %>
+        </p>
+      </td>
+     
+      <!-- NORMA IEEE -->
+      <% else %>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_metano == "yellow" or chromatographical.ieee_color_metano == "red" %><%= chromatographical.ieee_color_metano rescue "" %><% end %> mb-0">   
+          <%= chromatographical.num_met %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_monocarbono == "yellow" or chromatographical.ieee_color_monocarbono == "red" %><%= chromatographical.ieee_color_monocarbono rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_mon %>
+        </p>
+      </td>
+      <td>
+        <!-- NORMA IEEE PARA ACEITE VEGETAL: SOYA Y GIRASOL-->
+        <% if @transformer.oil_type_id == 5 or   @transformer.oil_type_id == 6 %>
+          <%= chromatographical.num_dio %>
+        <% else %>
+        <p class="span alert-<% if chromatographical.ieee_color_diocarbono == "yellow" or chromatographical.ieee_color_diocarbono == "red" %><%= chromatographical.ieee_color_diocarbono rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_dio %>
+        </p>
+        <% end %>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_etileno == "yellow" or chromatographical.ieee_color_etileno == "red" %><%= chromatographical.ieee_color_etileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_eti %>
+        </p>                  
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_etano == "yellow" or chromatographical.ieee_color_etano == "red" %><%= chromatographical.ieee_color_etano rescue "" %><% end %> mb-0">                    
+          <%= chromatographical.num_eta %>
+        </p>
+      </td>
+      <td>
+        <p class="span alert-<% if chromatographical.ieee_color_acetileno == "yellow" or chromatographical.ieee_color_acetileno == "red" %><%= chromatographical.ieee_color_acetileno rescue "" %><% end %> mb-0">  
+          <%= chromatographical.num_ace %>
+        </p>
+      </td>
+      <% end %>
+          
+      <td class="text-start"><%=chromatographical.dgaf_condition %>
+      </td>
+      <td>  
+        <% @chromatographical_post =  Post.where("chromatographical_id =?",chromatographical.id) %>
+        <% if @chromatographical_post.size > 0 %>
+          Si
+        <% else %>
+          No
+        <% end %>    
+      </td>             
+      <td>
+        <div class="widget-list-action">
+          <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" style="">        
+            <% @chromatographical_post =  Post.where("chromatographical_id =?",chromatographical.id) %>
+            <% if @chromatographical_post.size > 0 %>
+              <% if @user_permission.include?(97) %> 
+                <% @chromatographical_post.each do |post| %>
+                <%= link_to "<i class='fa-solid fa-comment'></i> Modificar Comentario".html_safe, edit_chromatographical_management_post_path(post.id) ,{:title=>"Comentario",class: "dropdown-item" } %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% if @user_permission.include?(96) %> 
+                <%= link_to "<i class='fa-regular fa-comment'></i> Crear Comentario".html_safe, new_chromatographical_management_chromatographical_post_path(chromatographical) ,{:title=>"Comentario",class: "dropdown-item" } %>
+              <% end %>
+            <% end %>            
+
+            <% if @user_permission.include?(40) %> 
+            <%= link_to "<i class='fa-solid fa-eye'></i> Mostrar Límites".html_safe, chromatographical_management_transformer_chromatographical_path(@transformer, chromatographical) ,{:title=>"Límites",class: "dropdown-item" } %>
+            <% end %>
+
+            <% if @user_permission.include?(42) %>
+            <%=link_to "<i class='fa fa-pencil'></i> Editar Ensayo".html_safe, edit_chromatographical_management_transformer_chromatographical_path(@transformer,chromatographical )  ,  class: "dropdown-item", title: "Editar"%>
+            <% end %>                     
+            <div class="dropdown-divider"></div>
+            <% if @user_permission.include?(43) %>
+            <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Ensayo".html_safe,chromatographical_management_transformer_chromatographical_delete_path(@transformer,chromatographical)  ,{ class: "dropdown-item bg-danger text-white", title: "Eliminar"} %>
+            <% end %>                     
+          </div>
+        </div>                  
+
+      </td>
+    </tr>
+    <%# end %>  
+    <% end %>                  
+  </tbody>
+  
+</table> 

@@ -1,0 +1,88 @@
+<%= flash_messages %>
+<%= form_for [:physical_management, @physical],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Nuevo Análisis Físico Químico</h4>
+</div>
+<div class="modal-body">
+  <div class="col-md-12">
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Fecha de Ensayo</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.hidden_field :transformer_id , :value => params[:transformer_id] %>
+        <%= f.hidden_field :deleted , :value => 0 %>
+
+        <% if @transformer.has_special_testing_fiq == 0%>
+          <%= f.date_field :date_rehearsal, class: 'form-control  masked','data-parsley-required'=>"true" %>
+        <% else %>  
+          <%= f.datetime_field :date_rehearsal, class: 'form-control  masked','data-parsley-required'=>"true" %>
+        <% end %>        
+      </div>
+    </div>
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Número Ácido ASTM D974 (mg KOH/g)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_acid, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido" %>
+      </div>
+    </div>
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Factor de Potencia ASTM D924 (25ºC. %)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_pot, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido" %>
+      </div>
+    </div>  
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Factor de Potencia ASTM D924 (100ºC. %)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_pot2, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: "Opcional" %>
+      </div>
+    </div>       
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Rigidez Dieléctrica ASTM D1816 (kV/2.0 mm)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_rig, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido" %>
+      </div>
+    </div>   
+
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Rigidez Dieléctrica ASTM D877 (kV 2.54 mm)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_rig2, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"false",placeholder: "Opcional" %>
+      </div>
+    </div> 
+
+    <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Tensión Interfacial ASTM D971 (mN/m)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_ten, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido" %>
+      </div>
+    </div> 
+    <% else %>
+      <%= f.hidden_field :num_ten, :value=> 0 %>
+    <% end %>   
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Contenido De Agua ASTM D1533 (ppm)</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_wat, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Requerido" %>
+      </div>
+    </div>       
+  </div>
+</div>
+<!-- end modal-body -->
+<!-- begin modal-footer -->
+<div class="text-center">
+ <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+   <i class="fa-solid fa-floppy-disk"></i> Guardar Análisis Físico Químico
+ </button>
+</div>
+<!-- end modal-footer -->
+<!-- end form --> 
+<% end %> 

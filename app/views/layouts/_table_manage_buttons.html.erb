@@ -1,0 +1,238 @@
+<!-- required files -->
+<link href="/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link href="/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" />
+<link href="/assets/plugins/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+<script src="/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="/assets/plugins/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
+<script src="/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
+<script src="/assets/plugins/jszip/dist/jszip.min.js"></script>
+
+ 
+<!-- script -->
+<script>
+ 
+  $('#data-table-buttons').DataTable({
+
+    //select: true,
+    allowClear: true,    
+    responsive: false,
+    dom: '<"row"<"col-sm-2 text-start"fr><"col-sm-10 text-end"B>>t<"row"<"col-sm-5 text-start"i><"col-sm-7 text-end"p>>',
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+    buttons: [
+      { extend: 'copy', className: '', text: '<i class="fa-regular fa-file-csv"></i>'},
+      { extend: 'csv', className: '' , text: '<i class="fa-regular fa-file-csv"></i>'},
+      { extend: 'excel', className: '', text: '<i class="fa-regular fa-file-spreadsheet"></i>'},
+      { extend: 'pdf', className: '' , text: '<i class="fa-regular fa-file-pdf"></i> '},
+      { extend: 'print', className: '', text: '<i class="fa-regular fa-print"></i>' }
+    ],
+    "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+  });
+</script>
+<!-- script -->
+ 
+<!-- script -->
+<script>
+$(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#data-table-buttons-filter thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" class="form-control column_search" />' );
+    } );
+ 
+    // DataTable
+    var table = $('#data-table-buttons-filter').DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      order: [[0, 'desc']],
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex "B>>>t<"row"<"col-md-5"i><"col-md-7"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+
+      buttons: [
+        {  extend: 'colvis', text: 'Mostrar/Ocultar Columnas'},        
+        { extend: 'copy', titleAttr:'Copiar', className: '' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: '' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: '' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: '' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: '', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+
+    });
+    
+    // Toggle Columns
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table.column($(this).attr('data-column'));
+ 
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
+    // Apply the search
+    $( '#data-table-buttons-filter thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+});
+
+</script>
+<!-- script -->
+
+
+<!-- script -->
+<script>
+    // Setup - add a text input to each footer cell
+    $('#data-table-buttons-filter-full thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" class="form-control column_search" />' );
+    } );
+ 
+    // DataTable
+    var table2 = $('#data-table-buttons-filter-full').DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex "B>>>t<"row"<"col-md-5"i><"col-md-7"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+      buttons: [
+        { extend: 'copy', titleAttr:'Copiar', className: '' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: '' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: '' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: '' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: '', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+  
+    });
+ 
+    // Apply the search
+    $( '#data-table-buttons-filter-full thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table2
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+</script>
+<!-- script -->
+
+
+<!-- script -->
+<script>
+
+    // Setup - add a text input to each footer cell
+    $('#data-table-nobuttons-filter thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" class="form-control column_search" />' );
+    } );
+ 
+    // DataTable
+    var table8 = $('#data-table-nobuttons-filter').DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center text-start"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex ">>>t<"row"<"col-md-5"i> <"col-md-7"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      }, 
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+
+    });
+ 
+    // Toggle Columns
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table8.column($(this).attr('data-column'));
+ 
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
+
+    // Apply the search
+    $( '#data-table-nobuttons-filter thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table8
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+
+</script>
+<!-- script -->
+
+
+<script>
+$(document).ready(function () {
+
+    $('.hide_filter_row').on('click', function () {
+        $('.filter_row').hide();
+    });
+    $('.display_filter_row').on('click', function () {
+        $('.filter_row').show();
+    });    
+});
+</script> 
+
+<style>
+div.dataTables_wrapper div.dataTables_filter label {
+  display: block;
+}
+ 
+div.dataTables_wrapper div.dataTables_filter input {
+  width: 95%;
+  margin: 0;
+}
+
+.dt-button.buttons-columnVisibility {
+  background-color: #adb5bd ;
+  color: white;
+}
+ 
+.dt-button.buttons-columnVisibility.active {
+  background-color: #7a7a7a;
+}
+
+</style>

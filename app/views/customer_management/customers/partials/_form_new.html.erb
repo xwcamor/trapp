@@ -1,0 +1,59 @@
+<%= flash_messages %>
+<div id="myModal">
+<%= form_for [:customer_management, @customer],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Nuevo Cliente</h4>
+</div>
+<div class="modal-body">
+  <div class="col-md-12">
+      <div class="form-group row m-b-15">
+        <label class="col-md-2 col-sm-4 col-form-label">País</label>
+        <div class="col-md-10 col-sm-8">
+          <%= f.select :country_id, @countries.collect { |t| [t.name,t.id]},{prompt: "POR FAVOR SELECCIONE UNA OPCIÓN."},class: "form-control default-select2",'data-parsley-required'=>"true" , :style=>"width: 100%"   %>
+        </div>
+      </div>     
+      <br>
+
+      <div class="form-group row m-b-15">
+        <label class="col-md-2 col-sm-4 col-form-label">Cliente</label>
+        <div class="col-md-10 col-sm-8">
+          <%= f.text_field :name,  class: 'form-control','data-parsley-required'=>"true" , placeholder: "Por favor digitar el Nombre del CLiente.",:onkeyup=>"this.value = this.value.toUpperCase();", :style=>"text-transform:uppercase" %>
+        </div>
+      </div>     
+      <br>
+      <div class="form-group row m-b-15">
+        <label class="col-md-2 col-sm-4 col-form-label">RUC</label>
+        <div class="col-md-10 col-sm-8">
+          <%= f.text_field :num_doc,type: "number", class: 'form-control','data-parsley-required'=>"true" , placeholder: "Por favor digitar el RUC.",:onkeyup=>"this.value = this.value.toUpperCase();", :style=>"text-transform:uppercase" %>
+        </div>
+      </div>      
+      <br>
+      <div class="form-group row m-b-15">
+        <label class="col-md-2 col-sm-4 col-form-label">Dirección</label>
+        <div class="col-md-10 col-sm-8">
+          <%= f.text_field :address , class: 'form-control','data-parsley-required'=>"true" , placeholder: "Por favor digitar la Dirección.",:onkeyup=>"this.value = this.value.toUpperCase();", :style=>"text-transform:uppercase" %>
+        </div>
+      </div>  
+
+      <br>      
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Foto</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.file_field :avatar, class: 'input-sm validate[optional]'  %>
+        </div>
+      </div>  
+          
+  </div>
+</div>
+<!-- end modal-body -->
+<!-- begin modal-footer -->
+<div class="text-center">
+ <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+   <i class="fa-solid fa-floppy-disk"></i> Guardar Cliente
+ </button>
+</div>
+<!-- end modal-footer -->
+<!-- end form -->
+<% end %>
+</div>

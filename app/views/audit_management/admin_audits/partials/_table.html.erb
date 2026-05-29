@@ -1,0 +1,32 @@
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr align="center">
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Accion</th>
+              <th>Módulo</th>
+              <th>Registro</th>
+              <th>Parámetros</th>
+            </tr>
+            <tr align="center">
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Accion</th>
+              <th>Módulo</th>
+              <th>Registro</th>
+              <th>Parámetros</th>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @audits.each do |audit| %>
+            <tr align="center">
+              <td data-sort='<%= audit.id %>'><%= audit.str_created_at %></td>
+              <td><%= audit.user.str_complete_name %></td>
+              <td><%= audit.str_action %></td>
+              <td><%= audit.str_auditable_type %></td>
+              <td><%= simple_format(audit.str_auditable_type_details) %></td>
+              <td><%= audit.audited_changes %></td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>

@@ -1,0 +1,24 @@
+<div class="row">               
+  <div class="table-responsive">
+    <table id="devanado_details_r2" class="table table-hover align-middle">
+      <thead>
+        <tr class="text-center">
+          <% @template_selected = DevanadoTemplateTransformer.find_by_transformer_id(@transformer.id) %>
+          <% @template = DevanadoTemplate.find(@template_selected.devanado_template_id) %>
+          <% @template.devanado_template_details.where("devanado_flow_id = 2").each do |a| %>
+          <th><%= a.name %></th>
+          <% end%>
+        </tr>
+      </thead>
+      <tbody>
+        <% @devanado.devanado_details.where('devanado_flow_id = 2 AND devanado_id =?',@devanado.id).each_with_index do |devanado_detail,index| %>  
+        <tr class="text-center">
+          <td><%= devanado_detail.col1_val rescue "-" %>  </td>
+          <td><%= devanado_detail.col2_val rescue "-" %>  </td>
+          <td><%= devanado_detail.col3_val rescue "-" %>  </td>
+        </tr>
+        <% end %>    
+      </tbody>
+    </table>
+  </div>
+</div>

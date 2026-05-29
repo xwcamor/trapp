@@ -1,0 +1,69 @@
+<%= form_for [:newspaper_management, @admin_newspaper],url: newspaper_management_admin_newspaper_path(@admin_newspaper)  ,:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<%#= f.text_field :id  %>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert --> 
+      <% @admin_newspaper.errors.each do |attr,message| %>
+      <div class="alert alert-danger">
+        <i class="ion-md-alert"></i> <%= message %>
+      </div>
+      <% end %>
+      <!-- end alert -->             
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Usuario</label>
+          <div class="col-md-10 col-sm-8">
+              <%= select_tag "user_id","<option value=\"0\">Todos</option>".html_safe+options_for_select(@users.collect{ |e| [e.str_complete_name.to_s,e.id] },@admin_newspaper.user_id ),class: "default-select2 form-select", name: "newspaper[user_id]"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Descripciòn</label>
+          <div class="col-10">
+              <%= f.text_area :description, :class => 'ckeditor border'  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-10 col-sm-8">
+              <%= f.select :state, [["Activo",0],["Inactivo",1]],{},class: "form-control" %>
+          </div>
+        </div>
+        <br>                
+        <p align="center">
+             <%= link_to "<i class='fa fa-arrow-left'></i> Regresar a Novedades".html_safe, [:newspaper_management,:admin_newspapers], class: "btn btn-gray  me-1 mb-3  rounded-pill" %> 
+ 
+            <%= button_tag( :class => "btn btn-gray  me-1 mb-3 rounded-pill") do %>
+               <i class='fa-solid fa-floppy-disk'></i> Guardar Novedad
+            <% end %>
+        </p>
+         
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  
+</div>
+<!-- end row -->
+<% end %>
+
+<!-- required files -->
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script>
+
+ 

@@ -1,0 +1,85 @@
+<h1><strong>3. Datos de transformadores</strong></h1>
+
+<p>A continuación, los datos de placa de la flota de transformadores y el estado de riesgo asociado:</p>
+
+<table align="center" border="1" cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Item</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Área</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>TAG</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>NºSerie</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Marca</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Potencia<br />
+			(MVA)</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Voltaje<br />
+			(Kv)</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>A&ntilde;o</strong></p>
+			</td>
+			<td style="background-color:#f2f2f2;">
+			<p style="text-align:center;font-size:12px"><strong>Estado</strong></p>
+			</td>
+		</tr>
+		<% @report.report_details.each_with_index do |report_detail, index|%>
+		<tr>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= index + 1 %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.customer_substation.customer_area.name %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.num_tag %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.num_serie %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.mark.name %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.num_pot %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.num_vol %></p>
+			</td>
+			<td>
+			<p style="text-align:center;font-size:12px"><%= report_detail.transformer.age %></p>
+			</td>
+			<td style="background-color:<%= report_detail.transformer.color_health %>; vertical-align:bottom; width:36px;font-size:12px">
+			<span>&nbsp;</span>
+			</td>
+		</tr>
+		<% end %>
+
+ 
+	</tbody>
+</table>
+
+<p>Riesgo Alto&nbsp;&nbsp;&nbsp;
+<span style="background-color:#ff0000; width:100px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</p>
+
+<p>Riesgo Medio 
+<span style="background-color:#ffff00; width:100px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</p>
+
+<p>Riesgo Bajo&nbsp;&nbsp;&nbsp;
+<span style="background-color:#00a933; width:100px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</p>
+ 

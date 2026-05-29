@@ -1,0 +1,444 @@
+<!-- begin case 3 tests -->
+<% if @ieee_diag_details.count == 3 %>
+
+    <!-- BEGIN PPM POR DIA  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td><b>ppm/dia</b></td>
+      <td><b><%=ieee_diag_detail.day_hid_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_met_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_mon_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_dio_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eti_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eta_fila1_test3.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_ace_fila1_test3.round(4) %></b></td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR DIA  -->
+
+    <!-- BEGIN PPM POR AÑO  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center bg-light">
+      <td><b>ppm/año</b></td>
+      <td><input type="hidden" name="ieee_diag[ppm_hid]"value="<%=ieee_diag_detail.year_hid_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_hid_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_hid_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_met]"value="<%=ieee_diag_detail.year_met_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_met_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_met_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_mon]"value="<%=ieee_diag_detail.year_mon_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_mon_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_mon_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_dio]"value="<%=ieee_diag_detail.year_dio_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_dio_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_dio_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eti]"value="<%=ieee_diag_detail.year_eti_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eti_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eti_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eta]"value="<%=ieee_diag_detail.year_eta_fila1_test3.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eta_fila1_test3.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eta_fila1_test3.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_ace]"value="<%=ieee_diag_detail.year_ace_fila1_test3.round(0) %>">
+        <% @ieee_diag_details.limit(1).offset(0).each do |aa| %>
+        <% @ace_last = aa.chromatographical.num_ace %>
+        <% end%>
+        <% @ieee_diag_details.limit(1).offset(1).each do |aa| %>
+        <% @ace_prevlast = aa.chromatographical.num_ace %>
+        <% end%>      
+        <%  @ace_eval =@ace_last - @ace_prevlast %>  
+        <% if @ace_eval > 0 && @ieee_diag.month_period.present? %>
+         <div class="span alert-red"><b><%=ieee_diag_detail.year_ace_fila1_test3.round(0) %></b></div>
+        <% else %>
+         <b><%=ieee_diag_detail.year_ace_fila1_test3.round(0) %></b>
+        <% end %>        
+      </td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR AÑO  -->
+
+    <!-- BEGIN LIMITES  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+      <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+      <% @month_period = ieee_diag_detail.p_fila1_test3.to_i / 30  %> 
+    <% end %>  
+    <% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %>
+    <tr class="text-center bg-light">
+      <td><b>LIMITES</b></td>
+      <% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %></b></td>
+      <td><b>Cualquier Incremento</b></td>
+      <% end %>    
+    </tr>
+    <% else %>
+      <% if @ieee_diag.month_period.nil?  %>
+      <% else %>
+      <tr class="text-center bg-light">
+        <td><b>LIMITES</b></td>
+        <td colspan="7"><b>No cumple la condición del Periodo entre 4 a 24 meses</b></td>
+      </tr>
+      <% end %>
+    <% end %>
+    <!-- END LIMITES  --> 
+    
+    <!-- BEGIN PERIOD  -->  
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td class="bg-light"><b>PERIODO (meses)</b></td>
+      <td class="bg-light"><b><%= ieee_diag_detail.p_fila1_test3 / 30 %></b></td>
+      <td colspan="6"><input type="hidden" name="ieee_diag[month_period]"value="<%=ieee_diag_detail.p_fila1_test3 / 30 %>"> </td>
+    </tr>
+    <% end %>  
+    <!-- END PERIOD  -->  
+<% end %>
+<!-- end case 3 tests -->
+
+
+<!-- begin case 4 tests -->
+<% if @ieee_diag_details.count == 4 %>
+
+    <!-- BEGIN PPM POR DIA  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td><b>ppm/dia</b></td>
+      <td><b><%=ieee_diag_detail.day_hid_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_met_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_mon_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_dio_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eti_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eta_fila1_test4.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_ace_fila1_test4.round(4) %></b></td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR DIA  -->
+
+    <!-- BEGIN PPM POR AÑO  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %></b>
+    <tr class="text-center bg-light">
+      <td><b>ppm/año</b></td>
+      <td><input type="hidden" name="ieee_diag[ppm_hid]"value="<%=ieee_diag_detail.year_hid_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_hid_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_hid_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_met]"value="<%=ieee_diag_detail.year_met_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_met_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_met_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_mon]"value="<%=ieee_diag_detail.year_mon_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_mon_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_mon_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_dio]"value="<%=ieee_diag_detail.year_dio_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_dio_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_dio_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eti]"value="<%=ieee_diag_detail.year_eti_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eti_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eti_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eta]"value="<%=ieee_diag_detail.year_eta_fila1_test4.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eta_fila1_test4.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eta_fila1_test4.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_ace]"value="<%=ieee_diag_detail.year_ace_fila1_test4.round(0) %>">
+        <% @ieee_diag_details.limit(1).offset(0).each do |aa| %>
+        <% @ace_last = aa.chromatographical.num_ace %>
+        <% end%>
+        <% @ieee_diag_details.limit(1).offset(1).each do |aa| %>
+        <% @ace_prevlast = aa.chromatographical.num_ace %>
+        <% end%>      
+        <%  @ace_eval =@ace_last - @ace_prevlast %>  
+        <% if @ace_eval > 0  && @ieee_diag.month_period.present? %>
+         <div class="span alert-red"><b><%=ieee_diag_detail.year_ace_fila1_test4.round(0) %></b></div>
+        <% else %>
+         <b><%=ieee_diag_detail.year_ace_fila1_test4.round(0) %></b>
+        <% end %>         
+      </td>
+    </tr>
+    <% end %> 
+    <!-- END PPM POR AÑO  -->
+ 
+    <!-- BEGIN LIMITES  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+      <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+      <% @month_period = ieee_diag_detail.p_fila1_test4.to_i / 30  %> 
+    <% end %>  
+    <% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period < 25 %>
+    <tr class="text-center bg-light">
+      <td><b>LIMITES</b></td>
+      <% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %></b></td>
+      <td><b>Cualquier Incremento</b></td>
+      <% end %>    
+    </tr>
+    <% else %>
+      <% if @ieee_diag.month_period.nil?  %>
+      <% else %>
+      <tr class="text-center bg-light">
+        <td><b>LIMITES</b></td>
+        <td colspan="7"><b>No cumple la condición del Periodo entre 4 a 24 meses</b></td>
+      </tr>
+      <% end %>
+    <% end %>
+    <!-- END LIMITES  -->   
+    
+    <!-- BEGIN PERIOD  -->  
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td class="bg-light"><b>PERIODO (meses)</b></td>
+      <td class="bg-light"><b><%= ieee_diag_detail.p_fila1_test4 / 30 %></b></td>
+      <td colspan="6"><input type="hidden" name="ieee_diag[month_period]"value="<%=ieee_diag_detail.p_fila1_test4 / 30 %>"> </td>
+    </tr>
+    <% end %>     
+    <!-- END PERIOD  -->   
+
+<% end %>
+<!-- end case 4 tests -->
+
+<!-- begin case 5 tests -->
+<% if @ieee_diag_details.count == 5 %>
+
+    <!-- BEGIN PPM POR DIA  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %></b>
+    <tr class="text-center">
+      <td><b>ppm/dia</b></td>
+      <td><b><%=ieee_diag_detail.day_hid_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_met_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_mon_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_dio_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eti_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eta_fila1_test5.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_ace_fila1_test5.round(4) %></b></td>
+    </tr>
+    <% end %>  
+    <!-- END PPM POR DIA  -->
+
+    <!-- BEGIN PPM POR AÑO  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center bg-light">
+      <td><b>ppm/año</b></td>
+      <td><input type="hidden" name="ieee_diag[ppm_hid]"value="<%=ieee_diag_detail.year_hid_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_hid_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_hid_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_met]"value="<%=ieee_diag_detail.year_met_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_met_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_met_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_mon]"value="<%=ieee_diag_detail.year_mon_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_mon_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_mon_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_dio]"value="<%=ieee_diag_detail.year_dio_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_dio_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_dio_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eti]"value="<%=ieee_diag_detail.year_eti_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eti_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eti_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eta]"value="<%=ieee_diag_detail.year_eta_fila1_test5.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eta_fila1_test5.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eta_fila1_test5.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_ace]"value="<%=ieee_diag_detail.year_ace_fila1_test5.round(0) %>">
+        <% @ieee_diag_details.limit(1).offset(0).each do |aa| %>
+        <% @ace_last = aa.chromatographical.num_ace %>
+        <% end%>
+        <% @ieee_diag_details.limit(1).offset(1).each do |aa| %>
+        <% @ace_prevlast = aa.chromatographical.num_ace %>
+        <% end%>      
+        <%  @ace_eval =@ace_last - @ace_prevlast %>  
+        <% if @ace_eval > 0  && @ieee_diag.month_period.present? %>
+         <div class="span alert-red"><v><%=ieee_diag_detail.year_ace_fila1_test5.round(0) %></b></div>
+        <% else %>
+         <v><%=ieee_diag_detail.year_ace_fila1_test5.round(0) %></b>
+        <% end %>             
+      </td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR AÑO  -->
+
+    <!-- BEGIN LIMITES  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+      <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+      <% @month_period = ieee_diag_detail.p_fila1_test5.to_i / 30  %> 
+    <% end %>  
+    <% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period < 25 %>
+    <tr class="text-center bg-light">
+      <td><b>LIMITES</b></td>
+      <% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %></b></td>
+      <td><b>Cualquier Incremento</b></td>
+      <% end %>    
+    </tr>
+    <% else %>
+      <% if @ieee_diag.month_period.nil?  %>
+      <% else %>
+      <tr class="text-center bg-lighte">
+        <td ><b>LIMITES</b></td>
+        <td colspan="7"><b>No cumple la condición del Periodo entre 4 a 24 meses</b></td>
+      </tr>
+      <% end %>
+    <% end %>
+    <!-- END LIMITES  -->  
+
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td class="text-center bg-light"><b>PERIODO (meses)</b></td>
+      <td class="text-center bg-light"><b><%= ieee_diag_detail.p_fila1_test5 / 30 %></b></td>
+      <td colspan="6"><input type="hidden" name="ieee_diag[month_period]"value="<%=ieee_diag_detail.p_fila1_test5 / 30 %>"> </td>
+    </tr>
+    <% end %>  
+
+<% end %>
+<!-- end case 5 tests -->
+
+<!-- begin case 6 tests -->
+<% if @ieee_diag_details.count == 6 %>
+
+    <!-- BEGIN PPM POR DIA  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td><b>ppm/dia</b></td>
+      <td><b><%=ieee_diag_detail.day_hid_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_met_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_mon_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_dio_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eti_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_eta_fila1_test6.round(4) %></b></td>
+      <td><b><%=ieee_diag_detail.day_ace_fila1_test6.round(4) %></b></td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR DIA  -->
+
+    <!-- BEGIN PPM POR AÑO  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %></b>
+    <tr class="text-center bg-light">
+      <td><b>ppm/año</b></td>
+      <td><input type="hidden" name="ieee_diag[ppm_hid]"value="<%=ieee_diag_detail.year_hid_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_hid_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_hid_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_met]"value="<%=ieee_diag_detail.year_met_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_met_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_met_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_mon]"value="<%=ieee_diag_detail.year_mon_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_mon_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_mon_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_dio]"value="<%=ieee_diag_detail.year_dio_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_dio_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_dio_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eti]"value="<%=ieee_diag_detail.year_eti_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eti_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eti_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_eta]"value="<%=ieee_diag_detail.year_eta_fila1_test6.round(0) %>">
+        <div class="span alert-<% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period > 3 &&  @ieee_diag.month_period < 25 %><% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %><% if ieee_diag_detail.year_eta_fila1_test6.round(0) >=  ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %>red<% else %><% end %><% end %><% end %> mb-0" >
+          <b><%=ieee_diag_detail.year_eta_fila1_test6.round(0) %></b>
+        </div>
+      </td>
+      <td><input type="hidden" name="ieee_diag[ppm_ace]"value="<%=ieee_diag_detail.year_ace_fila1_test6.round(0) %>">
+        
+        <% @ieee_diag_details.limit(1).offset(0).each do |aa| %>
+        <% @ace_last = aa.chromatographical.num_ace %>
+        <% end%>
+        <% @ieee_diag_details.limit(1).offset(1).each do |aa| %>
+        <% @ace_prevlast = aa.chromatographical.num_ace %>
+        <% end%>      
+        <%  @ace_eval =@ace_last - @ace_prevlast %>  
+        <% if @ace_eval > 0  && @ieee_diag.month_period.present? %>
+         <div class="span alert-red"><b><%=ieee_diag_detail.year_ace_fila1_test6.round(0) %></b></div>
+        <% else %>
+         <b><%=ieee_diag_detail.year_ace_fila1_test6.round(0) %></b>
+        <% end %>          
+      </td>
+    </tr>
+    <% end %>
+    <!-- END PPM POR AÑO  -->
+
+    <!-- BEGIN LIMITES  -->
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+      <% @ratio_value = ieee_diag_detail.chromatographical.num_oxi /  ieee_diag_detail.chromatographical.num_nit  %>
+      <% @month_period = ieee_diag_detail.p_fila1_test6.to_i / 30  %> 
+    <% end %>  
+    <% if @ieee_diag.month_period.present? &&  @ieee_diag.month_period < 25 %>
+    <tr class="text-center bg-light">
+      <td><b>LIMITES</b></td>
+      <% @ieee_diag_details.limit(1).each do |ieee_diag_detail| %>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_hidrogeno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_metano_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_monocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_diocarbono_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etileno_tabla4 %></b></td>
+      <td><b><%= ieee_diag_detail.ieee_diag.ieee_etano_tabla4 %></b></td>
+      <td><b>Cualquier Incremento</b></td>
+      <% end %>    
+    </tr>
+    <% else %>
+      <% if @ieee_diag.month_period.nil?  %>
+      <% else %>
+      <tr class="text-center bg-light">
+        <td><b>LIMITES</b></td>
+        <td colspan="7"><b>No cumple la condición del Periodo entre 4 a 24 meses</b></td>
+      </tr>
+      <% end %>
+    <% end %>
+    <!-- END LIMITES  --> 
+ 
+    <% @ieee_diag_details.limit(1).offset(0).each do |ieee_diag_detail| %>
+    <tr class="text-center">
+      <td class="text-center bg-light"><b>PERIODO (meses)</b></td>
+      <td class="text-center bg-light"><b><%= ieee_diag_detail.p_fila1_test6 / 30 %></b></td>
+      <td class="text-nowrap text-center" colspan="6"><input type="hidden" name="ieee_diag[month_period]"value="<%=ieee_diag_detail.p_fila1_test6 / 30 %>"> </td>
+    </tr>
+    <% end %>  
+
+<% end %>
+<!-- end case 6 tests -->

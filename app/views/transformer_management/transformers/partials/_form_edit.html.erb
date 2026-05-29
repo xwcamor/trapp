@@ -1,0 +1,189 @@
+<%= flash_messages %>
+<div id="myModal">
+<%= form_for [:transformer_management, @transformer],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Editar Transformador</h4>
+ </div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Cliente</label>
+          <div class="col-md-9 col-sm-8">
+            <select id="first_array" data-parsley-required="true">
+              <option value="">Seleccione</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Ubicación</label>
+          <div class="col-md-9 col-sm-8">
+            <select id="second_array"   data-parsley-required="true">
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>         
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Área</label>
+          <div class="col-md-9 col-sm-8">
+             <select id="third_array"  data-parsley-required="true">
+            </select> 
+          </div>
+        </div>
+      </div>
+      <br>         
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Subestación</label>
+          <div class="col-md-9 col-sm-8">
+             <select id="fourth_array" name="transformer[customer_substation_id]" data-parsley-required="true">
+            </select> 
+          </div>
+        </div>
+      </div>  
+      <br>
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Tipo de Transformador</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.select :transformer_type_id, @transformer_types.collect { |t| [t.name,t.id]},{},class: "default-select form-select" %>
+          </div>
+        </div>
+      </div> 
+      <br>
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Nº de Fases</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.select :num_fas, [["Seleccione",""],["Monofásico",1],["Trifásico",3]],{},class: "form-select",'data-parsley-required'=>"true",:id=>"select-required" %>
+          </div>
+        </div>
+      </div>             
+    </div>
+
+    <div class="col-xl-4">
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Serie</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.text_field :num_serie, class: 'form-control','data-parsley-required'=>"true",:placeholder=>"Digitar Serie"  %>
+          </div>
+        </div>
+      </div>
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">TAG</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.text_field :num_tag, class: 'form-control','data-parsley-required'=>"true",:placeholder=>"Digitar TAG"  %>
+          </div>
+        </div>
+      </div>
+      <br>         
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Voltaje (Kv)</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.number_field :num_vol, class: 'form-control','data-parsley-required'=>"true", :step=>"0.01",:placeholder=>"Digitar Voltaje"   %>
+          </div>
+        </div>
+      </div>
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Potencia (MVA)</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.number_field :num_pot, class: 'form-control','data-parsley-required'=>"true", :step=>"0.01",:placeholder=>"Digitar Potencia"  %>
+          </div>
+        </div>
+      </div>  
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Año de Fabricación</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.number_field :age, class: 'form-control','data-parsley-required'=>"true",:minlength=>"4" ,:maxlength=>"4",:placeholder=>"Digitar Año"  %>
+          </div>
+        </div>
+      </div>   
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Nº de Taps</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.number_field :num_tap, class: 'form-control','data-parsley-required'=>"true",:minlength=>"1" ,:maxlength=>"2",:placeholder=>"Digitar Taps"  %>
+          </div>
+        </div>
+      </div>           
+    </div>
+
+    <div class="col-xl-4">
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Marca</label>
+          <div class="col-md-9 col-sm-8">
+            <%= f.select :mark_id, @marks.map { |t| [t.name, t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+      </div>
+      <br>      
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Tipo de Aceite</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.select :oil_type_id, @oil_types.map { |t| [t.name, t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+      </div>
+      <br>       
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Tipo de Conmutador</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.select :conmutation_type_id, @conmutation_types.map { |t| [t.name, t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+      </div>
+      <br>     
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Tipo de Conexión</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.select :connection_type_id, @connection_types.map { |t| [t.name, t.id] }, {}, class: "default2-select2 form-select"  %>
+          </div>
+        </div>
+      </div>  
+      <br>     
+      <div class="col-md-12">
+        <div class="form-group row m-b-15">
+          <label class="col-md-3 col-sm-4 col-form-label">Sistema de Preservación</label>
+          <div class="col-md-9 col-sm-8">
+             <%= f.select :transformer_preservation_id, @transformer_preservations.map { |t| [t.name, t.id] }, {}, class: "default-select2 form-select"  %>
+          </div>
+        </div>
+      </div>       
+    </div>    
+  </div>
+</div>
+<!-- end modal-body -->
+<!-- begin modal-footer -->
+<div class="text-center">
+ <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+   <i class="fa-solid fa-floppy-disk"></i> Guardar Transformador
+ </button>
+</div>
+<!-- end modal-footer -->
+<!-- end form -->
+<% end %> 
+</div>
+
+<!-- begin select2 -->
+<%= render :partial =>"transformer_management/transformers/partials/select2_edit" %>
+<!-- end select2 -->

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secciones Iniciales</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+    .pdf-font-h1 { font-size: 20pt;font-weight: bold; }
+    .pdf-font-h2 { font-size: 18pt;font-weight: bold; }
+    .pdf-font-h3 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-h4 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-content,
+    .pdf-font-content * {          /* el asterisco aplica a todos los descendientes */
+       font-size: 12pt !important;   /* !important por si otra regla trata de pisarla */
+     }      
+  </style>
+</head>
+<body>
+	<%= render partial: "report_management/reports/partials/pdf_recommendations", locals: { report: report, transformers: transformers } %>
+
+	<%= render partial: "report_management/reports/partials/pdf_conclusions", locals: { report: report, transformers: transformers } %>
+</body>
+</html>

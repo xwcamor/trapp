@@ -1,0 +1,129 @@
+
+<table  class="table table-responsive bg-white rounded-3">
+  <thead>
+    <tr>
+      <th class="text-start">Parámetro </th>
+      <th class="text-center" colspan="3">Límite</th>
+ 
+      <th class="text-center">Valor</th>
+      <th class="text-center">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-start">Número Ácido ASTM D974</td>
+      <td class="text-end">Máx.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_acid rescue ""  %>"> 0</span></td>
+      <td class="text-start">  mgKOH/g <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+        <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_acid == "yellow" or @last_physical.ieee_color_num_acid == "red" %><%= @last_physical.ieee_color_num_acid rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_acid %>
+        </div>
+        <% end%>
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_acid rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>
+    <tr>
+      <td class="text-start">Factor de Potencia ASTM D924 ( 25°C )</td>
+      <td class="text-end">Máx.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_pot  rescue ""  %>"> 0</span></td>
+      <td class="text-start">% <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+        <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_pot == "yellow" or @last_physical.ieee_color_num_pot == "red" %><%= @last_physical.ieee_color_num_pot rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_pot %>
+        </div>     
+        <% end %>   
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_pot rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>  
+    <% if @transformer.physicals.where("deleted= 0").size > 0%>
+    <% if @last_physical.num_pot2.nil? %>
+    <% else %>
+    <% if @last_physical.num_pot2 > 0  %> 
+    <tr>
+      <td class="text-start">Factor de Potencia ASTM D924 ( 100°C )</td>
+      <td class="text-end">Máx.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_pot2  rescue ""  %>"> 0</span></td>
+      <td class="text-start">% <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+        <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_pot2 == "yellow" or @last_physical.ieee_color_num_pot2 == "red" %><%= @last_physical.ieee_color_num_pot2 rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_pot2 %>
+        </div>     
+        <% end %>   
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_pot2 rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>              
+    <% end %>
+    <% end %>
+    <% end %>
+    <tr>
+      <td class="text-start">Rigidez Dieléctrica ASTM D1816</td>
+      <td class="text-end">Min.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_rig  rescue ""  %>"> 0</span></td>
+      <td class="text-start">kV/2.0 mm <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+       <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_rig == "yellow" or @last_physical.ieee_color_num_rig == "red" %><%= @last_physical.ieee_color_num_rig rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_rig %>
+        </div>      
+        <% end %>  
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_rig rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>  
+    <% if @transformer.physicals.where("deleted= 0").size > 0%>
+    <% if @last_physical.num_rig2.nil? %>
+    <% else %>    
+    <% if @last_physical.num_rig2 > 0 %> 
+    <tr>
+      <td class="text-start">Rigidez Dieléctrica ASTM D877</td>
+      <td class="text-end">Min.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_rig2  rescue ""  %>"> 0</span></td>
+      <td class="text-start">kV 2.54 mm <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+       <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_rig2 == "yellow" or @last_physical.ieee_color_num_rig2 == "red" %><%= @last_physical.ieee_color_num_rig2 rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_rig2 %>
+        </div>      
+        <% end %>  
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_rig2 rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>  
+    <% end %>
+    <% end %>
+    <% end %>
+
+    <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>    
+    <tr>
+      <td class="text-start">Tensión Interfacial ASTM D971</td>
+      <td class="text-end">Min.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_ten  rescue ""  %>"> 0</span></td>
+      <td class="text-start">mN/m <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+        <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_ten == "yellow" or @last_physical.ieee_color_num_ten == "red" %><%= @last_physical.ieee_color_num_ten rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_ten %>
+        </div>  
+        <% end %>         
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_ten rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>  
+    <% end %>
+    <tr class=" pb-5">
+      <td class="text-start">Contenido de Agua ASTM D1533<br></td>
+      <td class="text-end">Máx.</td>      
+      <td class="text-end"><span data-animation="number" data-value="<%= @last_physical.ieee_num_wat  rescue ""  %>"> 0</span></td>
+      <td class="text-start">ppm <span class="badge bg-gray rounded-pill"></span></td>
+      <td class="text-center">
+        <% if @transformer.physicals.where("deleted= 0").size > 0%>
+        <div class="alert-<% if @last_physical.ieee_color_num_wat == "yellow" or @last_physical.ieee_color_num_wat == "red" %><%= @last_physical.ieee_color_num_wat rescue "" %><% end %> mb-0">
+          <%= @last_physical.num_wat %>
+        </div>    
+        <% end %>       
+      </td>
+      <td class="text-center"><i class='fa-solid fa-bong fa-fw text-<%= @last_physical.ieee_color_num_wat rescue "red" %> me-2 fs-15px'></i></td>
+    </tr>                                                      
+  </tbody>
+</table>  <br>

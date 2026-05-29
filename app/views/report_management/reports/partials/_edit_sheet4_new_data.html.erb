@@ -1,0 +1,594 @@
+<h1><strong>4. Análisis de aceite:</strong></h1>
+
+<% @report_details.each_with_index do |report_detail,index|%>
+  
+  
+<h3>
+<strong>
+	4.<%= index +1 %> <%= report_detail.transformer.num_tag %>| 
+  Serial: <%= report_detail.transformer.num_serie %> |
+  Marca: <%= report_detail.transformer.mark.name %> |
+  <%= report_detail.transformer.num_pot %> MVA |
+  <%= report_detail.transformer.num_vol %> KV |
+  <%= report_detail.transformer.age %>
+</strong>
+</h3>
+
+<p><strong>Análisis de gases disueltos:</strong></p>
+<% if report_detail.transformer.chromatographicals.where("deleted=0").size > 0 %>
+<p>El análisis de gases disueltos en el aceite toma como referencia la tabla 
+
+<% if    report_detail.transformer.transformer_type_id == 1 %>
+  A.2
+<% elsif report_detail.transformer.transformer_type_id == 2 %>  
+  A.4
+<% end %>    
+
+&ndash; de concentraciones típicas para transformadores de <%= report_detail.transformer.transformer_type.name.downcase %> del estándar IEC 60599:</p>
+
+<table cellpadding="0" cellspacing="0" align="center" border="1">
+<thead>
+<% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal DESC").last(1).each do |chromatographical|%>
+<tr>
+  <th>
+    <p style="text-align:center;font-size:12px"><strong>IEC 60599</strong></p>
+  </th>
+  <th>
+ 	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_hidrogeno  rescue ""%> </strong></em></p>
+  </th>
+  <th>
+    <p style="text-align:center;font-size:12px">&nbsp;</p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px">&nbsp;</p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_metano  rescue ""%></strong></em></p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_monocarbono  rescue ""%></strong></em></p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_diocarbono  rescue ""%></strong></em></p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_etileno  rescue ""%></strong></em></p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_etano  rescue ""%></strong></em></p>
+  </th>
+  <th>
+  	<p style="text-align:center;font-size:12px"><em><strong>Máx. <%= chromatographical.iec_acetileno  rescue ""%></strong></em></p>
+  </th>
+</tr>
+<% end %>
+</thead>
+<tbody>
+<tr>
+  <td style="background-color:#d9d9d9;">
+    <p style="text-align:center;font-size:12px"><strong>Fecha</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+	<p style="text-align:center;font-size:12px"><strong>Hidrógeno<br />
+				H2<br />
+			ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Oxígeno<br />
+  		O2<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Nitrógeno<br />
+  		N2<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Metano<br />
+  		CH4<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>M. Carbono<br />
+  		CO<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>D. Carbono<br />
+  		CO2<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Etileno<br />
+  		C2H4<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Etano<br />
+  		C2H6<br />
+  	ppm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+  	<p style="text-align:center;font-size:12px"><strong>Acetileno<br />
+  		C2H2<br />
+  	ppm</strong></p>
+  </td>
+</tr>
+<% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal DESC").each do |chromatographical|%>
+<tr>
+  <td> 
+    <p style="font-size:12px;text-align:center">
+    <%= chromatographical.str_date_rehearsal %></p>
+  </td>
+  <td>
+    <p style="font-size:12px;text-align:center">
+	  <span style="font-size:12px;color:<% if chromatographical.iec_color_hidrogeno == "yellow" or chromatographical.iec_color_hidrogeno == "red" %><%= chromatographical.iec_color_hidrogeno rescue "" %><% end %>"><%= chromatographical.num_hid %></span></p>
+  </td>		  
+  <td>
+  	<p style="font-size:12px;text-align:center">
+  		<%= chromatographical.num_oxi %>
+    </p>
+  </td>
+  <td>
+  	<p style="font-size:12px;text-align:center">
+  	  <%= chromatographical.num_nit %>
+  	</p>
+  </td>   		  
+  <td>
+	<p style="font-size:12px;text-align:center">
+	  <span style="color:<% if chromatographical.iec_color_metano == "yellow" or chromatographical.iec_color_metano == "red" %><%= chromatographical.iec_color_metano rescue "" %><% end %>">
+	  	<%= chromatographical.num_met %>
+      </span>
+	</p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center">
+	  <span style="color:<% if chromatographical.iec_color_monocarbono == "yellow" or chromatographical.iec_color_monocarbono == "red" %><%= chromatographical.iec_color_monocarbono rescue "" %><% end %>">
+	    <%= chromatographical.num_mon %>
+	  </span>
+	</p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center">
+	  <span style="color:<% if chromatographical.iec_color_diocarbono == "yellow" or chromatographical.iec_color_diocarbono == "red" %><%= chromatographical.iec_color_diocarbono rescue "" %><% end %>">
+  	    <%= chromatographical.num_dio %>
+  	  </span>
+	</p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center">
+	  <span style="color:<% if chromatographical.iec_color_etileno == "yellow" or chromatographical.iec_color_etileno == "red" %><%= chromatographical.iec_color_etileno rescue "" %><% end %>">
+	    <%= chromatographical.num_eti %>
+	  </span>
+	</p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center">                  
+	  <span style="color:<% if chromatographical.iec_color_etano == "yellow" or chromatographical.iec_color_etano == "red" %><%= chromatographical.iec_color_etano rescue "" %><% end %>">
+  	    <%= chromatographical.num_eta %>
+  	  </span>
+	</p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center">  
+	  <span style="color:<% if chromatographical.iec_color_acetileno == "yellow" or chromatographical.iec_color_acetileno == "red" %><%= chromatographical.iec_color_acetileno rescue "" %><% end %>">
+  	    <%= chromatographical.num_ace %>
+  	  </span>
+	</p>
+  </td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<p style="text-align:center"><em>
+<strong>Historial de gases disueltos en el aceite &ndash; Encabezado umbrales típicos de la IEC60599.</strong>
+</em></p>
+
+
+<!--begin oil_type_id = 1 -->
+<% if report_detail.transformer.oil_type_id == 1 %>    
+<table  cellpadding="0" cellspacing="0" align="center" border="1">
+  <thead>
+    <tr>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Diagnóstico</strong></p>
+      </th>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Resultado</strong></p>
+      </th>    
+    </tr>
+  </thead>
+  <tbody>
+    <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+    <% @croma_final = chromatographical.id %>
+    <% end%>
+    <% @last_chromatographical = Chromatographical.find(@croma_final) %>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">Ratios de Roger</p></td>
+      <td><p style="text-align:center;font-size:12px"><%= @last_chromatographical.rogers_cases  rescue "No hay Análisis Cromatográfico"%></p></td>
+    </tr>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">Doernenburg</p></td>
+      <td><p style="text-align:center;font-size:12px"><%= @last_chromatographical.doe_cases  rescue "Registar 1 Análisis Cromatográfico"%></p></td>
+    </tr>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">IEC 60599</p></td>
+      <td><p style="text-align:center;font-size:12px"><%= @last_chromatographical.iec_cases  rescue "Registar 1 Análisis Cromatográfico"%></p></td>
+    </tr>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">IEEE C57.104</p></td>
+      <td><p style="text-align:center;font-size:12px">
+      <%  @last_chromatographical_dga_diag = ChromatographicalDgaDiag.where(transformer_id: report_detail.transformer_id).last %>
+      <% @eva1 = @last_chromatographical_dga_diag.eval_first %>
+      <% @eva2 = @last_chromatographical_dga_diag.eval_second %>
+      <% @eva3 = @last_chromatographical_dga_diag.eval_third %>
+      <% @eva4 = @last_chromatographical_dga_diag.eval_fourth %>
+
+      <% if @eva1 == "green"&& @eva3 == "green" && @eva4 == "green" %>
+        DGA Estado 1:  Continue rutina de muestras DGA.<br>
+        Transformador en normal operaciòn.
+      <% else %>
+        <% if @eva2 == "red" or @eva4 == "red" %>
+        DGA Estado 3: Realice evaluación del transformador e <br>identificación de fallas. Tome acciones apropiadas basadas en <br>la evaluación del transformador y políticas de la compañía.
+        <% else %>
+        DGA Estado 2: Incrementar vigilancia del transformador<br> y frecuencia de muestras DGA.
+        <% end %>
+      <% end %>
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">Gas Clave</p></td>   
+      <td>
+        <p style="text-align:center;font-size:12px">
+        <% @condition = GasKey.where('transformer_id = ?',report_detail.transformer.id) %>
+        <% if @condition.size > 0 %>            
+          <% @condition.each do |a| %>
+            <%= a.str_gas_key %>
+          <% end %>
+        <% else %>
+            No hay Gas Clave Asignado
+        <% end %>  
+        </p>        
+      </td>   
+    </tr>        
+  </tbody>
+</table>  
+<% end %>
+<!--end oil_type_id = 1 -->
+
+<p style="text-align:center">
+  <em>
+    <strong>Tabla Resumen del Análisis Cromatográfico.</strong>
+  </em>
+</p>
+
+
+<p><strong>Análisis Duval:</strong></p>
+
+<p>El Análisis Duval se realiza usando los diagnósticos de Triángulo y Pentágono Duval.</p>
+ 
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+  <thead>
+    <tr>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Diagnóstico</strong></p>
+      </th>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Resultado</strong></p>
+      </th>    
+    </tr>
+  </thead>  
+  <tbody>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">Triángulo Duval</p></td>
+      <td>
+        <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+          <% @cr_duvals = ChromatographicalDuval.where("transformer_id = ?",chromatographical.transformer_id) %>         
+          <% @cr_duvals.each do |array|%>
+            <%= array.str_triangle_diag_first %>
+          <% end %>
+        <% end %>        
+      </td>
+    </tr>  
+    <tr>
+      <td> 
+        <p style="text-align:center">
+        <img src="https://drive.google.com/uc?id=1gwycayuczSQSfWpiKTK3b30QhNnxHIMa" alt="Google Drive Image"  width="150" height="150" /> 
+        </p>
+      </td>
+      <td>
+        <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+          <p style="text-align:center;font-size:12px"><a href="https://tr.dominio.com/duval_management/transformer/<%= chromatographical.transformer_id %>/report_triangle_graphs">Mostrar Gráfica</a></p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="text-align:center">
+  <em>
+    <strong>Usar la tecla Control para abrir el link.</strong>
+  </em>
+</p> 
+
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+  <thead>
+    <tr>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Diagnóstico</strong></p>
+      </th>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Resultado</strong></p>
+      </th>    
+    </tr>
+  </thead>  
+  <tbody>
+    <tr>
+      <td><p style="text-align:center;font-size:12px">Pentágono Duval</p></td>
+      <td>
+        <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+          <% @cr_duvals = ChromatographicalDuval.where("transformer_id = ?",chromatographical.transformer_id) %>         
+          <% @cr_duvals.each do |array|%>
+            <%= array.str_pentagon_diag_first %>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>  
+    <tr>
+      <td>
+        <p style="text-align:center;font-size:12px">
+        <img src="https://drive.google.com/uc?id=1dqQ5vOh5NSq3AzATEe9Pp4JtFCMMsDV0" alt="Google Drive Image"  width="150" height="150" /> 
+        </p>
+      </td>
+      <td>
+        <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+          <p style="text-align:center;font-size:12px"><a href="https://tr.dominio.com/duval_management/transformer/<%= chromatographical.transformer_id %>/report_pentagon_graphs">Mostrar Gráfica</a></p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="text-align:center">
+  <em>
+    <strong>Usar la tecla Control para abrir el link.</strong>
+  </em>
+</p> 
+
+<p><strong>Gráfica de Tendencias:</strong></p>
+
+<p>Muestra la tendencia de todos los gases indicando su estado y límites.</p>
+
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+  <thead>
+    <tr>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Gráfico</strong></p>
+      </th>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Detalles</strong></p>
+      </th>    
+    </tr>
+  </thead> 
+  <tbody>
+    <tr>
+      <td> 
+        <p style="text-align:center;font-size:12px">
+        <img src="https://drive.google.com/uc?id=1hOQXYlEeBkWykeovu3OUrjqKwDyXvSLl" alt="Google Drive Image"  width="250" height="150" />
+        </p> 
+        
+      </td>
+      <td>
+        <% report_detail.transformer.chromatographicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |chromatographical| %>
+          <p style="text-align:center;font-size:12px">
+          <a href="https://tr.dominio.com/chromatographical_management/transformer/<%= chromatographical.transformer_id %>/report_ieee_graphs">Mostrar Gráfica</a></p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="text-align:center">
+  <em>
+    <strong>Usar la tecla Control para abrir el link.</strong>
+  </em>
+</p> 
+
+
+<% else %>
+<p> No se han registrado análisis cromatográficos.</p>
+<% end %>
+
+<p><strong>Análisis de calidad del aceite:</strong></p>
+<% if report_detail.transformer.physicals.where("deleted=0").size > 0 %>
+<p>La evaluación de la calidad del aceite toma como referencia los valores sugeridos en el estándar:</p>
+
+<p><em><strong>IEEE C57.106. &ldquo;límites sugeridos para aceite en servicio&rdquo;.</strong></em></p>
+
+<table cellpadding="0" cellspacing="0" align="center" border="1">
+<tbody>
+<% report_detail.transformer.physicals.where("deleted=0").order("date_rehearsal DESC").last(1).each do |physical|%>
+<tr>
+  <td>
+    <p style="font-size:12px;text-align:center"><strong>IEEE C57.106</strong></p>
+  </td>
+  <td>
+    <p style="font-size:12px;text-align:center"><em><strong>Máx. <%= physical.ieee_num_acid rescue "" %></strong></em></p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center"><em><strong>Máx. <%= physical.ieee_num_pot rescue "" %></strong></em></p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center"><em><strong>Máx. <%= physical.ieee_num_pot2 rescue "" %></strong></em></p>
+  </td>
+  <td>
+	<p style="font-size:12px;text-align:center"><em><strong>Mín. <%= physical.ieee_num_rig rescue ""  %></strong></em></p>
+  </td>
+  <td>
+    <p style="font-size:12px;text-align:center"><em><strong>Mín. <%= physical.ieee_num_rig2 rescue ""  %></strong></em></p>
+  </td>
+  <% if report_detail.transformer.oil_type_id == 1 or report_detail.transformer.oil_type_id == 5 or report_detail.transformer.oil_type_id == 6 %>  
+  <td>
+	<p style="font-size:12px;text-align:center"><em><strong>Mín. <%= physical.ieee_num_ten rescue ""  %></strong></em></p>
+  </td>			
+  <% end %>
+  <td>
+	<p style="font-size:12px;text-align:center"><em><strong>Máx. <%= physical.ieee_num_wat rescue ""  %></strong></em></p>
+  </td>
+</tr>
+<% end %>
+
+<tr>
+  <td style="background-color:#d9d9d9">
+	<p style="font-size:12px;text-align:center"><strong>Fecha</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9">
+	<p style="font-size:12px;text-align:center"><strong>Número Ácido<br />
+		ASTM D974<br />mg KOH/g</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9">
+	<p style="font-size:12px;text-align:center"><strong>Factor de Potencia<br />
+		ASTM D924<br />25 &deg;C. %</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9">
+	<p style="font-size:12px;text-align:center"><strong>Factor de Potencia<br />
+		ASTM D924<br />	100 &deg;C. %</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+ 	<p style="font-size:12px;text-align:center"><strong>Rigidez Dieléctrica<br />
+		ASTM D1816<br /> kV/2.0 mm</strong></p>
+  </td>
+  <td style="background-color:#d9d9d9;">
+	<p style="font-size:12px;text-align:center"><strong>Rigidez Dieléctrica<br />
+		ASTM D1877<br />	kV 2.54 mm</strong></p>
+  </td>			
+  <% if report_detail.transformer.oil_type_id == 1 or report_detail.transformer.oil_type_id == 5 or report_detail.transformer.oil_type_id == 6 %>
+  <td style="background-color:#d9d9d9;">
+	<p style="font-size:12px;text-align:center"><strong>Tensión Interfacial<br />
+		ASTM D971<br />	mN/m</strong></p>
+  </td>
+  <% end %>
+  <td style="background-color:#d9d9d9;">
+	<p style="font-size:12px;text-align:center"><strong>Contenido de Agua<br />
+		ASTM D1533<br />	ppm</strong></p>
+  </td>
+</tr>
+
+<% report_detail.transformer.physicals.where("deleted=0").order("date_rehearsal DESC").each do |physical|%>
+<tr>
+  <td>
+  	<p style="font-size:12px;text-align:center"><%= physical.str_date_rehearsal %><p>	
+  </td>
+  <td>
+    <p style="font-size:12px;text-align:center">
+      <span style="color:<% if physical.ieee_color_num_acid == "yellow" or physical.ieee_color_num_acid == "red" %><%= physical.ieee_color_num_acid rescue "" %><% end %>">
+        <%= physical.num_acid %>
+      </span> 
+    </p>
+  </td>
+  <td>
+	  <p style="font-size:12px;text-align:center">
+	  <span style="color:<% if physical.ieee_color_num_pot == "yellow" or physical.ieee_color_num_pot == "red" %><%= physical.ieee_color_num_pot rescue "" %><% end %>">
+	    <%= physical.num_pot %>
+	  </span>
+	</p>                
+  </td>
+  <td> 
+    <% if physical.num_pot2.nil? %>
+    <% else %>        
+      <% if physical.num_pot2 > 0 %>
+      <p style="font-size:12px;text-align:center">
+      	<span style="color:<% if physical.ieee_color_num_pot2 == "yellow" or physical.ieee_color_num_pot2 == "red" %><%= physical.ieee_color_num_pot2 rescue "" %><% end %>">
+	      <%= physical.num_pot2  rescue ""%>
+	    </span>
+      </p>                
+      <% end %>
+    <% end %>
+  </td>  
+  <td>
+    <p style="font-size:12px;text-align:center">
+      <span style="color:<% if physical.ieee_color_num_rig == "yellow" or physical.ieee_color_num_rig == "red" %><%= physical.ieee_color_num_rig rescue "" %><% end %>">
+	    <%= physical.num_rig %>
+	  </span>
+  	</p>
+  </td>
+  <td>
+    <% if physical.num_rig2.nil? %>
+    <% else %>
+      <% if physical.num_rig2 > 0 %>
+        <p style="font-size:12px;text-align:center">
+          <span style="color:<% if physical.ieee_color_num_rig2 == "yellow" or physical.ieee_color_num_rig2 == "red" %><%= physical.ieee_color_num_rig2 rescue "" %><% end %>">
+	        <%= physical.num_rig2 %>
+	      </span>
+        </p>
+      <% end %>
+    <% end %>
+  </td>  
+  <% if physical.transformer.oil_type_id == 1 or physical.transformer.oil_type_id == 5 or physical.transformer.oil_type_id == 6 %>
+  <td>
+   	<p style="font-size:12px;text-align:center">
+   	  <span style="color:<% if physical.ieee_color_num_ten == "yellow" or physical.ieee_color_num_ten == "red" %><%= physical.ieee_color_num_ten rescue "0" %><% end %>">
+	    <%= physical.num_ten rescue "0" %>
+	  </span>
+	</p>   
+  </td>              
+  <% end %>
+  <td>
+   	<p style="font-size:12px;text-align:center">
+   	  <span style="color:<% if physical.ieee_color_num_wat == "yellow" or physical.ieee_color_num_wat == "red" %><%= physical.ieee_color_num_wat rescue "" %><% end %>">
+	    <%= physical.num_wat %>
+	  </span>
+   	</p>                
+  </td>
+</tr>
+<% end %>	
+</tbody>
+</table>
+
+<p style="text-align:center"><em>
+<strong>Encabezado umbrales sugeridos por la IEE C57.106.</strong>
+</em></p>
+
+<p><strong>Gráfica de Tendencias:</strong></p>
+
+<p>Muestra la tendencia de todos los gases indicando su estado y límites.</p>
+
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+  <thead>
+    <tr>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Gráfico</strong></p>
+      </th>
+      <th style="background-color:#d9d9d9;">
+        <p style="text-align:center;font-size:12px"><strong>Detalles</strong></p>
+      </th>    
+    </tr>
+  </thead> 
+  <tbody>
+    <tr>
+      <td> 
+        <p style="text-align:center;font-size:12px">
+        <img src="https://drive.google.com/uc?id=1rID1ZhDqmGkrM5UE_-A46um8aLppdC_M" alt="Google Drive Image"  width="250" height="150" />
+        </p> 
+        
+      </td>
+      <td>
+        <% report_detail.transformer.physicals.where("deleted=0").order("date_rehearsal ASC").last(1).each do |physical| %>
+          <p style="text-align:center;font-size:12px">
+          <a href="https://tr.dominio.com/physical_management/transformer/<%= physical.transformer_id %>/report_ieee_graphs">Mostrar Gráfica</a></p>
+        <% end %> 
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p style="text-align:center">
+  <em>
+    <strong>Usar la tecla Control para abrir el link.</strong>
+  </em>
+</p> 
+
+
+<% else %>
+<p> No se han registrado análisis físico químicos.</p>
+<% end %> 
+ 
+<% end %>

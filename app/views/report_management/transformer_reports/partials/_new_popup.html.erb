@@ -1,0 +1,59 @@
+<% title "Reporte" %>
+  
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal fade show" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Reporte</h4>
+ 
+            <a href="<%= report_management_reports_url %>" class="btn-close" > </a>   
+          </div>           
+          <div class="modal-body">
+            Se genera el template de Reporte con los siguientes items:<br><br>
+            <ul>
+              <li>Tabla de Contenido</li>
+              <li>Alcance y Responables</li>
+              <li>Datos del Transformador</li>
+              <li>Análisis de Aceite</li>
+              <li>Recomendaciones</li>
+              <li>Conclusiones</li>
+              <li>Anexos</li>
+
+            </ul>  
+            <br> Por favor click en Confirmar Datos para continuar.
+            <div style="display: none;">
+            <%= render :partial =>"report_management/reports/partials/edit_sheet1"  %>  
+            <%= render :partial =>"report_management/reports/partials/edit_sheet2"  %>    
+            <%= render :partial =>"report_management/reports/partials/edit_sheet3"  %> 
+            <%= render :partial =>"report_management/reports/partials/edit_sheet4"  %> 
+            <%= render :partial =>"report_management/reports/partials/edit_sheet5"  %> 
+            <%= render :partial =>"report_management/reports/partials/edit_sheet6"  %>
+            <%= render :partial =>"report_management/reports/partials/edit_sheet7"  %>             
+            </div>
+            
+
+          </div>
+          <div class="modal-footer">
+            <a href="<%= report_management_reports_url %>" class="btn btn-white  me-1 mb-1 rounded-pill" >Cerrar</a>            
+            <button name="button" type="submit" class="btn btn-gray text-white  me-1 mb-1 rounded-pill">
+              <i class="fa-solid fa-floppy-disk"></i> Confirmar Datos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel --> 
+
+<!-- BEGIN background color --> 
+<div class="modal-backdrop show"></div>
+<!-- END background color --> 
+

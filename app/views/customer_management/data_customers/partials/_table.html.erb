@@ -1,0 +1,37 @@
+<table id="data-table-buttons-filter-full" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>País</th>
+      <th>Cliente</th>
+      <th>Ubicación</th> 
+      <th>Área</th> 
+      <th>Subestación</th> 
+      <th>RUC</th> 
+    </tr>
+    <tr class="text-center">
+      <th>País</th>
+      <th>Cliente</th>
+      <th>Ubicación</th> 
+      <th>Área</th> 
+      <th>Subestación</th> 
+      <th>RUC</th> 
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_substations.each do |customer_substation| %>
+    <%# cache customer_substation do %>
+    <tr class="text-center">
+      <td><small class="flag-icon flag-icon-<%= customer_substation.customer.country.short_name.downcase %> h4 rounded mb-0" title="<%= customer_substation.customer.country.short_name.upcase %>"></small><p style="display: none"><%= customer_substation.customer.country.name %></p></td> 
+      <td><%= customer_substation.customer.name.upcase  %></td>  
+      <td><%= customer_substation.customer_area.customer_location.name.upcase %></td>   
+      <td><%= customer_substation.customer_area.name.upcase %></td>   
+      <td><%= customer_substation.name.upcase %></td>   
+      <td><%= customer_substation.customer.num_doc %></td> 
+    </tr>
+    <%# end %>   
+    <% end %>                  
+  </tbody>
+ 
+
+</table>
+  

@@ -1,0 +1,89 @@
+
+<div id="myModal">
+<%= form_for [:meeting_management, @meeting],:html=>{'data-parsley-validate'=>"true", :class=>"form-bordered",:autocomplete=>"off"} do |f| %> 
+ 
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Fecha</label>
+        <div class="col-md-8 col-sm-8">
+          <div class="input-group" id="default-daterange-edit">
+            <input type="text" name="default-daterange" class="form-control" value="" placeholder="click to select the date range" />
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>          
+          
+        </div>
+      </div>   
+        
+      <div style="display: non">
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Desde</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.text_field :start,  class: 'form-control start_hidden_edit' %>
+        </div>
+      </div>     
+      <br>
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Hasta</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.text_field :end,  class: 'form-control end_hidden_edit' %>
+        </div>
+      </div>     
+      </div>
+
+      <br>
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Color</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.select :color ,   [['Alta','red'], ['Normal','black'], ['Baja','blue']] , {},:class => 'form-control'%>
+        </div>
+      </div>     
+      <br>   
+    
+      <div class="form-group row m-b-15">
+        <label class="col-md-4 col-sm-4 col-form-label">Descripción</label>
+        <div class="col-md-8 col-sm-8">
+          <%= f.text_field :title,class: "form-control",'data-parsley-required'=>"true"%>
+        </div>
+      </div>     
+      <br>   
+
+ 
+     
+
+     <!-- begin modal-footer -->  
+    <div class="modal-footer">
+      <a href="javascript:;" class="btn btn-white  me-1 mb-3 rounded-pill" data-bs-dismiss="modal">Cerrar</a>
+      <%= button_tag( :class => "btn btn-gray text-white   me-1 mb-3 rounded-pill") do %>
+      <i class='fa-solid fa-floppy-disk'></i> Guardar Información
+      <% end %>
+    </div>
+    <!-- end modal-footer --> 
+  
+<% end %>
+</div>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>  
+
+
+<!-- required files -->
+<link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+<script src="/assets/plugins/moment/min/moment.min.js"></script>
+<script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- script -->
+<script>
+  $("#default-daterange-edit").daterangepicker({
+    opens: "right",
+    timePicker: true,
+    parentEl: "#myModal",
+    format: "DD/MM/YYYY",
+    //separator: " to ",
+    startDate: moment("<%= @meeting.start %>"),
+    endDate: moment("<%= @meeting.end %>"),
+    //minDate: "01/01/2022",
+    //maxDate: "12/31/2022",
+  }, function (start, end) {
+    $('.start_hidden_edit').val(moment(start).format("DD/MM/YYYY HH:mm"));
+    $('.end_hidden_edit').val(moment(end).format('DD-MM-YYYY HH:mm'));     
+    $("#default-daterange-edit input").val(start.format("DD/MM/YYYY HH:mm") + " - " + end.format("DD/MM/YYYY HH:mm"));
+  });
+</script>

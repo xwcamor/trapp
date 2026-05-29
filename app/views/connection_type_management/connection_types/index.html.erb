@@ -1,0 +1,86 @@
+<% title "Tipo de conexiones" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+
+
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-gear"></i> Tipo de Conexiones
+    <%= link_to "Nuevo",[:new_connection_type_management,:connection_type],{class: "btn btn-gray btn-xs"} %> 
+    </h4>
+    <h6>Total de Tipos de Conexión: <%= @connection_types.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Listado de Conexiones</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+         
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+  
+              <th class="text-nowrap">Conexión</th>
+              <th data-orderable="false" class="sorting_disabled">Acciones </th>
+            </tr>
+            <tr>
+  
+              <th class="text-nowrap">Conexión</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @connection_types.each_with_index do |connection_type| %>
+            <tr>
+ 
+              <td><%= connection_type.name %></td>
+              <td>
+                <%#= link_to "<i class='fa-solid fa-eye'></i>".html_safe, [:connection_type_management, connection_type] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, [:edit, :connection_type_management, connection_type] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, [:connection_type_management, connection_type], method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+ 
+ 

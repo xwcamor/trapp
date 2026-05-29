@@ -1,0 +1,80 @@
+<!--begin oil_type_id = 1 -->
+<% if @transformer.oil_type_id == 1 %>    
+<table class="table table-bordered" style="font-size: 10px;">
+  <tbody>
+    <tr>
+      <td style="background-color:#d9d9d9;" class="border border-dark">
+        <b>Diagnósticos</b>
+      </td>
+      <td style="background-color:#d9d9d9;" class="border border-dark">
+        <b>Resultados</b>
+      </td>    
+    </tr>    
+    <% @transformer.chromatographicals.where("deleted=0").order("date_rehearsal DESC").first(1).each do |chromatographical| %>
+    <% @croma_final = chromatographical.id %>
+    <% end%>
+    <% @last_chromatographical = Chromatographical.find(@croma_final) %>
+    <tr>
+      <td class="border border-dark"><b>Ratios de Roger</b></td>
+      <td class="border border-dark"><%= @last_chromatographical.rogers_cases  rescue "No hay Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="border border-dark"><b>Doernenburg</b></td>
+      <td class="border border-dark"><%= @last_chromatographical.doe_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="border border-dark"><b>IEC 60599</td>
+      <td class="border border-dark"><%= @last_chromatographical.iec_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+    </tr>
+    <tr>
+      <td class="border border-dark align-middle"><b>IEEE C57.104</b></td>
+      <td class="border border-dark"> 
+      <%  @last_chromatographical_dga_diag = ChromatographicalDgaDiag.where(transformer_id: @transformer.id).last %>
+      <% @eva1 = @last_chromatographical_dga_diag.eval_first %>
+      <% @eva2 = @last_chromatographical_dga_diag.eval_second %>
+      <% @eva3 = @last_chromatographical_dga_diag.eval_third %>
+      <% @eva4 = @last_chromatographical_dga_diag.eval_fourth %>
+
+      <% if @eva1 == "green"&& @eva3 == "green" && @eva4 == "green" %>
+        DGA Estado 1:<br><br>  Continue rutina de muestras DGA.<br>
+        Transformador en normal operaciòn.
+      <% else %>
+        <% if @eva2 == "red" or @eva4 == "red" %>
+        DGA Estado 3:<br><br>
+        Realice evaluación del transformador e  identificación de fallas. Tome acciones apropiadas basadas en  la evaluación del transformador y políticas de la compañía.
+        <% else %>
+        DGA Estado 2: Incrementar vigilancia del transformador<br> y frecuencia de muestras DGA.
+        <% end %>
+      <% end %>
+      
+      </td>
+    </tr>
+    
+
+    <% @condition = GasKey.where('transformer_id = ?',@transformer.id) %>
+    <% if @condition.size > 0 %>            
+    <tr>
+      <td class="border border-dark"><b>Gas Clave</b></td>   
+      <td class="border border-dark">
+        <% @condition.each do |a| %> 
+          <%= a.str_gas_key %>  
+        <% end %>
+      </td>   
+    </tr>    
+    <% end %>          
+
+
+  </tbody>
+</table>  
+<% end %>
+<!--end oil_type_id = 1 -->
+
+<!--begin oil_type_id = 4 -->
+<% if @transformer.oil_type_id == 4 %>    
+<% end %>
+<!--end oil_type_id = 4 -->
+
+<!--begin oil_type_id = 5,6 -->
+<% if @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>    
+<% end %>
+<!--end oil_type_id = 5,6 -->

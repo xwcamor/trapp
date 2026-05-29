@@ -1,0 +1,272 @@
+<!-- Styles -->
+<style>
+#chart_main2 {
+  width: 100%;
+  height: 600px;
+  max-width: 100%;
+}
+</style>
+
+<!-- Resources -->
+ 
+<!-- Chart code -->
+<script>
+am5.ready(function func2() {
+ 
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element 
+var root = am5.Root.new("chart_main2");
+
+var exporting = am5plugins_exporting.Exporting.new(root, {
+  menu: am5plugins_exporting.ExportingMenu.new(root, {})
+});
+ 
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/ 
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Set Traslattion
+// https://www.amcharts.com/docs/v5/concepts/locales/creating-translations/#Getting_started
+  root.locale = {"Jan": "Ene","Apr": "Abr","Aug": "Ago","Sep": "Set","Dec": "Dic"};
+ 
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelX: "panX",
+  wheelY: "zoomX" 
+}));
+ 
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+  maxDeviation: 0.5,
+ 
+  baseInterval: {
+    timeUnit: "day",
+    count: 1
+  },
+
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 50
+  }),
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+   maxDeviation:1,
+   numberFormat: "#  '<%= @devanado_template.unit_name %>'",
+   tooltipNumberFormat: "#'%'",  
+   renderer: am5xy.AxisRendererY.new(root, {})
+}));
+
+
+xAxis.get("dateFormats")["hour"] = "h";
+xAxis.get("dateFormats")["minute"] = "m";
+xAxis.get("periodChangeDateFormats")["day"] = "MMMM";
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+
+<% @devanado_template_details.where("devanado_flow_id NOT IN (1)").each_with_index do |array_template_detail,index|  %>
+  var series<%= index %> = chart.series.push(am5xy.LineSeries.new(root, {
+  name: "<%= array_template_detail.name %>" ,
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "value",
+  valueXField: "date",
+  minDistance: 0,
+  legendValueText: "{valueY}",
+  tooltip: am5.Tooltip.new(root, {
+    pointerOrientation: "horizontal",
+    labelText: " <%= array_template_detail.name %>  = {valueY} <%= @devanado_template.unit_name %> "
+  })
+}));
+<% end %>  
+
+
+var data_gases0 = [
+   <% @devanado_details.where("devanado_flow_id = 2" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col1_val %>
+    },
+    <% end %>
+]   
+
+var data_gases1 = [
+   <% @devanado_details.where("devanado_flow_id = 2" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col2_val %>
+    },
+    <% end %>
+]   
+
+var data_gases2 = [
+   <% @devanado_details.where("devanado_flow_id = 2" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col3_val %>
+    },
+    <% end %>
+] 
+
+var data_gases3 = [
+   <% @devanado_details.where("devanado_flow_id = 3" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col1_val %>
+    },
+    <% end %>
+]  
+
+
+var data_gases4 = [
+   <% @devanado_details.where("devanado_flow_id = 3" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col2_val %>
+    },
+    <% end %>
+] 
+
+
+var data_gases5 = [
+   <% @devanado_details.where("devanado_flow_id = 3" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col3_val %>
+    },
+    <% end %>
+] 
+
+var data_gases6 = [
+   <% @devanado_details.where("devanado_flow_id = 4" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col1_val %>
+    },
+    <% end %>
+]  
+
+
+var data_gases7 = [
+   <% @devanado_details.where("devanado_flow_id = 4" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col2_val %>
+    },
+    <% end %>
+] 
+
+
+var data_gases8 = [
+   <% @devanado_details.where("devanado_flow_id = 4" ).order("id ASC").each_with_index do |a,index| %>               
+   { 
+      date: new Date(<%= a.date_devanado.year %>,<%= a.date_devanado.month-1 %>,<%= a.date_devanado.day %>).getTime(),
+      value: <%= a.col3_val %>
+    },
+    <% end %>
+] 
+
+ 
+<% @devanado_template_details.where("devanado_flow_id NOT IN (1)").each_with_index do |array_template_detail,index|  %> 
+  series<%= index %>.data.setAll(data_gases<%= index %>);
+  series<%= index %>.bullets.push(function() {
+    return am5.Bullet.new(root, {
+      locationY: 0,
+      sprite: am5.Circle.new(root, {
+        radius: 3,
+        stroke: root.interfaceColors.get("background"),
+        strokeWidth: 0,
+        fill: series<%= index %>.get("fill")
+      })
+    });
+  });
+<% end %> 
+
+ 
+ 
+ 
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+  behavior: "none"
+}));
+cursor.lineY.set("visible", false);
+
+
+
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
+  width: 150,
+  paddingLeft: 15,
+  height: am5.percent(100)
+}));
+
+// When legend item container is hovered, dim all the series except the hovered one
+legend.itemContainers.template.events.on("pointerover", function(e) {
+  var itemContainer = e.target;
+
+  // As series list is data of a legend, dataContext is series
+  var series = itemContainer.dataItem.dataContext;
+
+  chart.series.each(function(chartSeries) {
+    if (chartSeries != series) {
+      chartSeries.strokes.template.setAll({
+        strokeOpacity: 0.15,
+        stroke: am5.color(0x00000)
+      });
+    } else {
+      chartSeries.strokes.template.setAll({
+        strokeWidth: 3
+      });
+    }
+  })
+})
+
+// When legend item container is unhovered, make all series as they are
+legend.itemContainers.template.events.on("pointerout", function(e) {
+  var itemContainer = e.target;
+  var series = itemContainer.dataItem.dataContext;
+
+  chart.series.each(function(chartSeries) {
+    chartSeries.strokes.template.setAll({
+      strokeOpacity: 1,
+      strokeWidth: 1,
+      stroke: chartSeries.get("fill")
+    });
+  });
+})
+
+legend.itemContainers.template.set("width", am5.p100);
+legend.valueLabels.template.setAll({
+  width: am5.p100,
+  textAlign: "right"
+});
+
+// It's is important to set legend data after all the events are set on template, otherwise events won't be copied
+legend.data.setAll(chart.series.values);
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chart_main2"  class="bg-white"></div>

@@ -1,0 +1,127 @@
+<% title "Ver" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+
+
+
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4><i class='fa-solid fa-transformer-bolt fa-2x'></i> Serie: <%= @transformer.num_serie.upcase %></h4>
+    <h6><%= @transformer.customer_substation.customer_area.customer_location.customer.name.upcase %>
+      <%#= link_to "<i class='fa fa-arrow-left'></i> Regresar a Transformadores".html_safe, [:transformer_management,:transformers], class: "btn btn-gray me-1 mb-1 btn-xs rounded-pill" %>
+    </h6>
+ 
+    <div id="search">
+      <%= render :partial =>"transformer_management/transformers/partials/info_transformer" %> 
+    </div>
+ 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"transformer_management/transformers/partials/menu_options" %> 
+</div>
+<!-- end menu-tab -->
+<br>
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"electrical_management/electricals/partials/menu_options" %> 
+</div>
+<!-- end menu-tab -->
+<br>
+<!-- begin panel -->    
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h6>
+    <i class="fa fa-search"></i> Búsqueda de Factor de Potencia
+    </h6>
+    <!-- begin alert --> 
+    <%= flash_messages %>
+    <!-- end alert -->  
+    <div id="search">
+    <%= form_for @query, url: [:search_factor_management,:factors], html: { method: 'post'}  do %>  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Búsqueda por Año</label>
+            <div class="col-md-8 col-sm-8">
+               <%= hidden_field_tag "id", @transformer.id%> 
+                <%=select_tag "search_year", options_for_select([   [  "Todos", 0], [  "2022", 2022],[  "2021" ,2021], [  "2020", 2020],[  "2019" ,2019] ,[  "2018" ,2018]   ], params[:search_year].to_i ), class: "form-select form-select-sm" %>
+
+            </div>
+          </div>    
+        </div>
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-6 text-start">          
+              <%= button_tag(type: "submit", class: "btn btn-default text-black rounded-pill btn-xs", title: "Buscar") do %>
+                  <i class="fa fa-search"></i> Buscar 
+              <% end %>       
+              
+              <%= link_to "<i class='fa fa-broom'></i> Limpiar Búsqueda".html_safe, {:controller=>"factor_management/factors",:action=>"index",:id=>params[:id]} ,{ class: "btn bg-default  text-black rounded-pill btn-xs"} %>
+            </div>
+
+            <div class="col-6 text-end">
+              <% if @user_permission.include?(57) %>
+              <%= link_to "<i class='fa-solid fa-plus'></i> Crear Factor de Potencia".html_safe,{:controller=>"factor_management/factors",:action=>"new",:id=>params[:id],:remote =>true} ,{ class: "btn bg-gray  text-white rounded-pill btn-xs"} %> 
+              <% end %>         
+            </div>     
+          </div>
+
+        </div>
+
+      </div>
+   
+    <% end %>
+    </div>   
+ 
+   
+  </div>
+  <!-- end panel-body -->
+</div>
+
+<br>
+<!-- begin panel -->    
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h6>
+      <i class="fa fa-database"></i> Listado de Factor de Potencia (Total: <%= @results_count.size %> )
+ 
+      <% if @user_permission.include?(69) %>
+      <%= link_to "<i class='fa fa-file-excel'></i> Exportar Excel".html_safe,{:action=>"index" ,:format=>"xls",:search_year => params[:search_year],:page => params[:page] } ,{class: "btn btn-default rounded-pill btn-xs", title: "Exportar Excel"}  %>
+      <% end %>          
+    </h6>
+  
+    <p class="text-start">
+    <div class="table-responsive">
+       <%= render :partial =>"factor_management/factors/partials/table" %>  
+    </div>
+    </p>    
+   
+  </div>
+  <!-- end panel-body -->
+</div>
+
+<!-- begin popups--> 
+<div id="factor-show-modal" class="modal modal-message"></div>
+<div id="factor-new-modal" class="modal modal-message"></div>
+<div id="factor-edit-modal" class="modal modal-message"></div>
+<div id="factor-destroy-modal" class="modal modal-message"></div>
+<!-- begin popups--> 
+
+<!-- begin layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %> 
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end layout--> 
+
+<!-- begin notification--> 
+<%= render :partial =>"factor_management/factors/partials/legend_notifications" %>  
+<!-- end notification--> 

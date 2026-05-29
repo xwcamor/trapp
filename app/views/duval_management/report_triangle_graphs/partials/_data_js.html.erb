@@ -1,0 +1,187 @@
+<script>
+var _MainPoints = [
+    {
+      x: 0,
+      y: 40
+    }, {
+      x: 38,
+      y: 12.4
+    }, {
+      x: 23.5,
+      y: -32.4
+    }, {
+      x: -23.5,
+      y: -32.4
+    }, {
+      x: -38,
+      y: 12.4
+    }, {
+      x: 0,
+      y: 40
+    }
+  ];
+
+var _SegmentPos1 = [
+    {
+      points: [ {p1: 0, p2: 0, p3: 1}, {p1: 0, p2: 0.23, p3: 0.77}, {p1: 0.64, p2: 0.23, p3: 0.13}, {p1: 0.87, p2: 0, p3: 0.13} ],
+      fill: 'rgb(190,232,255)',
+      label: { text: 'D1', cx: 0.08, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0, p2: 0.23, p3: 0.77}, {p1: 0, p2: 0.71, p3: 0.29}, {p1: 0.31, p2: 0.4, p3: 0.29}, {p1: 0.47, p2: 0.4, p3: 0.13}, {p1: 0.64, p2: 0.23, p3: 0.13} ],
+      fill: 'rgb(35,107,254)',
+      label: { text: 'D2', cx: -0.04, cy: 0.52, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0, p2: 0.71, p3: 0.29}, {p1: 0, p2: 0.85, p3: 0.15}, {p1: 0.35, p2: 0.5, p3: 0.15}, {p1: 0.46, p2: 0.5, p3: 0.04}, {p1: 0.96, p2: 0, p3: 0.04}, {p1: 0.87, p2: 0, p3: 0.13}, {p1: 0.47, p2: 0.4, p3: 0.13}, {p1: 0.31, p2: 0.4, p3: 0.29} ],
+      fill: 'rgb(0,132,189)',
+      label: { text: 'DT', cx: -0.04, cy: 0.78, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.76, p2: 0.2, p3: 0.04}, {p1: 0.8, p2: 0.2, p3: 0}, {p1: 0.8, p2: 0.2, p3: 0}, {p1: 0.98, p2: 0.02, p3: 0}, {p1: 0.98, p2: 0, p3: 0.02}, {p1: 0.96, p2: 0, p3: 0.04} ],
+      fill: 'rgb(97,200,241)',
+      label: { text: 'T1', cx: 0.92, cy: 0.12, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.46, p2: 0.5, p3: 0.04}, {p1: 0.5, p2: 0.5, p3: 0}, {p1: 0.8, p2: 0.2, p3: 0}, {p1: 0.76, p2: 0.2, p3: 0.04} ],
+      fill: 'rgb(145,148,255)',
+      label: { text: 'T2', cx: 0.7, cy: 0.34, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0, p2: 0.85, p3: 0.15}, {p1: 0, p2: 1, p3: 0}, {p1: 0.5, p2: 0.5, p3: 0}, {p1: 0.35, p2: 0.5, p3: 0.15} ],
+      fill: 'rgb(218,220,255)',
+      label: { text: 'T3', cx: 0.3, cy: 0.75, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.98, p2: 0.02, p3: 0}, {p1: 1, p2: 0, p3: 0}, {p1: 0.98, p2: 0, p3: 0.02} ],
+      fill: 'rgb(87,56,191)',
+      label: { text: 'PD', cx: 1.02, cy: -0.01, withLine: false, endX: null, endY: null }
+    },
+    
+];
+var _SegmentPos2 = [
+    {
+      points: [ {p1: 0, p2: 0, p3: 1}, {p1: 0.09, p2: 0, p3: 0.91}, {p1: 0.09, p2: 0.61, p3: 0.3}, {p1: 0, p2: 0.7, p3: 0.3} ],
+      fill: 'rgb(0,211,121)',
+      label: { text: 'O', cx: 0.08, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.09, p2: 0, p3: 0.91}, {p1: 0.54, p2: 0, p3: 0.46}, {p1: 0.09, p2: 0.45, p3: 0.46}],
+      fill: 'rgb(50,218,178)',
+      label: { text: 'ND', cx: 0.3, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.54, p2: 0, p3: 0.46}, {p1: 1, p2: 0, p3: 0}, {p1: 0.64, p2: 0.36, p3: 0}, {p1: 0.4, p2: 0.36, p3: 0.24}, {p1: 0.15, p2: 0.61, p3: 0.24}, {p1: 0.15, p2: 0.55, p3: 0.3}, {p1: 0.09, p2: 0.61, p3: 0.3}, {p1: 0.09, p2: 0.61, p3: 0.3}, {p1: 0.09, p2: 0.45, p3: 0.46}],
+      fill: 'rgb(89,240,232)',
+      label: { text: 'S', cx: 0.75, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.64, p2: 0.36, p3: 0}, {p1: 0.4, p2: 0.36, p3: 0.24}, {p1: 0.15, p2: 0.61, p3: 0.24}, {p1: 0.15, p2: 0.55, p3: 0.3}, {p1: 0, p2: 0.7, p3: 0.3}, {p1: 0, p2: 1, p3: 0} ],
+      fill: 'rgb(0,177,174)',
+      label: { text: 'C', cx: -0.03, cy: 0.9, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.98, p2: 0.02, p3: 0}, {p1: 0.85, p2: 0.15, p3: 0}, {p1: 0.84, p2: 0.15, p3: 0.01}, {p1: 0.97, p2: 0.02, p3: 0.01} ],
+      fill: 'rgb(98,40,227)',
+      label: { text: 'PD', cx: 0.97, cy: 0.08, withLine: false, endX: null, endY: null }
+    },
+    
+];
+var _SegmentPos3 = [
+    {
+      points: [ {p1: 0, p2: 0, p3: 1}, {p1: 0.45, p2: 0, p3: 0.55}, {p1: 0.35, p2: 0.1, p3: 0.55}, {p1: 0, p2: 0.1, p3: 0.9} ],
+      fill: 'rgb(0,211,121)',
+      label: { text: 'O', cx: 0.08, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.45, p2: 0, p3: 0.55}, {p1: 0.35, p2: 0.1, p3: 0.55}, {p1: 0.74, p2: 0.1, p3: 0.16}, {p1: 0.84, p2: 0, p3: 0.16}],
+      fill: 'rgb(89,240,232)',
+      label: { text: 'S', cx: 0.67, cy: -0.04, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.74, p2: 0.1, p3: 0.16}, {p1: 0.84, p2: 0, p3: 0.16}, {p1: 1, p2: 0, p3: 0}, {p1: 0.9, p2: 0.1, p3: 0} ],
+      fill: 'rgb(0,211,121)',
+      label: { text: 'O', cx: 0.98, cy: 0.06, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.9, p2: 0.1, p3: 0}, {p1: 0.77, p2: 0.1, p3: 0.13}, {p1: 0.52, p2: 0.35, p3: 0.13}, {p1: 0.65, p2: 0.35, p3: 0} ],
+      fill: 'rgb(145,148,255)',
+      label: { text: 'T2', cx: 0.78, cy: 0.28, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.52, p2: 0.35, p3: 13}, {p1: 0.65, p2: 0.35, p3: 0}, {p1: 0, p2: 1, p3: 0}, {p1: 0, p2: 0.7, p3: 0.3}, {p1: 0.17, p2: 0.7, p3: 0.13}, {p1: 0.37, p2: 0.5, p3: 0.13}, {p1: 0.38, p2: 0.5, p3: 0.12} ],
+      fill: 'rgb(218,220,255)',
+      label: { text: 'T3', cx: -0.04, cy: 0.95, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0, p2: 0.7, p3: 0.3}, {p1: 0.17, p2: 0.7, p3: 0.13}, {p1: 0.37, p2: 0.5, p3: 0.13}, {p1: 0.38, p2: 0.5, p3: 0.12}, {p1: 0.78, p2: 0.1, p3: 0.12}, {p1: 0.6, p2: 0.1, p3: 0.3} ],
+      fill: 'rgb(0,177,174)',
+      label: { text: 'C', cx: -0.03, cy: 0.72, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0, p2: 0.7, p3: 0.3}, {p1: 0.35, p2: 0.35, p3: 0.3}, {p1: 0, p2: 0.35, p3: 0.65}],
+      fill: 'rgb(218,220,255)',
+      label: { text: 'T3', cx: -0.04, cy: 0.55, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.35, p2: 0.35, p3: 0.3}, {p1: 0, p2: 0.35, p3: 0.65}, {p1: 0, p2: 0.1, p3: 0.9}, {p1: 0.6, p2: 0.1, p3: 0.3} ],
+      fill: 'rgb(50,218,178)',
+      label: { text: 'ND', cx: -0.04, cy: 0.30, withLine: false, endX: null, endY: null }
+    },
+    {
+      points: [ {p1: 0.85, p2: 0, p3: 0.15}, {p1: 0.98, p2: 0, p3: 0.02}, {p1: 0.97, p2: 0.01, p3: 0.02}, {p1: 0.85, p2: 0.01, p3: 0.14} ],
+      fill: 'rgb(255,0,0)',
+      label: { text: 'PD', cx: 0.94, cy: -0.05, withLine: false, endX: null, endY: null }
+    },
+    
+];
+var legendTexts = ['PD = Partial Discharge',
+  'T1 = Thermal fault < 300 celcius',
+  'T2 = Thermal fault 300 < T < 700 celcius',
+  'T3 = Thermal fault < 300 celcius',
+  'D1 = Thermal fault T > 700 celcius',
+  'D2 = Discharge of High Energy',
+  'DT = Electrical and Thermal'
+];
+var vector0 = {
+  x: 0,
+  y: 0
+};
+var vector1 = {
+  x: 1,
+  y: 0
+};
+var vector2 = {
+  x: 0,
+  y: 1
+};
+var _TriangleTexts = {
+  normal : [
+          { start: vector0, end: vector1 , text: "%CH4", offset: 60, angle: Math.PI},
+          { start: vector1, end: vector2 , text: "%C2H4", offset: 60, angle: 0},
+          { start: vector2, end: vector0 , text: "%C2H2", offset: 40, angle: Math.PI/2}
+        ],
+  middle: [
+          { start: vector0, end: vector1 , text: "%H2", offset: 60, angle: Math.PI},
+          { start: vector1, end: vector2 , text: "%CH4", offset: 60, angle: 0},
+          { start: vector2, end: vector0 , text: "%C2H6", offset: 40, angle: Math.PI/2}
+        ],
+  last: [
+          { start: vector0, end: vector1 , text: "%CH4", offset: 60, angle: Math.PI},
+          { start: vector1, end: vector2 , text: "%C2H4", offset: 60, angle: 0},
+          { start: vector2, end: vector0 , text: "%C2H6", offset: 40, angle: Math.PI/2}
+        ]
+}
+//xxx@gmail.com
+//https://codepen.io/carlosmola6la/pen/jOadmmP
+
+let _RegistryData = [ // hid : H2, met : CH4, eti : C2H4 , eta : C2H6, ace : C2H2
+ <%= render :partial =>"duval_management/triangle_graphs/partials/data_values" %>
+];
+// const xhr = new XMLHttpRequest();
+// const url = 'https://tr.mydentistcorin.com/cromas/23.json';
+
+// xhr.open('GET', url, true);
+// xhr.send();
+let _RegistryPosition1 = [], _RegistryPosition2 = [], _RegistryPosition3 = [];
+</script>

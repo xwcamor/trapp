@@ -1,0 +1,150 @@
+<!-- begin panel -->
+<div class="panel panel-inverse" >
+  <!-- begin panel-heading -->
+  <div class="panel-heading bg-gray-800 text-white">
+    <i class="fa-regular fa-chart-line text-white pe-2"></i>
+    <h4 class="panel-title">Tendencia de Etano
+    </h4>
+    <%= render :partial =>"layouts/panel_heading_full" %>
+  </div>
+  <!-- end panel-heading -->
+  <!-- begin panel-body -->
+  <div class="panel-body bordered table-responsive">
+    <div class="panel-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="card border-2 bg-light mb-4">
+            <div class="card-body">          
+              <h5>
+                 <i class="fa fa-chart-line"></i> Nivel de Etano
+              </h5>
+              <div id="chartdiv8"  class="bg-white"></div>
+            </div>
+          </div>
+        </div>
+      
+      </div> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->  
+
+
+<!-- Styles -->
+<style>
+#chartdiv8 {
+  width: 100%;
+  height: 350px;
+  max-width: 100%;
+}
+</style>
+
+<!-- Resources -->
+ 
+<!-- Chart code -->
+<script>
+am5.ready(function func8() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element 
+var root = am5.Root.new("chartdiv8");
+
+var exporting = am5plugins_exporting.Exporting.new(root, {
+  menu: am5plugins_exporting.ExportingMenu.new(root, {})
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  pinchZoomX:true
+}));
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+cursor.lineY.set("visible", false);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+xRenderer.labels.template.setAll({
+  rotation: -90,
+  centerY: am5.p50,
+  centerX: am5.p100,
+  paddingRight: 5
+});
+
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  maxDeviation: 0.3,
+  categoryField: "horizonal_value",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+  maxDeviation: 0.3,
+  renderer: am5xy.AxisRendererY.new(root, {})
+}));
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+  name: "Series 1",
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "value",
+  sequencedInterpolation: true,
+  categoryXField: "horizonal_value",
+  tooltip: am5.Tooltip.new(root, {
+    labelText:"{valueY} Cromatografías"
+  })
+}));
+
+series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+series.columns.template.adapters.add("fill", function(fill, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+series.columns.template.adapters.add("stroke", function(stroke, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+
+ // Set data
+var data = [
+<% @aa= @list_chromatographicals.order("num_eta ASC").map { |e| e.num_eta.round() }%>
+<% @array =@aa.tally %>   
+<% @array.each do |key,value|%>   
+{ horizonal_value: "<%= key.round %>",
+value:  <%= value %> },
+<% end %>
+];
+
+xAxis.data.setAll(data);
+series.data.setAll(data);
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+series.appear(1000);
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->

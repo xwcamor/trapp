@@ -1,0 +1,37 @@
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h6>
+    <i class="fa-solid fa-bolt"></i> Pruebas Eléctricas
+      
+      <a href="<%= electrical_management_transformer_electricals_path(@transformer) %>" class="btn btn-default  btn-xs rounded-pill 
+        <%= active_link_to_class(electrical_management_transformer_electricals_path(@transformer) , :active => :inclusive)  %>"><i class="fa-solid fa-circle-info"></i> Resumen </a>
+
+      <a href="<%= factor_management_transformer_factors_path(@transformer) %>" class="btn btn-default rounded-pill btn-xs
+       <%= active_link_to_class(factor_management_transformer_factors_path(@transformer), :active => :inclusive)  %>">
+       <i class='fa-solid fa-bolt'></i> Factor de Potencia</a>
+
+      <a href="" class="btn btn-default rounded-pill btn-xs 
+      <%= active_link_to_class(bornal_management_bornals_path, :active => :inclusive)  %>">
+      <i class='fa-solid fa-bolt'></i> Factor de Potencia en Bornes</a>      
+
+      <a href=" " class="btn btn-default rounded-pill btn-xs 
+      <%= active_link_to_class(bornal_management_bornals_path, :active => :inclusive)  %>">
+      <i class='fa-solid fa-bolt'></i> Relación de Transformación</a>   
+
+      <a href=" " class="btn btn-default rounded-pill btn-xs
+       <%= active_link_to_class(bornal_management_bornals_path, :active => :inclusive)  %>"><i class='fa-solid fa-bolt'></i> Resistencia de Devanados</a>   
+
+ 	  <a href=" " class="btn btn-default rounded-pill btn-xs <%= active_link_to_class(bornal_management_bornals_path, :active => :inclusive)  %>"><i class='fa-solid fa-bolt'></i> Resistencia de Aislamiento</a>         
+ 
+
+    </h6>
+ 
+     
+   
+  </div>
+  <!-- end panel-body -->
+</div>
+ 
+
+       

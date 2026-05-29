@@ -1,0 +1,10 @@
+<div class="container my-5">
+  <% case I18n.locale.to_s %>
+  <% when "en" %>
+    <%= render "static/partials/terms_en" %>
+  <% when "pt" %>
+    <%= render "static/partials/terms_pt" %>
+  <% else %>
+    <%= render "static/partials/terms_es" %>
+  <% end %>
+</div>

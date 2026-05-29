@@ -1,0 +1,74 @@
+<% title "Tendencia Gases" %>
+<%= links  link_to 'Patrones Por Grupos', step1_comparison_management_chromatographicals_url %> 
+<!-- BEGIN amchart -->
+<%= render :partial =>"layouts/app_amcharts" %>
+<!-- END amchart -->
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+      <i class="fa-solid fa-chart-line"></i> Patrones Por Grupos
+      <%= link_to "Seleccionar Otros Transformadores",step1_comparison_management_chromatographicals_url,{class: "btn btn-gray btn-xs"} %> 
+    </h4>
+    <hr><br>
+    <div class="panel-body bordered table-responsive">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/table_step2" %> 
+    </div>     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+ <br><br><br><br><br><br><br><br><br><br><br><br><br><br> 
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_hidrogeno" %>
+    </div>
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_oxigeno" %>
+    </div>   
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_nitrogeno" %>
+    </div>   
+  </div>  
+  <div class="col-xl-12">
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_metano" %>
+    </div>
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_monocarbono" %>
+    </div>   
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_diocarbono" %>
+    </div>   
+  </div>    
+  <div class="col-xl-12">
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_etileno" %>
+    </div>
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_etano" %>
+    </div>   
+  </div>
+  <div class="col-xl-12"> 
+    <div class="panel border">
+      <%= render :partial =>"comparison_management/chromatographicals/partials/amchart_acetileno" %>
+    </div>   
+  </div>   
+</div>
+ 
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end script--> 

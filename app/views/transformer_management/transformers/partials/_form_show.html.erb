@@ -1,0 +1,125 @@
+  
+ 
+ <!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4><i class='fa-solid fa-transformer-bolt fa-2x'></i> Serie: <%= @transformer.num_serie.upcase %></h4>
+    <h6><%= @transformer.customer_substation.customer_area.customer_location.customer.name.upcase %>
+    </h6>
+ 
+    <div id="search">
+      <%= render :partial =>"transformer_management/transformers/partials/info_transformer" %> 
+    </div>
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+ 
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"transformer_management/transformers/partials/menu_options" %> 
+</div>
+<!-- end menu-tab -->
+ 
+ 
+<br>
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-6 table-responsive">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <a href="<%= chromatographical_management_transformer_ieee_graphs_path(@transformer) %>" title="Ir a Tendencias"  >
+          <i class="fa-regular fa-syringe text-white fa-2x pe-2"></i>
+        </a>   
+        <h4 class="panel-title">Análisis Cromatográfico <span class="badge bg-default ms-1 text-black fs-10px">Última muestra: <%= @last_chromatographical.str_date_rehearsal rescue "No hay registro"  %></span> <span class="badge bg-default ms-1 text-black fs-10px">Peso de Factor:  <%= @last_chromatographical.dgaf_score rescue "0"  %> % </span>
+        </h4>
+        <div class="panel-heading-btn">
+          <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse">
+            <i class="fa fa-minus"></i>
+          </a>
+        </div>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="bg-light">
+        <%= render :partial =>"transformer_management/transformers/partials/last_chromatographical" %> 
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+  <!-- begin col-6 -->
+  <div class="col-xl-6  table-responsive">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <a href="<%= physical_management_transformer_ieee_graphs_path(@transformer) %>" title="Ir a Tendencias" >
+          <i class="fa-regular fa-bong text-white fa-2x pe-2"></i>
+        </a>    
+        <h4 class="panel-title">Análisis Físico Químico <span class="badge bg-default ms-1 text-black fs-10px">Última muestra: <%= @last_physical.str_date_rehearsal rescue "No hay registro"  %></span> <span class="badge bg-default ms-1 text-black fs-10px">Peso de Factor: <%= @last_physical.dgaf_score rescue "0"  %> %</span></h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bg-light">
+        <%= render :partial =>"transformer_management/transformers/partials/last_physical" %> 
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->   
+  <!-- begin col-6 -->
+  <div class="col-xl-6  table-responsive">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <a href="<%= furano_management_transformer_ieee_graphs_path(@transformer) %>" title="Ir a Tendencias" >
+          <i class="fa-regular fa-hourglass text-white fa-2x pe-2"></i>
+        </a>        
+        <h4 class="panel-title">Análisis Furanos <span class="badge bg-default ms-1 text-black fs-10px">Última muestra: <%= @last_furano.str_date_rehearsal rescue "No hay registro"  %></span> <span class="badge bg-default ms-1 text-black fs-10px">Peso de Factor: <%= @last_furano.dgaf_score rescue "0"  %> %</span></h4> 
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bg-light">
+         <%= render :partial =>"transformer_management/transformers/partials/last_furano" %> 
+ 
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+  <!-- begin col-6 -->
+  <div class="col-xl-6  table-responsive">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" >
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <a href="<%= electrical_management_transformer_electricals_path(@transformer) %>" title="Ir a Tendencias" >
+          <i class="fa-regular fa-bolt text-white fa-2x pe-2"></i>
+        </a>           
+        <h4 class="panel-title">Pruebas Eléctricas <span class="badge bg-default ms-1 text-black fs-10px">Última muestra: <%= @last_factor.str_date_rehearsal rescue "No hay registro"  %></span> <span class="badge bg-default ms-1 text-black fs-10px">Peso de Factor: <%= @last_factor.dgaf_score rescue "0"  %> %</span></h4> 
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body bg-light">
+        <%= render :partial =>"transformer_management/transformers/partials/last_electrical" %> 
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->   
+</div>   
+
+
+ 

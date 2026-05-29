@@ -1,0 +1,65 @@
+      <table id="data-table-buttonas2" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap text-center">Fecha </th>
+              <th class="text-nowrap text-center">Oxígeno<br>O2<br>ppm</th>
+              <th class="text-nowrap text-center">Nitrógeno<br>N2<br>ppm</th>
+              <th class="text-nowrap text-center">Hidrógeno<br>H2<br>ppm</th>              
+              <th class="text-nowrap text-center">Metano<br>CH4<br>ppm</th>
+              <th class="text-nowrap text-center">M.Carbono<br>CO<br>ppm</th>
+              <th class="text-nowrap text-center">D.Carbono<br>CO2<br>ppm</th>
+              <th class="text-nowrap text-center">Etileno<br>C2H4<br>ppm</th>
+              <th class="text-nowrap text-center">Etano<br>C2H6<br>ppm</th>
+              <th class="text-nowrap text-center">Acetileno<br>C2H2<br>ppm</th>
+              <th class="text-nowrap text-center">Estado</th>
+ 
+            </tr>
+          </thead>
+          <tbody>
+            <% @chromatographicals.each do |chromatographical| %>
+            <tr>
+              <td class="text-nowrap text-center"><%= chromatographical.str_date_rehearsal %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_oxi %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_nit %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_hid %></td>              
+              <td class="text-nowrap text-center"><%= chromatographical.num_met %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_mon %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_dio %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_eti %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_eta %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.num_ace %></td>
+              <td class="text-nowrap text-center"><%= chromatographical.dgaf_condition %></td> 
+            </tr>
+            <% end %>   
+            <% @chromatographicals.each do |chromatographical| %>
+            <tr>
+              <td class="text-nowrap text-center">Limite</td>
+              <td class="text-nowrap text-center"><i class="fa-solid fa-syringe"></i>></td>
+              <td class="text-nowrap text-center"><i class="fa-solid fa-syringe"></i></td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_hidrogeno rescue ""  %> <%= chromatographical.iec_hidrogeno  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_metano rescue ""  %> <%= chromatographical.iec_metano  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_monocarbono rescue ""  %> <%= chromatographical.iec_monocarbono  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_diocarbono rescue ""  %> <%= chromatographical.iec_diocarbono  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_etileno rescue ""  %> <%= chromatographical.iec_etileno  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_etano rescue ""  %> <%= chromatographical.iec_etano  rescue ""%> </td>
+              <td class="text-nowrap text-start"><%= chromatographical.iec_color_acetileno rescue ""  %> <%= chromatographical.iec_acetileno rescue ""%> </td>
+              <td class="text-nowrap text-center">Norma IEC</td>              
+            </tr>    
+            <% end %>       
+            <% @chromatographicals.each do |chromatographical| %>
+            <tr>
+              <td class="text-nowrap text-center">Límite</td>
+              <td class="text-nowrap text-center"><i class="fa-solid fa-syringe"></i></td>
+              <td class="text-nowrap text-center"><i class="fa-solid fa-syringe"></i></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_hidrogeno rescue "" %> <%= chromatographical.ieee_hidrogeno_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_metano rescue "" %> <%= chromatographical.ieee_metano_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_monocarbono rescue "" %> <%= chromatographical.ieee_monocarbono_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_diocarbono rescue "" %> <%= chromatographical.ieee_diocarbono_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_etileno rescue "" %> <%= chromatographical.ieee_etileno_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_etano rescue "" %> <%= chromatographical.ieee_etano_tabla1 %></td>
+              <td class="text-nowrap text-start"><%= chromatographical.ieee_color_acetileno rescue "" %> <%= chromatographical.ieee_acetileno_tabla1 %></td>
+              <td class="text-nowrap text-center">Norma IEE</td>              
+            </tr>    
+            <% end %>                   
+          </tbody>
+        </table>   

@@ -1,0 +1,16 @@
+<% title "Nuevo" %>
+<%= links  link_to 'Novedades', [:newspaper_management,:admin_newspapers] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa-solid fa-newspaper"></i> Ver Novedad</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<div id="myModal">
+<%= render :partial =>'newspaper_management/newspapers/partials/form_show'  %>
+</div>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<!-- end layout-->

@@ -1,0 +1,59 @@
+<li class="<%= active_link_to_class(chromatographical_management_transformer_chromatographicals_path(@transformer), :active => :exclusive)  %>">
+  <a href="<%= chromatographical_management_transformer_chromatographicals_path(@transformer.id) %>"  class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-search"></i> Búsqueda</a> 
+</li>
+<li>
+  <a href="<%= chromatographical_management_transformer_chromatographicals_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-broom"></i> Limpiar Búsqueda</a> 
+</li>    
+<% if @user_permission.include?(41) %>
+<li class="<%= active_link_to_class(new_chromatographical_management_transformer_chromatographical_path(@transformer), :active => :exclusive)  %>">
+  <%= link_to "<i class='fa-solid fa-plus'></i> Crear Ensayo".html_safe, new_chromatographical_management_transformer_chromatographical_path(@transformer) ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+</li>  
+<% end %>
+
+<% if @user_permission.include?(94) %>
+<li> 
+  <%= link_to "<i class='fa-solid fa-table-cells'></i> Modificar Tabla".html_safe,new_chromatographical_management_transformer_table_chromatographical_path(@transformer.id) , { class: "btn btn-default w-100 mb-2 text-start" } %>
+</li>  
+<% end %>   
+
+<li class="<%= active_link_to_class(chromatographical_management_transformer_ieee_graphs_path(@transformer), :active => :exclusive) %>
+  <%= active_link_to_class(chromatographical_management_transformer_iec_graphs_path(@transformer), :active => :exclusive) %>">   
+  <% if @user_permission.include?(45) %>
+  <%= link_to "<i class='fa fa-chart-line'></i> Tendencia".html_safe, chromatographical_management_transformer_ieee_graphs_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+  <% end %>                  
+</li>
+
+
+<% if @transformer.chromatographicals.where("deleted=0").size > 0 %>
+<li class="<%= active_link_to_class(duval_management_transformer_triangle_graphs_path(@transformer), :active => :exclusive) %>
+  <%= active_link_to_class(duval_management_transformer_last_triangle_graphs_path(@transformer), :active => :exclusive) %>
+  <%= active_link_to_class(duval_management_transformer_pentagon_graphs_path(@transformer), :active => :exclusive) %>
+  <%= active_link_to_class(duval_management_transformer_last_pentagon_graphs_path(@transformer), :active => :exclusive) %>">  
+  <% if @transformer.oil_type_id == 1 %> 
+    <% if @user_permission.include?(46) %>
+      <a href="<%= duval_management_transformer_last_triangle_graphs_path(@transformer.id) %>"  class="btn btn-default w-100 mb-2 text-start"><i class="fa fa-chart-scatter"></i> Análisis Duval</a>                  
+    <% end %>
+  <% end %>            
+</li>    
+<% end %>  
+
+
+
+<li class="<%= active_link_to_class(duval_management_transformer_silicona_graphs_path(@transformer), :active => :exclusive) %>">    
+  <% if @transformer.oil_type_id == 1 or @transformer.oil_type_id == 4%>
+  <% if @user_permission.include?(83) %>
+  <%= link_to "<i class='fa-solid fa-star-christmas'></i> Gas Clave".html_safe, duval_management_transformer_silicona_graphs_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+  <% end %>
+  <% end %>                  
+</li>
+<li class="<%= active_link_to_class(chromatographical_management_transformer_posts_path(@transformer), :active => :exclusive) %>">     
+  <% if @user_permission.include?(103) %>
+  <%= link_to "<i class='fa fa-list-timeline '></i> Eventos Importantes".html_safe, chromatographical_management_transformer_posts_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+  <% end %>                 
+</li> 
+
+<li>
+<% if @user_permission.include?(94) %>
+<%= link_to "<i class='fa fa-upload '></i> Importar Datos".html_safe, new_chromatographical_management_transformer_chromatographical_upload_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+<% end %>                 
+</li>  

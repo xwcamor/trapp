@@ -1,0 +1,190 @@
+<% title "Transformadores" %>
+
+<%= form_for @query, url: [:step2_comparison_management,:gases], html: { method: 'post'}  do %>   
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header"><i class="fa-duotone fa-chart-simple"></i> Gases Por Grupos</h4>
+    <hr>
+    <div class="alert alert-primary alert-dismissible fade show h-100 mb-0">
+      <i class="fa fa-lightbulb" aria-hidden="true"></i> Por favor seleccione los transformadores  y luego click en el botón Mostrar Gases o presionar la tecla ENTER.
+      <button name="button" type="submit" class="btn btn-gray  rounded-pill">
+        <i class="fa-duotone fa-chart-simple"></i> Mostrar Gases
+      </button>
+    </div>
+
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+<br>
+<div class="row ">
+  <!-- begin panel -->
+  <div class="panel panel-inverse" >
+    <!-- begin panel-heading -->
+    <div class="panel-heading bg-gray-800 text-white">
+      <i class="fa-regular fa-transformer-bolt text-white pe-2"></i>
+      <h4 class="panel-title">Búsqueda de Transformadores
+      <span class="badge bg-default ms-1 text-black fs-10px display_filter_row">Mostrar Filtros</span> 
+      <span class="badge bg-default ms-1 text-black fs-10px hide_filter_row">Quitar Filtros</span> 
+      </h4>
+
+      <%= render :partial =>"layouts/panel_heading_fullscreen" %>
+    </div>
+    <!-- end panel-heading -->
+    <!-- begin panel-body -->
+    <div class="panel-body bordered table-responsive">
+      <%= render :partial =>"comparison_management/gases/partials/table" %> 
+    </div>
+    <!-- end panel-body -->
+  </div>
+  <!-- end panel -->          
+</div>
+<% end %> 
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+<script>
+/* Custom filtering function which will search data in column four between two values */
+$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    var min = parseInt($('#min').val(), 10);
+    var max = parseInt($('#max').val(), 10);
+    var ratio = parseFloat(data[1]) || 0; // use data for the ratio column
+ 
+    if (
+        (isNaN(min) && isNaN(max)) ||
+        (isNaN(min) && ratio <= max) ||
+        (min <= ratio && isNaN(max)) ||
+        (min <= ratio && ratio <= max)
+    ) {
+        return true;
+    }
+    return false;
+});
+ 
+
+$(document).ready(function (){   
+
+    // Setup - add a text input to each footer cell
+    $('#example thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( ' <input type="text" placeholder="'+title+'" class="form-control column_search"  /> ' );
+    } );
+
+   var table_demo = $('#example').DataTable({
+     'ajax': '<%= json_management_transformer_ratios_path(:format=>:json)%>',
+      columns: [
+        { class: "text-center" , data: 'id', render: function (data) { // CRUD buttons
+          return '<input type="checkbox" class="form-check-input" name="transformer_ids[]" value="' 
+                  + $('<div/>').text(data).html() + '">';
+         
+          },
+        },  
+        { class: "text-black",data: 'ratio' },        
+        { class: "text-black",data: 'serie' },        
+        { class: "text-black",data: 'tag' },
+        { class: "text-black",data: 'customer' },   
+        { class: "text-black",data: 'location' },        
+        { class: "text-black",data: 'area' },
+        { class: "text-black",data: 'substation' },   
+        { class: "text-black",data: 'voltage' },   
+        { class: "text-black",data: 'power' },   
+        { class: "text-black",data: 'age' },        
+        { class: "text-black",data: 'transformer_type' },
+        { class: "text-black",data: 'conmutation_type' },   
+        { class: "text-black",data: 'connection_type' },       
+        { class: "text-black",data: 'fases' },   
+        { class: "text-black",data: 'taps' },        
+        { class: "text-black",data: 'oil_type' },
+        { class: "text-black",data: 'mark' },   
+        { class: "text-black",data: 'preservation' },    
+        { class: "text-center" , data: 'num_health', render: function (data) { // CRUD buttons
+          return  data + " %";
+         
+          },
+        }, 
+        { class: "text-black",data: 'status' }               
+      ],     
+      order: [[1, 'asc']],  
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start text-black"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex ">>>t<"row"<"col-md-6 text-black"i><"col-md-6 text-black"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+      "lengthMenu": [ [ -1], [ "Todos"] ]  
+   });
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').keyup(function () {
+        table_demo.draw();
+    });
+
+    // Apply the search
+    $( '#example thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table_demo
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+   // Handle click on "Select all" control
+   $('#example-select-all').on('click', function(){
+      // Check/uncheck all checkboxes in the table
+      var rows = table_demo.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+   // Handle click on checkbox to set state of "Select all" control
+   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+      // If checkbox is not checked
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         // If "Select all" control is checked and has 'indeterminate' property
+         if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control 
+            // as 'indeterminate'
+            el.indeterminate = true;
+         }
+      }
+   });
+    
+   $('#frm-example').on('submit', function(e){
+      var form = this;
+
+      // Iterate over all checkboxes in the table
+      table_demo.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+         if(!$.contains(document, this)){
+            // If checkbox is checked
+            if(this.checked){
+               // Create a hidden element 
+               $(form).append(
+                  $('<input>')
+                     .attr('type', 'hidden')
+                     .attr('name', this.name)
+                     .val(this.value)
+               );
+            }
+         } 
+      });
+
+      // FOR TESTING ONLY
+      
+      // Output form data to a console
+      //$('#example-console').text($(form).serialize()); 
+      //console.log("Form submission", $(form).serialize()); 
+       
+      // Prevent actual form submission
+      //e.preventDefault();
+   });
+});
+ </script> 
+<!-- end script--> 

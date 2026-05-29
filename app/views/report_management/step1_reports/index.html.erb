@@ -1,0 +1,40 @@
+<% title "Reporte Paso 1" %>
+  
+<!-- BEGIN panel -->
+<div class="panela">
+  <!-- BEGIN panel-body -->
+  <div class="panel-body">
+    <!-- BEGIN modal -->
+    <div class="modal modal-message fade show" id="modal-message" style="display: block;" aria-modal="true" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Paso 1 : Selección de Cliente</h4>
+ 
+            <a href="<%= report_management_reports_url %>" class="btn-close" > </a>   
+          </div>           
+          <div class="modal-body">
+            <div class="table-responsive">
+              <%= render :partial =>"report_management/step1_reports/partials/table_users" %>
+            </div>   
+          </div>
+          <div class="modal-footer">
+            <a href="<%= report_management_reports_url %>" class="btn btn-white  me-1 mb-1 rounded-pill" >Cerrar</a>            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END modal -->
+  </div>
+  <!-- END panel-body -->
+</div>
+<!-- END panel --> 
+
+<!-- BEGIN background color --> 
+<div class="modal-backdrop show"></div>
+<!-- END background color --> 
+
+<!-- BEGIN layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<!-- END layout--> 

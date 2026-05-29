@@ -1,0 +1,33 @@
+<%= form_for @query, url: [:search_user_management,:transformers], html: { method: 'post'}  do %>  
+
+<div id="myModal">
+  <div class="form-group row m-b-15">
+    
+    <div class="col-9">
+      <i class="fa-solid fa-user"></i> Listado de Clientes: 
+      <select id="first_array" name="search_customer">
+        <option value="" >Seleccione</option>
+      </select> 
+      <i class="fa-solid fa-transformer-bolt"></i> Listado de Transformadores:
+      <select id="second_array" name="search_transformer[]" multiple>
+        <option value="">Seleccione</option>
+      </select>       
+    </div>
+    <div class="col-3">
+      <%= button_tag(type: "submit", class: "btn btn-gray text-white rounded-pill", title: "Buscar") do %>
+        <i class="fa fa-chart-line"></i> Actualizar Gráficos 
+      <% end %>  
+      <br><br><br>
+      
+      <%= link_to "<i class='fa-solid fa-transformer-bolt'></i> Mostrar Transform.".html_safe,{:controller=>"transformer_management/transformers",:action=>"search" ,   search_transformer:  @search_transformer } ,{class: "btn bg-gray text-white rounded-pill"}   %>
+      
+    </div>	
+  </div>  
+</div>
+<% end %>
+
+<!-- begin select2 -->
+<%= render :partial =>"user_management/transformers/partials/select2_index" %>
+<!-- end select2 -->
+
+ 

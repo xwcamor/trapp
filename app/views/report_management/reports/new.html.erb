@@ -1,0 +1,17 @@
+<% title "Nuevo" %>
+<%= links  link_to 'Reportes', [:report_management,:reports] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa-solid fa-file-chart-pie"></i> Nuevo Reporte - Paso 1</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<div id="myModal">
+<%= render :partial =>"report_management/reports/partials/form_new", report: @report %> 
+</div>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<!-- end layout-->

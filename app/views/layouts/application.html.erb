@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8" />
+	<title>TR APP | <%= yield(:title) %></title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<%#= javascript_include_tag "application" %>
+	<%= stylesheet_link_tag "application"  %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>	
+	<!-- ================== BEGIN core-css ================== -->
+	<link href="/assets/css/vendor.min.css" rel="stylesheet" />
+	<link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+	<!-- <script src="https://kit.fontawesome.com/5a5e371b5e.js" crossorigin="anonymous"></script> -->
+
+
+	<link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+	<link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
+	<link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
+
+ 
+	<link href="/assets/plugins/flag-icon-css/css/flag-icons.min.css" rel="stylesheet" />
+	<!-- ================== END core-css ================== -->
+  </head>
+  <body class="pace-done theme-gray">
+	<!-- BEGIN #loader -->
+		<!-- 	<div id="loader" class="app-loader">
+			<span class="spinner"></span>
+		</div> -->
+	<!-- END #loader -->
+	<!-- BEGIN #app -->  
+	<!-- <div id="app" class="app app-header-fixed app-sidebar-fixed app-sidebar-minified"> -->
+	<div id="app" class="app app-header-fixed app-sidebar-fixed app-sidebar-minified">
+		<!-- BEGIN #header -->
+		<div id="header" class="app-header bg-gray-100">
+			<!-- BEGIN navbar-header -->
+			<div class="navbar-header">
+	
+
+				<a  class="navbar-brand" style="padding-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px;
+				">
+				  <img id="title_message" src="<%= asset_path('hitachi_logo_new.png') %>" alt="Nifty Logo" class="img-fluid" width="90%" height="40" >
+				</a>
+
+
+				<button type="button" class="navbar-mobile-toggler" data-toggle="app-sidebar-mobile">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- END navbar-header -->
+			<!-- BEGIN header-nav -->
+			<div class="navbar-nav">
+<!-- 				<div class="navbar-item navbar-form">
+					<form action="" method="POST" name="search">
+					<div class="form-group">
+					<input type="text" class="form-control bg-white" placeholder=" Transformador por Serie">
+					<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+					</div>
+					</form>
+				</div> -->
+
+				<div class="navbar-item dropdown">
+				
+				<a href="#" data-bs-toggle="dropdown" class="navbar-link dropdown-toggle icon">
+				<i class="fa-light fa-bell"></i>
+				<span class="badge"><%= @main_notifications_count= main_notifications.size %></span>
+				</a>
+				<div class="dropdown-menu media-list dropdown-menu-end" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 52px);">
+			    
+				<div class="dropdown-header">Notificaciones (<%= @main_notifications_count %>)</div>
+               
+                <% main_notifications.each do |user_notification| %>
+                <% cache user_notification do %>
+				<a href="<%= notification_management_user_notifications_path %>" class="dropdown-item media">
+			    
+				<div class="media-left">
+				 
+				<i class="fa-solid fa-transformer-bolt media-object bg-gray"></i>
+				</div>
+				<div class="media-body">
+				<h6 class="media-heading"><%= user_notification.transformer.num_serie  %></h6>
+				<p><%= user_notification.description.html_safe rescue "-" %></p>
+				<div class="text-muted fs-10px"><%= user_notification.str_date_notification %></div>
+				</div>
+				</a>
+				<% end %>
+			    <% end %>
+
+				<div class="dropdown-footer text-center">
+					<a href="<%= notification_management_user_notifications_path %>" class="text-decoration-none">Mostrar todos</a>
+				</div>
+				</div>
+				</div>
+
+				
+			 
+				<div class="navbar-item navbar-user dropdown">
+					<a href="#" class="navbar-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+						<% if current_user.avatar_url %>
+						  <%= image_tag current_user.avatar_url %>
+						<% else %>
+						  <div class="image image-icon bg-gray-800 text-gray-600">
+						    <i class="fa fa-user"></i>
+						  </div>
+						<% end %>
+						<span>
+							<span class="d-none d-md-inline"> <%= current_user.str_complete_name %></span>
+							<b class="caret"></b>
+						</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end me-1">
+						<a href="/forgot_password" class="dropdown-item">Cambiar Clave</a>
+						<a href="/signed_out" class="dropdown-item">Salir</a>
+					</div>
+				</div>
+			</div>
+			<!-- END header-nav -->
+		</div>
+		<!-- END #header -->
+
+		<!-- BEGIN #sidebar -->
+        <%= render :partial =>"layouts/app_sidebar" %>
+		<!-- END #sidebar -->
+		
+		<!-- BEGIN #content -->
+		<div id="content" class="app-content bg-white">
+			<!-- BEGIN breadcrumb -->
+			<ol class="breadcrumb float-xl-end">
+			  <li class="breadcrumb-item"><%= link_to 'Inicio', [:user_management,:authentications] %></li>
+			  <%= yield(:links) %> 
+			</ol>
+			<!-- END breadcrumb -->
+			<!-- begin main-content -->
+            <%= yield %>
+            <!-- end main-content -->
+		</div>
+		<!-- END #content -->
+		
+		<!-- BEGIN scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-gray btn-scroll-to-top" data-toggle="scroll-to-top">
+			<i class="fa fa-angle-up"></i>
+		</a>
+		<!-- END scroll to top btn -->
+	</div>
+	<!-- END #app -->
+  </body>
+</html>

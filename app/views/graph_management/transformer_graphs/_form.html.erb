@@ -1,0 +1,145 @@
+<%= form_for [:graph_management, @transformer_graph], :html => { 'data-parsley-validate' => "true", autocomplete: "off" } do |f| %>   
+  <!-- begin row -->
+  <div class="row">
+    <!-- begin col-6 -->
+    <div class="">
+      <!-- begin panel -->
+      <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+        
+        <!-- begin panel-heading -->
+        <div class="panel-heading">
+          <h4 class="panel-title">Información</h4>
+          <%#= render :partial => "layouts/panel_heading" %>
+        </div>
+        <!-- end panel-heading -->
+
+        <!-- begin alert -->
+        <% @transformer_graph.errors.each do |attr, message| %>
+          <div class="alert alert-danger">
+            <i class="ion-md-alert"></i> <%= message %>
+          </div>
+        <% end %>
+        <!-- end alert -->             
+
+        <!-- begin panel-body -->
+        <div class="panel-body">
+
+          <% if @transformer_graph.comment.present? %>
+            <div class="alert alert-info" role="alert">
+              Para renovar la licencia, debes ingresar a Quickchart Maker entrando al siguiente link:
+              <br>
+              <a href="https://quickchart.io/chart-maker/edit/<%= @transformer_graph.comment %>" 
+                 target="_blank" 
+                 class="alert-link">
+                https://quickchart.io/chart-maker/edit/<%= @transformer_graph.comment %>
+              </a> y luego click en el botón <code>Save as API Template</code> y copiar la licencia generada, la licencia empieza con <code>zm-</code>.
+            </div>
+          <% else %>
+            <div class="alert alert-info" role="alert">
+              Para generar la licencia, primero debes ingresar a 
+              <a href="https://quickchart.io/chart-maker/edit" 
+                 target="_blank" 
+                 class="alert-link">
+                Quickchart Maker
+              </a>, todas las licencias empiezan con <code>zm-</code>
+            </div>
+          <% end %>
+
+          <br>
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Licencia Quickchart (zm-xxxxx)</label>
+            <div class="col-md-8 col-sm-8">
+              <%= f.text_field :comment,
+                    class: 'form-control',
+                    id: 'transformer_graph_comment',
+                    'data-parsley-required': 'true',
+                    'data-parsley-pattern': '^zm-.*',
+                    'data-parsley-pattern-message': 'La licencia debe comenzar con "zm-"' %>
+            </div>
+          </div>
+
+          <br>
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Url de Edición Quickchart</label>
+            <div class="col-md-8 col-sm-8">
+              <%= f.text_field :url_graph_maker, class: 'form-control', 'data-parsley-required': "true", readonly: true %>
+            </div>
+          </div>
+
+          <br>
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Código en Reporte PDF</label>
+            <div class="col-md-8 col-sm-8">
+              <%= f.text_field :code_graph, class: 'form-control', 'data-parsley-required': "true", readonly: true %>
+            </div>
+          </div>
+
+        <% if @transformer_graph.persisted? %>
+          <br>
+          <div class="alert alert-warning">
+            Esta licencia fue generada el <strong><%= @transformer_graph.date_url_created&.strftime('%Y-%m-%d') %></strong> y expira el 
+            <strong><%= (@transformer_graph.date_url_created + @transformer_graph.day_expiration.days).strftime('%Y-%m-%d') %></strong>.
+            <br>
+            Se recomienda renovarla antes del día <strong><%= (@transformer_graph.date_url_created + 40.days).strftime('%Y-%m-%d') %></strong>.
+          </div>
+
+          <br>
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Fecha Licencia Generada</label>
+            <div class="col-md-8 col-sm-8 pt-2">
+              <p class="form-control-plaintext"><%= @transformer_graph.date_url_created&.strftime('%Y-%m-%d') %></p>
+            </div>
+          </div>
+        <% end %>
+
+
+          <br>
+          <div class="form-group row m-b-15">
+            <label class="col-md-4 col-sm-4 col-form-label">Descripción</label>
+            <div class="col-md-8 col-sm-8">
+              <%= f.text_field :description, class: 'form-control', 'data-parsley-required': "true" %>
+            </div>
+          </div>
+
+          <br>
+          <p align="center">
+            <%= f.submit "Guardar", class: 'btn bg-gray text-white rounded-pill' %>  
+            <%= link_to 'Regresar', [:graph_management, :transformer_graphs], class: "btn bg-gray text-white rounded-pill" %>
+          </p>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const commentField = document.getElementById('transformer_graph_comment');
+              const urlMakerField = document.getElementById('transformer_graph_url_graph_maker');
+              const codeGraphField = document.getElementById('transformer_graph_code_graph');
+              const dynamicLink = document.getElementById('dynamic_quickchart_link');
+
+              commentField.addEventListener('input', function () {
+                const license = commentField.value.trim();
+
+                if (license.startsWith("zm-")) {
+                  const editUrl = `https://quickchart.io/chart-maker/edit/${license}`;
+                  const renderUrl = `https://quickchart.io/chart/render/${license}`;
+
+                  urlMakerField.value = editUrl;
+                  codeGraphField.value = renderUrl;
+
+                  dynamicLink.href = editUrl;
+                  dynamicLink.textContent = editUrl;
+                } else {
+                  dynamicLink.href = "#";
+                  dynamicLink.textContent = "https://quickchart.io/chart-maker/edit/zm-xxxxx";
+                }
+              });
+            });
+          </script>
+
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end panel -->
+    </div>
+    <!-- end col-6 -->
+  </div>
+  <!-- end row -->
+<% end %>

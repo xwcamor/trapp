@@ -1,0 +1,166 @@
+<!-- Styles -->
+<style>
+#chartdiv4 {
+  width: 100%;
+  height: 250px;
+  max-width: 100%;
+</style>
+
+<!-- Resources -->
+ 
+<!-- Chart code -->
+<script>
+am5.ready(function fn4() {
+am5.addLicense('<%= amchart_license %>');
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv4");
+
+var exporting = am5plugins_exporting.Exporting.new(root, {
+  menu: am5plugins_exporting.ExportingMenu.new(root, {})
+});
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+var data = [{
+  "gastext": "CO",
+  "gastext2": "Monóxido de Carbono",
+  "gaslimit": 0,
+  "gasvalue": <%= @mon %>
+},   {
+  "gastext": "H2",
+  "gastext2": "Hidrógeno",  
+  "gaslimit": 60,
+  "gasvalue": <%= @hid %>
+},   {
+  "gastext": "CH4",
+ "gastext2": "Metano",    
+  "gaslimit": 5,
+  "gasvalue": <%= @met %>
+},   {
+  "gastext": "C2H6",
+ "gastext2": "Etano",    
+  "gaslimit": 2,
+  "gasvalue": <%= @eta %>
+},   {
+  "gastext": "C2H4",
+ "gastext2": "Etileno",    
+  "gaslimit": 3,
+  "gasvalue": <%= @eti %>
+},   {
+  "gastext": " C2H2",
+ "gastext2": "Acetileno",    
+  "gaslimit": 30,
+  "gasvalue": <%= @ace %>
+}
+
+
+
+];
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+xRenderer.labels.template.setAll({
+ 
+  centerY: am5.p50,
+  centerX: am5.p100,
+  paddingRight: 5
+});
+
+
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "gastext",
+ renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {
+    themeTags: ["axis"],
+    animationDuration: 800
+  })
+}));
+
+
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+  min: 0,
+  renderer: am5xy.AxisRendererY.new(root, {})
+}));
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+
+var series0 = chart.series.push(am5xy.ColumnSeries.new(root, {
+ 
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "gaslimit",
+  categoryXField: "gastext",
+  clustered: false,
+  tooltip: am5.Tooltip.new(root, {
+    labelText: "Limite:  {valueY} % "
+  })
+}));
+
+series0.columns.template.setAll({
+  width: am5.percent(40),
+  tooltipY: 0
+});
+
+
+series0.data.setAll(data);
+
+
+var series1 = chart.series.push(am5xy.ColumnSeries.new(root, {
+ 
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "gasvalue",
+  categoryXField: "gastext",
+  clustered: false,
+  tooltip: am5.Tooltip.new(root, {
+    labelText: "{gastext2}: {valueY} % "
+  })
+}));
+
+series1.columns.template.setAll({
+  width: am5.percent(20),
+  tooltipY: 0
+});
+
+series1.data.setAll(data);
+
+var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+ 
+series0.appear();
+series1.appear();
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv4"></div>

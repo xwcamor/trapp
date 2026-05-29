@@ -1,0 +1,33 @@
+<textarea id="textarea_npsp2" name="transformer[rec_cro]" rows="12" class="form-control">
+<% if @transformer.rec_cro.nil? or @transformer.rec_cro.blank? or @transformer.rec_cro == ''%>
+<% if @chromatographical.present? %>
+<% if @chromatographical.iec_color_hidrogeno_report   == "success" &&
+      @chromatographical.iec_color_metano_report      == "success" &&
+      @chromatographical.iec_color_monocarbono_report == "success" &&
+      @chromatographical.iec_color_diocarbono_report  == "success" &&
+      @chromatographical.iec_color_etileno_report     == "success" &&
+      @chromatographical.iec_color_etano_report       == "success" &&
+      @chromatographical.iec_color_acetileno_report   == "success" %>
+Realizar siguiente análisis luego de doce meses ó de acuerdo con el plan de mantenimiento establecido.
+<% else %>
+Realizar siguiente análisis de gases disueltos luego de 6 meses.
+<% if @chromatographical.iec_color_monocarbono_report == "danger"  or
+      @chromatographical.iec_color_diocarbono_report  == "danger"  or 
+      @chromatographical.iec_color_monocarbono_report == "warning" or
+      @chromatographical.iec_color_diocarbono_report  == "warning" %>
+Adicionalmente complementar con el análisis de furanos.
+<% end %>
+<% end %>
+<% end %>  
+<% else %>
+<%= @transformer.rec_cro rescue "" %>
+<% end %>
+</textarea>  
+
+<script>
+function rm2() {
+ var ta2 = document.getElementById("textarea_npsp2");
+ ta2.value = ta2.value.replace(/^\s*|\s*$/g,"");   
+}
+window.onload=rm2();
+</script>   

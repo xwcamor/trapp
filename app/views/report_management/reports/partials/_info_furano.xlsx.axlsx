@@ -1,0 +1,40 @@
+wb.styles do |style|
+  style_head = style.add_style(b: true, sz: 14, alignment: { horizontal: :center }, bg_color: 'BFB9B9' )
+  style_body = style.add_style(b: false, sz: 14,alignment: { horizontal: :center } )
+
+  wb.add_worksheet(name: "Furanos") do |sheet|
+
+    sheet.add_row [
+    'NºSerie',
+    'TAG',  
+    'Fecha',
+    '2-Furfuraldehido (ppb)',
+    '5-Hidroxi-Metil-Furfuraldehido (ppb)',
+    '2-Acetilfurano (ppb)',
+    '5-Metil-2-Furfuraldehido (ppb)',
+    '2-Furfuril Alcohol (ppb)',
+    'Grado de Polimerización (GP)'
+    ], style: style_head
+
+    @report_details = ReportDetail.where("report_id = ?",@report.id)
+
+    @report_details.each do |report_detail|
+      report_detail.transformer.furanos.where("deleted=0").order("date_rehearsal DESC").each do |furano|
+
+        sheet.add_row [
+         furano.transformer.num_serie,
+         furano.transformer.num_tag,      
+         furano.str_date_rehearsal,
+         furano.num_fal,
+         furano.num_hme,
+         furano.num_ace,
+         furano.num_mfu,
+         furano.num_fua,
+         furano.shendong
+        ], style: style_body
+      end
+    end
+
+  end
+
+end

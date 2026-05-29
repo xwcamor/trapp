@@ -1,0 +1,170 @@
+<%= form_for [:transformer_management, @transformer],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off"} do |f| %> 
+<%#= f.text_area :cro_   %>
+<!-- begin form -->
+ 
+<h4 class="modal-title">Editar Reporte de la Serie: <%= @transformer.num_serie.upcase %> </h4>
+<div class="alert alert-primary alert-dismissible fade show h-100 mb-0">
+  <i class="fa fa-lightbulb" aria-hidden="true"></i> Para reducir el tamaño del espacio entre párrafos use la tecla SHIFT + ENTER .
+</div>
+
+
+<% if @chromatographical_count > 0 %> 
+
+
+<br>      
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-3 col-sm-4 col-form-label">
+        <b>Conclusiones de Cromatográfico</b>
+        <br><br>
+        <%if @transformer.con_cro.nil? or @transformer.con_cro.blank? or @transformer.con_cro == "" %>
+         <div class="bg-gray-200">Se está usando los valores predeterminados</div>
+        <% else %>
+         <div class="bg-warning">Se está usando los datos actuales</div>
+        <% end %>
+
+      </label>
+    	<div class="col-md-9 col-sm-8">
+        <%= render :partial =>"transformer_management/transformers/partials/form_report_conclusion_croma" %> 
+    	</div>
+    </div>
+  </div>  
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-3 col-sm-4 col-form-label">
+        <b>Recomendaciones de Cromatográfico</b>
+
+        <br><br>
+        <%if @transformer.rec_cro.nil? or @transformer.rec_cro.blank? or @transformer.rec_cro == "" %>
+         <div class="bg-gray-200">Se está usando los valores predeterminados</div>
+        <% else %>
+         <div class="bg-warning">Se está usando los datos actuales</div>
+        <% end %>
+      </label>
+    	<div class="col-md-9 col-sm-8">
+        <%= render :partial =>"transformer_management/transformers/partials/form_report_recommend_croma" %> 
+    	</div>
+    </div>
+  </div>  
+</div>  
+
+
+<% @chromatographical = Chromatographical.where("deleted=0 AND transformer_id = ?", @transformer.id).order("date_rehearsal DESC").first %>
+<% if @chromatographical.present? %>
+  <% if @chromatographical.iec_color_hidrogeno_report   == "success" &&
+             @chromatographical.iec_color_metano_report      == "success" &&
+             @chromatographical.iec_color_monocarbono_report == "success" &&
+             @chromatographical.iec_color_diocarbono_report  == "success" &&
+             @chromatographical.iec_color_etileno_report     == "success" &&
+             @chromatographical.iec_color_etano_report       == "success" &&
+             @chromatographical.iec_color_acetileno_report   == "success" %>
+             <% @croma_ok = 1%>
+  <% end %>
+<% end %>
+
+
+<% if @croma_ok.to_i != 1%>
+
+<% @duval = ChromatographicalDuval.where("transformer_id = ?",@transformer.id).first %>    
+<% @triangle1 = Duval.where("duval_type_id = 1 AND graph_type = 1 AND short_name = '#{@duval.triangle_diag_first }'").first  %>
+<% @pentagon1 = Duval.where("duval_type_id = 2 AND graph_type = 3 AND short_name = '#{@duval.pentagon_diag_first }'").first  %>
+<% @tri1 = @triangle1.name %>
+<% @pen1 = @pentagon1.name %>
+<br>   
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-4 col-sm-4 col-form-label">
+        <b>Cambiar Imagen de Triángulo Duval (Opcional)</b></label>
+      <div class="col-md-5 col-sm-8">
+         <%= f.file_field :duval_triangle_first_image, class: 'input-sm validate[optional]'  %>
+      </div>
+    </div>
+  </div>  
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-4 col-sm-4 col-form-label"><b>Resultado de Triángulo Duval</b></label>
+      <div class="col-md-5 col-sm-8  col-form-label">
+        <%= @tri1 %> <a href="/duval_management/transformer/<%= @transformer.id %>/last_triangle_graphs"><i class="fa fa-pencil"></i></a>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<br>    
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-4 col-sm-4 col-form-label"><b>Cambiar Imagen de Pentágono Duval (Opcional)</b></label>
+      <div class="col-md-5 col-sm-8">
+         <%= f.file_field :duval_pentagon_first_image, class: 'input-sm validate[optional]'  %>
+      </div>
+    </div>
+  </div>            
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-4 col-sm-4 col-form-label"><b>Resultado de Pentágono Duval</b></label>
+      <div class="col-md-5 col-sm-8 col-form-label">
+         <%= @pen1 %> <a href="/duval_management/transformer/<%= @transformer.id %>/last_pentagon_graphs"><i class="fa fa-pencil"></i>         </a>
+      </div>
+    </div>
+  </div>  
+</div>
+<% end %>
+
+<% end %>
+
+
+<br> 
+<% if @physical_count > 0 %>
+<hr>
+<br>      
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-3 col-sm-4 col-form-label">
+        <b>Conclusiones de Fisicoquímico</b>
+
+        <br><br>
+        <%if @transformer.con_fiq.nil? or @transformer.con_fiq.blank? or @transformer.con_fiq == "" %>
+         <div class="bg-gray-200">Se está usando los valores predeterminados</div>
+        <% else %>
+         <div class="bg-warning">Se está usando los datos actuales</div>
+        <% end %>
+      </label>
+      <div class="col-md-9 col-sm-8">
+        <%= render :partial =>"transformer_management/transformers/partials/form_report_conclusion_fiqui" %> 
+      </div>
+    </div>
+  </div>  
+  <div class="col-md-6">
+    <div class="form-group row m-b-15">
+      <label class="col-md-3 col-sm-4 col-form-label">
+        <b>Recomendaciones de Fisicoquímico</b>
+        
+        <br><br>
+        <%if @transformer.rec_fiq.nil? or @transformer.rec_fiq.blank? or @transformer.rec_fiq == "" %>
+         <div class="bg-gray-200">Se está usando los valores predeterminados</div>
+        <% else %>
+         <div class="bg-warning">Se está usando los datos actuales</div>
+        <% end %>
+      </label>
+      <div class="col-md-9 col-sm-8">
+        <%= render :partial =>"transformer_management/transformers/partials/form_report_recommend_fiqui" %> 
+      </div>
+    </div>
+  </div>  
+</div>  
+<% end %>
+ 
+<br>
+<div class="text-center">
+  <%= button_tag( :class => "btn btn-gray text-white   me-1 mb-3 rounded-pill",:'data-method' =>:delete,:'data-confirm' => "Se reemplazarán los datos del reporte actual, ¿Está realmente seguro de continuar?") do %>
+     <i class='fa-solid fa-pencil'></i> Guardar Cambios del Reporte
+  <% end %>        
+</div>
+<!-- end form --> 
+<% end %> 
+

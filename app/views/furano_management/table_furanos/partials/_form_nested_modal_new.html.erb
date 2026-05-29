@@ -1,0 +1,50 @@
+<div class="row">                
+    <div class="table-responsive">
+      <table   id="furanos"  class="table table-striped align-middle">
+        <thead>
+          <tr class="text-center">
+            <th>Fecha</th>
+            <th>2-Furfuraldehido<br> ppb</th>
+            <th>5-Hidroxi-Metil-Furfuraldehido <br> ppb</th>
+            <th>2-Acetilfurano<br> ppb</th>
+            <th>5-Metil-2-Furfuraldehido<br> ppb</th>
+            <th>2-Furfuril Alcohol<br> ppb</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= f.fields_for :furanos, f.object.furanos.where('deleted=0').order('date_rehearsal DESC'), :wrapper => false do |nested_form| %>
+          <tr class="fields">
+            <td>
+              <% if @transformer.has_special_testing_fur == 0%>
+                <%= nested_form.date_field :date_rehearsal, class: 'form-control text-center','data-parsley-required'=>"true"  %>
+              <% else %>
+                <%= nested_form.datetime_field :date_rehearsal, class: 'form-control text-center','data-parsley-required'=>"true"  %>
+              <% end %>
+              
+
+            </td>
+            <td><%= nested_form.text_field :num_fal, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "2-Furfuraldehido" %> </td>
+            <td><%= nested_form.text_field :num_hme, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "5-Hidroxi-Metil-Furfuraldehido" %> </td>
+            <td><%= nested_form.text_field :num_ace, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "2-Acetilfurano" %> </td>
+            <td><%= nested_form.text_field :num_mfu, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "5-Metil-2-Furfuraldehido" %> </td>
+            <td><%= nested_form.text_field :num_fua, class: 'form-control text-center','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "2-Furfuril Alcohol" %> </td>
+            <td> 
+              <%= nested_form.select :deleted , [ ["<i class='fa-solid fa-floppy-disk'></i> Guardar".html_safe,0],["Eliminar",1] ],{}, class: 'form-control text-black'     %>
+              <%#= nested_form.link_to_remove "<i class='fa-solid fa-trash text-gray'></i>".html_safe %>
+            </td> 
+    
+          </tr>
+        <% end %>    
+        </tbody>
+      </table>
+    </div>
+
+</div>
+ 
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 100% !important; 
+}
+</style>

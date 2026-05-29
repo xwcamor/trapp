@@ -1,0 +1,186 @@
+<div class="row">
+      <table class="table table-sm pb-2" style="font-size: 10px;">
+        <tbody>
+          <% @transformer.chromatographicals.where("deleted=0").order("date_rehearsal DESC").first(1).each do |chromatographical|%>
+          <tr class="text-center">
+            <td class="border border-dark">
+             <b>Límites</b> 
+           </td>
+           <td class="border border-dark">
+             <em><b>Máx. <%= @hid_limit_tendence = chromatographical.iec_hidrogeno  rescue ""%> </b></em> 
+           </td>
+           <td class="border border-dark">
+             &nbsp; 
+           </td>
+           <td class="border border-dark">
+             &nbsp; 
+           </td>
+           <td class="border border-dark">
+             <em><b>Máx. <%= @met_limit_tendence = chromatographical.iec_metano  rescue ""%></b></em> 
+           </td>
+           <td class="border border-dark">
+            <em><b>Máx. <%= @mon_limit_tendence = chromatographical.iec_monocarbono  rescue ""%></b></em> 
+          </td>
+          <td class="border border-dark">
+            <em><b>Máx. <%= @dio_limit_tendence = chromatographical.iec_diocarbono  rescue ""%></b></em>
+          </td>
+          <td class="border border-dark">
+            <em><b>Máx. <%= @eti_limit_tendence = chromatographical.iec_etileno  rescue ""%></b></em>
+          </td>
+          <td class="border border-dark">
+            <em><b>Máx. <%= @eta_limit_tendence = chromatographical.iec_etano  rescue ""%></b></em>
+          </td>
+          <td class="border border-dark">
+            <em><b>Máx. <%= @ace_limit_tendence = chromatographical.iec_acetileno  rescue ""%></b></em>
+          </td>
+        </tr>
+        <% end %>
+
+        <tr class="text-center" style="background-color:#d9d9d9;">
+          <td class="border border-dark">
+            <br>
+            <b>Fecha</b> 
+          </td>
+          <td class="border border-dark">
+           <b>
+            Hidrógeno<br>
+            (H2)<br>
+          ppm  </b>
+        </td>
+        <td class="border border-dark">
+         <b>
+          Oxígeno<br>
+          O2<br>
+        ppm</b> 
+      </td>
+      <td class="border border-dark">
+        <b>Nitrógeno<br />
+          N2<br />
+        ppm</b> 
+      </td>
+      <td class="border border-dark">
+       <b>Metano<br />
+        CH4<br />
+      ppm</b> 
+    </td>
+    <td class="border border-dark">
+      <b>M. Carbono<br />
+        CO<br />
+      ppm</b> 
+    </td>
+    <td class="border border-dark">
+      <b>D. Carbono<br />
+        CO2<br />
+      ppm</b> 
+    </td>
+    <td class="border border-dark">
+      <b>Etileno<br />
+        C2H4<br />
+      ppm</b> 
+    </td>
+    <td class="border border-dark">
+      <b>Etano<br />
+        C2H6<br />
+      ppm</b> 
+    </td>
+    <td class="border border-dark">
+      <b>Acetileno<br />
+        C2H2<br />
+      ppm</b> 
+    </td>
+  </tr>
+  <% @transformer.chromatographicals.where("deleted=0").limit(10).order("date_rehearsal DESC").each do |chromatographical|%>
+  <tr class="text-center">
+    <td class="border border-dark"> 
+      <%= chromatographical.str_date_rehearsal %>
+    </td>
+    <td class="border border-dark">           
+      <span class="text-<% if chromatographical.iec_color_hidrogeno_report == "warning" or chromatographical.iec_color_hidrogeno_report == "danger" %><%= chromatographical.iec_color_hidrogeno_report rescue "" %><% end %>"><%= chromatographical.num_hid %>
+      </span> 
+
+      <% if chromatographical.iec_color_hidrogeno_report == "warning" or chromatographical.iec_color_hidrogeno_report == "danger" %>
+       <% @error_hid = "error" %>
+      <% end %>
+
+    </td>     
+    <td class="border border-dark">
+      <%= chromatographical.num_oxi %>
+    </td>
+    <td class="border border-dark">
+      <%= chromatographical.num_nit %>
+    </td>         
+    <td class="border border-dark">
+      <span class="text-<% if chromatographical.iec_color_metano_report == "warning" or chromatographical.iec_color_metano_report == "danger" %><%= chromatographical.iec_color_metano_report rescue "" %><% end %>">
+        <%= chromatographical.num_met %>
+      </span>
+
+      <% if chromatographical.iec_color_metano_report == "warning" or chromatographical.iec_color_metano_report == "danger" %>
+       <% @error_met = "error" %>
+      <% end %>
+
+    </td>
+    <td class="border border-dark">
+      <span class="text-<% if chromatographical.iec_color_monocarbono_report == "warning" or chromatographical.iec_color_monocarbono_report == "danger" %><%= chromatographical.iec_color_monocarbono_report rescue "" %><% end %>">
+        <%= chromatographical.num_mon %>
+      </span>
+
+      <% if chromatographical.iec_color_monocarbono_report == "warning" or chromatographical.iec_color_monocarbono_report == "danger" %>
+       <% @error_mon = "error" %>
+      <% end %>
+
+    </td>
+    <td class="border border-dark">
+      <span class="text-<% if chromatographical.iec_color_diocarbono_report == "warning" or chromatographical.iec_color_diocarbono_report == "danger" %><%= chromatographical.iec_color_diocarbono_report rescue "" %><% end %>">
+        <%= chromatographical.num_dio %>
+      </span>
+
+      <% if chromatographical.iec_color_diocarbono_report == "warning" or chromatographical.iec_color_diocarbono_report == "danger" %>
+       <% @error_dio = "error" %>
+      <% end %>
+
+    </td>
+    <td class="border border-dark">
+      <span class="text-<% if chromatographical.iec_color_etileno_report == "warning" or chromatographical.iec_color_etileno_report == "danger" %><%= chromatographical.iec_color_etileno_report rescue "" %><% end %>">
+        <%= chromatographical.num_eti %>
+      </span>
+
+      <% if chromatographical.iec_color_etileno_report == "warning" or chromatographical.iec_color_etileno_report == "danger" %>
+       <% @error_eti = "error" %>
+      <% end %>
+
+    </td>
+    <td class="border border-dark">
+      <span class="text-<% if chromatographical.iec_color_etano_report == "warning" or chromatographical.iec_color_etano_report == "danger" %><%= chromatographical.iec_color_etano_report rescue "" %><% end %>">
+        <%= chromatographical.num_eta %>
+      </span>          
+
+      <% if chromatographical.iec_color_etano_report == "warning" or chromatographical.iec_color_etano_report == "danger" %>
+       <% @error_eta = "error" %>
+      <% end %>
+
+    </td>
+    <td class="border border-dark">             
+      <span class="text-<% if chromatographical.iec_color_acetileno_report == "warning" or chromatographical.iec_color_acetileno_report == "danger" %><%= chromatographical.iec_color_acetileno_report rescue "" %><% end %>">
+        <%= chromatographical.num_ace %>
+      </span>
+
+      <% if chromatographical.iec_color_acetileno_report == "warning" or chromatographical.iec_color_acetileno_report == "danger" %>
+       <% @error_ace = "error" %>
+      <% end %>
+
+    </td>
+  </tr>
+  <% end %>
+  <tr class="text-center">
+    <td colspan="10">
+      <% if @count_cromas.to_i > 10 %>
+        <em><b>Historial de los últimos gases disueltos en el aceite &ndash; Encabezado umbrales típicos de la IEC 60599.</b></em>   
+      <% else%>
+        <em><b>Historial de gases disueltos en el aceite &ndash; Encabezado umbrales típicos de la IEC 60599.</b></em>            
+      <% end%>
+    </td>
+  </tr>
+
+</tbody>
+</table> 
+</div> 

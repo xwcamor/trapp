@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+
+        <table id="data-table-buttonas2" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-center">Fecha</th>
+              <th class="text-center">Número Acido<br>mgKOH/g</th>
+              <th class="text-center">Factor de Potencia 25ºC.60HZ<br>%</th>
+              <th class="text-center">Rigidez Dieléctrica<br>KV/2.0 mm  </th>
+              <th class="text-center">Tensión Interfacial<br>mn/m </th>
+              <th class="text-center">Contenido Agua<br>ppm</th>
+              <th class="text-center">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @export_results.each do |physical| %>
+              <td class="text-nowrap text-center"><%= physical.str_date_rehearsal %></td>
+              <td class="text-nowrap text-center"><%= physical.num_acid %></td>
+              <td class="text-nowrap text-center"><%= physical.num_pot %></td>
+              <td class="text-nowrap text-center"><%= physical.num_rig %></td>
+              <td class="text-nowrap text-center"><%= physical.num_ten %></td>
+              <td class="text-nowrap text-center"><%= physical.num_wat %></td>
+              <td class="text-nowrap text-start"><%= physical.dgaf_condition %></td> 
+            
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>       
+  </body>
+</body>

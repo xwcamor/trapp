@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Secciones Iniciales</title>
+  <%= wicked_pdf_stylesheet_link_tag "report.css" %>
+  <style>
+    div.alwaysbreak { page-break-before: always; }
+   
+    .pdf-font-h1 { font-size: 20pt;font-weight: bold; }
+    .pdf-font-h2 { font-size: 18pt;font-weight: bold; }
+    .pdf-font-h3 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-h4 { font-size: 16pt;font-weight: bold; }
+    .pdf-font-content,
+    .pdf-font-content * {          /* el asterisco aplica a todos los descendientes */
+       font-size: 10pt !important;   /* !important por si otra regla trata de pisarla */
+     }
+    .pdf-font-content,
+    .pdf-font-content * {          /* el asterisco aplica a todos los descendientes */
+       font-size: 10pt !important;   /* !important por si otra regla trata de pisarla */
+     }     
+  </style>  
+</head>
+<body>
+  <h1 class="pdf-font-h1">7. Análisis Individual por Transformador</h1>
+  <% @transformer = transformer %> <!-- para usar en partials -->
+
+      <% @chromatographical = transformer.chromatographicals.where(deleted: 0).order("date_rehearsal DESC").first %>
+
+      <% gases_ok = [
+                        @chromatographical&.iec_color_hidrogeno_report,
+                        @chromatographical&.iec_color_metano_report,
+                        @chromatographical&.iec_color_monocarbono_report,
+                        @chromatographical&.iec_color_diocarbono_report,
+                        @chromatographical&.iec_color_etileno_report,
+                        @chromatographical&.iec_color_etano_report,
+                        @chromatographical&.iec_color_acetileno_report
+                      ].all? { |val| val == 'success' } %>
+
+      <% @last_chromatographical_dga_diag = ChromatographicalDgaDiag.find_by(transformer_id: transformer.id) %>
+      <% @physical = transformer.physicals.where(deleted: 0).order("date_rehearsal DESC").first %>
+       
+      <% @chromatographical_charts = Chromatographical.where("transformer_id = #{transformer.id}").order("date_rehearsal ASC").last(5) %>
+   
+      <% @count_cromas = transformer.chromatographicals.where(deleted: 0).size %>
+      <% @count_fiquis = transformer.physicals.where(deleted: 0).size %>
+     
+      <!-- INICIO DE TRAFO -->
+      <h2 class="pdf-font-h2">7.<%= index +1 %>
+           Serial: <%= transformer.num_serie %> |
+           <%= transformer.num_tag %> | 
+           Marca: <%= transformer.mark.name %> |
+           <%= transformer.num_pot %> MVA |
+           <%= transformer.num_vol %> KV |
+           <%= transformer.age %></h2>
+   
+      <% if @count_cromas > 0 %>
+        <h3 class="pdf-font-h3">Análisis Cromatográfico - <%= transformer.num_serie %></h3>
+        <div class="pdf-font-content">
+          <%= render partial: "transformer_management/transformers/partials_report/croma_data", locals: { transformer: transformer } %>
+        </div>
+
+        <div class="alwaysbreak"></div>
+
+        <h4 class="pdf-font-h4">Tendencias del Análisis Cromatográfico - <%= transformer.num_serie %></h4>
+        <div class="pdf-font-contentx">
+          <%= render partial: "transformer_management/transformers/partials_report/croma_tendences", locals: { transformer: transformer }  %>
+        </div>
+
+        <div class="alwaysbreak"></div>
+      <% end %>
+
+      <% unless gases_ok %>
+        <h4 class="pdf-font-h4">Diagnóstico Duval - <%= transformer.num_serie %></h4>
+        <div class="pdf-font-content">
+          <%= render partial: "transformer_management/transformers/partials_report/duval_data", locals: { transformer: transformer } %>
+        </div>
+
+        <div class="alwaysbreak"></div>
+      <% end %>
+
+
+      <% if @count_fiquis > 0 %>
+        <h3 class="pdf-font-h3">Análisis Físico Químico - <%= transformer.num_serie %></h3>
+        <div class="pdf-font-content">
+         <%= render partial: "transformer_management/transformers/partials_report/fiqui_data", locals: { transformer: transformer } %>
+        </div>
+
+        <div class="alwaysbreak"></div>
+
+        <h4 class="pdf-font-h4">Tendencias del Análisis Físico Químico - <%= transformer.num_serie %></h4>
+        <div class="pdf-font-contentx">
+          <%= render partial: "transformer_management/transformers/partials_report/fiqui_tendences", locals: { transformer: transformer } %>
+        </div>
+
+        <div class="alwaysbreak"></div>
+      <% end %>
+
+      <h3 class="pdf-font-h3">Análisis del Transformador - <%= transformer.num_serie %></h3>
+      <div class="pdf-font-content">
+        <%= render partial: "transformer_management/transformers/partials_report/analysis_data", locals: { transformer: transformer } %>
+      </div>
+      
+      <% if index < @transformers.size - 1 %>
+        <div class="alwaysbreak"></div>
+      <% end %>
+
+</body>
+</html>

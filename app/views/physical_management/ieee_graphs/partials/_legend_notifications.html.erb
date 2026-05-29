@@ -1,0 +1,31 @@
+<!-- required files -->
+<link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+<script src="/assets/plugins/gritter/js/jquery.gritter.js"></script>
+
+<script>
+var handleDashboardGritterNotification = function() {
+  setTimeout(function() {
+    $.gritter.add({
+      title: '<i class="fa fa-flask"></i> Análisis Físico Químico <br><br>  Información según la Norma IEEE ',
+      text: '',
+      //image: '/assets/img/notifications/cromatologia.jpg',
+      sticky: false,
+      time: '',
+      class_name: 'gritter-black'
+    });
+  }, 25);
+};
+ 
+
+$(document).ready(function not1() {
+  handleDashboardGritterNotification();
+ 
+  
+});
+</script>
+<style>
+/* the norm 
+#gritter-notice-wrapper {
+  width:300px !important; ;
+}*/
+</style>

@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+
+render :partial => 'report_management/reports/partials/info_transformer', :locals => {:wb => wb}
+
+render :partial => 'report_management/reports/partials/info_chromatographical', :locals => {:wb => wb}
+
+render :partial => 'report_management/reports/partials/info_physical', :locals => {:wb => wb}
+
+render :partial => 'report_management/reports/partials/info_furano', :locals => {:wb => wb}

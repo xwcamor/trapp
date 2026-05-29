@@ -1,0 +1,45 @@
+ 
+<% @list_chromatographicals.each do |array| %>
+    { 
+  	  "id":<%= array.id %>,
+  	  "transformer_id":<%= array.transformer_id %>,
+   	  "str_date_rehearsal":"<%= array.str_date_rehearsal %>",
+	    "triangle_type":"triangle_MEA",  	  
+  	  "num_met":<%= array.num_met %>,
+  	  "num_eti":<%= array.num_eti %>,
+      "num_ace":<%= array.num_ace %>,
+      "tr1_met_percent": <%= array.tr1_met_percent %>,
+      "tr1_eti_percent": <%= array.tr1_eti_percent %>,
+      "tr1_ace_percent": <%= array.tr1_ace_percent %>            
+ 	},
+<% end %>
+
+<% @list_chromatographicals.each do |array| %>
+    { 
+  	  "id":<%= array.id %>,
+  	  "transformer_id":<%= array.transformer_id %>,
+  	  "str_date_rehearsal":"<%= array.str_date_rehearsal %>",
+	    "triangle_type":"triangle_HME",  	  
+  	  "num_hid":<%= array.num_hid %>,
+  	  "num_met":<%= array.num_met %>,
+      "num_eta":<%= array.num_eta %>,
+      "tr2_hid_percent": <%= array.tr2_hid_percent %>,
+      "tr2_met_percent": <%= array.tr2_met_percent %>,
+      "tr2_eta_percent": <%= array.tr2_eta_percent %>  
+ 	},
+<% end %>
+
+<% @list_chromatographicals.each do |array| %>
+    { 
+  	  "id":<%= array.id %>,
+  	  "transformer_id":<%= array.transformer_id %>,
+  	  "str_date_rehearsal":"<%= array.str_date_rehearsal %>",
+	    "triangle_type":"triangle_MEE",  	  
+  	  "num_met":<%= array.num_met %>,
+  	  "num_eti":<%= array.num_eti %>,
+      "num_eta":<%= array.num_eta %>,
+      "tr3_met_percent": <%= array.tr3_met_percent %>,
+      "tr3_eti_percent": <%= array.tr3_eti_percent %>,
+      "tr3_eta_percent": <%= array.tr3_eta_percent %>        
+ 	},
+<% end %>

@@ -1,0 +1,126 @@
+<%= form_for [:user_management, @profile],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-12 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Nombre</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :name, class: 'form-control','data-parsley-required'=>"true"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Descripción</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :description, class: 'form-control','data-parsley-required'=>"true"  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Paises</label>
+          <div class="col-md-8 col-sm-8">
+              <%#= f.text_field :profile_country_id, class: 'form-control','data-parsley-required'=>"true"  %>
+
+         <input type="checkbox" id="checkbox" > Seleccionar Todos
+        <%#= select_tag "user_customers", "<option value=\"\">Selleccione por favor</option>".html_safe+options_for_select(@customers.collect{ |e| [e.name.to_s,e.id] },params[:user_customers].to_a),class: "multiple-select2",'data-parsley-required'=>"true",:id=>"select-required2" ,multiple: true %>
+        <%= f.select :country_id, @countries.collect.collect {|p| [ p.name, p.id ] }, {include_hidden: false}, { class: 'multiple-select2',multiple: true ,'data-parsley-required'=>"true",style: "width: 691.078px;" }  %> 
+
+        <%#= f.select(:customer_id, Customer.all.collect {|a| [a.name, a.id]}, {include_hidden: false}, id: "user_customer_id", :multiple => true) %>
+      <script>
+      $("#checkbox").click(function(){
+          if($("#checkbox").is(':checked') ){
+              $("#profile_country_id > option").prop("selected","selected");
+              $("#profile_country_id").trigger("change");
+          }else{
+              $("#profile_country_id > option").removeAttr("selected");
+              $("#profile_country_id").trigger("change");
+           }
+      });
+      </script>   
+
+          </div>
+        </div>        
+        <br>
+        <p align="center">
+          <%= f.submit "Guardar", class: 'btn btn-primary' %>  
+          <%= link_to 'Regresar', [:user_management,:profiles], class: "btn btn-dark" %>
+        </p>
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-12 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-3">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Accesos</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <!-- begin row -->
+        <div class="row">    
+          <% @accesses.each do |access| %>
+          <div class="form-check col-3">
+          
+              <input id="access_<%= access[:parent].id %>" name="access_<%= access[:parent].id %>" type="checkbox" 
+              <% @px_access.each do |pa| %>   
+                <% if pa.access_id == access[:parent].id %>
+                  checked="checked"
+                <% end %> 
+              <% end %>                 
+              class="parentCheckBox" />Seleccionar Todos
+             
+              <%= text_field_tag "name",access[:parent].name.upcase, class: 'form-control ', readonly: 'true' %>
+              
+              <a onclick="document.getElementById('div_<%= access[:parent].id %>').style.display='';return false;"><i class="ion ion-ios-add-circle fa-1x fa-fw float-start me-8px text-black-lighter"></i></a>
+              <a onclick="document.getElementById('div_<%= access[:parent].id %>').style.display='none';return false;"><i class="ion ion-ios-remove-circle fa-1x fa-fw float-start me-8px text-black-lighter"></i></a>
+             
+              <div id="div_<%= access[:parent].id %>" style="display:non;">
+                <ul style="list-style: none;">
+                   <% access[:children].each do |grant|%>
+                    <li><input id="access_<%= grant.id %>" name="access_<%= grant.id %>" type="checkbox" 
+                    <% @access.each do |acc| %>   
+                      <% if acc.id == grant.id %>
+                        checked="checked"
+                      <% end %> 
+                    <% end %>     
+                    class="childCheckBox" /><%= grant.name  %></li>
+                    <% end %>
+                </ul>    
+             </div>
+          
+          </div>
+          <br/>
+          <% end %>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+ 
+</div>
+<!-- end row -->
+<% end %>

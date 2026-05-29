@@ -1,0 +1,20 @@
+<div class="row">
+  <!-- begin nav-->
+  <ul class="nav nav-tabs nav-tabs-inverse pt-1 pb-1">
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_customer_path(@customer.id) %>" class="nav-link <%= active_link_to_class(customer_management_customer_path(@customer), :active => :exclusive)  %> text- "><i class="fa-solid fa-circle-info"></i> Resumen </a>
+    </li>
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_customer_customer_locations_path(@customer.id) %>" class="nav-link <%= active_link_to_class(customer_management_customer_customer_locations_path(@customer.id), :active => :inclusive)  %> text- "><i class="fa fa-building"></i> Ubicaciones </a>
+    </li>
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_customer_customer_areas_path(@customer.id) %>" class="nav-link <%= active_link_to_class(customer_management_customer_customer_areas_path(@customer.id), :active => :inclusive)  %> text- "><i class="fa fa-buildings"></i> Áreas </a>
+    </li>        
+    <li class="nav-item ps-1">
+      <a href="<%= customer_management_customer_customer_substations_path(@customer.id) %>" class="nav-link <%= active_link_to_class(customer_management_customer_customer_substations_path(@customer.id), :active => :inclusive)  %> text- "><i class="fa fa-apartment"></i> Subestaciones </a>
+    </li>
+ 
+
+  </ul>
+  <!-- end nav-->
+</div>

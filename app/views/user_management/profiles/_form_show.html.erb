@@ -1,0 +1,99 @@
+<%= form_for [:user_management, @profile],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="col-xl-12 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Nombre</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :name, class: 'form-control','data-parsley-required'=>"true",:readonly => true  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Descripción</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :description, class: 'form-control','data-parsley-required'=>"true",:readonly => true  %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Paises</label>
+          <div class="col-md-8 col-sm-8">
+            <% @profile_countries = ProfileCountry.where("profile_id = ?",@profile.id)%>
+            <%= text_field_tag "name",@profile_countries.map { |e| e.country.name + "," }, class: 'form-control', readonly: 'true' %>
+
+              <%#= f.text_field :profile_country_id, class: 'form-control','data-parsley-required'=>"true"  %>
+
+       
+          </div>
+        </div>        
+        <br>
+        <p align="center">
+       
+          <%= link_to 'Regresar', [:user_management,:profiles], class: "btn btn-dark" %>
+        </p>
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  <!-- begin col-6 -->
+  <div class="col-xl-12 ui-sortable">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-3">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Accesos</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <!-- begin row -->
+        <div class="row">    
+          <% @profile_accesses = ProfileAccess.joins(:access).where("parent_id = 0 AND profile_id = ?",@profile.id) %>
+          <% @profile_accesses.each do |profile_access| %>
+          <div class="form-check col-3">
+             
+          
+             
+              <%= text_field_tag "name",profile_access.access.name, class: 'form-control', readonly: 'true' %>
+                
+                  
+                <div id="div_<%#= access[:parent].id %>" style="display:non;">
+                 <ul style="list-style: none;">
+                    <% @grants = Access.where("parent_id = ?",profile_access.access_id)%>
+                    <% @grants.each do |grant|%>
+                    <li> <%= grant.name  %></li>
+                    <% end %>
+                </ul>    
+                </div>
+              
+          </div>
+          <br/>
+          <% end %>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+</div>
+<!-- end row -->
+<% end %>

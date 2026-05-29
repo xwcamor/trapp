@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-4 pt-3"> 
+    <%= wicked_pdf_image_tag asset_url('hitachi_logo_new.png'),:width => "140",  :height=>"70" %>
+  </div>
+  <div class="col-4"></div>
+  <div class="col-4 text-right pt-3">  
+  	<% if @transformer.customer_substation.customer.avatar.present? %>
+    <%= wicked_pdf_image_tag asset_url( @transformer.customer_substation.customer.avatar_url),:width => "90",  :height=>"60"  %> 
+    <% end %>
+  </div>
+</div>
+
+

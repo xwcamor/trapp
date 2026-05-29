@@ -1,0 +1,58 @@
+<!-- ONLY DISPLAYS WITH EDIT CHROMA PERMISSION -->
+<% if @user_permission.include?(42) %>
+
+<!-- toggler -->
+<a href="#modal-dialog-tests" class="nav-link text-" data-bs-toggle="modal"data-backdrop="static"><i class="fa-solid fa-pencil"></i> Editar Formato de Pruebas</a>
+
+ <% @transformer = Transformer.find(@transformer.id) %>
+ 
+
+<!-- #modal-dialog -->
+<div class="modal fade" id="modal-dialog-tests"data-backdrop="static">
+  <div class="modal-dialog">
+    <%= form_for @transformer, :url => {:controller=>"transformer_management/transformers",:action => "update",:id =>@transformer.id },:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" },method: "patch" do |f| %> 
+    <div class="modal-content text-black">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar Formato de Pruebas Cromatografías</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-7"><b>Cromas con formato Fecha y Hora</b></div>
+          <div class="col-5"><%= f.check_box :has_special_testing_cro  %></div>
+        </div>  
+        <br><br>
+        <div class="row">
+          <div class="col-7"><b>FQ con formato Fecha y Hora</b></div>
+          <div class="col-5"><%= f.check_box :has_special_testing_fiq  %></div>
+        </div>  
+        <br><br>
+
+        <div class="row">
+          <div class="col-7"><b>Furano con formato Fecha y Hora</b></div>
+          <div class="col-5"><%= f.check_box :has_special_testing_fur %></div>
+        </div>  
+       
+
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Close</a>
+
+       <button name="button" type="submit" class="btn btn-success" data-bs-dismiss="modal">
+         <i class="fa-solid fa-floppy-disk"></i> Guardar Valores
+       </button>
+    
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+$('#modal-dialog').modal({backdrop: 'static', keyboard: false}, 'show');
+
+</script>
+
+<% end %>

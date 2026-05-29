@@ -1,0 +1,297 @@
+<div class="row">
+  <table class="table   pb-2" style="font-size: 10px;">
+    <tbody>
+<!--       <tr class="text-start">
+        <td class="border border-dark align-middle text-center">
+          <b> Análisis Fisicoquímico</b> 
+        </td>
+        <td class="border border-dark">
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_acid_report == "success"%>
+		  	Número Ácido se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_acid_report == "warning"%>
+		  	<b class="text-warning">Número Ácido se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_acid_report == "danger"%>
+		  	<b class="text-danger">Número Ácido excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li>    
+
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_pot_report == "success"%>
+		  	Factor de Potencia 25 °C. se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_pot_report == "warning"%>
+		  	<b class="text-warning">Factor de Potencia 25 °C. se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_pot_report == "danger"%>
+		  	<b class="text-danger">Factor de Potencia 25 °C. excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li>    
+		 
+		  <% if @physical.num_pot2.to_f > 0 %>
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_pot2_report == "success"%>
+		  	Factor de Potencia 100 °C. se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_pot2_report == "warning"%>
+		  	<b class="text-warning">Factor de Potencia 100 °C. se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_pot2_report == "danger"%>
+		  	<b class="text-danger">Factor de Potencia 100 °C. excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li>  
+		  <% end %>
+
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_rig_report == "success"%>
+		  	Rigidez Dieléctrica (kV/2.0mm) se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_rig_report == "warning"%>
+		  	<b class="text-warning">Rigidez Dieléctrica (kV/2.0mm) se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_rig_report == "danger"%>
+		  	<b class="text-danger">Rigidez Dieléctrica (kV/2.0mm) excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li> 
+
+		  <% if @physical.num_rig2.to_f > 0 %>
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_rig2_report == "success"%>
+		  	Rigidez Dieléctrica (kV/2.54mm) se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_rig2_report == "warning"%>
+		  	<b class="text-warning">Rigidez Dieléctrica (kV/2.54mm) se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_rig2_report == "danger"%>
+		  	<b class="text-danger">Rigidez Dieléctrica (kV/2.54mm) excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>	  			   
+		  </li>  		 
+		  <% end %>  	
+          
+          <% if @physical.transformer.oil_type_id == 1 or @physical.transformer.oil_type_id == 5 or @physical.transformer.oil_type_id == 6 %>
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_ten_report == "success"%>
+		  	Tensión Interfacial se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_ten_report == "warning"%>
+		  	<b class="text-warning">Tensión Interfacial se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_ten_report == "danger"%>
+		  	<b class="text-danger">Tensión Interfacial excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li>   
+		  <% end %>
+
+		  <li> 		  	 
+		  	<% if @physical.ieee_color_num_wat_report == "success"%>
+		  	Contenido de agua se encuentra en el rango de la Norma IEE C57.106. 
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_wat_report == "warning"%>
+		  	<b class="text-warning">Contenido de agua se acerca al límite del rango de la Norma IEE C57.106. </b>
+		  	<% end %>
+		  	<% if @physical.ieee_color_num_wat_report == "danger"%>
+		  	<b class="text-danger">Contenido de agua excede en el rango de la Norma IEE C57.106. </b>
+		  	<% end %>		  			   
+		  </li>  
+
+        </td>
+      </tr>   -->
+
+
+
+
+      <tr class="text-start">
+        <td class="border border-dark align-middle text-center">
+          <b>Conclusiones del Análisis Fisicoquímico</b> 
+        </td>
+        <td class="border border-dark">
+
+<%#         @physical.ieee_color_num_acid_report   == "success" &&
+            @physical.ieee_color_num_pot_report      == "success" &&
+            @physical.ieee_color_num_pot2_report == "success" &&
+            @physical.ieee_color_num_rig_report  == "success" &&
+            @physical.ieee_color_num_rig2_report     == "success" &&
+            @physical.ieee_color_num_ten_report       == "success" &&
+            @physical.ieee_color_num_wat_report   == "success" %>
+		<% if @transformer.con_fiq.blank? or @transformer.con_fiq.nil? or @transformer.con_fiq == ""  %>          
+			<!-- TODO OK -->
+			<% if  @physical.ieee_color_num_acid_report   == "success" &&
+			       @physical.ieee_color_num_pot_report    == "success" &&
+			       #@physical.ieee_color_num_pot2_report  == "success" &&
+			       @physical.ieee_color_num_rig_report    == "success" &&
+			       #@physical.ieee_color_num_rig2_report  == "success" &&
+			       @physical.ieee_color_num_ten_report    == "success" &&
+			       @physical.ieee_color_num_wat_report    == "success" %>
+			Los parámetros medidos en cada ensayo cumplen los requisitos mínimos para considerar la calidad del aceite dieléctrico en condiciones satisfactorias para continuar en servicio.
+			<% else %>
+
+				<!-- acid , pot, pot2 y ten  -->
+				<% if @physical.ieee_color_num_acid_report   == "danger" or
+					  @physical.ieee_color_num_pot_report    == "danger" or
+				      @physical.ieee_color_num_ten_report    == "danger" or
+ 					  @physical.ieee_color_num_acid_report   == "warning" or
+					  @physical.ieee_color_num_pot_report    == "warning" or
+				      @physical.ieee_color_num_ten_report    == "warning" %>
+			    Los siguientes parámetros medidos se asocian a indicios de envejecimiento y/o degradación del aceite dieléctrico:
+					<% if @physical.ieee_color_num_acid_report   == "danger" or
+					      @physical.ieee_color_num_acid_report   == "warning" %>	      
+					<li> Nº Ácido.</li>
+					<% end %>
+
+					<% if @physical.ieee_color_num_pot_report   == "danger" or 
+						  @physical.ieee_color_num_pot_report   == "warning" %>	      
+					<li> Factor de Potencia 25º. </li>
+					<% end %>
+
+					<% if @physical.num_pot2 == '' or @physical.num_pot2.nil? or @physical.num_pot2.blank? %>
+					<% else %>
+					<% if @physical.ieee_color_num_pot2_report   == "danger" or
+						  @physical.ieee_color_num_pot2_report   == "warning" %>	      
+					<li> Factor de Potencia 100º. </li>
+					<% end %>
+					<% end %>
+
+					<% if @physical.ieee_color_num_ten_report   == "danger" or
+					      @physical.ieee_color_num_ten_report   == "warning" %>	      
+					<li> Tensión Interfacial. </li>
+					<% end %>	
+				<br>	
+			    <% end %>
+
+				<!-- rig, rig2 y ten  -->
+				<% if @physical.ieee_color_num_rig_report   == "danger" or
+				      @physical.ieee_color_num_ten_report   == "danger" or
+				      @physical.ieee_color_num_rig_report   == "warning" or
+				      @physical.ieee_color_num_ten_report   == "warning" %>
+			        Los siguientes parámetros medidos se asocian a evidencia de contaminación del aceite:
+					<% if @physical.ieee_color_num_rig_report   == "danger" or
+						  @physical.ieee_color_num_rig_report   == "warning"%>	      
+					<li> Rigidez Dieléctrica (kV/2.0mm).</li>
+					<% end %>
+				
+					<% if @physical.num_rig2 == '' or @physical.num_rig2.nil? or @physical.num_rig2.blank? %>
+					<% else %>
+					<% if @physical.ieee_color_num_rig2_report   == "danger" or
+					      @physical.ieee_color_num_rig2_report   == "warning" %>	      
+					<li> Rigidez Dieléctrica (kV/2.54mm). </li>
+					<% end %>
+					<% end %>
+
+					<% if @physical.ieee_color_num_ten_report   == "danger" or
+						  @physical.ieee_color_num_ten_report   == "warning" %>	      
+					<li> Tensión Interfacial. </li>
+					<% end %>
+				 
+			    <% end %>
+			 
+			 
+			<% end %>
+
+ 	    <% else %>
+		  <%= simple_format(@transformer.con_fiq) %>
+		<% end %>
+
+        </td>        
+      </tr>
+      <tr class="text-start">
+        <td class="border border-dark align-middle text-center">
+          <b>Recomendaciones de Análisis Fisicoquímico</b> 
+         </td>
+        <td class="border border-dark">
+		<% if @transformer.rec_fiq.blank? or @transformer.rec_fiq.nil? or @transformer.rec_fiq == ""  %> 
+
+			<!-- TODO OK -->
+			<% if  @physical.ieee_color_num_acid_report   == "success" &&
+			       @physical.ieee_color_num_pot_report    == "success" &&
+			       #@physical.ieee_color_num_pot2_report  == "success" &&
+			       @physical.ieee_color_num_rig_report    == "success" &&
+			       #@physical.ieee_color_num_rig2_report  == "success" &&
+			       @physical.ieee_color_num_ten_report    == "success" &&
+			       @physical.ieee_color_num_wat_report    == "success" %>
+			Se sugiere realizar siguiente análisis Físico Químico cada 12 meses o de acuerdo con el plan de mantenimiento.
+
+			<% else %>
+			     Es necesario realizar la recuperación del aceite mediante el proceso de:
+				<!-- acid , pot, pot2 y ten  -->
+				<% if @physical.ieee_color_num_acid_report   == "danger" or
+					  @physical.ieee_color_num_pot_report    == "danger" or
+				      @physical.ieee_color_num_ten_report    == "danger" or
+				      @physical.ieee_color_num_acid_report   == "warning" or
+					  @physical.ieee_color_num_pot_report    == "warning" or
+				      @physical.ieee_color_num_ten_report    == "warning" %>
+
+					<% if @physical.ieee_color_num_acid_report   == "danger" or
+						  @physical.ieee_color_num_acid_report   == "warning"%>	      
+					  <% @recomendacion1 = "recomencacion1"%>
+					<% end %>
+
+					<% if @physical.ieee_color_num_pot_report   == "danger" or
+						  @physical.ieee_color_num_pot_report   == "warning" %>	      
+					  <% @recomendacion1 = "recomencacion1"%>
+					<% end %>
+
+					<% if @physical.num_pot2 == '' or @physical.num_pot2.nil? or @physical.num_pot2.blank? %>
+					<% else %>
+					<% if @physical.ieee_color_num_pot2_report   == "danger" or 
+						  @physical.ieee_color_num_pot2_report   == "warning" %>	      
+					  <% @recomendacion1 = "recomencacion1"%>
+					<% end %>
+					<% end %>
+
+					<% if @physical.ieee_color_num_ten_report   == "danger" or
+						  @physical.ieee_color_num_ten_report   == "warning" %>	      
+					  <% @recomendacion1 = "recomencacion1"%>
+					<% end %>	
+
+					<% if @recomendacion1.present?%>	
+					  <li>  Regeneración.</li>
+					<% end %>
+			 
+			    <% end %>
+
+				<!-- rig, rig2 y ten  -->
+				<% if @physical.ieee_color_num_rig_report   == "danger" or
+				      @physical.ieee_color_num_ten_report   == "danger" or
+				      @physical.ieee_color_num_rig_report   == "warning" or
+				      @physical.ieee_color_num_ten_report   == "warning" %>
+					<% if @physical.ieee_color_num_rig_report   == "danger" or
+					      @physical.ieee_color_num_rig_report   == "warning"  %>	      
+					  <% @recomendacion2 = "recomencacion2"%>
+					<% end %>
+				
+					<% if @physical.num_rig2 == '' or @physical.num_rig2.nil? or @physical.num_rig2.blank? %>
+					<% else %>
+					<% if @physical.ieee_color_num_rig2_report   == "danger" or
+						  @physical.ieee_color_num_rig2_report   == "warning"%>	      
+					  <% @recomendacion2 = "recomencacion2"%>
+					<% end %>
+					<% end %>
+
+					<% if @physical.ieee_color_num_ten_report   == "danger" or
+					      @physical.ieee_color_num_ten_report   == "warning" %>	      
+					  <% @recomendacion2 = "recomencacion2"%>
+					<% end %>
+
+					<% if @recomendacion2.present?%>	
+					  <li>   Termovacío.</li>
+					<% end %>
+				 
+			    <% end %>
+
+
+
+			<% end %>
+
+ 	    <% else %>
+		  <%= simple_format(@transformer.rec_fiq) %>
+		<% end %>
+
+
+  
+        </td>         
+      </tr>
+
+    </tbody>
+  </table>

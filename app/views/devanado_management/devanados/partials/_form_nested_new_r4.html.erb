@@ -1,0 +1,25 @@
+<div class="row">               
+    <div class="table-responsive">
+      <table id="devanado_details_r4" class="table table-hover align-middle">
+        <thead>
+          <tr class="text-center">
+            <th></th>
+            <% @template_selected = DevanadoTemplateTransformer.find_by_transformer_id(@transformer.id) %>
+            <% @template = DevanadoTemplate.find(@template_selected.devanado_template_id) %>
+            <% @template.devanado_template_details.where("devanado_flow_id = 4").each do |devanado_template_detail| %>
+            <th><%= devanado_template_detail.name %></th>
+            <% end%>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="fields4">
+            <input value="4" autocomplete="off" type="hidden" name="devanado[devanado_details_attributes][999002][devanado_flow_id]" id="devanado_devanado_details_attributes_999002_devanado_flow_id">
+            <td> </td>
+            <td><input class="form-control text-center" data-parsley-type="number" data-parsley-required="false" placeholder="Digitar Valor" type="text" name="devanado[devanado_details_attributes][999002][col1_val]" id="devanado_devanado_details_attributes_999002_col1_val"></td>
+            <td><input class="form-control text-center" data-parsley-type="number" data-parsley-required="false" placeholder="Digitar Valor" type="text" name="devanado[devanado_details_attributes][999002][col2_val]" id="devanado_devanado_details_attributes_999002_col2_val"></td>
+            <td><input class="form-control text-center" data-parsley-type="number" data-parsley-required="false" placeholder="Digitar Valor" type="text" name="devanado[devanado_details_attributes][999002][col3_val]" id="devanado_devanado_details_attributes_999002_col3_val"></td>
+          </tr>   
+        </tbody>
+      </table>
+    </div>
+</div> 

@@ -1,0 +1,27 @@
+<li class="<%= active_link_to_class(furano_management_transformer_furanos_path(@transformer), :active => :exclusive)  %>">
+  <a href="<%= furano_management_transformer_furanos_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-search"></i> Búsqueda</a> 
+</li>
+<li>
+  <a href="<%= furano_management_transformer_furanos_path(@transformer.id) %>" class="btn btn-default w-100 mb-2 text-start" ><i class="fa fa-broom"></i> Limpiar Búsqueda</a> 
+</li>    
+<li class="<%= active_link_to_class(new_furano_management_transformer_furano_path(@transformer), :active => :exclusive)  %>">
+  <% if @user_permission.include?(58) %>
+  <%= link_to "<i class='fa-solid fa-plus'></i> Crear Furano".html_safe, new_furano_management_transformer_furano_path(@transformer.id), { class: "btn btn-default w-100 mb-2 text-start" }   %> 
+  <% end %>
+</li>  
+<li>  
+  <% if @user_permission.include?(104) %>
+  <%= link_to "<i class='fa-solid fa-table-cells'></i> Modificar Tabla".html_safe,new_furano_management_transformer_table_furano_path(@transformer.id) , { class: "btn btn-default w-100 mb-2 text-start" } %>
+  <% end %>                    
+</li>  
+<li class="<%= active_link_to_class(furano_management_transformer_ieee_graphs_path(@transformer), :active => :exclusive)  %>">   
+  <% if @user_permission.include?(62) %>
+  <%= link_to "<i class='fa fa-chart-line'></i> Tendencia".html_safe, {:controller=>"furano_management/ieee_graphs",:action=>"index",:id=>params[:id] }, { class: "btn btn-default w-100 mb-2 text-start" }   %>    
+  <% end %>                       
+</li>
+
+<li>     
+  <% if @user_permission.include?(104) %>
+  <%= link_to "<i class='fa fa-upload '></i> Importar Datos".html_safe, new_furano_management_transformer_furano_upload_path(@transformer.id)  ,{ class: "btn btn-default w-100 mb-2 text-start"} %>
+  <% end %>                 
+</li>  

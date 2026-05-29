@@ -1,0 +1,86 @@
+<% title "Marcas" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-gear"></i> Marcas de Transformadores
+    <%= link_to "Nuevo",[:new_mark_management,:mark],{class: "btn btn-gray btn-xs"} %> 
+    </h4>
+    <h6>Total de Marcas: <%= @marks.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Listado de Marcas</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+         
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+             
+              <th class="text-nowrap">Nombre</th>
+              <th data-orderable="false" class="sorting_disabled"> </th>
+            </tr>
+            <tr>
+              
+              <th class="text-nowrap">Nombre</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @marks.each_with_index do |mark| %>
+            <tr>
+    
+              <td><%= mark.name %></td>
+              <td>
+                <%#= link_to "<i class='fa-solid fa-eye'></i>".html_safe, [:mark_management, mark] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+                <% if @user_permission.include?(75) %>
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, [:edit, :mark_management, mark] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+                <% if @user_permission.include?(76) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, [:mark_management, mark], method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+ 

@@ -1,0 +1,17 @@
+<% title "Ver" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<%= links  link_to 'Perfiles', [:user_management,:profiles] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Ver Perfil</h1>
+<!-- end page-header -->
+
+<!-- begin form-->
+<%= render 'form_show', profile: @profile %>
+<!-- end form-->
+
+<!-- begin layout-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/form_validation" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end layout-->

@@ -1,0 +1,89 @@
+<% title "Marcas" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-gear"></i> Gráficos Transformers
+    <%= link_to "Nuevo",[:new_graph_management,:transformer_graph],{class: "btn btn-gray btn-xs"} %> 
+    </h4>
+    <h6>Total de Marcas: <%= @transformer_graphs.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Listado de Marcas</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+         
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+             
+              <th class="text-nowrap">Descripcón</th>
+              <th class="text-nowrap">Licencia</th>
+              <th class="text-nowrap">F.Generada</th>
+              <th data-orderable="false" class="sorting_disabled"> </th>
+            </tr>
+            <tr>
+              <th class="text-nowrap">Descripcón</th>
+              <th class="text-nowrap">Licencia</th>
+              <th class="text-nowrap">F.Generada</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @transformer_graphs.each_with_index do |transformer_graph| %>
+            <tr>
+    
+              <td><%= transformer_graph.description %></td>
+              <td><%= transformer_graph.comment %></td>
+              <td><%= transformer_graph.str_vigence %></td>
+              <td>
+                <%#= link_to "<i class='fa-solid fa-eye'></i>".html_safe, [:mark_management, mark] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+                <% if @user_permission.include?(75) %>
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, [:edit, :graph_management, transformer_graph] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+                
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+
+ 

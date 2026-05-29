@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+
+<table id="data-table-buttons1" class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap">N°Serie</th>
+              <th class="text-nowrap">TAG</th>
+              <% if @condicion > 1 %>
+              <th class="text-nowrap">Cliente</th>
+              <% end %>
+              <th class="text-nowrap">Ubicación</th>
+              <th class="text-nowrap">área</th>
+              <th class="text-nowrap">Subestación</th>
+              <th class="text-nowrap">Voltaje<br> (Kv)</th>
+              <th class="text-nowrap">Potencia<br> (MVA)</th>
+              <th class="text-nowrap">Edad</th>              
+              <th class="text-nowrap">Marca</th>              
+              <th class="text-nowrap">Indice de Salud</th>
+              <th class="text-nowrap">Estado</th>      
+            </tr>
+          </thead>
+          <tbody>
+            <% @export_results.each do |transformer| %>
+            <tr>
+              <td><%= transformer.num_serie rescue "-"%></td>
+              <td><%= transformer.num_tag rescue "-"%></td>
+              <% if @condicion > 1 %>
+              <td><%= transformer.customer_substation.customer_area.customer_location.customer.name rescue "-" %></td>
+              <% end %>
+              <td><%= transformer.customer_substation.customer_area.customer_location.name rescue "-" %></td>
+              <td><%= transformer.customer_substation.customer_area.name rescue "-"%></td>
+              <td><%= transformer.customer_substation.name rescue "-"%></td>
+              <td><%= transformer.num_vol rescue "-"%></td>
+              <td><%= transformer.num_pot rescue "-"%></td>
+              <td><%= transformer.str_edad rescue "-"%></td>
+              <td><%= transformer.mark.name rescue "-"%></td>
+              <td> <span data-animation="number" data-value="<%#= transformer.hi_calculation_fin.round(0)  rescue "0"%>  "> 0</span> %</td>
+              <td><%#= transformer.hi_calculation_fin_color rescue '<i class="fa fa-circle fa-fw text-red me-2 fs-10px"></i>'.html_safe %></td>
+               
+
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+  </body>
+</body>

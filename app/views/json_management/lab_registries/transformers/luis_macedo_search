@@ -1,0 +1,122 @@
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tag %>
+
+ <html>
+<head>
+ 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body>
+
+
+<div>
+    <label>Seleccione Serie de Transformador</label>
+    <select id="usuarios" style="width: 350px;">
+        <option value="-1">Seleccione</option>
+    </select>
+</div>
+
+<div id="data"></div>
+
+<script type="text/javascript">
+    let json = [
+        {
+            "id": 1,
+            "customer_substation_id": 1,
+            "transformer_type_id": 1,
+            "connection_type_id": 1,
+            "conmutation_type_id": 1,
+            "transformer_preservation_id": 1,
+            "oil_type_id": 1,
+            "mark_id": 1,
+            "num_serie": "12085/01",
+            "num_tag": "12085/01",
+            "num_vol": "220.0",
+            "num_pot": "50.0",
+            "age": 2011,
+            "num_fas": null,
+            "num_tap": null,
+            "num_health": "0",
+            "state_health": "Muy Malo",
+            "color_health": "red",
+            "deleted": 0,
+            "created_at": "2022-04-19T15:10:01.000-05:00",
+            "updated_at": "2022-05-23T20:39:01.000-05:00"
+        },
+        {
+            "id": 6,
+            "customer_substation_id": 45,
+            "transformer_type_id": 1,
+            "connection_type_id": 1,
+            "conmutation_type_id": 2,
+            "transformer_preservation_id": 1,
+            "oil_type_id": 1,
+            "mark_id": 206,
+            "num_serie": "16766",
+            "num_tag": "TR1",
+            "num_vol": "146.0",
+            "num_pot": "62.5",
+            "age": 1998,
+            "num_fas": 1,
+            "num_tap": 10,
+            "num_health": "100",
+            "state_health": "Muy Bueno",
+            "color_health": "green",
+            "deleted": 0,
+            "created_at": "2022-04-26T11:01:19.000-05:00",
+            "updated_at": "2022-08-17T02:44:58.000-05:00"
+        } 
+    ]
+    let selectData = json.map(function (data) {
+        return {
+            id: data.id,
+            text: data.num_serie
+        }
+    })
+    $(window).on('load', function () {
+        $('select').select2({
+            data: selectData,
+            placeholder: {
+                id: '-1',
+                text: 'Selecione'
+            },
+            allowClear: true
+        });
+    });
+</script>
+
+<script type="module">
+    let getData = (value) => {
+        let info = json.filter((item) => {
+            return parseInt(item.id) === parseInt(value)
+        })
+        makeForm(info)
+    }
+
+    let makeForm = (info) => {
+        let template = ''
+        info.map((item) => {
+            template +=
+                "<label>ID</label><input type='text' value='" + item.id + "'><br>" +
+                "<label>Serie</label><input type='text' value='" + item.num_serie + "'><br>" +
+                "<label>Tag</label><input type='text' value='" + item.num_tag + "'><br>" +
+                "<label>Voltaje</label><input type='text' value='" + item.num_vol + "'><br>" +
+                "<label>Potencia</label><input type='text' value='" + item.num_pot + "'><br>" +
+                "<label>Año de Fabricación</label><input type='text' value='" + item.age + "'><br>"
+
+        })
+        document.getElementById("data").innerHTML = template;
+    }
+    
+    $("select").on("select2:select", function (e) {
+        var select_val = $(e.currentTarget).val();
+        console.log(select_val)
+        getData(select_val)
+    });
+
+</script>
+
+</body>
+</html>

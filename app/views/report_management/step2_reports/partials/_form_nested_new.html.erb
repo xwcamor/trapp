@@ -1,0 +1,74 @@
+<table id="example" class="table table-hover align-middle table-bordered">
+  <thead>
+    <tr valign="middle" align="center">
+      <th data-orderable="false" class="sorting_disabled sorting_asc" rowspan="1" colspan="1" aria-label="" style="width: 52px;"><input name="select_all" value="1" id="example-select-all" type="checkbox" class="form-check-input"></th>
+
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>    
+      <th>Tipo de Transformador</th>   
+      <th>Tipo de Conmutador</th>   
+      <th>Tipo de Conexión</th>       
+      <th>Tipo de Aceite</th>          
+      <th>Marca</th>   
+      <th>Sistema de Preservación</th>           
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+    </tr>
+    <tr valign="middle" align="center">
+      <td></td>
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>    
+      <th>Tipo de Transformador</th>   
+      <th>Tipo de Conmutador</th>   
+      <th>Tipo de Conexión</th>       
+      <th>Tipo de Aceite</th>          
+      <th>Marca</th>   
+      <th>Sistema de Preservación</th>           
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+    </tr>    
+  </thead>
+  <tbody>
+  
+    <% @list_transformers.each do |transformer| %>
+      
+    <% cache transformer do %>
+    <tr align="center">
+      <td>
+        <input id="transformer_<%= transformer.id %>" name="transformer_<%= transformer.id %>" type="checkbox" class="childCheckBox form-check-input" /> 
+      </td>
+      <td><%= transformer.num_serie rescue "-"%></td>
+      <td><%= transformer.num_tag rescue "-"%></td>      
+      <td><%= transformer.customer_substation.customer_area.customer_location.name.upcase rescue "-" %></td>
+      <td><%= transformer.customer_substation.customer_area.name.upcase rescue "-"%></td>
+      <td><%= transformer.customer_substation.name.upcase rescue "-"%></td>
+      <td><%= transformer.num_vol rescue "-"%></td>
+      <td><%= transformer.num_pot rescue "-"%></td>
+      <td><%= transformer.str_edad rescue "-"%></td>
+      <td><%= transformer.transformer_type.name.upcase rescue "-"%></td>
+      <td><%= transformer.conmutation_type.name.upcase rescue "-"%></td>
+      <td><%= transformer.connection_type.name.upcase rescue "-"%></td>
+      <td><%= transformer.oil_type.name.upcase rescue "-"%></td>
+      <td><%= transformer.mark.name.upcase rescue "-"%></td>
+      <td><%= transformer.transformer_preservation.name.upcase rescue "-"%></td>
+      <td><%= transformer.num_health %> %</td>
+      <td align="left"><i class="fa fa-circle fa-fw text-<%= transformer.color_health %> me-2 fs-10px"></i> <%= transformer.state_health  %> </td>
+    </tr>
+    <% end %>
+     
+    <% end %>
+    
+  </tbody>
+</table>

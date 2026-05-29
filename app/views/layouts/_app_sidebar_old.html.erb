@@ -1,0 +1,253 @@
+		<div id="sidebar" class="app-sidebar">
+			<!-- BEGIN scrollbar -->
+			<div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+				<!-- BEGIN menu -->
+				<div class="menu">
+					<div class="menu-profile">
+						<a href="javascript:;" class="menu-profile-link" data-toggle="app-sidebar-profile" data-target="#appSidebarProfileMenu">
+							<div class="menu-profile-cover with-shadow"></div>
+							<div class="menu-profile-image menu-profile-image-icon bg-gray-800 text-gray-600">
+								<% if current_user.avatar_url %>
+								  <%= image_tag current_user.avatar_url %>
+								<% else %>
+								  <i class="fa fa-user"></i>
+								<% end %>
+							</div>
+							<div class="menu-profile-info">
+								<div class="d-flex align-items-center">
+									<div class="flex-grow-1">
+										<%= current_user.name %> <%= current_user.lastname1 %>
+							      <small><%= current_user.profile.name %></small>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+ 
+					<div class="menu-header">Navegación</div>
+
+					<div class="menu-item <%= active_link_to_class(user_management_authentications_path :active => :inclusive)  %>">
+					  	<%= link_to(user_management_authentications_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-chart-pie"></i>
+							</div>
+							<div class="menu-text">Dashboard</div>
+					    <% end %>				    
+					</div>		  
+                    
+                    <% @search_transformer_per_user = SearchTransformerPerUser.where("user_id = ?",current_user.id) %>
+                    <% if @search_transformer_per_user.size > 0 %>
+					<div class="menu-item <%= active_link_to_class(user_management_search_transformer_per_users_path :active => :inclusive)  %>">
+					  	<%= link_to(user_management_search_transformer_per_user_path(@search_transformer_per_user.last), :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-chart-column"></i>
+							</div>
+							<div class="menu-text">Gráfica por Transformador</div>
+					    <% end %>				    
+					</div>	                    
+                    <% else %>
+					<div class="menu-item <%= active_link_to_class(user_management_search_transformer_per_users_path :active => :inclusive)  %>">
+					  	<%= link_to(new_user_management_search_transformer_per_user_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-chart-column"></i>
+							</div>
+							<div class="menu-text">Gráfica por Transformador</div>
+					    <% end %>				    
+					</div>	
+                    <% end %>
+
+                    <% if @user_permission.include?(24) %>
+					<div class="menu-item 
+					<%= active_link_to_class(customer_management_customers_path, :active => :inclusive)  %>
+					<%= active_link_to_class(customer_management_data_customers_path, :active => :inclusive)  %>
+					<%= active_link_to_class(customer_management_customer_locations_path, :active => :inclusive)  %>
+					<%= active_link_to_class(customer_management_customer_areas_path, :active => :inclusive)  %>
+					<%= active_link_to_class(customer_management_customer_substations_path, :active => :inclusive)  %>">
+					  	<%= link_to(customer_management_customers_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-users"></i>
+							</div>
+							<div class="menu-text">Clientes</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+                    
+				 
+
+        
+                    <% if @user_permission.include?(31) %>
+					<div class="menu-item <%= active_link_to_class(transformer_management_transformers_path, :active => :inclusive)  %>
+						<%= active_link_to_class(transformer_management_data_transformers_path, :active => :inclusive)  %>
+                    	<% if @transformer.nil? or params[:transformer_id].nil?%>
+                        <% else %>
+						<%= active_link_to_class(chromatographical_management_transformer_chromatographicals_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(chromatographical_management_transformer_iec_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(chromatographical_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(chromatographical_management_transformer_ieee_diags_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(chromatographical_management_transformer_posts_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(duval_management_transformer_triangle_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(duval_management_transformer_pentagon_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(duval_management_transformer_silicona_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(physical_management_transformer_physicals_path(@transformer), :active => :inclusive)  %>
+ 						<%= active_link_to_class(physical_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive)  %>						
+						<%= active_link_to_class(furano_management_transformer_furanos_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(furano_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(electrical_management_transformer_electricals_path(@transformer), :active => :inclusive)  %>
+						<%= active_link_to_class(factor_management_transformer_factors_path(@transformer), :active => :inclusive)  %> 										
+						<% end %>
+					    
+						<%# end %>
+						">
+					  	<%= link_to(transformer_management_transformers_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-transformer-bolt"></i>
+							</div>
+							<div class="menu-text">Transformadores</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+
+                   <% if @user_permission.include?(141) %>
+					<div class="menu-item 
+					    <%= active_link_to_class(report_management_reports_path , :active => :inclusive)  %>
+					    <%= active_link_to_class(report_management_admin_reports_path , :active => :inclusive)  %>
+						<%= active_link_to_class(report_management_step1_reports_path , :active => :inclusive)  %>
+						<%= active_link_to_class(report_management_step2_reports_path , :active => :inclusive)  %>
+                     	<% if @customer.nil? or params[:customer_id].nil?%>
+                        <% else %>
+                        <%= active_link_to_class(report_management_customer_step1_reports_path(@customer), :active => :inclusive)  %>
+						<%= active_link_to_class(report_management_customer_step2_reports_path(@customer), :active => :inclusive)  %>
+						<% end %>
+						">
+					  	<%= link_to(report_management_reports_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-file-chart-pie"></i>
+							</div>
+							<div class="menu-text">Reportes</div>
+					    <% end %>				    
+					</div>	
+					<% end %>                    
+
+                   <% if @user_permission.include?(117) %>
+					<div class="menu-item <%= active_link_to_class(notification_management_admin_user_notifications_path , :active => :inclusive)  %>">
+					  	<%= link_to(notification_management_admin_user_notifications_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-bell"></i>
+							</div>
+							<div class="menu-text">Notificaciones Admin</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                   
+                   <% if @user_permission.include?(123) %>
+					<div class="menu-item <%= active_link_to_class(notification_management_user_notifications_path , :active => :inclusive)  %>">
+					  	<%= link_to(notification_management_user_notifications_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-bell"></i>
+							</div>
+							<div class="menu-text">Notificaciones</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                    <% if @user_permission.include?(86) %>
+					<div class="menu-item <%= active_link_to_class(meeting_management_admin_meetings_path , :active => :inclusive)  %><%= active_link_to_class(meeting_management_admin_calendar_meetings_path , :active => :inclusive)  %>">
+					  	<%= link_to(meeting_management_admin_meetings_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-calendar-day"></i>
+							</div>
+							<div class="menu-text">Reuniones Admin</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                    <% if @user_permission.include?(131) %>
+					<div class="menu-item <%= active_link_to_class(meeting_management_meetings_path , :active => :inclusive)  %><%= active_link_to_class(meeting_management_calendar_meetings_path , :active => :inclusive)  %>">
+					  	<%= link_to(meeting_management_meetings_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-calendar-day"></i>
+							</div>
+							<div class="menu-text">Reuniones</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+
+                   <% if @user_permission.include?(106) %>
+					<div class="menu-item <%= active_link_to_class(newspaper_management_admin_newspapers_path , :active => :inclusive)  %>">
+					  	<%= link_to(newspaper_management_admin_newspapers_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-newspaper"></i>
+							</div>
+							<div class="menu-text">Novedades Admin</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+
+                   <% if @user_permission.include?(112) %>
+					<div class="menu-item <%= active_link_to_class(newspaper_management_newspapers_path , :active => :exclusive)  %>">
+					  	<%= link_to(newspaper_management_newspapers_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-newspaper"></i>
+							</div>
+							<div class="menu-text">Novedades</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                   <% if @user_permission.include?(147) %>
+					<div class="menu-item <%= active_link_to_class(audits_path , :active => :exclusive)  %>">
+					  	<%= link_to(audits_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-glasses"></i>
+							</div>
+							<div class="menu-text">Auditoría</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                    
+                    <% if @user_permission.include?(92) %>
+					<div class="menu-item 
+					    <%= active_link_to_class(configuration_management_configurations_path, :active => :inclusive) %> 
+						<%= active_link_to_class(mark_management_marks_path, :active => :inclusive) %>
+						<%= active_link_to_class(connection_type_management_connection_types_path, :active => :inclusive) %>
+						<%= active_link_to_class(user_management_users_path, :active => :inclusive) %>
+						<%= active_link_to_class(user_management_profiles_path, :active => :inclusive) %>
+						<%= active_link_to_class(user_management_accesses_path, :active => :inclusive) %>">
+					  	<%= link_to(configuration_management_configurations_path, :class => 'menu-link') do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-gears"></i>
+							</div>
+							<div class="menu-text">Configuración</div>
+					    <% end %>				    
+					</div>	
+					<% end %>
+
+                   
+					<div class="menu-item">
+					  	<%= link_to(root_url+'system/Manual_guia_de_usuario.pdf', :class => 'menu-link',target: '_blank',:title=>"Descargar") do %>
+							<div class="menu-icon">
+								<i class="fa-solid fa-book"></i>
+							</div>
+							<div class="menu-text">Manual de Uso</div>
+					    <% end %>				    
+					</div>	
+					 
+
+					<!-- BEGIN minify-button -->
+					<div class="menu-item d-flex">
+						<a href="javascript:;" class="app-sidebar-minify-btn ms-auto" data-toggle="app-sidebar-minify"><i class="fa-regular fa-arrow-left"></i> <div class="menu-text"> </div></a>
+					</div>
+					<!-- END minify-button -->
+					
+				</div>
+				<!-- END menu -->
+			</div>
+			<!-- END scrollbar -->
+		</div>
+		<div class="app-sidebar-bg"></div>
+		<div class="app-sidebar-mobile-backdrop"><a href="#" data-dismiss="app-sidebar-mobile" class="stretched-link"></a></div> 

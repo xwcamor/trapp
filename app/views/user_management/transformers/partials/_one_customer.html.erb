@@ -1,0 +1,18 @@
+<%= form_for @query, url: [:search_user_management,:transformers], html: { method: 'post'}  do %>  
+
+<div id="myModal">
+  <div class="form-group row m-b-15">
+    
+    <div class="col-9">
+       <%= select_tag "search_transformer" , "<option value=\"\">Todos</option>".html_safe+options_for_select(@registry_trafos_one.collect { |p| [p.num_serie, p.id] }, params[:search_transformer] )  , class: "default-select2 form-select", multiple: true %> 
+    </div>
+    <div class="col-3">
+      <%= button_tag(type: "submit", class: "btn btn-gray text-white rounded-pill ", title: "Buscar") do %>
+        <i class="fa fa-chart-line"></i> Mostrar Información 
+      <% end %>  
+    </div>	
+  </div>  
+</div>
+
+
+<% end %>

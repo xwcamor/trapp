@@ -1,0 +1,339 @@
+  <!--begin oil_type_id = 1 -->
+  <% if @transformer.oil_type_id == 1 %>    
+  <table  class="table table-responsive bg-white rounded-3">
+    <thead>
+      <tr>
+        <th class="text-nowrap text-start">Diagnóstico </th>
+        <th class="text-nowrap text-start">Resultado</th>    
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 
+      <tr>
+        <td class="text-nowrap text-start">Triangulo de duval</td>
+        <td class="text-nowrap text-start"><%# @duvals.where("duval_type_id = 1 AND graph_type = 1 AND short_name = ?",@chromatographical_duval.triangle_diag_first).each  do |dd| %><%#=  dd.name %><%# end %></td>
+      </tr>
+      <tr>
+        <td class="text-nowrap text-start">Pentágono de duval</td>
+        <td class="text-nowrap text-start"><%# @duvals.where("duval_type_id = 2 AND graph_type = 1 AND short_name = ?",@chromatographical_duval.pentagon_diag_second).each  do |de| %><%#=  de.name %><%# end %></td>
+      </tr> -->
+      <tr>
+        <td class="text-nowrap text-start">Ratios de Roger</td>
+        <td class="text-nowrap text-start"><%= @last_chromatographical.rogers_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+      </tr>
+      <tr>
+        <td class="text-nowrap text-start">Doernenburg</td>
+        <td class="text-nowrap text-start"><%= @last_chromatographical.doe_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+      </tr>
+      <tr>
+        <td class="text-nowrap text-start">IEC 60599</td>
+        <td class="text-nowrap text-start"><%= @last_chromatographical.iec_cases  rescue "Registar 1 Análisis Cromatográfico"%></td>
+      </tr>
+      <tr>
+        <td class="text-nowrap text-start">IEEE C57.104 (Estados) 
+        <%# if user_permission.include?(46) %>
+          <% @last_diag_ieee  =IeeeDiag.where("deleted= 0 AND state =0 AND transformer_id = ?",@transformer.id).last %>
+   
+          <% if IeeeDiag.where("deleted = 0 AND state =0 AND transformer_id = ?",@transformer.id).count < 1 %>
+            <% if @user_permission.include?(84) %>
+            <a href="<%= new_chromatographical_management_transformer_ieee_diag_path(@transformer.id) %>" class="btn btn-default rounded-pill btn-xs">
+              <i class="fa-solid fa-plus"></i> Tabla 4
+            </a> 
+            <% end %> 
+          <% else %>   
+            <% if @user_permission.include?(151) %>
+             <a href="<%= chromatographical_management_ieee_diag_path(@last_diag_ieee.id) %>" class="btn btn-default rounded-pill btn-xs">
+               <i class="fa-solid fa-plus"></i> Tabla 4
+             </a> 
+            <% end %> 
+          <% end %>       
+        <%# end %>
+
+        </td>
+        <td class="text-nowrap text-start">
+          <%= render :partial =>"chromatographical_management/ieee_diags/partials/diag_table4" %> 
+          <%= flash_messages %>
+        </td>      
+      <tr>
+        <td class="text-nowrap text-start">IEEE C57.104 (Diagnóstico)</td>
+      
+        <td class="text-nowrap text-start">
+          <div id="dga_result">
+          <%= render :partial =>"chromatographical_management/ieee_diags/partials/diag_table4_view_result" %> 
+          </div>
+        </td>
+      </tr>  
+    </tbody>
+  </table>  
+  <% end %>
+  <!--end oil_type_id = 1 -->
+  <!--begin oil_type_id = 4 -->
+  <% if @transformer.oil_type_id == 4 %>    
+  <table  class="table table-responsive bg-white rounded-3">
+    <thead>
+      <tr>
+        <th class="text-start">Parámetro </th>
+        <th class="text-center" colspan="3">Límite</th>
+        <th class="text-center">Valor</th>
+        <th class="text-center">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-start">Hidrógeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_hidrogeno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_hidrogeno == "yellow" or @last_chromatographical.ieee_color_hidrogeno == "red" %><%= @last_chromatographical.ieee_color_hidrogeno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_hid %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_hidrogeno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>
+      <tr>
+        <td class="text-start">Oxígeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end">-</td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center"><%= @last_chromatographical.num_oxi rescue "0" %></td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw   me-2 fs-15px"></i></td>
+      </tr>    
+      <tr>
+        <td class="text-start">Nitrógeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end">-</td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center"><%= @last_chromatographical.num_nit rescue "0" %></td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw   me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Metano</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_metano_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_metano == "yellow" or @last_chromatographical.ieee_color_metano == "red" %><%= @last_chromatographical.ieee_color_metano rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_met %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_metano rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>
+      <tr>
+        <td class="text-start">Monóxido de Carbono</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_monocarbono_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_monocarbono == "yellow" or @last_chromatographical.ieee_color_monocarbono == "red" %><%= @last_chromatographical.ieee_color_monocarbono rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_mon %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-nowrap text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_monocarbono rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Dióxido de Carbono</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_diocarbono_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_diocarbono == "yellow" or @last_chromatographical.ieee_color_diocarbono == "red" %><%= @last_chromatographical.ieee_color_diocarbono rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_dio %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_diocarbono rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>            
+      <tr>
+        <td class="text-start">Etileno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_etileno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_etileno == "yellow" or @last_chromatographical.ieee_color_etileno == "red" %><%= @last_chromatographical.ieee_color_etileno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_eti %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_etileno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Etano</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_etano_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_etano == "yellow" or @last_chromatographical.ieee_color_etano == "red" %><%= @last_chromatographical.ieee_color_etano rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_eta %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_etano rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>                   
+      <tr>
+        <td class="text-start">Acetileno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_acetileno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_acetileno == "yellow" or @last_chromatographical.ieee_color_acetileno == "red" %><%= @last_chromatographical.ieee_color_acetileno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_ace %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_acetileno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>      
+      <% @condition = GasKey.where('transformer_id = ?',@transformer.id).size %>
+      <% if @condition > 0 %>
+      <tr>
+        <td class="text-start">Gas Clave</td>   
+        <td class="text-start" colspan="5">
+            
+          <a href="<%= duval_management_transformer_silicona_graphs_path(@transformer) %>"   >
+            <i class="fa-solid fa-star text-yellow" title="Gas Clave"></i>
+          </a>          
+          <% @transformer.gas_keys.each do |a| %>
+            <%= a.str_gas_key %>
+          <% end %>
+        </td>                                    
+      </tr>
+      <% end %>
+    </tbody>
+  </table>  
+  <% end %>
+  <!--end oil_type_id = 4 -->
+  <!--begin oil_type_id = 5,6 -->
+  <% if @transformer.oil_type_id == 5 or @transformer.oil_type_id == 6 %>    
+  <table  class="table table-responsive bg-white rounded-3">
+    <thead>
+      <tr>
+        <th class="text-start">Parámetro </th>
+        <th class="text-center" colspan="3">Límite</th>
+        <th class="text-center">Valor</th>
+        <th class="text-center">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-start">Hidrógeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_hidrogeno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_hidrogeno == "yellow" or @last_chromatographical.ieee_color_hidrogeno == "red" %><%= @last_chromatographical.ieee_color_hidrogeno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_hid  rescue "0" %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_hidrogeno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>
+      <tr>
+        <td class="text-start">Oxígeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end">-</td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center"><%= @last_chromatographical.num_oxi rescue "0"%></td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw   me-2 fs-15px"></i></td>
+      </tr>    
+      <tr>
+        <td class="text-start">Nitrógeno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end">-</td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center"><%= @last_chromatographical.num_nit rescue "0"%></td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw   me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Metano</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_metano_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_metano == "yellow" or @last_chromatographical.ieee_color_metano == "red" %><%= @last_chromatographical.ieee_color_metano rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_met rescue "0" %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_metano rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>
+      <tr>
+        <td class="text-start">Monóxido de Carbono</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_monocarbono_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_monocarbono == "yellow" or @last_chromatographical.ieee_color_monocarbono == "red" %><%= @last_chromatographical.ieee_color_monocarbono rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_mon  rescue "0"%>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-nowrap text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_monocarbono rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Dióxido de Carbono</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end">-</td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center"><%= @last_chromatographical.num_dio  rescue "0" %></td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw  me-2 fs-15px"></i></td>
+      </tr>            
+      <tr>
+        <td class="text-start">Etileno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_etileno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_etileno == "yellow" or @last_chromatographical.ieee_color_etileno == "red" %><%= @last_chromatographical.ieee_color_etileno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_eti rescue "0" %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_etileno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>     
+      <tr>
+        <td class="text-start">Etano</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_etano_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_etano == "yellow" or @last_chromatographical.ieee_color_etano == "red" %><%= @last_chromatographical.ieee_color_etano rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_eta rescue "0" %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_etano rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>                   
+      <tr>
+        <td class="text-start">Acetileno</td>
+        <td class="text-start">Máx.</td>      
+        <td class="text-end"><span data-animation="number" data-value="<%= @last_chromatographical.ieee_acetileno_tabla1 rescue ""  %>"> 0</span></td>
+        <td class="text-start">  ppm <span class="badge bg-gray rounded-pill"></span></td>
+        <td class="text-center">
+          <% if @transformer.chromatographicals.where("deleted= 0").size > 0 %>
+          <div class="alert-<% if @last_chromatographical.ieee_color_acetileno == "yellow" or @last_chromatographical.ieee_color_acetileno == "red" %><%= @last_chromatographical.ieee_color_acetileno rescue "" %><% end %> mb-0">
+            <%= @last_chromatographical.num_ace rescue "0" %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"><i class="fa-solid fa-syringe fa-fw text-<%= @last_chromatographical.ieee_color_acetileno rescue "red" %> me-2 fs-15px"></i></td>
+      </tr>      
+   
+    </tbody>
+  </table>  
+  <% end %>
+  <!--end oil_type_id = 5,6 -->

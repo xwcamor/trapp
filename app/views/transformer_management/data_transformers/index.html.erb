@@ -1,0 +1,74 @@
+<% title "Transformadores" %>
+ 
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header"><i class='fa-solid fa-transformer-bolt'></i> Transformadores</h4>
+    <%#= render :partial =>"transformer_management/transformers/partials/info_transformer_index" %> 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"transformer_management/transformers/partials/menu_options_index" %> 
+</div>
+<!-- end menu-tab -->
+
+<div class="row bg-default">
+<!-- begin mailbox -->
+<div class="mailbox bg-default ps-0 pe-0">
+  <!-- begin mailbox-sidebar -->
+  <div class="mailbox-sidebar bg-default">
+    <!-- begin mailbox-sidebar-header -->
+    <div class="mailbox-sidebar-header d-flex justify-content-center">
+      <a href="#emailNav" data-bs-toggle="collapse" class="btn btn-dark btn-sm me-auto d-block d-lg-none">
+      <i class="fa fa-cog"></i> <h5>OPCIONES</h5>
+      </a>
+      <h5 class="pt-2"> Resultados: <%= @list_transformers.size %></h5>
+    </div>  
+    <!-- end mailbox-sidebar-header -->  
+    <!-- begin mailbox-sidebar-content -->
+    <div class="mailbox-sidebar-content d-lg-block collapse" id="emailNav">
+      <div data-scrollbar="true" data-height="100%" data-skip-mobile="true" class="ps" data-init="true" style="height: 100%;">
+        <div class="nav-title"><b>OPCIONES</b></div>
+        <ul class="nav nav-inbox">
+          <%= render :partial =>"transformer_management/data_transformers/partials/sidebar_options" %>
+        </ul>
+      </div> 
+    </div>
+    <!-- end mailbox-sidebar-content -->
+  </div>
+  <!-- end mailbox-sidebar -->
+  <!-- begin mailbox-content -->
+  <div class="mailbox-content bg-default pt-2 rounded-3 pe-0"> 
+    <div class="table-responsive">
+      <!-- begin panel -->
+      <div class="panel panel-inverse" >
+        <!-- begin panel-heading -->
+        <div class="panel-heading bg-gray-800 text-white">
+          <i class="fa-regular fa-transformer-bolt text-white pe-2"></i>
+          <h4 class="panel-title">Búsqueda de Transformadores </h4>
+          <%= render :partial =>"layouts/panel_heading_fullscreen" %>
+        </div>
+        <!-- end panel-heading -->
+        <!-- begin panel-body -->
+        <div class="panel-body bordered table-responsive">
+          <%= render :partial =>"transformer_management/data_transformers/partials/table" %>  
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end panel -->          
+    </div>
+  </div>
+  <!-- end mailbox-content -->
+</div>
+<!-- end mailbox -->
+</div>
+
+<!-- begin script-->
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons_json" %>
+<!-- end script--> 

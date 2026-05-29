@@ -1,0 +1,131 @@
+<% title "Configuración" %>
+
+<!-- begin page-header -->
+<h1 class="page-header">Configuración</h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div class="row">
+  
+  <% if current_user.id == 1 %>
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-bahai"></i></div>
+      <div class="stats-info">
+        <h4>Licencia </h4>
+        <p>Licencia Quickchart</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:graph_management, :transformer_graphs] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->
+  <% end %>
+
+
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-bahai"></i></div>
+      <div class="stats-info">
+        <h4>Marcas del Transformador</h4>
+        <p>Marcas</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:mark_management, :marks] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->
+
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-bahai"></i></div>
+      <div class="stats-info">
+        <h4>Tipo de Conexiones del Transformador</h4>
+        <p>T.Conexión</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:connection_type_management, :connection_types] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->
+
+
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-bahai"></i></div>
+      <div class="stats-info">
+        <h4>Tipo de Aceite</h4>
+        <p>T.Aceite</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:oil_type_management, :oil_types] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->
+
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-user"></i></div>
+      <div class="stats-info">
+        <h4>Usuarios del sistema</h4>
+        <p>Usuarios</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:user_management, :users] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->
+
+  <% if @user_permission.include?(15) %>
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-user"></i></div>
+      <div class="stats-info">
+        <h4>Tipo de Perfil</h4>
+        <p>Perfiles</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:user_management, :profiles] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->    
+  <% end %>    
+  
+  <% if @user_permission.include?(15) %>
+  <!-- begin col-3 -->
+  <div class="col-xl-3 col-md-6">
+    <div class="widget widget-stats bg-gray">
+      <div class="stats-icon"><i class="fa fa-user"></i></div>
+      <div class="stats-info">
+        <h4>Accesos de los Perfiles creados</h4>
+        <p>Accesos</p>  
+      </div>
+      <div class="stats-link">
+        <%= link_to "Mostrar",[:user_management, :accesses] %> 
+      </div>
+    </div>
+  </div>
+  <!-- end col-3 -->  
+  <% end %> 
+    
+
+</div>
+<!-- end row -->
+
+
+<%#= render :partial =>"layouts/index" %>
+
+ 
+<%= render :partial =>"layouts/app_bottom_script" %>

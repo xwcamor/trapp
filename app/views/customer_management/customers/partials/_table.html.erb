@@ -1,0 +1,69 @@
+<%= flash_messages %>
+
+<table id="data-table-buttons-filter" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>País</th>
+      <th>Cliente</th>   
+      <th>RUC</th>
+      <th>Dirección</th>
+ 
+      <th>Transformadores</th>
+      <th>Logo</th>
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>             
+    </tr>
+    <tr class="text-center">
+      <th>País</th>
+      <th>Cliente</th>   
+      <th>RUC</th>
+      <th>Dirección</th>
+ 
+      <th>Transformadores</th>
+      <th>Logo</th>
+      <td></td>             
+    </tr>    
+  </thead>
+  <tbody>
+  <% @list_customers.each do |customer| %>
+    <%# cache customer do %>
+    <tr class="text-center" valign="middle">
+      <td><small class="flag-icon flag-icon-<%= customer.country.short_name.downcase %> h4 rounded mb-0" title="<%= customer.country.short_name.upcase %>"></small><p style="display: none"><%= customer.country.name %></p></td>  
+      <td><%= customer.name.upcase %></td>  
+      <td><%= customer.num_doc %></td>   
+      <td><%= customer.address.upcase %></td> 
+ 
+      <td><%= customer.str_count_transformers %></td>      
+      <td>
+        <% if customer.avatar_url %>
+        <%= image_tag(customer.avatar_url, :size => "40x40") %>
+        <% else %>
+        Sin Logo
+        <% end %>
+      </td>       
+      <td data-orderable="false" class="sorting_disabled">
+        <div class="widget-list-action">
+          <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" style="">
+            <% if @user_permission.include?(25) %>
+              <%= link_to "<i class='fa-solid fa-eye'></i>  Ver Cliente".html_safe,{:controller=>"customer_management/customers",:action=>"show",:id=>customer} ,{ class: "dropdown-item", title: "Ver"} %>
+            <% end %>
+   
+            <% if @user_permission.include?(27) %>
+              <%= link_to "<i class='fa fa-pencil'></i>  Editar Cliente".html_safe, edit_customer_management_customer_path(customer)  ,  class: "dropdown-item", title: "Editar"%>
+            <% end %>
+
+            <a href="/transformer_management/transformers/search?search_customer=<%= customer.id %>" class="dropdown-item"><i class="fa fa-transformer-bolt"></i> Mostrar Transformadores</a> 
+
+            <div class="dropdown-divider"></div>
+              <% if @user_permission.include?(28) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Cliente".html_safe,customer_management_customer_delete_path(customer.id) ,{  class: "dropdown-item bg-danger text-white", title: "Eliminar"} %>
+              <% end %>
+            </div>
+          </div>
+      </td>                   
+    </tr>
+    <%# end %> 
+  <% end %>                  
+  </tbody>
+       
+</table>

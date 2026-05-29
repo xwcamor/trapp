@@ -1,0 +1,157 @@
+<%= flash_messages %>
+<% @url_json = "/json_management/transformers.json" %>
+<table id="simple_transformers" class="table table-hover align-middle">
+  <thead>
+    <tr valign="middle" align="center">
+      <th>País</th>
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Cliente  </th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>              
+      <th>Marca</th>              
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+      <th data-orderable="false" class="sorting_disabled">Acciones</th>   
+    </tr>
+    <tr valign="middle" align="center" class="filter_row">
+      <th>País</th>
+      <th>N°Serie</th>
+      <th>TAG</th>
+      <th>Cliente  </th>
+      <th>Ubicación</th>
+      <th>Área</th>
+      <th>Subestación</th>
+      <th>Voltaje<br> (Kv)</th>
+      <th>Potencia<br> (MVA)</th>
+      <th>Edad<br> (años)</th>              
+      <th>Marca</th>              
+      <th>Indice de Salud</th>
+      <th>Estado</th>      
+      <td></td>
+    </tr>    
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<!-- script -->
+<script>
+$(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#simple_transformers thead tr:eq(1) th').each( function () {
+        var title = $(this).text();
+        $(this).html( ' <input type="text" placeholder="'+title+'" class="form-control column_search"  /> ' );
+    } );
+ 
+    // DataTable
+    var table_demo = $('#simple_transformers').DataTable({
+      ajax: {
+        url: '<%= @url_json %>',
+        dataSrc: 'data'
+      },      
+      deferRender: true,
+      columns: [
+        { data: 'country', render: function (data) { // CRUD buttons
+          
+          return  "<div style='display:none'>"+  data + "</div>" +"<div class='flag-icon flag-icon-"+  data + "'></div>"
+           }
+        },
+        { class: "text-black",data: 'serie' },
+        { class: "text-black",data: 'tag' },        
+        { class: "text-black",data: 'customer' },
+        { class: "text-black",data: 'location' },
+        { class: "text-black",data: 'area' },
+        { class: "text-black",data: 'substation' },        
+        { class: "text-black",data: 'voltage' },
+        { class: "text-black",data: 'power' },    
+        { class: "text-black",data: 'age' },
+        { class: "text-black",data: 'mark' },
+        { class: "text-center" , data: 'num_health', render: function (data) { // CRUD buttons
+          return  data + " %";
+         
+          },
+        }, 
+        { class: "text-black", data: 'status', 
+          render: function (data) { 
+            return data
+          }
+        },        
+        { data: 'id', render: function (data) { // CRUD buttons
+          
+          return  '<div class="btn-group">'+'<a class="btn btn-xs btn-default" type="button" title="Ver" href="/transformer_management/transformers/' + data + '"><i class="fa fa-eye"></i></a> ' + '<a class="btn btn-xs btn-default" type="button" title="Editar" href="/transformer_management/transformers/' + data + '/edit" ><i class="fa fa-pencil"></i></a> '+'<a class="btn btn-xs btn-default" type="button" title="Eliminar" href="/transformer_management/transformers/' + data + '/delete" ><i class="fa fa-trash"></i></a> ' + '</div>'
+           }
+        }
+      ],     
+      orderCellsTop: true,
+      fixedHeader: true,
+      allowClear: true,
+      responsive: false,
+      order: [[0, 'desc']],
+      dom: '<"row"<"col-xl-6 d-flex d-xl-block justify-content-center  text-start text-black"f><"col-xl-6 d-block d-sm-flex d-xl-block justify-content-center text-end"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex "B>>>t<"row"<"col-md-5 text-black"i><"col-md-7 text-black"p>>',
+      language: {
+          url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json", 
+          searchPlaceholder: 'Digitar la información a buscar',
+      },
+      buttons: [
+        {  extend: 'colvis', text: 'Mostrar/Ocultar Columnas', className: 'btn btn-outline-primary' , attr: { onclick: 'dtdisplaycols()' }  },        
+        { extend: 'copy', titleAttr:'Copiar', className: 'btn btn-outline-primary' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: ' btn btn-outline-primary' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: 'btn btn-outline-primary', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+    });
+   
+    // Toggle Columns
+    $('a.toggle-vis').on('click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table_demo.column($(this).attr('data-column'));
+ 
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
+    // Apply the search
+    $( '#simple_transformers thead'  ).on( 'keyup', ".column_search",function () {
+   
+        table_demo
+            .column( $(this).parent().index() )
+            .search( this.value )
+            .draw();
+    } );
+
+    var buttons = new $.fn.dataTable.Buttons(table_demo, {
+      buttons: [
+        {  extend: 'colvis', text: 'Mostrar/Ocultar Columnas', className: 'btn btn-outline-primary' , attr: { onclick: 'dtdisplaycols()' }  },        
+        { extend: 'copy', titleAttr:'Copiar', className: 'btn btn-outline-primary' , text: '<i class="fa-regular fa-copy"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'csv', titleAttr:'CSV', className: ' btn btn-outline-primary' , text: '<i class="fa-thin fa-file-csv bg-gray"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'excel', titleAttr:'Excel', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-spreadsheet bg-green"></i>',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'pdf', titleAttr:'PDF', className: 'btn btn-outline-primary' , text: '<i class="fa-thin fa-file-pdf bg-red"></i> ',
+          exportOptions: { columns: ':not(:last-child)'}},
+        { extend: 'print', titleAttr:'Imprimir', className: 'btn btn-outline-primary', text: '<i class="fa-solid fa-print"></i>',
+          exportOptions: { columns: ':not(:last-child)'}}
+      ],
+      "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ]
+    }).container().appendTo($('#buttons'));
+});
+</script>
+<!-- script -->
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons_json" %>

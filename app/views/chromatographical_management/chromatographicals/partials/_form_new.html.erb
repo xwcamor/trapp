@@ -1,0 +1,97 @@
+<%= flash_messages %>
+<%= form_for [:chromatographical_management, @chromatographical],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off" } do |f| %> 
+<!-- begin form -->
+<div class="modal-header">
+  <h4 class="modal-title">Nuevo Análisis Cromatográfico</h4>
+</div>
+<div class="modal-body">
+  <div class="col-md-12">
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Fecha de Ensayo</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.hidden_field :transformer_id , :value => params[:transformer_id] %>
+        <%= f.hidden_field :deleted , :value => 0 %>
+
+        <% if @transformer.has_special_testing_cro == 0%>
+        <%= f.date_field :date_rehearsal, class: 'form-control  masked','data-parsley-required'=>"true" %>
+        <% else %>
+        <%= f.datetime_field :date_rehearsal, class: 'form-control  masked','data-parsley-required'=>"true" %>
+        <% end %>
+      </div>
+    </div>
+    <br>    
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Hidrógeno (H2) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_hid, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Hidrògeno (H2)" %>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Oxígeno (O2) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_oxi, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Oxígeno (O2)" %>
+      </div>
+    </div>    
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Nitrógeno (N2) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_nit, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Nitrógeno (N2)" %>
+      </div>
+    </div>        
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Metano (CH4) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_met, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Metano (CH4)" %>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">M.Carbono (CO) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_mon, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "M.Carbono (CO)" %>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">D.Carbono (CO2) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_dio, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "D.Carbono (CO2)" %>
+      </div>
+    </div>   
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Etileno (C2H4) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_eti, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Etileno (C2H4)" %>
+      </div>
+    </div> 
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Etano (C2H6) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_eta, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Etano (C2H6)" %>
+      </div>
+    </div> 
+    <br>
+    <div class="form-group row m-b-15">
+      <label class="col-md-2 col-sm-4 col-form-label">Acetileno (C2H2) ppm</label>
+      <div class="col-md-2 col-sm-8">
+        <%= f.text_field :num_ace, class: 'form-control','data-parsley-type': "number",'data-parsley-required'=>"true",placeholder: "Acetileno (C2H2)" %>
+      </div>
+    </div> 
+
+  </div>
+</div>
+<!-- end modal-body -->
+<!-- begin modal-footer -->
+<div class="text-center">
+ <button name="button" type="submit" class="btn btn-gray  me-1 mb-3 rounded-pill">
+   <i class="fa-solid fa-floppy-disk"></i> Guardar Análisis Cromatográfico
+ </button>
+</div>
+<!-- end modal-footer -->
+<!-- end form --> 
+<% end %> 

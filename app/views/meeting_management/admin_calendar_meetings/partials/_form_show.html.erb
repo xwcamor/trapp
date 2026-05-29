@@ -1,0 +1,57 @@
+ 
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-6 -->
+  <div class="">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Información</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      
+      <!-- begin panel-body -->
+      <div class="panel-body">
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Usuario</label>
+          <div class="col-10">
+            <% if @admin_newspaper.user_id == 0  %>
+             Todos los usuarios
+            <% else %>
+              <%= @admin_newspaper.user.str_complete_name %>
+            <% end %>
+          </div>
+        </div>     
+        <br>   
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Descripciòn</label>
+          <div class="col-10">
+              <%= @admin_newspaper.description.html_safe %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row m-b-15">
+          <label class="col-md-2 col-sm-4 col-form-label">Estado</label>
+          <div class="col-md-10 col-sm-8">
+              <%= @admin_newspaper.str_state %>
+          </div>
+        </div>
+        <br>                
+        <p align="center">
+        
+          <%= link_to "<i class='fa fa-arrow-left'></i> Regresar a Novedades".html_safe, [:newspaper_management,:admin_newspapers], class: "btn bg-gray text-white rounded-pill" %>
+        </p>
+         
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+
+  
+</div>
+<!-- end row -->
+ 

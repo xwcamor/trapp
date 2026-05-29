@@ -1,0 +1,42 @@
+
+
+<%= form_for @transformer, url: step2s_transformer_management_import_cromas_path(search_customer: params[:search_customer]), html: { method: 'post' } , multipart: true  do %> 
+
+<div class="form-group row m-b-15 text-black">
+  <h2>Cliente: <%= @customer.name %></h2>
+</div>
+
+<div class="alert alert-danger">
+  <p>Usar únicamente el siguiente formato.<a href="https://drive.google.com/uc?id=1m8iqbr8YMCKPRhPtJ4NoTN17dkm7iNiw&export=download"> Descargar el Formato de Importación</a></p>
+  <p class="bg-warning">Los datos de la línea 2 contiene datos de demostración, por favor eliminar los datos y usar los datos correctos.</p>
+  <p>No cambiar el formato de la plantilla.</p>
+  <p>No cambiar el órden de las columnas.</p>
+  <p>No deben existir campos vacíos, en caso de ser vacio reemplazar por un guión.</p>
+ 
+https://docs.google.com/spreadsheets/d/1m8iqbr8YMCKPRhPtJ4NoTN17dkm7iNiw/edit?usp=drive_link&ouid=112176951391810948823&rtpof=true&sd=true
+</div>
+
+
+<br>
+<div class="form-group row m-b-15 text-black">
+  <label class="col-md-2 col-sm-4 col-form-label">Archivo de Importación (*)</label>
+  <div class="col-md-6 col-sm-8">
+   <%= file_field_tag :file, class: "form-control  text-black",:required=> "true",:accept=>".xlsx"  %> 
+   <div class="invalid-feedback">Requerido</div>
+  </div> 
+</div>
+
+<br>
+
+
+ 
+  <a href="/transformer_management/import_cromas/step1" class="btn btn-dark"type="button" >
+    <i class="fa-solid fa-buildings"></i> Selección de Cliente
+  </a>
+
+  <%= button_tag(:id=> "button_save", :class => "btn btn-primary") do %>
+  <i class='fa-solid fa-upload'></i> Continuar Proceso
+  <% end %>
+ 
+<!-- End Footer -->
+<% end %>

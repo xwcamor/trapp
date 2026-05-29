@@ -1,0 +1,49 @@
+<%= flash_messages %>
+<table id="data-table-buttons-filter" class="table table-bordered table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Ubicación</th>       
+      <th>Área</th>       
+      <th>Subestación</th>       
+      <th data-orderable="false" class="sorting_disabled"></th>             
+    </tr>
+    <tr class="text-center">
+      <th>Ubicación</th>       
+      <th>Área</th>       
+      <th>Subestación</th>       
+      <td></td>   
+    </tr>    
+  </thead>
+  <tbody>
+    <% @list_customer_substations.each do |customer_substation| %>
+    <%# cache customer_substation do %>
+    <tr class=" text-center">
+      <td <% if customer_substation.customer_area.customer_location.deleted == 1 %>class="table-danger" <% end %> >
+        <%= customer_substation.customer_area.customer_location.name.upcase %>
+        <% if customer_substation.customer_area.customer_location.deleted == 1 %> 
+        <span class="badge bg-danger ms-1">Fue Borrado</span>
+        <% end %>  
+      </td> 
+      <td <% if customer_substation.customer_area.deleted == 1 %>class="table-danger" <% end %> >
+        <%= customer_substation.customer_area.name.upcase %>
+        <% if customer_substation.customer_area.deleted == 1 %> 
+        <span class="badge bg-danger ms-1">Fue Borrado</span>
+        <% end %>          
+      </td> 
+      <td><%= customer_substation.name.upcase %></td>                
+      <td>
+        <div class="widget-list-action">
+          <a href="#" data-bs-toggle="dropdown" class="text-gray-500" aria-expanded="false"><i class="fa fa-ellipsis-h fs-14px"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" style="">        
+            <%=link_to "<i class='fa fa-pencil'></i> Editar Subestación".html_safe, edit_customer_management_customer_customer_substation_path(@customer,customer_substation), class: "dropdown-item", title: "Editar"%>
+            <div class="dropdown-divider"></div>
+            <%= link_to "<i class='fa-solid fa-trash'></i> Eliminar Subestación".html_safe, customer_management_customer_customer_substation_delete_path(@customer,customer_substation), { class: "dropdown-item bg-danger text-white", title: "Eliminar"} %> 
+          </div>
+        </div>          
+      </td>                   
+    </tr>
+    <%# end %>
+    <% end %>                  
+  </tbody>
+   
+</table> 

@@ -1,0 +1,100 @@
+<% title "Admin de Notificaciones" %>
+ 
+
+
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-bell"></i> Admin de Notificaciones
+    <% if @user_permission.include?(107) %>
+    <%= link_to "Nuevo",[:new_notification_management,:admin_user_notification],{class: "btn btn-gray btn-xs"} %> 
+    <% end %>
+    </h4>
+    <h6>Total de Notificaciones: <%= @user_notifications.size %></h6>
+
+  
+     
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-10 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Listado de Notificaciones</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin alert -->
+      <%= flash_messages %>
+      <!-- end alert -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+         
+        <table id="data-table-buttons-filter" class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr>
+              <th class="text-nowrap">Usuario</th>
+              <th class="text-nowrap">Serie Transformador</th>
+              <th class="text-nowrap">Estado</th>
+              <td data-orderable="false" class="sorting_disabled"> </td>
+            </tr>
+            <tr>
+              
+              <th class="text-nowrap">Usuario</th>
+              <th class="text-nowrap">Serie Transformador</th>
+              <th class="text-nowrap">Estado</th>
+              <td> </td>
+            </tr>            
+          </thead>
+          <tbody>
+            <% @user_notifications.each do |user_notification| %>
+            <tr>
+    
+              <td>
+                <% if user_notification.user.id == 0 %>
+                <% else %>
+                <%= user_notification.user.str_complete_name %>
+                <% end %>    
+              </td>
+              <td><%= user_notification.transformer.num_serie %> </td>
+              <td><%= user_notification.str_state %></td>
+              <td>
+                <% if @user_permission.include?(119) %>
+                <%= link_to "<i class='fa-solid fa-eye'></i>".html_safe, notification_management_admin_user_notification_path(user_notification) ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+                <% end %>
+
+                <% if @user_permission.include?(120) %>
+                <%= link_to "<i class='fa-solid fa-pencil'></i>".html_safe, edit_notification_management_admin_user_notification_path(user_notification) ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+                <% end %>
+                <% if @user_permission.include?(121) %>
+                <%= link_to "<i class='fa-solid fa-trash'></i>".html_safe, notification_management_admin_user_notification_path(user_notification), method: :delete, data: {confirm: "¿Estás seguro?"},class: "btn btn-xs btn-default"  %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>                  
+          </tbody>
+        </table>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%= render :partial =>"layouts/table_manage_buttons" %>
+

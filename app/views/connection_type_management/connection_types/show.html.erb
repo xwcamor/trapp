@@ -1,0 +1,63 @@
+<% title "Ver" %>
+<%= links  link_to 'Configuraciones', [:configuration_management,:configurations] %> 
+<%= links  link_to 'Tipo de COnexiones', [:connection_type_management,:connection_types] %> 
+ 
+<!-- begin page-header -->
+<h1 class="page-header">Ver Conexión</h1>
+<!-- end page-header -->
+
+<p>
+  <%= link_to 'Editar', [:edit_connection_type_management,:connection_type], class: "btn bg-gray text-white rounded-pill" %>
+ <%= link_to 'Regresar', [:connection_type_management,:connection_types], class: "btn bg-gray text-white rounded-pill" %>
+</p>  
+        
+<%= form_for [:connection_type_management, @connection_type],:html=>{'data-parsley-validate'=>"true",:autocomplete=>"off"} do |f| %>   
+<!-- begin row -->
+<div class="row">
+
+  <%  @connection_type.errors.each do |attr,message| %>
+  <div class="alert alert-danger fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <i class="fa-fw fa fa-warning"></i> <%= message %>
+  </div>
+  <% end %>
+
+  <!-- begin col-6 -->
+  <div class=" ">
+    <!-- begin panel -->
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+      <!-- begin panel-heading -->
+      <div class="panel-heading">
+        <h4 class="panel-title">Información</h4>
+        <%#= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+ 
+
+        <div class="form-group row m-b-15">
+          <label class="col-md-4 col-sm-4 col-form-label">Tipo de Conexion</label>
+          <div class="col-md-8 col-sm-8">
+              <%= f.text_field :name, class: 'form-control-plaintext','data-parsley-required'=>"true", :readonly =>"true"  %>
+          </div>
+        </div>
+
+  
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-6 -->
+ 
+</div>
+<!-- end row -->
+<% end %>
+
+<!-- begin layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %> 
+<%#= render :partial =>"layouts/form_validation" %>
+<%#= render :partial =>"layouts/form_plugins" %>
+<!-- end layout--> 

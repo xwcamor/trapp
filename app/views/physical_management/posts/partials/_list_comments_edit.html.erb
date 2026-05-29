@@ -1,0 +1,23 @@
+<table id="information" class="table table-hover">
+  <% @list_comments.where("user_id NOT IN (?)",current_user.id ).each do |comment| %>
+    <tr class="mb-3">
+      <td valign="middle">  
+          <% if comment.user.avatar_url %>
+            <img src="<%= comment.user.avatar_url %>" height="35" class="rounded-pill">
+          <% else %>
+            <i class="fa fa-user text-black ms-1 " aria-hidden="true"></i>
+          <% end %>
+      </td>
+      <td valign="middle">
+        <% if comment.rate == 1 %>
+        <span class="badge bg-danger ms-1 py-2px position-relative" style="top: -1px;">Importante</span>  
+        <% end %>
+      </td>       
+      <td valign="middle">
+        <div class="position-relative">
+          <%= text_area_tag "description", comment.description, readonly: true, class: 'form-control rounded-pill ps-3 py-2 fs-13px bg-light','data-parsley-required'=>"true" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>      

@@ -1,0 +1,46 @@
+<%= form_for [:factor_management, @factor],:html=>{'data-parsley-validate'=>"true", :autocomplete=>"off"} do |f| %> 
+<!-- #modal-dialog -->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Ver Factor de Potencia</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+      <%= flash_messages %>
+      <div class="row">               
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="text-center">Fecha</th>
+                  <th class="text-center">Factor de Potencia (%) </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fields">
+                  <td><%= f.text_field :date_rehearsal, class: 'form-control-plaintext text-center' %></td>
+                  <td><%= f.text_field :num_fac, class: 'form-control-plaintext text-center' %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+      </div>        
+    
+    </div>
+    <div class="modal-footer">
+      <a href="javascript:;" class="btn btn-white me-1 mb-1  rounded-pill" data-bs-dismiss="modal">Cerrar</a>
+       
+    </div>
+  </div>
+</div> 
+<% end %>
+
+<%= render :partial =>"layouts/form_validation" %> 
+
+<style type="text/css">
+  .modal.modal-message .modal-body, .modal.modal-message .modal-footer, .modal.modal-message .modal-header { 
+    width: 70% !important; 
+}
+</style>

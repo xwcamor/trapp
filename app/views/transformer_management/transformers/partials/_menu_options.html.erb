@@ -1,0 +1,69 @@
+<div class="row">
+    <!-- begin nav-->
+    <ul class="nav nav-tabs nav-tabs-inverse  bg-gray-800 text-white pt-1 pb-1">
+      <li class="nav-item ps-1">
+        <a href="<%= transformer_management_transformer_path(@transformer.id) %>" class="nav-link <%= active_link_to_class(transformer_management_transformers_path, :active => :inclusive)  %> text- "><i class="fa-solid fa-circle-info"></i> Resumen </a>
+      </li>
+      <li class="nav-item">
+        <a href="<%= chromatographical_management_transformer_chromatographicals_path(@transformer) %>" class="nav-link 
+              <%= active_link_to_class(chromatographical_management_transformer_chromatographicals_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(chromatographical_management_transformer_ieee_diags_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(chromatographical_management_transformer_iec_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(chromatographical_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(chromatographical_management_transformer_posts_path(@transformer), :active => :inclusive)  %>
+              <%= active_link_to_class(duval_management_transformer_silicona_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(duval_management_transformer_triangle_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(duval_management_transformer_last_triangle_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(duval_management_transformer_pentagon_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(duval_management_transformer_last_pentagon_graphs_path(@transformer), :active => :inclusive) %> ">
+              <i class="fa-solid fa-syringe"></i> Análisis Cromatográfico </a>
+      </li>
+      <li class="nav-item">
+        <a href="<%= physical_management_transformer_physicals_path(@transformer) %>" class="nav-link
+              <%= active_link_to_class(physical_management_transformer_physicals_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(physical_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive) %>
+              <%= active_link_to_class(physical_management_transformer_posts_path(@transformer), :active => :inclusive) %> ">
+              <i class='fa fa-bong'></i> Análisis Físico Químico</a>
+      </li>
+      <li class="nav-item">
+        <a href="<%= furano_management_transformer_furanos_path(@transformer) %>" class="nav-link
+              <%= active_link_to_class(furano_management_transformer_furanos_path(@transformer), :active => :inclusive)  %>
+              <%= active_link_to_class(furano_management_transformer_ieee_graphs_path(@transformer), :active => :inclusive)  %>  ">
+              <i class="fa-solid fa-hourglass-clock"></i> Furanos</a>
+      </li>
+      <li class="nav-item">
+        <a href="<%= electrical_management_transformer_electricals_path(@transformer) %>" class="nav-link
+              <%= active_link_to_class(electrical_management_transformer_electricals_path(@transformer), :active => :inclusive)  %>
+              <%= active_link_to_class(factor_management_transformer_factors_path(@transformer), :active => :inclusive)  %>
+              <%= active_link_to_class(devanado_management_transformer_devanados_path(@transformer), :active => :inclusive)  %>  ">
+              <i class="fa-solid fa-bolt"></i> Pruebas Eléctricas</a>
+      </li>
+      <li class="nav-item">
+<!--         <a class="nav-link text-" title="Generar Reporte" href="/report_management/customers/<%#= @transformer.customer_substation.customer_id %>/step2_reports/new?transformer_id=<%#= @transformer.id %>"><i class="fa fa-print" aria-hidden="true"></i> Generar Reporte</a> -->
+        <a class="nav-link text-" title="Generar Reporte" href="/transformer_management/transformers/<%= @transformer.id %>.pdf" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar Reporte</a>        
+      </li>
+
+
+
+      <% if @user_permission.include?(34) %>
+      <li class="nav-item">
+        <a class="nav-link text-" title="Editar Reporte" href="/transformer_management/transformers/<%= @transformer.id %>/edit_report"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Reporte</a>        
+      </li>      
+      <% end %>
+      
+      <li class="nav-item">
+        <a class="nav-link text-" title="Historial de Reportes" href="/report_management/transformer_reports?transformer_id=<%= @transformer.id %>"><i class="fa fa-list" aria-hidden="true"></i> Historial de Reportes</a>
+      </li>      
+      
+      <% if @user_permission.include?(34) %>
+      <li class="nav-item">
+        <%= render :partial =>"transformer_management/transformers/partials/form_special_tests" %> 
+      </li>
+      <% end %>
+
+      <li class="nav-item">     
+        <a href="<%= iot_management_iot_index_path %>" class="nav-link text-"><i class="fa fa-cloud"></i> I.O.T</a>
+      </li>
+    </ul>    
+    <!-- end nav-->
+ </div>

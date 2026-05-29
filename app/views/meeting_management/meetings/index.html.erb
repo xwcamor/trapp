@@ -1,0 +1,52 @@
+<% title "Reuniones" %>
+
+ 
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4 class="page-header">
+    <i class="fa-solid fa-calendar-day"></i> Reuniones
+ 
+    </h4>
+    <h6>Total de Reuniones: <%= @meetings.size %></h6>
+ 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel -->
+ 
+
+  <hr>
+
+<!-- begin row -->
+<div class="row">
+ 
+  <!-- begin col-10 -->
+  <div class="col-xl-12">
+    <!-- begin panel -->
+    <div class="panel panel-inverse border">
+      <!-- begin panel-heading -->
+      <div class="panel-heading bg-gray-800 text-white">
+        <h4 class="panel-title">Listado de Reuniones</h4>
+        <%= render :partial =>"layouts/panel_heading" %>
+      </div>
+      <!-- end panel-heading -->
+      <!-- begin panel-body -->
+      <div class="panel-body">
+          <!-- BEGIN calendar -->
+          <div id="calendar" class="calendar"></div>
+          <!-- END calendar -->
+          <div id='remote_container'></div>
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+  </div>
+  <!-- end col-10 -->  
+</div>
+<!-- end row -->
+ 
+
+<%= render :partial =>"layouts/app_bottom_script" %>
+<%#= render :partial =>"layouts/table_manage_buttons" %>
+<%= render :partial =>"layouts/calendar" %>

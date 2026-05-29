@@ -1,0 +1,59 @@
+ 
+Ingrese Fecha de Prueba: <%= @devanado.str_date_rehearsal %> 
+
+<!-- #modal-dialog -->
+<div class="row">
+  <div class="col-xl-6">
+    <div class="modal-dialog1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">AT</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details">
+              <%= render :partial => 'devanado_management/devanados/partials/form_nested_show_r1' %>
+          </div>       
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="col-xl-6">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT1</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_show_r2' %>
+          </div>       
+        </div>
+      </div>
+    </div> 
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT2</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_show_r3' %>
+          </div>       
+        </div>
+      </div>
+    </div>   
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">BT3</h4>
+        </div>
+        <div class="modal-body">
+          <div id="nested_devanado_details">
+            <%= render :partial => 'devanado_management/devanados/partials/form_nested_show_r4' %>
+          </div>       
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<textarea id="textarea_npsp3" name="transformer[con_fiq]" rows="12" class="form-control">
+<% if @transformer.con_fiq.nil? or @transformer.con_fiq.blank? or @transformer.con_fiq == ''%>
+  <% @physical = Physical.where("deleted=0 AND transformer_id = ?", @transformer.id).order("date_rehearsal DESC").first %>
+  <% if @physical.present? %>
+      <% if  @physical.ieee_color_num_acid_report   == "success" &&
+             @physical.ieee_color_num_pot_report    == "success" &&
+             #@physical.ieee_color_num_pot2_report  == "success" &&
+             @physical.ieee_color_num_rig_report    == "success" &&
+             #@physical.ieee_color_num_rig2_report  == "success" &&
+             @physical.ieee_color_num_ten_report    == "success" &&
+             @physical.ieee_color_num_wat_report    == "success" %>
+Los parámetros medidos en cada ensayo cumplen los requisitos mínimos para considerar la calidad del aceite dieléctrico en condiciones satisfactorias para continuar en servicio.
+<% else %>
+        <% if @physical.ieee_color_num_acid_report   == "danger" or
+              @physical.ieee_color_num_pot_report    == "danger" or
+              @physical.ieee_color_num_ten_report    == "danger" or 
+              @physical.ieee_color_num_acid_report   == "warning" or
+              @physical.ieee_color_num_pot_report    == "warning" or
+              @physical.ieee_color_num_ten_report    == "warning" %>
+Los siguientes parámetros medidos se asocian a indicios de envejecimiento y/o degradación del aceite dieléctrico:
+          <% if @physical.ieee_color_num_acid_report   == "danger" or
+                @physical.ieee_color_num_acid_report   == "warning"%>       
+• Nº Ácido.
+          <% end %>
+          <% if @physical.ieee_color_num_pot_report   == "danger" or
+                @physical.ieee_color_num_pot_report   == "warning" %>        
+• Factor de Potencia 25º.
+          <% end %>
+          <% if @physical.num_pot2 == '' or @physical.num_pot2.nil? or @physical.num_pot2.blank? %>
+          <% else %>
+          <% if @physical.ieee_color_num_pot2_report   == "danger" or
+                @physical.ieee_color_num_pot2_report   == "warning" %>       
+• Factor de Potencia 100º.
+          <% end %>
+          <% end %>
+          <% if @physical.ieee_color_num_ten_report   == "danger" or
+                 @physical.ieee_color_num_ten_report  == "warning" %>        
+• Tensión Interfacial.
+          <% end %> 
+        <% end %>
+
+        <% if @physical.ieee_color_num_rig_report   == "danger"  or
+              @physical.ieee_color_num_ten_report   == "danger"  or
+              @physical.ieee_color_num_rig_report   == "warning" or
+              @physical.ieee_color_num_ten_report   == "warning" %>
+Los siguientes parámetros medidos se asocian a evidencia de contaminación del aceite:
+          <% if @physical.ieee_color_num_rig_report   == "danger" or
+                @physical.ieee_color_num_rig_report   == "warning" %>        
+• Rigidez Dieléctrica (kV/2.0mm).
+          <% end %>
+          <% if @physical.num_rig2 == '' or @physical.num_rig2.nil? or @physical.num_rig2.blank? %>
+          <% else %>
+          <% if @physical.ieee_color_num_rig2_report   == "danger" or
+                @physical.ieee_color_num_rig2_report   == "warning" %>       
+• Rigidez Dieléctrica (kV/2.54mm). 
+          <% end %>
+          <% end %>
+          <% if @physical.ieee_color_num_ten_report   == "danger" or
+                @physical.ieee_color_num_ten_report   == "warning" %>        
+• Tensión Interfacial.
+          <% end %>
+          <% end %>
+      <% end %>             
+  <% end %>
+<% else %>
+  <%= @transformer.con_fiq rescue "" %>
+<% end %>			
+</textarea>  
+
+<script>
+function rm3() {
+ var ta3 = document.getElementById("textarea_npsp3");
+ ta3.value = ta3.value.replace(/^\s*|\s*$/g,"");   
+}
+window.onload=rm3();
+</script>   

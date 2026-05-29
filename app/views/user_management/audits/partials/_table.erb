@@ -1,0 +1,61 @@
+ <section id="widget-grid" class="">
+  <div class="row">
+
+      <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-2" data-widget-editbutton="false" data-widget-deletebutton="false">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+          <h2>Resultados </h2>
+        </header>
+
+        <div>
+           
+          <div class="widget-body no-padding">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Usuario</th>
+                  <th>Tabla</th>
+                  <th>Accción SQL</th>
+                  <th>Creado</th>
+                  <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @list_audits.each_with_index do |audit, index| %>
+                <tr class="array">
+                  <td><%= @list_audits.offset + index + 1 %></td>
+                  <td><%= audit.user.name_complete %></td> 
+                  <td><%= audit.auditable_type %></td>
+                  <td><%= audit.action %></td>
+                  <td><%= audit.str_created_at %></td>
+                  <td>
+                    <%= link_to "<i class='fa fa-search'></i>".html_safe, [:user_management, audit] ,{:title=>"Ver",class: "btn btn-xs btn-default"} %>
+
+                    <%= link_to "<i class='fa fa-pencil'></i>".html_safe, [:edit, :user_management, audit] ,{:title=>"Editar",:class=>"btn btn-xs btn-default"} %>
+
+                    <%= link_to "<i class='fa fa-times'></i>".html_safe, [:user_management, audit], method: :delete, data: {confirm: "¿Está seguro de eliminar?"},class: "btn btn-xs btn-default"  %>
+                  </td>
+                </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+     
+      </div>
+
+  </div>
+
+</section>
+                   
+
+<div style="float:right">
+  <%= will_paginate @list_audits,:params =>params, :class=>'pagination', :previous_label=>"<i class='fa fa-arrow-left'></i>", :next_label=>"<i class='fa fa-arrow-right'></i>",inner_window: 1, outer_window: 1 %>
+</div> 
+ 
+<div class="page_info">
+  <%= page_entries_info  @list_audits  , :page_links => false %>
+</div>

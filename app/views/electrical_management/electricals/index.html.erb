@@ -1,0 +1,55 @@
+<% title "Ver" %>
+<%= links  link_to 'Transformadores', [:transformer_management,:transformers] %> 
+
+
+
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+    <h4><i class='fa-solid fa-transformer-bolt fa-2x'></i> Serie: <%= @transformer.num_serie.upcase %></h4>
+    <h6><%= @transformer.customer_substation.customer_area.customer_location.customer.name.upcase %>
+      <%#= link_to "<i class='fa fa-arrow-left'></i> Regresar a Transformadores".html_safe, [:transformer_management,:transformers], class: "btn btn-gray me-1 mb-1 btn-xs rounded-pill" %>
+    </h6>
+ 
+    <div id="search">
+      <%= render :partial =>"transformer_management/transformers/partials/info_transformer" %> 
+    </div>
+ 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+
+<!-- begin menu-tab -->
+<div id="tab_menus">
+ <%= render :partial =>"transformer_management/transformers/partials/menu_options" %> 
+</div>
+<!-- end menu-tab -->
+
+<br>
+ 
+
+
+<!-- begin panel -->
+<div class="panela">
+  <!-- begin panel-body -->
+  <div class="panel-body">
+         <!-- begin alert --> 
+        <%= flash_messages %>
+        <!-- end alert -->     
+    <div id="search">
+      <%= render :partial =>"electrical_management/electricals/partials/form_show" %> 
+    </div>
+ 
+  </div>
+  <!-- end panel-body -->
+</div>
+<!-- end panel --> 
+
+
+<!-- begin layout--> 
+<%= render :partial =>"layouts/app_bottom_script" %> 
+<%= render :partial =>"layouts/table_manage_buttons" %>
+<%= render :partial =>"layouts/form_plugins" %>
+<!-- end layout--> 
